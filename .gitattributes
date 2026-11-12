@@ -1,0 +1,9 @@
+# Preserve exported file bytes so provenance hashes are identical on every OS.
+* -text
+*.wasm binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.woff binary
+*.woff2 binary

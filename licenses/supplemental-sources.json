@@ -1,0 +1,122 @@
+[
+  {
+    "name": "@quasar/ssr-helpers",
+    "version": "2.1.1",
+    "path": "licenses/supplemental/@quasar__ssr-helpers@2.1.1/LICENSE",
+    "source": "https://github.com/quasarframework/quasar/blob/HEAD/LICENSE",
+    "ref": "HEAD",
+    "versionMatched": false,
+    "blobSha": "7b94448bae2ab5c82bb0596027b7fb3edf54540c",
+    "sha256": "830424149e83c3b9caa4243c36e73ac1b024b501fea99f8a22138b86eedc8d47"
+  },
+  {
+    "name": "@types/cordova",
+    "version": "0.0.34",
+    "path": "licenses/supplemental/@types__cordova@0.0.34/LICENSE",
+    "source": "https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/LICENSE",
+    "ref": "HEAD",
+    "versionMatched": false,
+    "blobSha": "c3ee6e73d5736bd3b45fa59722d0c61d12617a91",
+    "sha256": "0a48f63d7d32a49d196dce4b2e0cbc236c2cc8fef42cb20e005e4d5f813cc8f6"
+  },
+  {
+    "name": "@types/json5",
+    "version": "0.0.29",
+    "path": "licenses/supplemental/@types__json5@0.0.29/LICENSE",
+    "source": "https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/LICENSE",
+    "ref": "HEAD",
+    "versionMatched": false,
+    "blobSha": "c3ee6e73d5736bd3b45fa59722d0c61d12617a91",
+    "sha256": "0a48f63d7d32a49d196dce4b2e0cbc236c2cc8fef42cb20e005e4d5f813cc8f6"
+  },
+  {
+    "name": "@vue/devtools-api",
+    "version": "6.0.12",
+    "path": "licenses/supplemental/@vue__devtools-api@6.0.12/LICENSE",
+    "source": "https://github.com/vuejs/devtools-v6/blob/v6.0.12/LICENSE",
+    "ref": "v6.0.12",
+    "versionMatched": true,
+    "blobSha": "de5fa77c8afb13ae0da0dd608c6f759c32ab1985",
+    "sha256": "050bbca6960784db52ff387271bf2ecc5cbed7cf8581b415d528a6ecb6585015"
+  },
+  {
+    "name": "@vue/eslint-config-standard",
+    "version": "4.0.0",
+    "path": "licenses/supplemental/@vue__eslint-config-standard@4.0.0/LICENSE",
+    "source": "https://github.com/vuejs/vue-cli/blob/v4.0.0/LICENSE",
+    "ref": "v4.0.0",
+    "versionMatched": true,
+    "blobSha": "4e467aa91f232b47969ae232744e8f1a0066d36c",
+    "sha256": "225c881a16d4be4f364e1e4a11e7c7697c67c02d51bb9cbfcce68f0decbe68b8"
+  },
+  {
+    "name": "@vue/reactivity-transform",
+    "version": "3.2.31",
+    "path": "licenses/supplemental/@vue__reactivity-transform@3.2.31/LICENSE",
+    "source": "https://github.com/vuejs/core/blob/v3.2.31/LICENSE",
+    "ref": "v3.2.31",
+    "versionMatched": true,
+    "blobSha": "15f1f7e7a490fec6e4a4016624325debfd9458a9",
+    "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
+  },
+  {
+    "name": "boolbase",
+    "version": "1.0.0",
+    "path": "licenses/supplemental/boolbase@1.0.0/LICENSE",
+    "source": "https://github.com/fb55/boolbase/blob/HEAD/LICENSE",
+    "ref": "HEAD",
+    "versionMatched": false,
+    "blobSha": "a689aae96e8957e4ab7a3a7449fe5271a6516e4b",
+    "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
+  },
+  {
+    "name": "imurmurhash",
+    "version": "0.1.4",
+    "path": "licenses/supplemental/imurmurhash@0.1.4/LICENSE",
+    "source": "https://github.com/jensyt/imurmurhash-js/blob/0.1.4/LICENSE",
+    "ref": "0.1.4",
+    "versionMatched": true,
+    "blobSha": "3976989301b8efebc6140f6bd929ba1109e3f2f3",
+    "sha256": "fa0943ddcaa857d901a9eb92254d89876297ecdfbc884d294a927df08ebcbbe8"
+  },
+  {
+    "name": "launch-editor-middleware",
+    "version": "2.3.0",
+    "path": "licenses/supplemental/launch-editor-middleware@2.3.0/LICENSE",
+    "source": "https://github.com/vitejs/launch-editor/blob/v2.3.0/LICENSE",
+    "ref": "v2.3.0",
+    "versionMatched": true,
+    "blobSha": "4e467aa91f232b47969ae232744e8f1a0066d36c",
+    "sha256": "225c881a16d4be4f364e1e4a11e7c7697c67c02d51bb9cbfcce68f0decbe68b8"
+  },
+  {
+    "name": "launch-editor",
+    "version": "2.3.0",
+    "path": "licenses/supplemental/launch-editor@2.3.0/LICENSE",
+    "source": "https://github.com/vitejs/launch-editor/blob/v2.3.0/LICENSE",
+    "ref": "v2.3.0",
+    "versionMatched": true,
+    "blobSha": "4e467aa91f232b47969ae232744e8f1a0066d36c",
+    "sha256": "225c881a16d4be4f364e1e4a11e7c7697c67c02d51bb9cbfcce68f0decbe68b8"
+  },
+  {
+    "name": "lilconfig",
+    "version": "2.0.4",
+    "path": "licenses/supplemental/lilconfig@2.0.4/LICENSE",
+    "source": "https://github.com/antonk52/lilconfig/blob/HEAD/LICENSE",
+    "ref": "HEAD",
+    "versionMatched": false,
+    "blobSha": "fd866f4bb497067f7e859e04d7cde0388ce61b66",
+    "sha256": "d70f9e316930b4333b6f51af5f0d0cb7ded6a4a2641549aa088027aaff91e950"
+  },
+  {
+    "name": "natural-compare",
+    "version": "1.4.0",
+    "path": "licenses/supplemental/natural-compare@1.4.0/LICENSE",
+    "source": "https://github.com/litejs/natural-compare-lite/blob/HEAD/LICENSE",
+    "ref": "HEAD",
+    "versionMatched": false,
+    "blobSha": "984718959d98ce1a536922445739207b7944c8b9",
+    "sha256": "353fe762ba595bf1ffe786acf0f5984bb164205901d74f258af195fc8228c67d"
+  }
+]

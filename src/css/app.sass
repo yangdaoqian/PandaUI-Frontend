@@ -1,0 +1,31 @@
+// app global css in Sass form
+
+$pandaui-panel-background: rgba(238, 242, 247, 0.62)
+$pandaui-panel-blur: blur(10px)
+
+.q-menu,
+.q-dialog__inner > .q-card,
+.q-popup-edit,
+.q-date,
+.q-time
+  background: $pandaui-panel-background !important
+  backdrop-filter: $pandaui-panel-blur
+  -webkit-backdrop-filter: $pandaui-panel-blur
+
+.q-menu .q-list,
+.q-dialog__inner > .q-card .q-card-section
+  background: transparent
+
+.pandaui-panel,
+.pandaui-panel .q-drawer__content
+  background: $pandaui-panel-background !important
+  backdrop-filter: $pandaui-panel-blur
+  -webkit-backdrop-filter: $pandaui-panel-blur
+
+// Quasar keeps an opaque background on the drawer shell. The content layer
+// above supplies the visual material, so the shell must stay transparent.
+.q-drawer
+  background: transparent !important
+
+.pandaui-panel__toolbar
+  background: rgba(31, 83, 117, 0.58) !important

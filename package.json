@@ -1,0 +1,59 @@
+{
+  "name": "pandaui-frontend",
+  "version": "0.0.1",
+  "description": "Browser-based 3D workspace and node editor with a prebuilt NodeC WASM runtime",
+  "productName": "PandaUI",
+  "private": true,
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/yangdaoqian/PandaUI-Frontend.git" },
+  "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "lint": "eslint --ext .js,.vue src",
+    "test": "node scripts/test-editor-pandaui-runtime.js && node scripts/test-graph-operations.js",
+    "check:release": "node scripts/check-release.cjs",
+    "licenses:collect": "node scripts/collect-license-notices.cjs"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.10.5",
+    "core-js": "^3.0.0",
+    "dxf-parser": "1.1.2",
+    "lodash": "^4.17.21",
+    "occt-import-js": "0.0.23",
+    "quasar": "2",
+    "three": "^0.120.0",
+    "vue": "3",
+    "vue-router": "4",
+    "ws": "^7.5.7"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.0.0",
+    "@quasar/app": "3",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-quasar": "^1.1.0",
+    "eslint-plugin-vue": "^7.0.0",
+    "eslint-webpack-plugin": "^2.4.0"
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ]
+}

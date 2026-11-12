@@ -1,0 +1,82 @@
+[
+  {
+    "name": "@quasar/extras",
+    "observedVersion": "1.12.5",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "core-js",
+    "observedVersion": "3.21.1",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "dxf-parser",
+    "observedVersion": "1.1.2",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "lodash",
+    "observedVersion": "4.17.21",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "occt-import-js",
+    "observedVersion": "0.0.23",
+    "license": "LGPL-2.1",
+    "notices": [
+      "LICENSE.md"
+    ]
+  },
+  {
+    "name": "quasar",
+    "observedVersion": "2.5.5",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "three",
+    "observedVersion": "0.120.1",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "vue",
+    "observedVersion": "3.2.31",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "vue-router",
+    "observedVersion": "4.0.12",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
+    "name": "ws",
+    "observedVersion": "7.5.7",
+    "license": "MIT",
+    "notices": [
+      "LICENSE"
+    ]
+  }
+]

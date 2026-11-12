@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Sketch Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/material-icons.woff2') format('woff2');
+}
+
+.sketch-settings { width: 250px; gap: 10px; padding: 12px; }
+.sketch-settings label { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 13px Arial; }
+.sketch-settings input[type='number'], .sketch-settings select { width: 104px; box-sizing: border-box; }
+.sketch-settings input[type='color'] { width: 40px; height: 26px; padding: 0; border: 0; background: transparent; }
+.sketch-settings .sketch-error { color: #ff8a80; font: 12px Arial; margin: 0; }

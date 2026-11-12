@@ -1,0 +1,85 @@
+.pandaui-widget-controls[data-widget="csharp"] { gap: 0; overflow: hidden; border: 1px solid #37485b; border-radius: 8px; background: rgba(0, 0, 0, .25); color: #dce7f3; font: 12px/1.4 Arial, sans-serif; color-scheme: dark; }
+.pandaui-csharp-editor [hidden] { display: none !important; }
+.pandaui-csharp-editor .pandaui-csharp-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 10px; flex-shrink: 0; border-bottom: 1px solid #314055; background: rgba(0, 0, 0, .25); }
+.pandaui-csharp-editor .pandaui-csharp-file { color: #b8d7ef; font-weight: 600; letter-spacing: .2px; }
+.pandaui-csharp-editor button { border: 1px solid #435570; border-radius: 4px; padding: 4px 8px; color: #dce7f3; background: #243247; font: 11px/18px Arial, sans-serif; }
+.pandaui-csharp-editor button:hover:not(:disabled) { background: #344b65; border-color: #6b8fb1; }
+.pandaui-csharp-editor button.pandaui-csharp-compile { background: #256d67; border-color: #4b968a; padding: 4px 14px; color: #f4fffc; font-weight: 600; }
+.pandaui-csharp-editor .pandaui-csharp-toolbar { display: flex; align-items: center; gap: 6px; padding: 7px 10px; flex-shrink: 0; border-bottom: 1px solid #2a3a4e; }
+.pandaui-csharp-editor .pandaui-csharp-toolbar select { flex: 1; height: 28px; padding: 3px 7px; border: 1px solid #40526c; background: rgba(0, 0, 0, .25); color: #d5e1f0; font: 11px Arial, sans-serif; }
+.pandaui-csharp-editor .pandaui-csharp-method-row { display: flex; align-items: center; gap: 10px; padding: 5px 10px; flex-shrink: 0; color: #a8c1d6; }
+.pandaui-csharp-editor .pandaui-csharp-method-row select { flex: 1; min-width: 0; padding: 4px; background: rgba(0, 0, 0, .25); color: #dce7f3; border: 1px solid #40526c; }
+.pandaui-csharp-library { width: min(520px, calc(100vw - 40px)); box-sizing: border-box; padding: 22px; border: 1px solid #69889a; border-radius: 12px; background: #233340; color: #e2edf4; box-shadow: 0 14px 50px #0006; font: 13px/1.5 Arial, sans-serif; color-scheme: dark; }
+.pandaui-csharp-library::backdrop { background: #0004; }
+.pandaui-csharp-library h3 { margin: 0; font-size: 18px; }
+.pandaui-csharp-library p { color: #afc7d6; overflow-wrap: anywhere; }
+.pandaui-csharp-library-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.pandaui-csharp-library-fields label { display: flex; flex-direction: column; gap: 5px; color: #c3d7e4; }
+.pandaui-csharp-library-path, .pandaui-csharp-library-description { grid-column: 1 / -1; }
+.pandaui-csharp-library input { box-sizing: border-box; width: 100%; padding: 8px; border: 1px solid #587386; border-radius: 5px; background: #0004; color: #edf6fc; font: inherit; }
+.pandaui-csharp-library-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.pandaui-csharp-library button { padding: 7px 14px; border: 1px solid #668596; border-radius: 5px; background: #304956; color: #eef6fc; cursor: pointer; }
+.pandaui-csharp-library button[type="submit"] { background: #256d67; border-color: #4b968a; }
+.pandaui-csharp-library button:disabled { opacity: .55; cursor: default; }
+.pandaui-csharp-library-status[data-state="error"] { color: #ffaaaa; }
+.pandaui-csharp-library-status[data-state="ready"] { color: #98deb9; }
+.pandaui-csharp-editor .pandaui-csharp-editor-shell { position: relative; display: flex; flex: 1 1 0; min-height: 140px; min-width: 0; overflow: hidden; background: rgba(0, 0, 0, .25); }
+.pandaui-csharp-editor .pandaui-csharp-viewport { position: relative; flex: 1; min-width: 0; min-height: 0; }
+.pandaui-csharp-editor .CodeMirror { width: 100%; height: 100%; background: transparent; color: #dce4ee; font: 13px/20px Consolas, 'Liberation Mono', monospace; font-variant-ligatures: none; font-variant-numeric: normal; }
+.pandaui-csharp-editor .CodeMirror-scroll { min-height: 140px; padding: 10px 0 30px; }
+.pandaui-csharp-editor .CodeMirror-gutters { border-right: 1px solid #23344b; background: rgba(0, 0, 0, .25); }
+.pandaui-csharp-editor .CodeMirror-linenumber { min-width: 34px; padding: 0 8px 0 5px; color: #70849b; text-align: right; }
+.pandaui-csharp-editor .CodeMirror-activeline-background { background: #2e486033; }
+.pandaui-csharp-editor .CodeMirror-cursor { border-left-color: #f2f7ff; }
+.pandaui-csharp-editor .CodeMirror-selected { background: #4079bd66; }
+.pandaui-csharp-editor .CodeMirror-focused .CodeMirror-selected { background: #4079bd66; }
+.pandaui-csharp-editor .CodeMirror-matchingbracket { color: #fff !important; background: #3d6b8066; outline: 1px solid #74b8d8; }
+.pandaui-csharp-editor .CodeMirror-foldgutter { width: 19px; }
+.pandaui-csharp-editor .CodeMirror-foldgutter-open,
+.pandaui-csharp-editor .CodeMirror-foldgutter-folded { color: #b7c8dc; cursor: pointer; }
+.pandaui-csharp-editor .CodeMirror-foldgutter-open:after { content: '▾'; }
+.pandaui-csharp-editor .CodeMirror-foldgutter-folded:after { content: '▸'; }
+.pandaui-csharp-editor .CodeMirror-foldgutter-open,
+.pandaui-csharp-editor .CodeMirror-foldgutter-folded { font-size: 0; }
+.pandaui-csharp-editor .CodeMirror-foldgutter-open:after,
+.pandaui-csharp-editor .CodeMirror-foldgutter-folded:after { font-size: 13px; }
+.pandaui-csharp-editor .pandaui-diagnostic-gutter { width: 16px; }
+.pandaui-csharp-editor .pandaui-csharp-diagnostic-marker { display: block; width: 16px; color: #ff9292; font-size: 10px; line-height: 20px; text-align: center; cursor: pointer; }
+.pandaui-csharp-editor .pandaui-csharp-diagnostic-marker[data-severity="warning"] { color: #edc16e; }
+.pandaui-csharp-editor .pandaui-csharp-error-range { text-decoration: underline wavy #ff727d; text-underline-offset: 3px; }
+.pandaui-csharp-editor .pandaui-csharp-warning-range { text-decoration-color: #edc16e; }
+.pandaui-csharp-editor .pandaui-csharp-signature { flex-shrink: 0; max-height: 116px; overflow: auto; padding: 6px 10px 9px; border-top: 1px solid #506579; background: rgba(0, 0, 0, .25); }
+.pandaui-csharp-editor .pandaui-csharp-signature-header { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; color: #a8c1d6; font: 11px/18px Arial, sans-serif; }
+.pandaui-csharp-editor .pandaui-csharp-signature-header > span { flex: 1; }
+.pandaui-csharp-editor .pandaui-csharp-signature-header button { padding: 0 7px; }
+.pandaui-csharp-editor .pandaui-csharp-signature-text { color: #dce7f3; overflow-wrap: anywhere; font: 12px/20px Consolas, monospace; }
+.pandaui-csharp-editor .pandaui-csharp-signature-text strong { color: #ffe096; text-decoration: underline; text-underline-offset: 3px; }
+.pandaui-csharp-editor .cm-keyword { color: #c9a0ec; }
+.pandaui-csharp-editor .cm-atom,
+.pandaui-csharp-editor .cm-builtin,
+.pandaui-csharp-editor .cm-type { color: #67d9c5; }
+.pandaui-csharp-editor .cm-def,
+.pandaui-csharp-editor .cm-variable-2 { color: #b0d9f5; }
+.pandaui-csharp-editor .cm-csharp-method { color: #f0d58b; }
+.pandaui-csharp-editor .cm-string,
+.pandaui-csharp-editor .cm-string-2 { color: #eba88c; }
+.pandaui-csharp-editor .cm-comment { color: #819973; }
+.pandaui-csharp-editor .cm-number { color: #b3d890; }
+.pandaui-csharp-editor .pandaui-csharp-completion { position: absolute; z-index: 5; overflow: auto; border: 1px solid #567595; border-radius: 6px; background: #202d40; box-shadow: 0 6px 18px #0008; scrollbar-width: thin; }
+.pandaui-csharp-editor .pandaui-csharp-completion-item { display: flex; gap: 8px; align-items: center; padding: 5px 8px; min-height: 27px; color: #e1e9f6; font: 12px/17px Consolas, monospace; cursor: pointer; }
+.pandaui-csharp-editor .pandaui-csharp-completion-item[aria-selected="true"], .pandaui-csharp-editor .pandaui-csharp-completion-item:hover { background: #345575; }
+.pandaui-csharp-editor .pandaui-csharp-completion-kind { flex: 0 0 16px; color: #b3a1e5; }
+.pandaui-csharp-editor .pandaui-csharp-completion-item strong { font-weight: 400; white-space: nowrap; }
+.pandaui-csharp-editor .pandaui-csharp-completion-detail { color: #93a8be; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pandaui-csharp-editor .pandaui-csharp-references { flex-shrink: 0; padding: 6px 10px; border-top: 1px solid #2c3c50; color: #9fb2c9; font: 11px/18px Arial, sans-serif; }
+.pandaui-csharp-editor summary { cursor: pointer; }
+.pandaui-csharp-editor .pandaui-csharp-references input { margin-top: 5px; height: 29px; padding: 5px 7px; background: rgba(0, 0, 0, .25); border: 1px solid #435570; color: #dce7f3; font: 11px Arial, sans-serif; }
+.pandaui-csharp-editor .pandaui-csharp-footer { display: flex; justify-content: space-between; gap: 8px; flex-shrink: 0; padding: 6px 10px; border-top: 1px solid #2c3c50; background: rgba(0, 0, 0, .25); color: #9dafc5; font: 11px/16px Arial, sans-serif; }
+.pandaui-csharp-editor .pandaui-csharp-status { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pandaui-csharp-editor .pandaui-csharp-cursor { flex-shrink: 0; color: #9bb4cc; }
+.pandaui-csharp-editor .pandaui-csharp-status[data-state="error"] { color: #ff9292; }
+.pandaui-csharp-editor .pandaui-csharp-status[data-state="warning"], .pandaui-csharp-editor .pandaui-csharp-status[data-state="busy"] { color: #efce81; }
+.pandaui-csharp-editor .pandaui-csharp-status[data-state="ready"] { color: #8cddaa; }
+.pandaui-csharp-editor .pandaui-csharp-diagnostics { flex-shrink: 0; max-height: 92px; overflow: auto; border-top: 1px solid #2c3c50; background: rgba(0, 0, 0, .25); }
+.pandaui-csharp-editor button.pandaui-csharp-diagnostic { display: block; width: 100%; border: 0; border-left: 3px solid #f07882; border-radius: 0; padding: 6px 9px; background: transparent; color: #f3a9ad; font: 11px/16px Arial, sans-serif; text-align: left; white-space: normal; }
+.pandaui-csharp-editor button.pandaui-csharp-diagnostic[data-severity="warning"] { border-left-color: #e5bf6c; color: #e5cb96; }

@@ -1,0 +1,15 @@
+.pandaui-widget-controls[data-widget="ghp"] { gap: 7px; overflow: hidden; border: 1px solid #3c5269; border-radius: 8px; background: rgba(0, 0, 0, .25); color: #dce7f3; font: 12px/1.4 Arial, sans-serif; }
+.pandaui-ghp-path-row { display: flex; align-items: center; gap: 5px; }
+.pandaui-ghp-path { min-width: 0; flex: 1; height: 28px; padding: 4px 7px; border: 1px solid #455c75; border-radius: 4px; background: rgba(0, 0, 0, .25); color: #e4edf7; font: 11px Arial, sans-serif; }
+.pandaui-ghp-action, .pandaui-ghp-remove { border: 1px solid #49627c; border-radius: 4px; padding: 4px 8px; background: rgba(0, 0, 0, .25); color: #dce7f3; font: 11px/18px Arial, sans-serif; cursor: pointer; }
+.pandaui-ghp-action:hover, .pandaui-ghp-remove:hover { border-color: #8fb7d9; background: rgba(31, 72, 105, .45); }
+.pandaui-ghp-auto { display: flex; align-items: center; gap: 6px; color: #a9bdd1; font-size: 11px; }
+.pandaui-ghp-auto input { accent-color: #55a9c8; }
+.pandaui-ghp-status { min-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #a9bdd1; font-size: 11px; }
+.pandaui-ghp-status[data-state="ready"] { color: #8cddaa; }
+.pandaui-ghp-status[data-state="busy"] { color: #efce81; }
+.pandaui-ghp-status[data-state="error"] { color: #ff9292; }
+.pandaui-ghp-list { display: flex; flex-direction: column; gap: 4px; max-height: 150px; overflow: auto; }
+.pandaui-ghp-item { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 6px; border: 1px solid #33495e; border-radius: 4px; background: rgba(0, 0, 0, .25); }
+.pandaui-ghp-item > span { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #c8d8e8; font-size: 10px; }
+.pandaui-ghp-remove { flex: 0 0 auto; padding: 0 6px; color: #f0a5aa; }

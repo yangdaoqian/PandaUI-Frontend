@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title>PandaUI Node Editor</title>
+  <link rel="stylesheet" type="text/css" href="css/pandaui-node-editor.css?v=20260923-1">
+  <link rel="stylesheet" href="css/sketch-widget.css?v=20260909-1">
+  <link rel="stylesheet" href="css/widget-controls.css?v=20261111-2">
+  <link rel="stylesheet" href="css/node-tooltip.css?v=20260928-2">
+  <link rel="stylesheet" href="css/codemirror.css?v=5.65.16">
+  <link rel="stylesheet" href="css/codemirror-foldgutter.css?v=5.65.16">
+  <link rel="stylesheet" href="css/csharp-editor.css?v=20260922-5">
+  <link rel="stylesheet" href="css/ghp-manager.css?v=20260921-1">
+</head>
+<body>
+  <div id="main"></div>
+
+  <script src="js/libs/gl-matrix-min.js"></script>
+  <script src="src/BrowserCrypto.js?v=20260923-1"></script>
+  <script src="src/WorkspaceSession.js?v=20260928-login"></script>
+  <script src="src/Kernel/Data/Path.js"></script>
+  <script src="src/Kernel/Data/DataTree.js"></script>
+  <script src="src/Kernel/Parameters/Param.js?v=20260928-2"></script>
+  <script src="src/Kernel/Objects/GraphGroup.js?v=20260915-3"></script>
+  <script src="src/Kernel/Attributes/NodeAttributes.js?v=20260915-3"></script>
+  <script src="src/Kernel/Rendering/CanvasRenderer.js"></script>
+  <script src="src/Kernel/Interaction/CanvasInteractionController.js"></script>
+  <script src="src/Kernel/Document/DependencyGraph.js?v=20260915-3"></script>
+  <script src="src/Kernel/Document/SolutionScheduler.js?v=20260915-3"></script>
+  <script src="src/Kernel/Document/DocumentEventBus.js?v=20260915-3"></script>
+  <script src="src/Kernel/Document/CommandHistory.js?v=20260915-4"></script>
+  <script src="src/Kernel/Document/GraphDocument.js?v=20260915-4"></script>
+  <script src="src/Kernel/Document/GraphOperations.js?v=20260922-5"></script>
+  <script src="src/PandaUI/NodeAppearance.js?v=20260916-2"></script>
+  <script src="src/PandaUI/Runtime.js?v=20260921-3"></script>
+  <script src="src/PandaUI/GraphAgent.js?v=20260916-7"></script>
+  <script src="src/PandaUI/ConversationContext.js?v=20260916-7"></script>
+  <script src="src/PandaUI/AgentSession.js?v=20260916-7"></script>
+  <script src="src/PandaUI/NodeTooltip.js?v=20261109-1"></script>
+  <script src="src/PandaUI/WidgetPickers.js?v=20261111-1"></script>
+  <script src="src/PandaUI/GraphCanvas.js?v=20261111-1"></script>
+  <script src="src/PandaUI/Nodes/BaseNodes.js"></script>
+  <script src="src/PandaUI/Nodes/LogicNodes.js"></script>
+  <script src="src/PandaUI/Nodes/EventNodes.js"></script>
+  <script src="src/PandaUI/Nodes/MathNodes.js"></script>
+  <script src="src/PandaUI/Nodes/Math3DNodes.js"></script>
+  <script src="src/PandaUI/Nodes/StringNodes.js"></script>
+  <script src="src/PandaUI/Nodes/InterfaceNodes.js?v=20260910-3"></script>
+  <script src="src/PandaUI/Nodes/InputNodes.js"></script>
+  <script src="src/PandaUI/Nodes/GeometryNodes.js"></script>
+  <script src="src/PandaUI/Nodes/NodeTypeDefaults.js"></script>
+  <script src="src/PandaUI/NativeNodes.js?v=20260909-2"></script>
+  <script src="src/PandaUI/WidgetControls.js?v=20261111-3"></script>
+  <script src="js/libs/codemirror/codemirror.js?v=5.65.16"></script>
+  <script src="js/libs/codemirror/clike.js?v=5.65.16"></script>
+  <script src="js/libs/codemirror/foldcode.js?v=5.65.16"></script>
+  <script src="js/libs/codemirror/foldgutter.js?v=5.65.16"></script>
+  <script src="js/libs/codemirror/brace-fold.js?v=5.65.16"></script>
+  <script src="js/libs/codemirror/closebrackets.js?v=5.65.16"></script>
+  <script src="js/libs/codemirror/active-line.js?v=5.65.16"></script>
+  <script src="plugins/pandaui-data-converters.js"></script>
+  <script src="plugins/pandaui-list-tools.js"></script>
+  <script src="plugins/tree-packer.js"></script>
+  <script src="plugins/TTransform.js?v=20260928-2"></script>
+  <script src="plugins/Sketch_Widget.js?v=20260928-2"></script>
+  <script src="plugins/Clipping_Plane.js?v=20260928-2"></script>
+    <script src="shared/MaterialSchema.js?v=20261111-2"></script>
+    <script src="shared/SceneReferences.js?v=20261111-1"></script>
+    <script src="plugins/Render_Nodes.js?v=20261111-2"></script>
+    <script src="plugins/Material_Nodes.js?v=20261111-4"></script>
+    <script src="plugins/UV_Nodes.js?v=20261111-2"></script>
+    <script src="plugins/MNurbs_Nodes.js?v=20261111-1"></script>
+  <script src="plugins/Panel_Nodes.js?v=20260916-2"></script>
+  <script src="plugins/AI_Assistant.js?v=20260916-7"></script>
+    <script src="/nodec/GeometryControlPoints.js?v=20261110-1"></script>
+    <script src="/nodec/GraphControlPointExecution.js?v=20261110-1"></script>
+    <script src="/nodec/GraphPointExecution.js?v=20261109-2"></script>
+  <script src="/nodec/GraphNodePlaceholders.js?v=20261109-2"></script>
+    <script src="/nodec/GraphLocalExecution.js?v=20261110-1"></script>
+    <script src="/nodec/GraphControlPointNodes.js?v=20261110-1"></script>
+    <script src="src/pandaui-plugins.js?v=20261110-1"></script>
+  <script src="plugins/Mantis_GhpManager.js?v=20260921-1"></script>
+  <script src="src/PandaUI/CSharpEditor.js?v=20260922-4"></script>
+  <script src="src/PandaUI/CSharpAssistance.js?v=20260922-4"></script>
+  <script src="src/PandaUI/CSharpWidget.js?v=20260922-5"></script>
+  <script src="src/PandaUI/CSharpLibrary.js?v=20260922-5"></script>
+  <script src="plugins/Mantis_CSharp.js?v=20260922-5"></script>
+  <script src="js/code.js?v=20260924-auth"></script>
+
+  <script>
+    (function () {
+      function applyParams (params) {
+        window._pandauiParams = params
+        if (typeof window.onPandaUIParams === 'function') window.onPandaUIParams(params)
+      }
+
+      window.addEventListener('message', function (event) {
+        var data = event.data
+        if (!data) return
+        if (data.type === 'pandaui-params') applyParams(data.params)
+        else if (data.type === 'pandaui-fn' && data.name && data.code) {
+          try {
+            var fn = (new Function('return (' + data.code + ')'))()
+            window[data.name] = fn
+            window._pandauiFunctions = window._pandauiFunctions || {}
+            window._pandauiFunctions[data.name] = true
+            if (typeof window.onPandaUIFunctionRegistered === 'function') window.onPandaUIFunctionRegistered(data.name, fn)
+          } catch (error) {
+            console.error('Failed to reconstruct function', error)
+          }
+        }
+      })
+
+      window.applyPandaUIParams = applyParams
+    })()
+  </script>
+</body>
+</html>
