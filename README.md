@@ -47,6 +47,5 @@ To use glTF or OBJ with external resources, select the model and its related fil
 
 Frontend contributions use MIT; the original upstream copyright notice is preserved. Third-party code and binaries retain their own terms. See [license scope](LICENSE_SCOPE.md), [third-party notices](THIRD_PARTY_NOTICES.md) and [release review](docs/RELEASE_REVIEW.md).
 
-Meshing and curve-sampling algorithm provenance review was deferred by maintainer instruction. This repository does not assert that review was completed. Copyright notices and compatibility identifiers remain intact.
 
-`yarn licenses:collect` regenerates the installed-dependency inventory. `yarn check:release` checks candidate Git files for excluded artifacts, common credential patterns, required notices and recorded export hashes. These technical checks are not legal clearance. The npm package stays `private: true` to avoid accidental npm publication; this does not restrict GitHub visibility.
+`yarn licenses:collect` regenerates the installed-dependency inventory. `yarn check:release` checks candidate Git files for excluded artifacts, common credential patterns, required notices and recorded export hashes.The npm package stays `private: true` to avoid accidental npm publication; this does not restrict GitHub visibility.
