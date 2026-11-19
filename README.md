@@ -2,7 +2,7 @@
 
 A browser-based 3D workspace combining CAD/model import, a visual node editor, editable scene materials, real-time rendering and progressive path tracing. Local geometry processing uses the bundled **NodeC WebAssembly** runtime and format-specific browser importers.
 
-**[详细功能介绍与使用说明（中文）](docs/USER_GUIDE.zh-CN.md)** · [Storage format](docs/LOCAL_DOCUMENT_STORAGE.md) · [Rendering architecture](docs/PATH_TRACER_MIGRATION.md) · [Update notes](docs/RELEASE_NOTES.md)
+**[Features and User Guide](docs/USER_GUIDE.md)** · [Storage format](docs/LOCAL_DOCUMENT_STORAGE.md) · [Rendering architecture](docs/PATH_TRACER_MIGRATION.md) · [Update notes](docs/RELEASE_NOTES.md)
 
 This repository is the standalone frontend export of PandaUI. It does not include the backend, account/shared-document data, native geometry C++ sources, proprietary SDK/plugin binaries, private models, or the separate PandaUI Preview application. Prebuilt browser geometry and rendering runtimes are included.
 
@@ -47,7 +47,7 @@ The current development proxy targets `http://127.0.0.1:9001` for `/api`. A back
 5. Use **Scene Material** to edit imported materials. Connect Environment, lights, Quality and Render Effects descriptors to an enabled **Render Output**; choose `raster` or `pathtrace`.
 6. Select the local document in **Document Manager** and use **Save locally** or **Save render data**. Select a parent directory and grant browser write permission; the application creates a document-specific subfolder.
 
-See the [complete guide](docs/USER_GUIDE.zh-CN.md) for rendering, UVs, storage, troubleshooting and performance settings.
+See the [complete guide](docs/USER_GUIDE.md) for rendering, UVs, storage, troubleshooting and performance settings.
 
 ## Import formats and boundaries
 

@@ -17,7 +17,7 @@ This update publishes the accumulated standalone frontend changes since the init
 ### Documentation and synchronization
 
 - Replaced the early README with a feature matrix, current import routes, quick start, rendering/storage boundaries and deployment instructions.
-- Added `docs/USER_GUIDE.zh-CN.md` covering installation, document workflow, scene editing, nodes, materials/UV, rendering, archive structure and troubleshooting.
+- Added `docs/USER_GUIDE.md` covering installation, document workflow, scene editing, nodes, materials/UV, rendering, archive structure and troubleshooting.
 - Added this release record. The README and user guide are standalone-export documentation; the original development README is not overwritten.
 - Synchronized `scripts/test-render-raster-browser.js` through the source export tool. This adds layered-glass screenshot output; shared runtime source changes were already recorded in `docs/FRONTEND_CHANGELOG.md`.
 - Retained the upstream README update in Git history before preparing this publication.
@@ -37,3 +37,7 @@ This update publishes the accumulated standalone frontend changes since the init
 Preview's standalone Materials/menu interface and case-directory/save-permission handling are not transplanted into this repository. Frontend Document Manager still invokes the system directory picker for saves. The current dev configuration defaults to port 9000 with a localhost:9001 API proxy; the guide uses an explicit port 9002 to avoid collisions. Historical `.env.example` port/backend settings are not currently wired into this configuration.
 
 The WASM package node count is not a claim of implemented solvers. CAD format coverage and real-time multi-layer optics remain partial. Third-party licenses and the previously documented provenance-review status remain in their respective notice/review files.
+
+## 2026-11-19 — English user guide
+
+Translated the complete feature and usage guide into English and renamed it to `docs/USER_GUIDE.md`. Updated README navigation and the release-note reference. Scope, workflows and documented limitations are preserved. Validated local documentation links, absence of Chinese text in the guide/README, and the standalone release check. Documentation-only change; application binaries and behavior are unchanged.
