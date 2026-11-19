@@ -1,0 +1,53 @@
+{
+  "dependencies": [
+    {
+      "name": "three",
+      "version": "0.170.0",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/mrdoob/three.js"
+      }
+    },
+    {
+      "name": "three-gpu-pathtracer",
+      "version": "0.0.23",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gkjohnson/three-gpu-pathtracer.git"
+      }
+    },
+    {
+      "name": "three-mesh-bvh",
+      "version": "0.8.3",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gkjohnson/three-mesh-bvh.git"
+      }
+    }
+  ],
+  "denoiser": {
+    "name": "glslSmartDeNoise",
+    "license": "BSD-2-Clause"
+  },
+  "assets": [
+    {
+      "name": "434.c935c91c24df.js",
+      "sha256": "be51e252e01d3ab3669381db8682839ade8f79b186688645b0dcf2fc454b39df"
+    },
+    {
+      "name": "434.c935c91c24df.js.LICENSE.txt",
+      "sha256": "cd43b8cb3360818a1ede143c0905ed678e9fe989253cabe6c7e2a63d4a7e9673"
+    },
+    {
+      "name": "runtime.js",
+      "sha256": "8bcc6d4bd8d4a497154592b3ad6ce4b1d13e8290213279a524feab5df97e1613"
+    },
+    {
+      "name": "runtime.js.LICENSE.txt",
+      "sha256": "cd43b8cb3360818a1ede143c0905ed678e9fe989253cabe6c7e2a63d4a7e9673"
+    }
+  ]
+}

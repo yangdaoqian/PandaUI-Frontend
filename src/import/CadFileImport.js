@@ -1,5 +1,5 @@
-// OCCT parses and tessellates in the import Worker. It needs the whole source
-// file, but display packets are converted/transferred one at a time afterwards.
+// OCCT converts a dependency-complete CAD payload. ProgressiveStepImport feeds
+// STEP jobs individually; IGES/BREP currently feed the complete source file.
 export const CAD_EXTENSIONS = ['step', 'stp', 'iges', 'igs', 'brep']
 
 export function parseCad (runtime, extension, bytes, options = {}) {

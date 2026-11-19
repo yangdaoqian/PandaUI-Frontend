@@ -7,6 +7,20 @@ import MaterialPreview from './MaterialPreview'
 
 const colorKeys = schema.colors
 const ranges = schema.ranges
+const isEditableSurfaceMaterial = material => material?.isMeshStandardMaterial === true || material?.isMeshPhysicalMaterial === true
+const cloneEditableMaterial = (source, doc, copyTextures = false) => {
+  const clone = source.isMeshPhysicalMaterial ? source.clone() : new THREE.MeshPhysicalMaterial()
+  if (!source.isMeshPhysicalMaterial) { THREE.MeshStandardMaterial.prototype.copy.call(clone, source); clone.defines = { STANDARD: '', PHYSICAL: '' } }
+  if (copyTextures) {
+    const textures = new Map()
+    for (const [key, value] of Object.entries(clone)) {
+      if (!value?.isTexture) continue
+      if (!textures.has(value)) { const texture = value.clone(); texture.needsUpdate = true; textures.set(value, texture); doc.disposableResources.push(texture) }
+      clone[key] = textures.get(value)
+    }
+  }
+  return clone
+}
 const hex = color => {
   const value = (color || new THREE.Color()).clone().convertLinearToSRGB()
   return '#' + ['r', 'g', 'b'].map(key => Math.round(Math.max(0, Math.min(1, value[key])) * 255).toString(16).padStart(2, '0')).join('')
@@ -23,6 +37,12 @@ export default class ImportedMaterialEditor {
     const signatures = new Map()
     for (const doc of docs) {
       const groups = new Map()
+      for (const material of doc.pandaMaterialLibrary || []) {
+        const id = material.userData.pandaSceneMaterialSourceId || material.uuid
+        const key = JSON.stringify([doc.documentId, String(id)])
+        const entry = { key, id: String(id), doc, material, targets: [] }
+        groups.set(materialIdentity(material), entry); entries.set(key, entry)
+      }
       for (const mesh of resourceMeshes([doc.three?.middleground])) {
         let owner, locked = false
         for (let part = mesh; part; part = part.parent) {
@@ -32,10 +52,10 @@ export default class ImportedMaterialEditor {
         if (locked || owner !== doc) continue
         const source = this.services.source(mesh)
         ;(Array.isArray(source) ? source : [source]).forEach((material, slot) => {
-          if (!material?.isMeshStandardMaterial) return
+          if (!isEditableSurfaceMaterial(material)) return
           let id = material.userData.pandaSceneMaterialSourceId || material.userData.rhinoMaterialId || material.uuid
           if (!signatures.has(material)) signatures.set(material, materialIdentity(material))
-          const signature = material.userData.pandaSceneMaterialEdited ? 'edited:' + id : signatures.get(material)
+          const signature = signatures.get(material)
           if (!groups.has(signature)) {
             let key = JSON.stringify([doc.documentId, String(id)])
             if (entries.has(key)) { id = String(id) + ':' + material.uuid; key = JSON.stringify([doc.documentId, id]) }
@@ -95,8 +115,8 @@ export default class ImportedMaterialEditor {
       }
       return false
     })
-    if (!target) throw new Error('The material is no longer editable.')
-    const sources = this.services.source(target.mesh), material = Array.isArray(sources) ? sources[target.slot] : sources
+    if (!target && !entry.doc.pandaMaterialLibrary?.includes(entry.material)) throw new Error('The material is no longer editable.')
+    const sources = target ? this.services.source(target.mesh) : entry.material, material = Array.isArray(sources) ? sources[target.slot] : sources
     const signature = [material.uuid, material.version, ...Object.values(material).filter(value => value?.isTexture).map(texture => texture.uuid + ':' + texture.version)].join('|')
     const cached = this.thumbnails.get(key)
     if (cached?.signature === signature) return cached.image
@@ -114,7 +134,7 @@ export default class ImportedMaterialEditor {
       const editable = [...resourceMeshes([object])].some(mesh => {
         for (let part = mesh; part; part = part.parent) if (part.userData?.readOnly || part.userData?.nodePreview) return false
         const source = this.services.source(mesh)
-        return (Array.isArray(source) ? source : [source]).some(material => material?.isMeshStandardMaterial)
+        return (Array.isArray(source) ? source : [source]).some(isEditableSurfaceMaterial)
       })
       if (editable) { this.catalog(); object.traverse(part => { for (const key of this.meshKeys.get(part) || []) keys.add(key) }) }
     }
@@ -127,14 +147,73 @@ export default class ImportedMaterialEditor {
     for (const doc of this.indexDocuments) if (doc.disposed) this.indexDocuments.delete(doc)
   }
 
-  assign (entry, { mesh, slot }, material) {
+  assign (entry, { mesh, slot }, material, replacePool = true) {
     const bag = mesh.userData.displayMaterials
     const original = bag?.render || mesh.material
+    if (replacePool) entry.doc.replaceImportedDisplayMaterial?.(Array.isArray(original) ? original[slot] : original, material)
     const replacement = Array.isArray(original) ? original.map((m, i) => i === slot ? material : m) : material
     if (bag) mesh.userData.displayMaterials = { ...bag, render: replacement }
     if (mesh.material === original || !bag) mesh.material = replacement
-    entry.doc.disposableResources.track?.(mesh)
+    entry.doc.disposableResources?.track?.(mesh)
     entry.doc.invalidateRenderObject?.(mesh)
+  }
+
+  copy (key) {
+    const entry = this.entries().get(key)
+    if (!entry || this.disposed) throw new Error('Select an editable material.')
+    const material = cloneEditableMaterial(entry.material, entry.doc, true)
+    material.name = (material.name || 'Material') + ' copy'
+    material.userData.pandaMaterialLibraryId = material.uuid
+    material.userData.pandaSceneMaterialSourceId = material.uuid
+    material.userData.pandaSceneMaterialEdited = true
+    setSurfaceSettings(material, {})
+    ;(entry.doc.pandaMaterialLibrary ||= []).push(material)
+    entry.doc.disposableResources.push(material)
+    this.services.invalidate()
+    return JSON.stringify([entry.doc.documentId, material.uuid])
+  }
+
+  rename (key, name) {
+    name = String(name || '').trim()
+    if (!name || name.length > 160) throw new Error('Enter a material name of 1–160 characters.')
+    const entry = this.entries().get(key)
+    if (!entry || this.disposed) throw new Error('Select an editable material.')
+    this.services.edit(() => {
+      let material = entry.material
+      if (!entry.doc.pandaMaterialLibrary?.includes(material)) {
+        material = cloneEditableMaterial(material, entry.doc)
+        material.userData.pandaSceneMaterialSourceId = entry.id
+        material.userData.pandaSceneMaterialEdited = true
+        material.userData.pandaMaterialLibraryId = material.uuid
+        setSurfaceSettings(material, {})
+        ;(entry.doc.pandaMaterialLibrary ||= []).push(material)
+        entry.doc.disposableResources.push(material)
+        entry.targets.forEach(target => this.assign(entry, target, material))
+      }
+      material.name = name
+    })
+    this.services.invalidate(); this.thumbnails.delete(key)
+  }
+
+  applyToSelection (key, object) {
+    const entry = this.entries().get(key)
+    if (!entry || this.disposed) throw new Error('Select an editable material.')
+    if (!object) throw new Error('Select an object in the scene first.')
+    const targets = []
+    for (const mesh of resourceMeshes([object])) {
+      let owned = false, locked = false
+      for (let part = mesh; part; part = part.parent) {
+        if (part === entry.doc.three?.middleground) owned = true
+        if (part.userData?.readOnly || part.userData?.nodePreview) locked = true
+      }
+      if (!owned || locked) throw new Error('Select editable objects in the material’s document.')
+      const source = this.services.source(mesh)
+      ;[].concat(source || []).forEach((material, slot) => { if (isEditableSurfaceMaterial(material)) targets.push({ mesh, slot }) })
+    }
+    if (!targets.length) throw new Error('The selection has no editable mesh surfaces.')
+    this.services.edit(() => targets.forEach(target => this.assign(entry, target, entry.material, false)))
+    this.catalog(); this.services.invalidate()
+    return targets.length
   }
 
   async update (key, settings = {}) {
@@ -184,9 +263,9 @@ export default class ImportedMaterialEditor {
       this.services.edit(() => {
         let shared = null
         const changed = new Set()
-        for (const { mesh, slot } of entry.targets) {
-          const bag = mesh.userData.displayMaterials
-          const original = bag?.render || mesh.material
+        for (const { mesh, slot } of entry.targets.length ? entry.targets : [{ mesh: null, slot: 0 }]) {
+          const bag = mesh?.userData.displayMaterials
+          const original = bag?.render || mesh?.material || entry.material
           const source = Array.isArray(original) ? original[slot] : original
           let material = shared || source
           if (!source.userData.pandaSceneMaterialEdited) {
@@ -200,11 +279,18 @@ export default class ImportedMaterialEditor {
             material = shared
           }
           if (!changed.has(material)) {
-            for (const texture of textures) material[texture.slot] = texture.texture
+            for (const texture of textures) {
+              material[texture.slot] = texture.texture
+              if (texture.texture && material.userData.pandaUVRepeat) {
+                if (material.userData.pandaUVRepeat.u) texture.texture.wrapS = THREE.RepeatWrapping
+                if (material.userData.pandaUVRepeat.v) texture.texture.wrapT = THREE.RepeatWrapping
+                texture.texture.needsUpdate = true
+              }
+            }
             setSurfaceSettings(material, patch)
             material.needsUpdate = true; changed.add(material)
           }
-          this.assign(entry, { mesh, slot }, material)
+          if (mesh) this.assign(entry, { mesh, slot }, material)
           count++
         }
         for (const texture of textures) if (texture.owned) entry.doc.disposableResources.push(texture.texture)

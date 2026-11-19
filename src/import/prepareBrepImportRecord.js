@@ -5,7 +5,7 @@ import { meshQualityOptions } from './MeshQuality'
 
 // Decode one object in a worker. Display-only jobs return typed mesh buffers
 // and binary attributes; compatibility jobs retain the original record.
-export default function prepareBrepImportRecord (module, objectRecord, options, forceMeshing = false, displayOnly = false) {
+export default function prepareBrepImportRecord (module, objectRecord, options, forceMeshing = false, displayOnly = false, observer) {
   const document = new module.File3dm()
   let table, object, geometry, attributes, bounds
   try {
@@ -62,7 +62,16 @@ export default function prepareBrepImportRecord (module, objectRecord, options, 
       }
       if (displayInfo) displayInfo.faceCount = faceCount
       if (!displayOnly && faceCount && !missingMeshFaces && !forceMeshing) return objectRecord
-      if (!brepPreview) brepPreview = meshBrepForDisplay(module, geometry, options, faceCount)
+      if (!brepPreview) brepPreview = meshBrepForDisplay(module, geometry, options, faceCount, observer && {
+        onProgress: progress => observer.onProgress?.({ ...progress, objectId: id, objectName: attributes?.name || id }),
+        onPreview: displayOnly && observer.onPreview ? preview => observer.onPreview({
+          objectId: id,
+          // Transfer the intermediate copy, keeping final attributes attached.
+          displayInfo: { ...displayInfo, attributes: displayInfo.attributes.slice() },
+          brepPreview: preview,
+          meshIntermediate: true
+        }) : undefined
+      })
     } catch (error) { brepPreview = failedPreview(error?.message || String(error)) }
     return displayOnly ? { objectId: id, displayInfo, brepPreview, edgePreview } : { objectRecord, brepPreview, edgePreview }
   } finally {

@@ -1,0 +1,878 @@
+{
+  "schemaVersion": 1,
+  "abiVersion": 1,
+  "id": "nodetrianglec",
+  "name": "NodeTriangleC",
+  "version": "0.1.0",
+  "stage": "registration-only",
+  "module": "NodeTriangleC.wasm",
+  "nodes": [
+    {
+      "id": "190c0070-8cbf-4347-94c2-d84bbb488d55",
+      "name": "Facet Dome",
+      "nickname": "Facet",
+      "description": "Create a facetted dome",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points on dome that describe the facet centers",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Optional bounding box for facet boundary",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Optional radius for facets",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Pattern",
+          "nickname": "P",
+          "description": "Complete facet pattern",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Dome",
+          "nickname": "D",
+          "description": "dome surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1eb4f6ff-3547-4184-bead-1b01e7cfd668",
+      "name": "Delaunay Mesh",
+      "nickname": "Del",
+      "description": "Delaunay triangulation",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for triangulate",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Optional base plane. If no plane is provided, then the best-fit plane will be used.",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "415750fd-c0ec-4411-84d0-01f28ab23066",
+      "name": "Substrate",
+      "nickname": "Substrate",
+      "description": "Substrate algorithm inspired by Jared Tarbell (Complexification.net)",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Border",
+          "nickname": "B",
+          "description": "Border for substrate",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of lines in substrate",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Angles",
+          "nickname": "A",
+          "description": "Base angles (in radians) in substrate",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Deviation",
+          "nickname": "D",
+          "description": "Angular deviation (in radians) of new lines",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Seed",
+          "nickname": "S",
+          "description": "Random seed for solution",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Substrate",
+          "nickname": "S",
+          "description": "Substrate diagram",
+          "type": "line",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "458ed0e0-19a3-419b-8ead-f524925b8a35",
+      "name": "Proximity 2D",
+      "nickname": "Prox",
+      "description": "Search for two-dimensional proximity within a point list",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Input points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Optional base plane. If null, the best fit plane is used",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Group",
+          "nickname": "G",
+          "description": "Maximum number of closest points to find",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Min Radius",
+          "nickname": "R-",
+          "description": "Optional minimum search radius.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Max Radius",
+          "nickname": "R+",
+          "description": "Optional maximum search radius.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Links",
+          "nickname": "L",
+          "description": "Proximity links",
+          "type": "line",
+          "access": "tree"
+        },
+        {
+          "name": "Topology",
+          "nickname": "T",
+          "description": "Proximity topology",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "5184b8cb-b71e-4def-a590-cd2c9bc58906",
+      "name": "Project Point",
+      "nickname": "Project",
+      "description": "Project a point onto a collection of shapes",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Point to project",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "D",
+          "description": "Projection direction",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to project onto",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Projected point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Index of object that was projected onto",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "7b181be1-30e7-4a97-915a-1b461741aef8",
+      "name": "Voronoi Cell",
+      "nickname": "VCell",
+      "description": "Compute a single 3D Voronoi cell",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Seed point for voronoi cell",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Neighbours",
+          "nickname": "N",
+          "description": "Neighbour points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Optional cell boundary",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Cell",
+          "nickname": "C",
+          "description": "Voronoi 3D cell",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "8102032b-9699-4949-ab12-3017a31d1062",
+      "name": "QuadTree",
+      "nickname": "QT",
+      "description": "A two-dimensional quadtree structure",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Input points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Optional base plane. If omitted, the best fit plane is used",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Square",
+          "nickname": "S",
+          "description": "Square leafs",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Group",
+          "nickname": "G",
+          "description": "Permitted content per leaf",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Quads",
+          "nickname": "Q",
+          "description": "Quad tree leaves",
+          "type": "curve",
+          "access": "tree"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points per quad",
+          "type": "point",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "93d0dcbc-6207-4745-aaf7-fe57a880f959",
+      "name": "IsoVist Ray",
+      "nickname": "IVRay",
+      "description": "Compute a single isovist sample at a location",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Sample",
+          "nickname": "S",
+          "description": "Sampling ray",
+          "type": "line",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Sample radius",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Obstacles",
+          "nickname": "O",
+          "description": "Obstacle outlines (curves, planes, meshes and breps are allowed)",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Intersection point of the sample ray with the obstacles",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Distance from ray start to intersection point",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Obstacle index for hit, or -1 if no obstacle was hit",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9d0c5284-ea24-4f9f-a183-ef57fc48b5b8",
+      "name": "Convex Hull",
+      "nickname": "Hull",
+      "description": "Compute the planar, convex hull for a collection of points",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for convex hull solution",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Optional base plane. If no plane is provided, then the best-fit plane will be used.",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Hull",
+          "nickname": "H",
+          "description": "Convex hull in base plane space",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Hull(z)",
+          "nickname": "Hz",
+          "description": "Convex hull in world space",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Indices of points on convex hull",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "9d4854fe-70db-4863-967b-4120d0b6d2e4",
+      "name": "Voronoi Groups",
+      "nickname": "VorGroup",
+      "description": "Compute a custom set of nested voronoi diagrams.",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Boundary",
+          "nickname": "B",
+          "description": "Diagram boundary",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Generation 1",
+          "nickname": "G1",
+          "description": "Points in generation 1",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Generation 2",
+          "nickname": "G2",
+          "description": "Points in generation 2",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Diagram 1",
+          "nickname": "D1",
+          "description": "Voronoi diagram for generation 1",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Diagram 2",
+          "nickname": "D2",
+          "description": "Voronoi diagram for generation 2",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "a4011be0-1c91-45bd-8280-17dd3a9f46f1",
+      "name": "Voronoi",
+      "nickname": "Voronoi",
+      "description": "Planar voronoi diagram for a collection of points",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for Voronoi diagram",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Optional cell radius",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Boundary",
+          "nickname": "B",
+          "description": "Optional containment boundary for diagram.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Optional base plane. If no plane is provided, then the best-fit plane will be used.",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Cells",
+          "nickname": "C",
+          "description": "Cells of the voronoi diagram.",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "a59a68ad-fdd6-41dd-88f0-d7a6fb8d2e16",
+      "name": "OcTree",
+      "nickname": "OcT",
+      "description": "A three-dimensional oc-tree structure",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Input points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Square",
+          "nickname": "S",
+          "description": "Square leafs",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Group",
+          "nickname": "G",
+          "description": "Permitted content per leaf",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Boxes",
+          "nickname": "B",
+          "description": "Oc-tree leave boxes",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points per box",
+          "type": "point",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "ba9bb57a-61cf-4207-a1c4-994e371ba4f9",
+      "name": "Voronoi 3D",
+      "nickname": "Voronoi³",
+      "description": "Volumetric voronoi diagram for a collection of points",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for Voronoi diagram",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Optional diagram boundary",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Cells",
+          "nickname": "C",
+          "description": "Cells of the 3D Voronoi diagram",
+          "type": "brep",
+          "access": "list"
+        },
+        {
+          "name": "Boundary",
+          "nickname": "B",
+          "description": "List of boolean values indicating for each cell whether it is part of the original boundary",
+          "type": "boolean",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "cab92254-1c79-4e5a-9972-0a4412b35c88",
+      "name": "IsoVist",
+      "nickname": "IVist",
+      "description": "Compute an isovist sampling at a location",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Sampling plane and origin",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Sample count",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Sample radius",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Obstacles",
+          "nickname": "O",
+          "description": "Obstacle outlines",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Intersection points of the sample rays with the obstacles",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "List of intersection distances",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "List of obstacle indices for each hit, or -1 if no obstacle was hit",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "db2a4d25-23fa-4887-8983-ee5293cc82c0",
+      "name": "Delaunay Edges",
+      "nickname": "Con",
+      "description": "Delaunay connectivity",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for triangulate",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Optional base plane. If no plane is provided, then the best-fit plane will be used.",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Connectivity",
+          "nickname": "C",
+          "description": "Topological Connectivity diagram",
+          "type": "integer",
+          "access": "tree"
+        },
+        {
+          "name": "Edges",
+          "nickname": "E",
+          "description": "Edges of the connectivity diagram",
+          "type": "line",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e45aa4a0-e40d-421c-a335-5185dd131836",
+      "name": "Smooth Mesh",
+      "nickname": "MSmooth",
+      "description": "Smooth the vertices of a mesh",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to smooth",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Strength",
+          "nickname": "S",
+          "description": "Smoothing strength (0.0=none, 1.0=max)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Skip Naked",
+          "nickname": "N",
+          "description": "Skip naked vertices",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Iterations",
+          "nickname": "I",
+          "description": "Number of successive smoothing steps",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Limit",
+          "nickname": "L",
+          "description": "Optional maximum displacement per point",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Smoothed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e504d619-4467-437a-92fa-c6822d16b066",
+      "name": "Proximity 3D",
+      "nickname": "Prox",
+      "description": "Search for three-dimensional proximity within a point list",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Input points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Group",
+          "nickname": "G",
+          "description": "Maximum number of closest points to find",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Min Radius",
+          "nickname": "R-",
+          "description": "Optional minimum search radius.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Max Radius",
+          "nickname": "R+",
+          "description": "Optional maximum search radius.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Links",
+          "nickname": "L",
+          "description": "Proximity links",
+          "type": "line",
+          "access": "tree"
+        },
+        {
+          "name": "Topology",
+          "nickname": "T",
+          "description": "Proximity topology",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "e7ffb3af-2d77-4804-a260-755308bf8285",
+      "name": "Sphere Fit",
+      "nickname": "SFit",
+      "description": "Fit a sphere to a 3D collection of points",
+      "category": "Triangulation",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points to fit",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Center",
+          "nickname": "C",
+          "description": "Center of fitted sphere",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Radius of fitted sphere",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Sphere",
+          "nickname": "S",
+          "description": "Sphere surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    }
+  ]
+}

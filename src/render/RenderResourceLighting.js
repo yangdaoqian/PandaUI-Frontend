@@ -75,6 +75,19 @@ export function resourceShadowFocus (meshes, bounds) {
 }
 
 export function fitResourceShadows (rig, bounds, focusBounds = bounds) {
+  // Studio roles use model-relative coordinates and follow newly imported geometry.
+  const center = focusBounds.getCenter(new THREE.Vector3()), size = focusBounds.getSize(new THREE.Vector3())
+  const span = Math.max(size.x, size.y, size.z, 0.001)
+  rig.traverse(light => {
+    const role = light.userData.studioRole
+    const placements = { key: [-1.1, -1.3, 1.5], fill: [1.2, 0.4, 0.8], rim: [0, 1.3, 1.2] }
+    if (!placements[role]) return
+    light.position.copy(center).add(new THREE.Vector3().fromArray(placements[role]).multiplyScalar(span))
+    if (light.target) light.target.position.copy(center)
+    else if (light.isRectAreaLight) {
+      light.lookAt(center); light.width = span * (role === 'fill' ? 0.7 : 1.2); light.height = span * 0.3
+    }
+  })
   rig.updateWorldMatrix(true, true)
   const points = corners(bounds)
   const padding = Math.max(bounds.getSize(new THREE.Vector3()).length() * 0.05, 0.01)
@@ -151,6 +164,7 @@ export function createResourceLights (settings, bounds, scope, issue, maxTexture
         issue('unsupported-light', `Unknown light type: ${spec.type}`, { lightId: spec.id })
         continue
     }
+    light.userData.studioRole = spec.studioRole || 'manual'
     light.name = String(spec.id ?? spec.type)
     light.userData.renderLightId = spec.id
     light.position.copy(vector(spec.position, defaultPosition))

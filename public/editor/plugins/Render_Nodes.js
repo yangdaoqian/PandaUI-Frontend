@@ -52,14 +52,27 @@
   function numeric (key, label, value, min, max, integer) { return { key: key, label: label, value: value, type: 'number', min: min, max: max, integer: !!integer } }
   function field (key, label, value, type, values) { return { key: key, label: label, value: value, type: type, values: values } }
   var schemas = {
-    environment: [field('preset', 'Preset', 'studio', 'combo', ['studio', 'sky', 'hdri']), field('url', 'URL', '', 'url'), numeric('intensity', 'Intensity', 1, 0, 100), field('background', 'Background', true, 'boolean'), field('topColor', 'Top color', '#87ceeb', 'color'), field('bottomColor', 'Bottom color', '#ffffff', 'color')],
+    environment: [field('preset', 'Preset', 'studio', 'combo', ['studio', 'automotive', 'sky', 'hdri']), field('url', 'URL', '', 'url'), numeric('intensity', 'Intensity', 1, 0, 100), field('background', 'Background', true, 'boolean'), field('topColor', 'Top color', '#87ceeb', 'color'), field('bottomColor', 'Bottom color', '#ffffff', 'color')],
     material: [field('color', 'Color', '#cccccc', 'color'), numeric('roughness', 'Roughness', 0.5, 0, 1), numeric('metalness', 'Metalness', 0, 0, 1), numeric('opacity', 'Opacity', 1, 0, 1), numeric('clearcoat', 'Clearcoat', 0, 0, 1), field('emissive', 'Emissive', '#000000', 'color'), numeric('emissiveIntensity', 'Emissive intensity', 0, 0, 100)],
     texture: [field('url', 'URL', '', 'url'), field('role', 'Role', 'color', 'combo', roles)],
     light: [field('color', 'Color', '#ffffff', 'color'), numeric('intensity', 'Intensity', 1, 0, 10000), field('position', 'Position', [10, 10, 10], 'vector'), field('target', 'Target', [0, 0, 0], 'vector'), field('castShadow', 'Cast shadow', true, 'boolean'), numeric('angle', 'Angle (radians)', Math.PI / 4, 0.001, Math.PI / 2), numeric('width', 'Width', 5, 0.001, 10000), numeric('height', 'Height', 5, 0.001, 10000), numeric('shadowResolution', 'Shadow resolution', 2048, 256, 4096, true), numeric('shadowBias', 'Shadow depth bias', -0.0002, -0.01, 0.01), numeric('shadowNormalBias', 'Normal bias (-1 = auto)', -1, -1, 1e9), numeric('shadowRadius', 'Shadow softness', 1.5, 0, 8), numeric('shadowExtent', 'Shadow extent (0 = auto)', 0, 0, 1e12), field('shadowAutoFocus', 'Auto shadow focus', true, 'boolean')],
     camera: [field('position', 'Position', [10, 10, 10], 'vector'), field('target', 'Target', [0, 0, 0], 'vector'), numeric('fov', 'Field of view (degrees)', 45, 1, 179), field('projection', 'Projection', 'perspective', 'combo', ['perspective', 'orthographic']), numeric('orthographicHeight', 'Orthographic height', 40, 0.00001, 1e12)],
-    quality: [numeric('resolutionScale', 'Resolution scale', 1, 0.1, 2), numeric('interactionScale', 'Interaction scale', 0.6, 0.1, 1), numeric('samples', 'Samples', 128, 1, 65536, true), numeric('bounces', 'Bounces', 4, 1, 16, true)],
+    quality: [numeric('resolutionScale', 'Resolution scale', 1, 0.1, 2), numeric('interactionScale', 'Interaction scale', 0.6, 0.1, 1), numeric('samples', 'Samples', 128, 1, 65536, true), numeric('bounces', 'Bounces', 4, 1, 16, true), numeric('rasterSamples', 'Raster AA samples', 8, 1, 32, true)],
     effects: [numeric('exposure', 'Exposure', 1, 0, 20), numeric('ao', 'Ambient occlusion', 0, 0, 1), numeric('bloom', 'Bloom', 0, 0, 4), field('fxaa', 'FXAA', true, 'boolean'), field('showEdges', 'Show edges', false, 'boolean'), field('showCurves', 'Show curves', true, 'boolean'), field('shadows', 'Shadows', true, 'boolean')]
   }
+  // Append controls so existing graph links retain their saved port indices.
+  schemas.quality.push(field('denoise', 'Path-tracing denoise', true, 'boolean'), numeric('denoiseStrength', 'Denoise strength', 0.5, 0.05, 1))
+  schemas.environment.push(numeric('studioRotation', 'Studio rotation (degrees)', 0, -360, 360), numeric('panelIntensity', 'Studio panel intensity', 1, 0, 10), numeric('panelWidth', 'Studio panel width', 1, 0.1, 4))
+  schemas.light.push(field('studioRole', 'Studio placement', 'manual', 'combo', ['manual', 'key', 'fill', 'rim']))
+  schemas.effects.push(
+    numeric('aoRadius', 'AO radius / model size', 0.02, 0.00001, 0.5),
+    numeric('bloomThreshold', 'Bloom threshold', 1, 0, 20), numeric('bloomRadius', 'Bloom radius', 0.4, 0, 1),
+    field('ground', 'Studio floor', false, 'boolean'), field('groundAutoHeight', 'Floor auto height', true, 'boolean'),
+    numeric('groundHeight', 'Floor height', 0, -1e12, 1e12), numeric('groundSize', 'Floor size / model size', 4, 1, 20),
+    field('groundColor', 'Floor color', '#383c43', 'color'), numeric('groundRoughness', 'Floor roughness', 0.25, 0, 1),
+    numeric('groundReflection', 'Floor reflection', 0.7, 0, 1), numeric('reflectionResolution', 'Reflection resolution', 512, 128, 2048, true)
+  )
+  schemas.effects.push(numeric('groundDistanceBlur', 'Floor distance blur', 1, 0, 4), numeric('groundBlurDistance', 'Floor blur distance / model size', 4, 0.1, 100))
   var materialExtra = Object.keys(materialSchema.defaults).filter(function (key) { return !schemas.material.some(function (spec) { return spec.key === key }) }).map(function (key) {
     var label = key === 'materialType' ? 'Material type' : key.replace(/([A-Z])/g, ' $1').replace(/^./, function (letter) { return letter.toUpperCase() })
     var range = materialSchema.ranges[key]

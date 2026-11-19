@@ -147,6 +147,8 @@
 
   function applyStates (states) {
     states = states || {}
+    global.PandaUINodePluginStates = states
+    global.dispatchEvent(new CustomEvent('pandaui-plugin-states-applied', { detail: states }))
     plugins.forEach(function (plugin) {
       var state = states[plugin.id] || {}
       var enabled = state.installed !== false && state.enabled !== false

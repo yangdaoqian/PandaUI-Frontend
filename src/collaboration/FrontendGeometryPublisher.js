@@ -61,12 +61,14 @@ export default class FrontendGeometryPublisher {
       check(entry)
       entry.root.updateWorldMatrix(true, true)
       const inverse = new THREE.Matrix4().getInverse(entry.root.matrixWorld)
-      const visit = part => {
+      const visit = async part => {
         if (part.userData?.renderBatch || part.userData?.meshFaceEdges || part.userData?.selectionHighlight || part.userData?.nonselectable) return
         const id = sourceId(part)
         const matrix = new THREE.Matrix4().multiplyMatrices(inverse, part.matrixWorld).toArray()
-        const edit = entry.doc.geometryEdits?.get(part.userData.pandauiObjectId)
+        const edit = entry.doc.geometryEdits?.get(part.userData.pandauiObjectId) || await entry.doc.loadLocalGeometryEdit?.(part.userData.pandauiObjectId)
         if (edit) { immediate.push({ entry, geometry: edit.geometry, sourceGeometryId: id, matrix }); return }
+        const imported = id && (entry.doc.importedGeometrySources?.get(id) || await entry.doc.loadLocalGeometry?.(id))
+        if (imported) { immediate.push({ entry, geometry: imported.geometry, sourceGeometryId: id, matrix }); return }
         if (id && /\.3dm$/i.test(entry.doc.sourceFile?.name || '')) {
           let scan = scans.get(entry.doc)
           if (!scan) { scan = new Map(); scans.set(entry.doc, scan) }
@@ -79,9 +81,9 @@ export default class FrontendGeometryPublisher {
           immediate.push({ entry, part, matrix })
           return
         }
-        part.children.forEach(visit)
+        for (const child of part.children) await visit(child)
       }
-      visit(entry.root)
+      await visit(entry.root)
     }
     let completed = 0
     const upload = async (entry, geometry, matrix, sourceGeometryId) => {

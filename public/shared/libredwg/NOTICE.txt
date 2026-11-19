@@ -1,0 +1,10 @@
+@mlightcad/libredwg-web 0.8.8
+
+License: GPL-3.0-only
+Source: https://github.com/mlightcad/libredwg-web
+Runtime asset: libredwg-web.wasm
+
+This runtime is an optional frontend DWG decoder. PandaUI code calls its public
+API and keeps the DWG-to-DXF boundary in src/import/LibredwgImport.js.
+The GPL-3.0 text is included in GPL-3.0.txt. The runtime remains separately
+identifiable from PandaUI source and must retain these notices when distributed.

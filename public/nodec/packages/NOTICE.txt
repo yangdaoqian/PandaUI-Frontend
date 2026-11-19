@@ -1,0 +1,11 @@
+PandaUI node package registration runtime
+
+These packages contain the PandaUI registration ABI and metadata from the
+corresponding existing PandaUI C++ node projects. They do not contain compiled
+SolveInstance implementations or a copy of OpenNURBS, the NodeC geometry kernel,
+the Windows node framework, or proprietary plugin binaries.
+
+Names and descriptions preserve the existing component definitions. Loading a
+package does not imply that its algorithms have been implemented or validated.
+See docs/WASM_NODE_PACKAGES.md and the distribution's LICENSE_SCOPE.md and
+THIRD_PARTY_NOTICES.md for scope and existing project notices.

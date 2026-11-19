@@ -8,8 +8,9 @@
   schema.groups.forEach(function (group) { group.fields.forEach(function (field) { if (!labels[field[1]]) labels[field[1]] = field[0] }) })
   function ports (node) {
     var fields = [['Geometry', 'geometry,scene.object'], ['Material key', 'string']]
-    Object.keys(defaults).forEach(function (key) { fields.push([labels[key], typeof defaults[key] === 'number' ? 'number' : 'string']) })
+    Object.keys(defaults).filter(function (key) { return key !== 'frostDistance' }).forEach(function (key) { fields.push([labels[key], typeof defaults[key] === 'number' ? 'number' : 'string']) })
     Object.keys(schema.textures).forEach(function (key) { fields.push([schema.textures[key].label + ' texture', 'string,render.texture']) })
+    fields.push([labels.frostDistance, 'number']) // Append after existing ports to preserve saved links.
     fields.forEach(function (field) { if (node.findInputSlot(field[0]) < 0) node.addInput(field[0], field[1]) })
   }
   function setting (key, value) {
@@ -38,7 +39,7 @@
     this._selected = this.addWidget('label', 'Material', 'None selected')
     Object.keys(defaults).filter(function (key) { return key !== 'materialType' }).forEach(function (key) {
       var widget = this.addWidget(typeof defaults[key] === 'string' ? 'color' : 'slider', labels[key] || key, defaults[key], key,
-        { min: 0, max: key === 'emissiveIntensity' ? 20 : 1, step: 0.01 })
+        { min: key === 'frostDistance' ? 0.0001 : 0, max: key === 'frostDistance' ? 1000000 : key === 'emissiveIntensity' ? 20 : 1, step: key === 'frostDistance' ? 1 : 0.01 })
       widget.callback = this.queue.bind(this)
     }, this)
     this.addWidget('button', 'Choose color texture', '', this.pickTexture.bind(this))
@@ -75,6 +76,7 @@
     this._focusMaterialSearch?.()
   }
   SceneMaterial.prototype.selectMaterial = function (key) {
+    this._pendingSceneMaterialKey = null
     if (refs.hasInput(this, 'Geometry') && key !== this._referenceMaterialKey) return
     if (!refs.hasInput(this, 'Geometry') && refs.hasInput(this, 'Material key') && key !== refs.scalar(refs.value(this, 'Material key'))) return
     if (key === this.properties.materialKey) return
@@ -228,8 +230,9 @@
         if (refs.hasInput(node, 'Geometry') || refs.hasInput(node, 'Material key')) return
         var keys = message.keys || []
         node._sceneMaterialKeys = keys
+        node._pendingSceneMaterialKey = null
         if (keys.length) {
-          if (!node._catalog.some(function (item) { return item.key === keys[0] })) { node.refresh(); return }
+          if (!node._catalog.some(function (item) { return item.key === keys[0] })) { node._pendingSceneMaterialKey = keys[0]; node.refresh(); return }
           node.selectMaterial(keys[0]); node._revealMaterial?.()
           if (keys.length > 1) status(node, keys.length + ' materials on selected object; showing the first')
         }
@@ -259,7 +262,9 @@
             if (!node.selectReferenceMaterial(node._pendingReferenceKeys)) { node._pendingReferenceKeys = null; status(node, 'No editable material found on this object'); return }
           } else node._pendingReferenceKeys = null
         }
-        if (message.selectedKeys?.length && !refs.hasInput(node, 'Geometry') && !refs.hasInput(node, 'Material key')) { node.selectMaterial(message.selectedKeys[0]); node._revealMaterial?.() }
+        var followKey = node._pendingSceneMaterialKey || (!node.properties.materialKey ? message.selectedKeys?.[0] : null)
+        node._pendingSceneMaterialKey = null
+        if (followKey && !refs.hasInput(node, 'Geometry') && !refs.hasInput(node, 'Material key')) { node.selectMaterial(followKey); node._revealMaterial?.() }
         status(node, node._catalog.length + ' editable material(s)')
         if (node.properties.materialKey) node.preview()
       }

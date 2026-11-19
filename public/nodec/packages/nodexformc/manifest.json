@@ -1,0 +1,2672 @@
+{
+  "schemaVersion": 1,
+  "abiVersion": 1,
+  "id": "nodexformc",
+  "name": "NodeXformC",
+  "version": "0.1.0",
+  "stage": "registration-only",
+  "module": "NodeXformC.wasm",
+  "nodes": [
+    {
+      "id": "03b3db66-d7e8-4d2d-bc0c-122913317254",
+      "name": "Sanity XForm",
+      "nickname": "MWHAHAHA!!",
+      "description": "Apply a sanity transformation to f a r - a w a y, tiny or HUGE geometry",
+      "category": "Xform",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to transform",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Sane geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Wackometry",
+          "nickname": "W",
+          "description": "Reinstated insane geometry",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "048b219e-284a-49f2-ae40-a60465b08447",
+      "name": "SubD Edge Tags",
+      "nickname": "SubDTags",
+      "description": "Set the edge tags of a SubD shape.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD to modify.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Edge Tag",
+          "nickname": "T",
+          "description": "Edge tag descriptor.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Edge IDs",
+          "nickname": "E",
+          "description": "Edge identifiers.",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "Modified SuD shape.",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "06d7bc4a-ba3e-4445-8ab5-079613b52f28",
+      "name": "Project Along",
+      "nickname": "ProjectA",
+      "description": "Project an object onto a plane along a direction.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to project",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Projection plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "D",
+          "description": "Projection direction",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Projected geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "10487e4e-a405-48b5-b188-5a8a6328418b",
+      "name": "SubD Box",
+      "nickname": "SubDBox",
+      "description": "Create a subdivision box",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Box",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Density",
+          "nickname": "D",
+          "description": "Subdivision density",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Creases",
+          "nickname": "C",
+          "description": "Sharp box creases",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "124de0f5-65f8-4ae0-8f61-8fb066e2ba02",
+      "name": "Twisted Box",
+      "nickname": "TBox",
+      "description": "Create a twisted box from corner points.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Corner A",
+          "nickname": "A",
+          "description": "First corner (0,0,0)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner B",
+          "nickname": "B",
+          "description": "Second corner (1,0,0)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner C",
+          "nickname": "C",
+          "description": "Third corner (1,1,0)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner D",
+          "nickname": "D",
+          "description": "Fourth corner (0,1,0)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner E",
+          "nickname": "E",
+          "description": "Fifth corner (0,0,1)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner F",
+          "nickname": "F",
+          "description": "Sixth corner (1,0,1)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner G",
+          "nickname": "G",
+          "description": "Seventh corner (1,1,1)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner H",
+          "nickname": "H",
+          "description": "Last corner (0,1,1)",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "1602b2cc-007c-4b79-8926-0067c6184e44",
+      "name": "Orient Direction",
+      "nickname": "Orient",
+      "description": "Orient an object using directional constraints only.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Point A",
+          "nickname": "pA",
+          "description": "Reference point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Direction A",
+          "nickname": "dA",
+          "description": "Reference direction",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Point B",
+          "nickname": "pB",
+          "description": "Target point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Direction B",
+          "nickname": "dB",
+          "description": "Target direction",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Reoriented geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "17d40004-489e-42d9-ad10-857f7b436801",
+      "name": "Rectangle Mapping",
+      "nickname": "RecMap",
+      "description": "Transform geometry from one rectangle into another.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Rectangle to map from",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Rectangle to map into",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mapped geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1a17d3f0-c8f8-4ee9-8dab-ea1c29db6a49",
+      "name": "Quad Remesh",
+      "nickname": "QRMesh",
+      "description": "Perform quad-remeshing on a shape.",
+      "category": "QuadRemesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to operate on",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Guides",
+          "nickname": "G",
+          "description": "Guide curves",
+          "type": "curve",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Quad result",
+          "nickname": "Q",
+          "description": "Resulting mesh with quad faces only.",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "2183c4c6-b5b3-45d2-9261-2096c9357f92",
+      "name": "SubD Edges",
+      "nickname": "SubDEdges",
+      "description": "Extract all edge data from a SubD.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Line",
+          "nickname": "L",
+          "description": "Edge line",
+          "type": "line",
+          "access": "list"
+        },
+        {
+          "name": "Edge",
+          "nickname": "E",
+          "description": "Edge curve",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Tag",
+          "nickname": "T",
+          "description": "Edge tag",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Id",
+          "nickname": "I",
+          "description": "Edge identifier",
+          "type": "string",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "23285717-156c-468f-a691-b242488c06a6",
+      "name": "Project",
+      "nickname": "Project",
+      "description": "Project an object onto a plane.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to project",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Projection plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Projected geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "290f418a-65ee-406a-a9d0-35699815b512",
+      "name": "Scale NU",
+      "nickname": "Scale NU",
+      "description": "Scale an object with non-uniform factors.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Scale X",
+          "nickname": "X",
+          "description": "Scaling factor in {x} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Scale Y",
+          "nickname": "Y",
+          "description": "Scaling factor in {y} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Scale Z",
+          "nickname": "Z",
+          "description": "Scaling factor in {z} direction",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Scaled geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "331b74f1-1f1f-4f37-b253-24fcdada29e3",
+      "name": "Spatial Deform (custom)",
+      "nickname": "Deform",
+      "description": "Perform spatial deformation based on custom space syntax.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to deform",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Syntax",
+          "nickname": "S",
+          "description": "Points describing space syntax.",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Forces",
+          "nickname": "F",
+          "description": "Forces (one for each point in space",
+          "type": "vector",
+          "access": "list"
+        },
+        {
+          "name": "Falloff",
+          "nickname": "f",
+          "description": "Falloff function (for variable 'x')",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Deformed geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "378d0690-9da0-4dd1-ab16-1d15246e7c22",
+      "name": "Orient",
+      "nickname": "Orient",
+      "description": "Orient an object. Orientation is sometimes called a 'ChangeBasis tranformation'. It allows for remapping of geometry from one axis-system to another.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "A",
+          "description": "Initial plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "B",
+          "description": "Final plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Reoriented geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "3ac8e589-37f5-477d-aa61-6699702c5728",
+      "name": "Rotate Axis",
+      "nickname": "RotAx",
+      "description": "Rotate an object around an axis.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Rotation angle in radians",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Axis",
+          "nickname": "X",
+          "description": "Rotation axis",
+          "type": "line",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Rotated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "3dfb9a77-6e05-4016-9f20-94f78607d672",
+      "name": "Rotate 3D",
+      "nickname": "Rot3D",
+      "description": "Rotate an object around a center point and an axis vector.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Rotation angle in radians",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Center",
+          "nickname": "C",
+          "description": "Center of rotation",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Axis",
+          "nickname": "X",
+          "description": "Axis of rotation",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Rotated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "407e35c6-7c40-4652-bd80-fde1eb7ec034",
+      "name": "Camera Obscura",
+      "nickname": "CO",
+      "description": "Camera Obscura (point mirror) transformation.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Mirror point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Factor",
+          "nickname": "F",
+          "description": "Scaling factor",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mirrored geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4439a51b-8d24-4924-b8e2-f77e7f8f5bec",
+      "name": "Clash",
+      "nickname": "Clash",
+      "description": "Perform clash analysis on a set of shapes.",
+      "category": "Clash",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "First Set",
+          "nickname": "A",
+          "description": "First set of shapes",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Second Set",
+          "nickname": "B",
+          "description": "Second set of shapes",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Distance tolerance for clash detection",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Result Limit",
+          "nickname": "L",
+          "description": "Maximum number of results to search for.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Clash Count",
+          "nickname": "N",
+          "description": "Number of clashes found",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Clash Points",
+          "nickname": "P",
+          "description": "Collection of clashing points.",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Clash Radii",
+          "nickname": "R",
+          "description": "Collection of clashing radii (one for each point).",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "First Index",
+          "nickname": "i",
+          "description": "Index of clashing mesh in first set.",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Second index",
+          "nickname": "j",
+          "description": "Index of clashing mesh in second set.",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "4d2a06bd-4b0f-4c65-9ee0-4220e4c01703",
+      "name": "Scale",
+      "nickname": "Scale",
+      "description": "Scale an object uniformly in all directions.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Center",
+          "nickname": "C",
+          "description": "Center of scaling",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Factor",
+          "nickname": "F",
+          "description": "Scaling factor",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Scaled geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4dbd15c7-ebcb-4af6-b3bd-32e80502520c",
+      "name": "Point Deform",
+      "nickname": "PDeform",
+      "description": "Deform a shape by moving control-points individually",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to deform",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Control-point locations to deform.",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Motion",
+          "nickname": "M",
+          "description": "Motion vector for each control-point",
+          "type": "vector",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Deformed geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4f65c681-9331-4818-9d54-6290cae686c3",
+      "name": "Surface Box",
+      "nickname": "SBox",
+      "description": "Create a twisted box on a surface patch.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Domain",
+          "nickname": "D",
+          "description": "Surface domain",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Height",
+          "nickname": "H",
+          "description": "Height of surface box",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "4fe87ef8-49e4-4605-9859-87940d62e1de",
+      "name": "Move To Plane",
+      "nickname": "MoveToPlane",
+      "description": "Translate (move) an object onto a plane.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Target plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Above",
+          "nickname": "A",
+          "description": "Move when above plane",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Below",
+          "nickname": "B",
+          "description": "Move when below plane",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Translated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "51f61166-7202-45aa-9126-3d83055b269e",
+      "name": "Inverse Transform",
+      "nickname": "Inverse",
+      "description": "Invert a transformation.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Transform",
+          "nickname": "T",
+          "description": "Transformation to inverse",
+          "type": "transform",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Transform",
+          "nickname": "T",
+          "description": "Inversed transformation",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5889b68f-fd88-4032-860f-869fb69654dd",
+      "name": "Surface Morph",
+      "nickname": "SrfMorph",
+      "description": "Morph geometry into surface UVW coordinates",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to deform",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Reference",
+          "nickname": "R",
+          "description": "Reference box to map from",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface to map onto",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "U Domain",
+          "nickname": "U",
+          "description": "Surface space U extents",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "V Domain",
+          "nickname": "V",
+          "description": "Surface space V extents",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "W Domain",
+          "nickname": "W",
+          "description": "Surface space W extents",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Deformed geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5a27203a-e05f-4eea-b80f-a5f29a00fdf2",
+      "name": "Shear",
+      "nickname": "Shear",
+      "description": "Shear an object based on a shearing vector.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Base",
+          "nickname": "P",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Grip",
+          "nickname": "G",
+          "description": "Reference point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Target point",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Sheared geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformatio data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5edaea74-32cb-4586-bd72-66694eb73160",
+      "name": "Rotate Direction",
+      "nickname": "Rotate",
+      "description": "Rotate an object from one direction to another.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Center",
+          "nickname": "C",
+          "description": "Rotation center point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "From",
+          "nickname": "F",
+          "description": "Initial direction",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "To",
+          "nickname": "T",
+          "description": "Final direction",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Rotated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "610e689b-5adc-47b3-af8f-e3a32b7ea341",
+      "name": "Transform",
+      "nickname": "Transform",
+      "description": "Transform an object.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "T",
+          "description": "Transformation",
+          "type": "transform",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Transformed geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "61d81100-c4d3-462d-8b51-d951c0ae32db",
+      "name": "Triangle Mapping",
+      "nickname": "TriMap",
+      "description": "Transform geometry from one triangle into another.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Triangle to map from",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Triangle to map into",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mapped geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "6283fb37-e273-4eb2-8d2a-e347881e3928",
+      "name": "Blend Box",
+      "nickname": "BlendBox",
+      "description": "Create a twisted box between two surfaces.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface A",
+          "nickname": "Sa",
+          "description": "First surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Domain A",
+          "nickname": "Da",
+          "description": "Domain on first surface",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Surface B",
+          "nickname": "Sb",
+          "description": "Second surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Domain B",
+          "nickname": "Db",
+          "description": "Domain on second surface",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "66e6596f-6c8f-4ac3-99e0-0c4b7a59a7f7",
+      "name": "Spatial Deform",
+      "nickname": "Deform",
+      "description": "Perform spatial deformation based on custom space syntax.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to deform",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Syntax",
+          "nickname": "S",
+          "description": "Points describing space syntax.",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Forces",
+          "nickname": "F",
+          "description": "Forces (one for each point in space",
+          "type": "vector",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Deformed geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "6ce1aa3c-626b-4db7-8b5b-bf74c78f8c5e",
+      "name": "Mirror Surface",
+      "nickname": "Mirror",
+      "description": "Mirror geometry in a freeform surface.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to mirror",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Mirror surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Frame",
+          "nickname": "F",
+          "description": "Mirror frame (if true, mirror behaviour extends beyond surface edge)",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mirrored geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "83c81431-17bc-4bff-bb85-be0a846bd044",
+      "name": "SubD Faces",
+      "nickname": "SubDFaces",
+      "description": "Extract all face data from a SubD.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Face centre point",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Count",
+          "nickname": "C",
+          "description": "Number of edges (and vertices) which surround this face.",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Edges",
+          "nickname": "E",
+          "description": "Edge identifiers",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Vertices",
+          "nickname": "V",
+          "description": "Vertex identifiers",
+          "type": "string",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "8465bcce-9e0a-4cf4-bbda-1a7ce5681e10",
+      "name": "Box Mapping",
+      "nickname": "BoxMap",
+      "description": "Transform geometry from one box into another.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Box to map from",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Box to map into",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mapped geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "855a2c73-31c0-41d2-b061-57d54229d11b",
+      "name": "SubD from Mesh",
+      "nickname": "SubDMesh",
+      "description": "Create a SubD from a control mesh",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Control Mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Creases",
+          "nickname": "Cr",
+          "description": "Subdivision crease option",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corners",
+          "nickname": "Co",
+          "description": "Subdivision corner option",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Interpolate",
+          "nickname": "I",
+          "description": "Interpolate mesh vertices",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "915f8f93-f5d1-4a7b-aecb-c327bab88ffb",
+      "name": "Split",
+      "nickname": "Split",
+      "description": "Split a compound transformation into fragments.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Transform",
+          "nickname": "T",
+          "description": "Compound transformation",
+          "type": "transform",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Fragments",
+          "nickname": "F",
+          "description": "Fragments making up the compound transformation",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "92af1a02-9b87-43a0-8c45-0ce1b81555ec",
+      "name": "Triangle Trigonometry",
+      "nickname": "Trig",
+      "description": "Generic triangle trigonometry",
+      "category": "Xform",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "α",
+          "description": "Optional alpha angle",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Beta",
+          "nickname": "β",
+          "description": "Optional beta angle",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Gamma",
+          "nickname": "γ",
+          "description": "Optional gamma angle",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "A length",
+          "nickname": "A",
+          "description": "Optional length of A edge (opposite alpha)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "B length",
+          "nickname": "B",
+          "description": "Optional length of B edge (opposite beta)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "C length",
+          "nickname": "C",
+          "description": "Optional length of C edge (opposite gamma)",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Alpha",
+          "nickname": "α",
+          "description": "Computed alpha angle",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Beta",
+          "nickname": "β",
+          "description": "Computed beta angle",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Gamma",
+          "nickname": "γ",
+          "description": "Computed gamma angle",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "A length",
+          "nickname": "A",
+          "description": "Computed length of A edge",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "B length",
+          "nickname": "B",
+          "description": "Computed length of B edge",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "C length",
+          "nickname": "C",
+          "description": "Computed length of C edge",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "954a8963-bb2c-4847-9012-69ff34acddd5",
+      "name": "SubD Vertex Tags",
+      "nickname": "SubDVTags",
+      "description": "Set the vertex tags of a SubD shape.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD to modify.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Vertex Tag",
+          "nickname": "T",
+          "description": "Vertex tag descriptor. (S=smooth, C=crease, L=corner, D=dart)",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Vertex IDs",
+          "nickname": "V",
+          "description": "Vertex identifiers.",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "Modified SuD shape.",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9c9f8219-ae88-4d29-ba1b-3433ed713639",
+      "name": "Mirror Curve",
+      "nickname": "Mirror",
+      "description": "Mirror a shape in a freeform curve.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to mirror",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Mirror curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Tangent",
+          "nickname": "T",
+          "description": "Mirror tangent (if true, mirror behaviour extends beyond curve ends)",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mirrored geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9f6f954c-ba7b-4428-bf1e-1768cdff666c",
+      "name": "Box Array",
+      "nickname": "ArrBox",
+      "description": "Create a box array of geometry.",
+      "category": "MassXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Cell",
+          "nickname": "C",
+          "description": "3D Box array cell",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "X Count",
+          "nickname": "X",
+          "description": "Number of elements in the array x-direction.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Y Count",
+          "nickname": "Y",
+          "description": "Number of elements in the array y-direction.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Z Count",
+          "nickname": "Z",
+          "description": "Number of elements in the array z-direction.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Arrayed geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "a12dddbf-bb49-4ef4-aeb8-5653bc882cbd",
+      "name": "RandomEx",
+      "nickname": "RndEx",
+      "description": "Generate random data between extremes.",
+      "category": "Xform",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Min",
+          "nickname": "L0",
+          "description": "Lower limit",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Max",
+          "nickname": "L1",
+          "description": "Upper limit",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of values to generate",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Seed",
+          "nickname": "S",
+          "description": "Random Seed",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Random values",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "b7798b74-037e-4f0c-8ac7-dc1043d093e0",
+      "name": "Rotate",
+      "nickname": "Rotate",
+      "description": "Rotate an object in a plane.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Rotation angle in radians",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Rotation plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Rotated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b90eaa92-6e38-4054-a915-afcf486224b3",
+      "name": "Kaleidoscope",
+      "nickname": "KScope",
+      "description": "Apply a kaleidoscope transformation to an object.",
+      "category": "MassXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Kaleidoscope plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Segments",
+          "nickname": "S",
+          "description": "Kaleidoscope segments.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mirrored geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "c0b3c6e9-d05d-4c51-a0df-1ce2678c7a33",
+      "name": "Mesh from SubD",
+      "nickname": "MeshSubD",
+      "description": "Get the approximation mesh of a SubD.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Density",
+          "nickname": "D",
+          "description": "Subdivision density",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh approximation",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c1a57c2a-11c5-4f77-851e-0a7dffef848e",
+      "name": "SubD Control Polygon",
+      "nickname": "SubDPoly",
+      "description": "Extract the control polygon from a SubD.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Control mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c6f23658-617f-4ac8-916d-d0d9e7241b25",
+      "name": "Curve Array",
+      "nickname": "ArrCurve",
+      "description": "Create an array of geometry along a curve.",
+      "category": "MassXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Array rail curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of elements in the array.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Arrayed geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "ca80054a-cde0-4f69-a132-10502b24866d",
+      "name": "Compound",
+      "nickname": "Comp",
+      "description": "Compound two transformations.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Transforms",
+          "nickname": "T",
+          "description": "Transformations to compound",
+          "type": "transform",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Compound",
+          "nickname": "X",
+          "description": "Compound transformation",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "cd9efa8f-0084-4d52-ab13-ad88ff22dc46",
+      "name": "SubD Vertices",
+      "nickname": "SubDVerts",
+      "description": "Extract all vertex data from a SubD.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Vertex location on control net.",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Id",
+          "nickname": "I",
+          "description": "Vertex identifier",
+          "type": "string",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "d8940ff0-dd4a-4e74-9361-54df537b50db",
+      "name": "Box Morph",
+      "nickname": "Morph",
+      "description": "Morph an object into a twisted box.",
+      "category": "SquishyXMorphs",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Reference",
+          "nickname": "R",
+          "description": "Reference box",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Translated geometry",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "dd9f597a-4db0-42b1-9cb2-5607ec97db09",
+      "name": "Move Away From",
+      "nickname": "MoveAway",
+      "description": "Translate (move) an object away from another object.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Geometry to move",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Emitter",
+          "nickname": "E",
+          "description": "Geometry to move away from",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Distance to move (negative values move towards)",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Translated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e521f7c8-92f4-481c-888b-eea109e3d6e9",
+      "name": "Rectangular Array",
+      "nickname": "ArrRec",
+      "description": "Create a rectangular array of geometry.",
+      "category": "MassXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Cell",
+          "nickname": "C",
+          "description": "Rectangular array cell",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "X Count",
+          "nickname": "X",
+          "description": "Number of elements in the array x-direction.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Y Count",
+          "nickname": "Y",
+          "description": "Number of elements in the array y-direction.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Arrayed geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e75d4624-8ee2-4067-ac8d-c56bdc901d83",
+      "name": "Right Trigonometry",
+      "nickname": "RTrig",
+      "description": "Right triangle trigonometry",
+      "category": "Xform",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "α",
+          "description": "Optional alpha angle",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Beta",
+          "nickname": "β",
+          "description": "Optional beta angle",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "P length",
+          "nickname": "P",
+          "description": "Optional length of P edge",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Q length",
+          "nickname": "Q",
+          "description": "Optional length of Q edge",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "R length",
+          "nickname": "R",
+          "description": "Optional length of R edge",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Alpha",
+          "nickname": "α",
+          "description": "Computed alpha angle",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Beta",
+          "nickname": "β",
+          "description": "Computed beta angle",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "P length",
+          "nickname": "P",
+          "description": "Computed length of P edge",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Q length",
+          "nickname": "Q",
+          "description": "Computed length of Q edge",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "R length",
+          "nickname": "R",
+          "description": "Computed length of R edge",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e87db220-a0a0-4d67-a405-f97fd14b2d7a",
+      "name": "Linear Array",
+      "nickname": "ArrLinear",
+      "description": "Create a linear array of geometry.",
+      "category": "MassXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "D",
+          "description": "Linear array direction and interval",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of elements in array.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Arrayed geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e9eb1dcf-92f6-4d4d-84ae-96222d60f56b",
+      "name": "Move",
+      "nickname": "Move",
+      "description": "Translate (move) an object along a vector.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Motion",
+          "nickname": "T",
+          "description": "Translation vector",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Translated geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f12daa2f-4fd5-48c1-8ac3-5dea476912ca",
+      "name": "Mirror",
+      "nickname": "Mirror",
+      "description": "Mirror an object.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Mirror plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Mirrored geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f19ee36c-f21f-4e25-be4c-4ca4b30eda0d",
+      "name": "Shear Angle",
+      "nickname": "Shear",
+      "description": "Shear an object based on tilt angles.",
+      "category": "LinearXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Base",
+          "nickname": "P",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Angle X",
+          "nickname": "Ax",
+          "description": "Rotation around {x} axis in radians",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Angle Y",
+          "nickname": "Ay",
+          "description": "Rotation around {y} axis in radians",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Sheared geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f562505b-4c49-49d1-932d-c8804b3fcec6",
+      "name": "Quad Remesh Settings",
+      "nickname": "QRSettings",
+      "description": "Create setting for Quad-remeshing.",
+      "category": "QuadRemesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Target Count",
+          "nickname": "Tc",
+          "description": "Number of quads to aim for in the result.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Adaptive Size",
+          "nickname": "As",
+          "description": "A number in the range [0, 100] controlling how the quad sizes change depending on curvature.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Adaptive Count",
+          "nickname": "Ac",
+          "description": "True if the number of quads is allowed to be higher for high-curvature areas.",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Hard Edges",
+          "nickname": "He",
+          "description": "Detect and retain hard edges in the input mesh.",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Seam Edges",
+          "nickname": "Se",
+          "description": "Detect and retain brep-face boundary edges (0=Off, 1=Smart, 2=Strict).",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Symmetry",
+          "nickname": "Sy",
+          "description": "Symmetry axis (0=none, 1=X, 2=Y, 3=Z).",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Guide Curves",
+          "nickname": "Gc",
+          "description": "Guide curve influence. (0=approximate, 1=edge-ring, 2=edge-loop).",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "fc8ad805-2cbf-4447-b41b-50c0be591fcd",
+      "name": "SubD Vertices",
+      "nickname": "SubDVerts",
+      "description": "Extract all vertex data from a SubD.",
+      "category": "SubD",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "SubD",
+          "nickname": "S",
+          "description": "SubD",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Vertex location on control net.",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Id",
+          "nickname": "I",
+          "description": "Vertex identifier.",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Tag",
+          "nickname": "T",
+          "description": "Vertex tag type.",
+          "type": "string",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "fca5ad7e-ecac-401d-a357-edda0a251cbc",
+      "name": "Polar Array",
+      "nickname": "ArrPolar",
+      "description": "Create a polar array of geometry.",
+      "category": "MassXForms",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Base geometry",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Polar array plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of elements in array.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Sweep angle in radians (counter-clockwise, starting from plane x-axis)",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Geometry",
+          "nickname": "G",
+          "description": "Arrayed geometry",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Transform",
+          "nickname": "X",
+          "description": "Transformation data",
+          "type": "transform",
+          "access": "list"
+        }
+      ]
+    }
+  ]
+}

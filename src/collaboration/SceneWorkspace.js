@@ -7,6 +7,7 @@ import FrontendGeometryPublisher from './FrontendGeometryPublisher'
 import { sceneRequest, downloadSceneAsset, retryableSceneError } from './SceneRequest'
 import { runDisplayTasks } from './DisplayTaskPool'
 import { groupDisplayDownloads, readDisplayGroup, TARGET_BYTES, MAX_ITEMS, encodeDisplayPack } from './DisplayPackTransfer'
+import { localDocumentSummary } from '../storage/LocalDocumentArchive'
 
 export default class SceneWorkspace {
   constructor (app, changed) {
@@ -28,7 +29,16 @@ export default class SceneWorkspace {
     this.deletedSourceRoots = new WeakSet()
     this.displayRetries = new Map()
     this.uploadFailures = 0
-    this.onSceneChanged = () => this.schedule()
+    this.localSummaries = new WeakMap()
+    this.onSceneChanged = () => {
+      this.schedule()
+      if (!this.localNotifyTimer) {
+        this.localNotifyTimer = setTimeout(() => {
+          this.localNotifyTimer = null
+          if (!this.disposed) { this.localSummaries = new WeakMap(); this.notify() }
+        }, 250)
+      }
+    }
     this.onDocumentViewChanged = () => this.notify()
     this.onBackendMode = () => {
       if (window.PandaUIBackendMode === 'local') {
@@ -56,7 +66,8 @@ export default class SceneWorkspace {
     window.PandaUISceneWorkspace = this
   }
 
-  notify () {
+  notify (refreshLocal = false) {
+    if (refreshLocal) this.localSummaries = new WeakMap()
     const objectCounts = {}
     this.objects.forEach(object => { objectCounts[object.privateDocumentId] = (objectCounts[object.privateDocumentId] || 0) + 1 })
     const sceneObjects = [...this.objects.values()].filter(object => workspaceObjectLoaded(object, this.state))
@@ -68,7 +79,13 @@ export default class SceneWorkspace {
       return true
     }).length
     const displayLoading = { total: shared.length, loaded: loaded.length, shown, hidden: loaded.length - shown, sourceHidden: shared.filter(object => object.visible === false).length, failed: this.displayRetries.size }
-    this.changed({ ...this.state, objectCounts, sceneObjects, displayLoading })
+    const localDocuments = this.app.modelDocuments().filter(doc => doc.localFileLoaded && !doc.disposed).map(doc => {
+      let summary = this.localSummaries.get(doc)
+      if (!summary || summary.workspaceDocumentId !== doc.workspaceDocumentId || summary.savedAt !== doc.localSavedAt) { summary = localDocumentSummary(doc); this.localSummaries.set(doc, summary) }
+      return summary
+    })
+    if (!localDocuments.some(doc => doc.documentId === this.state.localPrivateDocumentId)) this.state.localPrivateDocumentId = localDocuments.at(-1)?.documentId || ''
+    this.changed({ ...this.state, objectCounts, sceneObjects, displayLoading, localDocuments, localFolderBusy: !!this.app.localFolderBusy })
   }
   sceneRoot (objectId) { return [...this.local.values()].find(entry => entry.objectId === objectId)?.root || this.remote.get(objectId)?.root }
   renderDocuments () {
@@ -431,6 +448,40 @@ export default class SceneWorkspace {
     this.queueReconcile()
     this.notify()
     this.schedule()
+  }
+
+  selectLocalPrivate (id) {
+    const model = this.app.modelDocuments().find(doc => doc.documentId === id && doc.localFileLoaded)
+    if (!model) throw new Error('Select an opened local document.')
+    this.state.localPrivateDocumentId = id
+    if (model.workspaceDocumentId && model.workspacePublicDocumentId === this.state.publicDocumentId) {
+      this.state.privateDocumentId = model.workspaceDocumentId
+      window.PandaUIPrivateDocumentId = model.workspaceDocumentId
+    }
+    this.notify()
+  }
+
+  async closeLocalPrivate (id) {
+    if (this.state.busy || this.app.localFolderBusy) throw new Error('Wait for the current document operation to finish.')
+    const model = this.app.modelDocuments().find(doc => doc.documentId === id && doc.localFileLoaded)
+    if (!model) return
+    this.state.busy = true
+    clearTimeout(this.timer)
+    try {
+      if (this.inFlight) await this.inFlight
+      // Leaving a local document is not deletion of its shared objects.
+      for (const [key, entry] of this.local) {
+        if (entry.root?.userData.localDocumentId === id) {
+          entry.overrideCleanup?.dispose()
+          if (entry.displayOverride) disposeSceneDisplay(entry.displayOverride)
+          this.local.delete(key)
+        }
+      }
+      this.state.openedPrivateDocumentIds = this.state.openedPrivateDocumentIds.filter(value => value !== model.workspaceDocumentId)
+      if (this.state.privateDocumentId === model.workspaceDocumentId) { this.state.privateDocumentId = ''; window.PandaUIPrivateDocumentId = null }
+      this.app.removeSceneDocuments([id])
+      this.queueReconcile()
+    } finally { this.state.busy = false; this.notify(true); this.schedule() }
   }
 
   async selectPublic (id) {
@@ -967,6 +1018,7 @@ export default class SceneWorkspace {
   }
 
   dispose () {
+    clearTimeout(this.localNotifyTimer)
     this.disposed = true
     this.generation++
     this.displayReconcileAbort?.abort()

@@ -34,14 +34,15 @@ function captureRenderer (renderer) {
 
 // Z-up, linear radiance. The same scene supplies lighting and the PMREM backdrop.
 export function createResourceEnvironmentScene (settings, scope) {
-  const studio = settings.preset === 'studio'
+  const automotive = settings.preset === 'automotive'
+  const studio = settings.preset === 'studio' || automotive
   const scene = new THREE.Scene()
   const material = scope.own(new THREE.ShaderMaterial({
     side: THREE.BackSide,
     depthWrite: false,
     uniforms: {
-      topColor: { value: new THREE.Color(settings.topColor ?? (studio ? '#c4ccda' : '#8bc6ff')).convertSRGBToLinear() },
-      bottomColor: { value: new THREE.Color(settings.bottomColor ?? (studio ? '#535866' : '#515445')).convertSRGBToLinear() }
+      topColor: { value: new THREE.Color(settings.topColor ?? (automotive ? '#343945' : studio ? '#c4ccda' : '#8bc6ff')).convertSRGBToLinear() },
+      bottomColor: { value: new THREE.Color(settings.bottomColor ?? (automotive ? '#11151c' : studio ? '#535866' : '#515445')).convertSRGBToLinear() }
     },
     vertexShader: 'varying vec3 direction; void main() { direction = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
     // PMREM.fromScene in r120 captures into RGBE8, not a linear float target.
@@ -56,12 +57,14 @@ export function createResourceEnvironmentScene (settings, scope) {
   scene.add(new THREE.Mesh(scope.own(new THREE.SphereBufferGeometry(40, 32, 16)), material))
   if (studio) {
     const geometry = scope.own(new THREE.PlaneBufferGeometry(1, 1))
-    for (const [position, size, brightness] of [
-      [[-8, -4, 10], [8, 12], 8], [[9, 3, 6], [5, 9], 5], [[0, 8, 14], [10, 5], 6]
-    ]) {
-      const panel = new THREE.Mesh(geometry, scope.own(new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(brightness), side: THREE.DoubleSide })))
-      panel.position.fromArray(position)
-      panel.scale.set(size[0], size[1], 1)
+    const panels = automotive
+      ? [[[-8, -4, 9], [3, 18], 10], [[8, 3, 6], [2, 16], 7], [[0, 0, 14], [18, 3], 9], [[-2, 9, 4], [12, 2], 4]]
+      : [[[-8, -4, 10], [8, 12], 8], [[9, 3, 6], [5, 9], 5], [[0, 8, 14], [10, 5], 6]]
+    const angle = THREE.MathUtils.degToRad(Number(settings.studioRotation) || 0)
+    for (const [position, size, brightness] of panels) {
+      const panel = new THREE.Mesh(geometry, scope.own(new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(brightness * Math.max(0, Math.min(10, Number(settings.panelIntensity ?? 1)))), side: THREE.DoubleSide })))
+      panel.position.fromArray(position).applyAxisAngle(new THREE.Vector3(0, 0, 1), angle)
+      panel.scale.set(size[0] * Math.max(0.1, Math.min(4, Number(settings.panelWidth ?? 1))), size[1], 1)
       panel.lookAt(0, 0, 0)
       scene.add(panel)
     }
@@ -100,7 +103,7 @@ export function createResourceSkyTexture (settings) {
 
 export async function loadResourceEnvironment (settings, scope, { renderer, rgbeLoader, createPMREM, createCubeTarget }) {
   if (!settings) return { texture: null, background: null }
-  if (!['studio', 'sky', 'hdri'].includes(settings.preset)) throw new Error(`Unknown environment preset: ${settings.preset}`)
+  if (!['studio', 'automotive', 'sky', 'hdri'].includes(settings.preset)) throw new Error(`Unknown environment preset: ${settings.preset}`)
   if (!renderer) throw new Error('An environment requires a WebGLRenderer')
   const temporary = new RenderResourceScope()
   let source
@@ -121,8 +124,8 @@ export async function loadResourceEnvironment (settings, scope, { renderer, rgbe
     scope.own(target)
     let background = null
     if (settings.background) {
-      if (settings.preset === 'studio') {
-        background = new THREE.Color(settings.bottomColor ?? '#535866').convertSRGBToLinear()
+      if (settings.preset === 'studio' || settings.preset === 'automotive') {
+        background = new THREE.Color(settings.bottomColor ?? (settings.preset === 'automotive' ? '#11151c' : '#535866')).convertSRGBToLinear()
       } else {
         if (!source) source = scope.own(createResourceSkyTexture(settings))
         source.mapping = THREE.EquirectangularReflectionMapping

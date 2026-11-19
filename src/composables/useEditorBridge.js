@@ -398,9 +398,9 @@ export default function useEditorBridge ({ closeAllPopupPanels, saveEditorGraphT
     else if (editorFrameLoaded.value) postToEditor({ type: 'pandaui-editor-mode', active })
   }, { flush: 'sync' })
   onMounted(() => {
-    stopMaterialSelection = PandaUIApp.onSelectionChanged(() => {
+    stopMaterialSelection = PandaUIApp.onSelectionChanged((_selection, detail = {}) => {
       const object = PandaUIApp.getDisplayPipeline()?.getSelectedObjectRoot()
-      if (object === lastMaterialObject) return
+      if (object === lastMaterialObject && detail.reason !== 'object-selection') return
       lastMaterialObject = object
       const keys = PandaUIApp.getDisplayPipeline()?.importedMaterialSelection() || []
       postToEditor({ type: 'pandaui-scene-material-selection', keys })

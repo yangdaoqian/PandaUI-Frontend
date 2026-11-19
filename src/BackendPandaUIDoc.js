@@ -11,6 +11,7 @@ import { releaseDocumentResource } from './DocumentObjectMoves'
 import { createDisplayLighting } from './DisplayLighting'
 import { configureRenderShadows, disposeRenderShadows } from './RenderShadows'
 import { applyRenderMaterialSettings, applyShadingMaterialSettings, normalizeRenderSettings, normalizeShadingSettings } from './DisplayMaterialSettings'
+import { setSurfaceSettings } from './render/MaterialSurface'
 
 function createLayerTree (layers) {
   const roots = []
@@ -107,6 +108,34 @@ function materialTypeDefaults (type) {
   }
 }
 
+function colorHex (value, fallback = '#ffffff') {
+  if (typeof value === 'string' && /^#[\da-f]{6}$/i.test(value)) return value
+  if (!Array.isArray(value)) return fallback
+  return '#' + value.slice(0, 3).map(channel => Math.max(0, Math.min(255, Math.round(Number(channel) || 0))).toString(16).padStart(2, '0')).join('')
+}
+
+function surfacePatchFromAppearance (appearance = {}, materialType, values = {}) {
+  return {
+    materialType,
+    reflection: appearance.reflection ?? appearance.reflectivity ?? values.reflectivity ?? 1,
+    ior: appearance.ior ?? 1.5,
+    transmission: values.transmission ?? appearance.transmission ?? 0,
+    refractionRoughness: appearance.refractionRoughness ?? 0,
+    frostDistance: appearance.frostDistance ?? 1000,
+    thickness: appearance.thickness ?? 1,
+    refractionColor: colorHex(appearance.refractionColor, '#ffffff'),
+    attenuationDistance: appearance.attenuationDistance ?? 10,
+    roughness: values.roughness,
+    metalness: values.metalness,
+    opacity: values.opacity,
+    clearcoat: values.clearcoat,
+    clearcoatRoughness: values.clearcoatRoughness,
+    bumpScale: appearance.bumpScale ?? 1,
+    normalScale: appearance.normalScale ?? 1,
+    emissiveIntensity: appearance.emissiveIntensity ?? 0
+  }
+}
+
 function resolveMaterialType (appearance = {}) {
   const explicit = String(appearance.materialType || '').toLowerCase()
   if (MATERIAL_TYPES.includes(explicit)) return explicit
@@ -133,13 +162,12 @@ function appearanceNumber (appearance, name, fallback, minimum = 0, maximum = 1)
 function importedMaterialSignature (appearance = {}) {
   const color = appearance.diffuse || appearance.color || [154, 167, 181]
   const emissive = appearance.emissive || [0, 0, 0]
-  const normalizedName = String(appearance.materialName || 'Unnamed Material').trim().replace(/\s+/g, ' ').toLowerCase()
-  const normalizedNumber = (value, fallback) => Number(Number(value ?? fallback).toFixed(6))
+  const normalizedNumber = (value, fallback) => Number(value ?? fallback)
   return JSON.stringify({
-    name: normalizedName,
+    name: String(appearance.materialName || 'Unnamed Material').trim() || 'Unnamed Material',
     materialType: resolveMaterialType(appearance),
-    color: color.slice(0, 3).map(value => Math.round(Number(value) || 0)),
-    emissive: emissive.slice(0, 3).map(value => Math.round(Number(value) || 0)),
+    color: color.slice(0, 3).map(value => Number(value) || 0),
+    emissive: emissive.slice(0, 3).map(value => Number(value) || 0),
     opacity: normalizedNumber(appearance.renderOpacity ?? appearance.opacity, 1),
     metalness: normalizedNumber(appearance.metalness, 0),
     roughness: normalizedNumber(appearance.roughness, 0.72),
@@ -154,6 +182,17 @@ function importedMaterialSignature (appearance = {}) {
     anisotropyRotation: normalizedNumber(appearance.anisotropyRotation, 0),
     sheen: normalizedNumber(appearance.sheen, 0),
     emissiveIntensity: normalizedNumber(appearance.emissiveIntensity, 0),
+    reflection: normalizedNumber(appearance.reflection ?? appearance.reflectivity, 1),
+    refractionRoughness: normalizedNumber(appearance.refractionRoughness, 0),
+    frostDistance: normalizedNumber(appearance.frostDistance, 1000),
+    thickness: normalizedNumber(appearance.thickness, 1),
+    refractionColor: colorHex(appearance.refractionColor),
+    attenuationDistance: normalizedNumber(appearance.attenuationDistance, 10),
+    bumpScale: normalizedNumber(appearance.bumpScale, 1),
+    normalScale: normalizedNumber(appearance.normalScale, 1),
+    transparent: appearance.transparent === true,
+    // Deferred images have not been compared yet; do not merge them on color.
+    textureSource: appearance.hasTexture ? (appearance.materialId || appearance.materialName) : null,
     physicallyBased: appearance.physicallyBased === true,
     hasTexture: appearance.hasTexture === true
   })
@@ -182,6 +221,9 @@ function applyMaterialTypePreset (material, materialType) {
   material.transparent = defaults.transparent
   if (defaults.emissiveIntensity != null) material.emissiveIntensity = defaults.emissiveIntensity
   material.depthWrite = !material.transparent && material.transmission <= 0
+  setPhysicalBase(material, defaults)
+  setSurfaceSettings(material, surfacePatchFromAppearance(defaults, materialType, defaults))
+  material.reflectivity = defaults.reflectivity
   setPhysicalBase(material, defaults)
 }
 
@@ -229,6 +271,12 @@ function createRenderMaterial (appearance = {}) {
   material.userData.pandauiSheen = appearanceNumber(appearance, 'sheen', 0)
   if (material.userData.pandauiSheen > 0) material.sheen = material.color.clone().lerp(new THREE.Color(0xffffff), 1 - material.userData.pandauiSheen)
   setPhysicalBase(material, values)
+  setSurfaceSettings(material, surfacePatchFromAppearance(appearance, materialType, values))
+  // The legacy material editor exposes reflectivity separately from IOR.
+  // Keep that value as the native environment response while the surface
+  // shader uses the stored IOR for refraction/Fresnel.
+  material.reflectivity = values.reflectivity
+  setPhysicalBase(material, values)
   return material
 }
 
@@ -236,6 +284,7 @@ function materialSettings (entry) {
   const material = entry.material
   const texture = material.map || null
   const base = material.userData.pandauiPhysicalBase || {}
+  const surface = material.userData.pandaSurface || {}
   return {
     id: entry.id, name: entry.name, source: entry.source, type: material.type || 'MeshPhysicalMaterial',
     materialType: material.userData.pandauiMaterialType || 'general',
@@ -245,6 +294,12 @@ function materialSettings (entry) {
     roughness: base.roughness ?? material.roughness ?? 0.5, transmission: material.transmission ?? 0,
     reflectivity: base.reflectivity ?? material.reflectivity ?? 0.5, clearcoat: base.clearcoat ?? material.clearcoat ?? 0,
     clearcoatRoughness: base.clearcoatRoughness ?? material.clearcoatRoughness ?? 0.25, ior: material.userData.pandauiIor ?? 1.5,
+    reflection: surface.reflection ?? base.reflectivity ?? material.reflectivity ?? 0.5,
+    refractionRoughness: surface.refractionRoughness ?? 0,
+    frostDistance: surface.frostDistance ?? 1000,
+    thickness: surface.thickness ?? 1,
+    refractionColor: surface.refractionColor ?? '#ffffff',
+    attenuationDistance: surface.attenuationDistance ?? 10,
     specularTint: material.userData.pandauiSpecularTint ?? 0, anisotropy: material.userData.pandauiAnisotropy ?? 0,
     anisotropyRotation: material.userData.pandauiAnisotropyRotation ?? 0, sheen: material.userData.pandauiSheen ?? 0,
     opacity: material.opacity ?? 1, transparent: material.transparent === true, wireframe: material.wireframe === true,
@@ -265,7 +320,8 @@ function captureMaterialState (material) {
     clearcoat: base.clearcoat ?? material.clearcoat, clearcoatRoughness: base.clearcoatRoughness ?? material.clearcoatRoughness,
     opacity: material.opacity, transparent: material.transparent, wireframe: material.wireframe, transmission: material.transmission,
     reflectivity: base.reflectivity ?? material.reflectivity, ior: material.userData.pandauiIor, specularTint: material.userData.pandauiSpecularTint,
-    anisotropy: material.userData.pandauiAnisotropy, anisotropyRotation: material.userData.pandauiAnisotropyRotation, sheen: material.userData.pandauiSheen, map: material.map || null
+    anisotropy: material.userData.pandauiAnisotropy, anisotropyRotation: material.userData.pandauiAnisotropyRotation, sheen: material.userData.pandauiSheen, map: material.map || null,
+    surface: material.userData.pandaSurface ? { ...material.userData.pandaSurface } : null
   }
 }
 
@@ -509,9 +565,6 @@ export default class BackendPandaUIDoc {
     const typeChanged = MATERIAL_TYPES.includes(requestedType) && requestedType !== material.userData.pandauiMaterialType
     if (typeChanged) {
       applyMaterialTypePreset(material, requestedType)
-      if (settings.color != null) material.color.set(settings.color)
-      applyRenderMaterialSettings(material, this.renderSettings, this.renderEnvironment, this.renderModeEnabled)
-      return materialSettings(entry)
     }
     if (settings.color != null) material.color.set(settings.color)
     if (settings.emissive != null) material.emissive.set(settings.emissive)
@@ -535,6 +588,20 @@ export default class BackendPandaUIDoc {
       material.userData.pandauiSheen = clamp01(settings.sheen)
       material.sheen = material.userData.pandauiSheen > 0 ? material.color.clone().lerp(new THREE.Color(0xffffff), 1 - material.userData.pandauiSheen) : null
     }
+    setSurfaceSettings(material, surfacePatchFromAppearance(settings, requestedType, {
+      metalness: material.userData.pandauiPhysicalBase.metalness,
+      roughness: material.userData.pandauiPhysicalBase.roughness,
+      transmission: material.transmission,
+      reflectivity: material.userData.pandauiPhysicalBase.reflectivity,
+      clearcoat: material.userData.pandauiPhysicalBase.clearcoat,
+      clearcoatRoughness: material.userData.pandauiPhysicalBase.clearcoatRoughness,
+      opacity: material.opacity,
+      emissiveIntensity: material.emissiveIntensity
+    }))
+    // setSurfaceSettings may derive Three's legacy reflectivity from IOR;
+    // restore the editor's explicit reflectivity value after that conversion.
+    material.reflectivity = material.userData.pandauiPhysicalBase.reflectivity
+    material.userData.pandauiIor = material.userData.pandaSurface.ior
     material.depthWrite = material.transparent !== true && material.transmission <= 0
     const texture = material.map
     if (texture != null) {
@@ -585,6 +652,9 @@ export default class BackendPandaUIDoc {
     if (material.map != null && material.map !== state.map) material.map.dispose()
     material.map = state.map
     material.userData.pandauiPhysicalBase = { metalness: state.metalness, roughness: state.roughness, clearcoat: state.clearcoat, clearcoatRoughness: state.clearcoatRoughness, reflectivity: state.reflectivity }
+    if (state.surface) setSurfaceSettings(material, state.surface)
+    material.reflectivity = state.reflectivity
+    material.userData.pandauiPhysicalBase.reflectivity = state.reflectivity
     material.depthWrite = material.transparent !== true && material.transmission <= 0
     applyRenderMaterialSettings(material, this.renderSettings, this.renderEnvironment, this.renderModeEnabled)
     return materialSettings(entry)

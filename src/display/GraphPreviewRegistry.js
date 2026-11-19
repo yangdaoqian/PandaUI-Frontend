@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { isDisplayOnlySharedObject } from './SharedSelectionPolicy'
 import RhinoGeometryConverter from '../RhinoGeometryConverter.js'
-import { documentGeometryVisible } from '../GeometryDocumentViewState'
+import { documentGeometryVisible, sceneObjectLocked } from '../GeometryDocumentViewState'
 import { expandVisibleSceneBounds } from '../SceneBounds'
 import { captureGeometry, restoreGeometryPreview } from '../SceneGeometryPreview.js'
 import { createBrepSelection, releaseBrepSelection, materializeBrepSelection } from '../BrepDisplayRanges'
@@ -114,8 +114,21 @@ export default class GraphPreviewRegistry {
     }
     const matches = object => !reference.objectId && object.userData?.documentId === reference.documentId &&
       (!reference.geometryId || object.userData.geometryId === reference.geometryId) &&
-      (!reference.poolGeneration || object.userData.poolGeneration === reference.poolGeneration) && matchesLayer(object.fullLayerPath || object.userData.layerPath)
+      (!reference.poolGeneration || object.userData.poolGeneration === reference.poolGeneration) &&
+      (!reference.nodeInstanceId || String(object.userData.origin?.nodeInstanceId || object.userData.nodeId || '') === String(reference.nodeInstanceId)) && matchesLayer(object.fullLayerPath || object.userData.layerPath)
     this.#services.getModelDocuments().forEach(document => {
+      if (reference.localDocument && document.documentId === reference.documentId) {
+        const visit = object => {
+          if (object.userData?.renderBatch || object.userData?.nodePreview || object.isLight || object.isCamera || object.isScene) return
+          if (reference.localObjectId) {
+            if (object.userData?.pandauiObjectId === reference.localObjectId) { objects.add(object); return }
+          } else if ((object.userData?.importedModelObject || object.userData?.importedBlockInstance || object.geometry) && matchesLayer(object.fullLayerPath)) { objects.add(object); return }
+          object.children.forEach(visit)
+        }
+        document.three?.middleground.children.forEach(visit)
+        document.three?.foreground.children.forEach(visit)
+        return
+      }
       document.objectsByGeometryId?.forEach(addShared)
       if (reference.objectId || document.documentId !== reference.documentId || (reference.poolGeneration && document.poolGeneration !== reference.poolGeneration)) return
       if (reference.geometryId) {
@@ -138,11 +151,12 @@ export default class GraphPreviewRegistry {
       const shared = data.sharedObject
       return { documentId: shared.nativeDocumentId || shared.privateDocumentId, geometryId: shared.geometryId, objectId: shared.objectId, poolGeneration: shared.poolGeneration }
     }
+    if (data?.localDocumentId && data?.pandauiObjectId) return { documentId: data.localDocumentId, geometryId: data.pandauiObjectId, localObjectId: data.pandauiObjectId, localDocument: true }
     return data?.documentId && data?.geometryId ? { documentId: data.documentId, geometryId: data.geometryId, poolGeneration: data.poolGeneration } : null
   }
 
   selectDocumentTreeItem (reference) {
-    const object = this.documentTreeObjects(reference).find(candidate => !candidate.userData.nodePreview && !candidate.userData.nonselectable && !isDisplayOnlySharedObject(candidate))
+    const object = this.documentTreeObjects(reference).find(candidate => !candidate.userData.nodePreview && !candidate.userData.nonselectable && !sceneObjectLocked(candidate) && !isDisplayOnlySharedObject(candidate))
     if (!object) return false
     this.#services.clearGroupEditMode()
     for (let parent = object; parent; parent = parent.parent) if (!parent.visible) return false

@@ -37,6 +37,7 @@ export default class WorkspaceOperations {
     register('scene.uv', payload => this.applyState(payload, state => this.#services.getPipeline().applyObjectUVState(state)))
     register('scene.visibility', payload => this.applyState(payload, state => this.#services.getPipeline().applyObjectVisibilityState(state)))
     register('scene.document_visibility', payload => this.applyState(payload, state => this.#services.getPipeline().setDocumentTreeVisibility(state.reference, state.visible, false)))
+    register('scene.document_view', payload => this.applyState(payload, state => this.#services.getPipeline().applyDocumentViewState(state)))
     register('scene.material_definition', payload => this.applyState(payload, state => this.#services.getPipeline().restoreRenderMaterialDefinition(state)))
     register('scene.transform', payload => this.applyState(payload, state => this.#services.getPipeline().applyObjectTransformState(state)))
     register('scene.control_points', payload => this.applyControlPoints(payload), true)

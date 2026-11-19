@@ -1641,6 +1641,18 @@
       ]
     },
     {
+      "name": "@mlightcad/libredwg-web",
+      "version": "0.8.8",
+      "license": "GPL-3.0",
+      "runtimeDependency": true,
+      "homepage": null,
+      "repository": "https://github.com/mlightcad/libredwg-web",
+      "notices": [
+        "public/shared/libredwg/GPL-3.0.txt",
+        "public/shared/libredwg/NOTICE.txt"
+      ]
+    },
+    {
       "name": "@nodelib/fs.scandir",
       "version": "2.1.5",
       "license": "MIT",

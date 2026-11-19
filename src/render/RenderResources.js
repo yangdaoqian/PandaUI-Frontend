@@ -38,6 +38,7 @@ export default class RenderResources {
     this._nextBlobId = 0
   }
 
+  get bounds () { return this._shadowFocus || this._bounds }
   get environment () { return this._environment }
   get background () { return this._background }
   get lightScene () { return this.rig }

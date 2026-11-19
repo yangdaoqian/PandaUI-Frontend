@@ -1,10 +1,12 @@
 import * as THREE from 'three'
 import { applyMaterialSurface } from '../render/MaterialSurface'
+import { sharedObjectSourceVisible } from '../GeometryDocumentViewState'
 
 const constructors = { Float32Array, Float64Array, Uint32Array, Uint16Array, Uint8Array, Int32Array, Int16Array, Int8Array, Uint8ClampedArray }
 const fields = ['originalType', 'originalName', 'geometryType', 'definitionObjectType', 'selectionRole', 'faceIndex', 'edgeIndex', 'faceRanges', 'edgeRanges', 'meshGeometryEdges', 'meshFaceEdges', 'surfaceWires', 'edgeLines', 'edgeColorFollowsShading', 'parameterPickAmbiguous', 'visible', 'pandauiHidden', 'importedHiddenObject', 'nonselectable', 'pandauiObjectId', 'objectId', 'geometryId', 'sourceGeometryId', 'sourceDisplayId', 'sourceObject', 'sceneFileLogicalNode', 'materialId', 'renderMaterialId']
 const pick = (data, keys) => Object.fromEntries(keys.filter(key => data?.[key] !== undefined).map(key => [key, data[key]]))
 const plainData = data => pick(data, fields)
+export const localDisplayMetadata = data => ({ ...plainData(data), ...pick(data, ['importedModelObject', 'importedBlockInstance', 'sourceFaceCount', 'subdDisplayMode', 'sharpEdge', 'instanceDefinitionId', 'instanceDefinitionPath', 'nodecStepDiagnostics']) })
 const materialsOf = object => Array.isArray(object.material) ? object.material : object.material ? [object.material] : []
 const bagMaterials = object => Object.values(object.userData?.displayMaterials || {}).flat().filter(Boolean)
 const isHelper = object => object.isLight || object.isCamera || object.userData?.renderBatch || object.userData?.selectionHighlight || object.userData?.groupEditBounds || object.userData?.pandauiGumball || object.userData?.renderShadowGround
@@ -14,7 +16,7 @@ const isHelper = object => object.isLight || object.isCamera || object.userData?
 const materialScalars = ['name', 'opacity', 'transparent', 'side', 'shadowSide', 'depthTest', 'depthWrite', 'depthFunc', 'colorWrite', 'vertexColors', 'metalness', 'roughness', 'shininess', 'size', 'sizeAttenuation', 'linewidth', 'linecap', 'linejoin', 'dashSize', 'gapSize', 'scale', 'wireframe', 'wireframeLinewidth', 'flatShading', 'emissiveIntensity', 'aoMapIntensity', 'lightMapIntensity', 'envMapIntensity', 'bumpScale', 'normalMapType', 'displacementScale', 'displacementBias', 'clearcoat', 'clearcoatRoughness', 'reflectivity', 'refractionRatio', 'transmission', 'ior', 'thickness', 'attenuationDistance', 'alphaTest', 'premultipliedAlpha', 'blending', 'blendSrc', 'blendDst', 'blendEquation', 'blendSrcAlpha', 'blendDstAlpha', 'blendEquationAlpha', 'polygonOffset', 'polygonOffsetFactor', 'polygonOffsetUnits', 'dithering', 'toneMapped', 'fog', 'visible', 'skinning', 'morphTargets', 'morphNormals', 'combine']
 const materialColors = ['color', 'emissive', 'specular', 'sheen', 'attenuationColor']
 const materialVectors = ['normalScale', 'clearcoatNormalScale']
-const materialMetadata = ['pandaSurface', 'pandauiPhysicalBase', 'rhinoMaterialId', 'pandaSceneMaterialSourceId', 'pandaSceneMaterialEdited']
+const materialMetadata = ['pandaMaterialLibraryId', 'pandaUVRepeat', 'pandaSurface', 'pandauiPhysicalBase', 'rhinoMaterialId', 'pandaSceneMaterialSourceId', 'pandaSceneMaterialEdited']
 const textureSlots = ['map', 'emissiveMap', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'alphaMap', 'bumpMap', 'displacementMap', 'lightMap', 'specularMap', 'clearcoatMap', 'clearcoatRoughnessMap', 'clearcoatNormalMap', 'transmissionMap', 'envMap', 'gradientMap']
 const textureScalars = ['name', 'mapping', 'wrapS', 'wrapT', 'minFilter', 'magFilter', 'anisotropy', 'format', 'internalFormat', 'type', 'encoding', 'colorSpace', 'channel', 'rotation', 'matrixAutoUpdate', 'generateMipmaps', 'premultiplyAlpha', 'flipY', 'unpackAlignment']
 const textureMetadata = ['sceneFileTexCoord', 'pandauiTextureName']
@@ -38,7 +40,7 @@ function textureState (texture) {
 function materialState (material, textureReference) {
   const result = { type: material.type, ...pick(material, materialScalars), userData: pick(material.userData, materialMetadata) }
   for (const key of [...materialColors, ...materialVectors]) if (material[key]) result[key] = material[key].toArray()
-  result.textures = Object.fromEntries(textureSlots.filter(key => material[key]?.isTexture).map(key => [key, textureReference(material[key])]))
+  result.textures = Object.fromEntries(textureSlots.filter(key => material[key]?.isTexture).map(key => [key, textureReference(material[key], key)]))
   return result
 }
 
@@ -91,7 +93,7 @@ export function displaySignature (root) {
     // Root visibility is synchronized separately; tree filters may reset the
     // local hidden flag without changing the shared object or its display.
     if (object === root) { delete data.pandauiHidden; delete data.visible }
-    entries.push([object.uuid, object.type, object === root ? null : object.matrix.elements, object === root ? null : object.visible, geometry?.uuid,
+    entries.push([object.uuid, object.type, object === root ? null : object.matrix.elements, object === root ? null : sharedObjectSourceVisible(object), geometry?.uuid,
       geometry ? Object.entries(geometry.attributes || {}).map(([name, attribute]) => [name, attribute.version, attribute.count, attribute.data?.version]) : null,
       geometry?.isGeometry ? [geometry.vertices, geometry.colors, geometry.faces, geometry.faceVertexUvs] : null,
       geometry?.index?.version, geometry?.index?.count, object.instanceMatrix?.version, object.instanceColor?.version, object.count,
@@ -105,7 +107,7 @@ export function displaySignature (root) {
   return JSON.stringify(entries)
 }
 
-export function encodeSceneDisplay (root) {
+export function encodeSceneDisplay (root, { externalMaterialIds, local = false, strictTextures = false } = {}) {
   const buffers = []
   const geometries = []
   const geometryIds = new Map()
@@ -162,13 +164,18 @@ export function encodeSceneDisplay (root) {
     if (result) images.push(result)
     return id
   }
-  const textureReference = texture => {
-    if (textureIds.has(texture)) return textureIds.get(texture)
+  const textureReference = (texture, slot) => {
+    if (textureIds.has(texture)) {
+      const id = textureIds.get(texture)
+      if (strictTextures && id === null && slot !== 'envMap') throw new Error('Cannot save material texture: ' + (texture.name || slot) + '. Reload a supported local image and save again.')
+      return id
+    }
     // Render targets and compressed textures need a GPU readback/decoder;
     // their backing image is not a portable source image.
     const source = !texture.isRenderTargetTexture && !texture.isCompressedTexture ? texture.image : null
     const image = Array.isArray(source) ? source.map(face => imageReference(face.isDataTexture ? face.image : face)) : imageReference(source)
     const available = Array.isArray(image) ? image.length === 6 && image.every(id => id !== null) : image !== null
+    if (strictTextures && !available && slot !== 'envMap') throw new Error('Cannot save material texture: ' + (texture.name || slot) + '. Reload a supported local image and save again.')
     const id = available ? textures.length : null
     textureIds.set(texture, id)
     if (available) textures.push({ ...textureState(texture), image, cube: texture.isCubeTexture === true })
@@ -176,6 +183,11 @@ export function encodeSceneDisplay (root) {
   }
   const materialReference = material => {
     if (!material) return null
+    if (externalMaterialIds) {
+      const id = externalMaterialIds.get(material)
+      if (id == null) throw new Error('Missing document material.')
+      return id
+    }
     if (!materialIds.has(material)) { materialIds.set(material, materials.length); materials.push(materialState(material, textureReference)) }
     return materialIds.get(material)
   }
@@ -183,7 +195,8 @@ export function encodeSceneDisplay (root) {
   const visit = object => {
     if (isHelper(object)) return null
     if (object.matrixAutoUpdate) object.updateMatrix()
-    const data = { type: object.type, name: object.name, matrix: object === root ? new THREE.Matrix4().toArray() : object.matrix.toArray(), visible: object === root || object.visible, userData: plainData(object.userData), children: object.children.map(visit).filter(Boolean) }
+    const data = { type: object.type, name: object.name, matrix: object === root ? new THREE.Matrix4().toArray() : object.matrix.toArray(), visible: object === root || sharedObjectSourceVisible(object), userData: plainData(object.userData), children: object.children.map(visit).filter(Boolean) }
+    if (local) Object.assign(data.userData, localDisplayMetadata(object.userData))
     data.userData.pandauiObjectId ??= object.userData?.objectId || object.uuid
     Object.assign(data, pick(object, ['fullLayerPath', 'castShadow', 'receiveShadow', 'renderOrder', 'frustumCulled', 'matrixAutoUpdate']))
     if (object.userData?.displayMaterials) data.displayMaterials = materialBag(object.userData.displayMaterials)
@@ -218,7 +231,7 @@ export function encodeSceneDisplay (root) {
   } finally { temporaryGeometries.forEach(geometry => geometry.dispose()) }
 }
 
-export function decodeSceneDisplay (input, { shareBuffer = false } = {}) {
+export function decodeSceneDisplay (input, { shareBuffer = false, externalMaterials } = {}) {
   const bytes = input instanceof Uint8Array ? input : new Uint8Array(input)
   const buffer = bytes.buffer, base = bytes.byteOffset, length = bytes.byteLength
   const header = new DataView(buffer, base, length)
@@ -305,7 +318,7 @@ export function decodeSceneDisplay (input, { shareBuffer = false } = {}) {
       return texture
     })
     const materialTypes = { MeshBasicMaterial: THREE.MeshBasicMaterial, MeshStandardMaterial: THREE.MeshStandardMaterial, MeshPhysicalMaterial: THREE.MeshPhysicalMaterial, MeshPhongMaterial: THREE.MeshPhongMaterial, MeshLambertMaterial: THREE.MeshLambertMaterial, MeshToonMaterial: THREE.MeshToonMaterial, MeshNormalMaterial: THREE.MeshNormalMaterial, MeshDepthMaterial: THREE.MeshDepthMaterial, LineBasicMaterial: THREE.LineBasicMaterial, LineDashedMaterial: THREE.LineDashedMaterial, PointsMaterial: THREE.PointsMaterial }
-    const materials = metadata.materials.map(({ type, ...settings }) => {
+    const materials = externalMaterials || metadata.materials.map(({ type, ...settings }) => {
       const material = own('materials', new (materialTypes[type] || THREE.MeshStandardMaterial)())
       restoreMaterial(material, settings)
       for (const key of textureSlots) {

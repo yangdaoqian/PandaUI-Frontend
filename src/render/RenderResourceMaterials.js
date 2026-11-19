@@ -78,8 +78,10 @@ export function createResourceMaterial (source, binding, environment, intensity,
       material.transparent = material.opacity < 1
       material.depthWrite = !material.transparent
     }
-    // r120 has no ior uniform: its dielectric F0 is 0.16 * reflectivity^2.
-    if (settings.ior != null) {
+    // Legacy bindings without a surface schema still need the r120 F0
+    // approximation. Typed bindings get their IOR from pandaSurface and the
+    // custom shader, so native reflectivity remains an independent control.
+    if (settings.ior != null && !settings.materialType) {
       const ior = resourceNumber(settings.ior, 1.5, 1, 7 / 3)
       material.reflectivity = (ior - 1) / (ior + 1) / 0.4
     }

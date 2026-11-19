@@ -1,0 +1,6604 @@
+{
+  "schemaVersion": 1,
+  "abiVersion": 1,
+  "id": "nodemathc",
+  "name": "NodeMathC",
+  "version": "0.1.0",
+  "stage": "registration-only",
+  "module": "NodeMathC.wasm",
+  "nodes": [
+    {
+      "id": "008e9a6f-478a-4813-8c8a-546273bc3a6b",
+      "name": "Cull Pattern",
+      "nickname": "Cull",
+      "description": "Cull (remove) elements in a list using a repeating bit mask.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to cull",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Cull Pattern",
+          "nickname": "P",
+          "description": "Culling pattern",
+          "type": "boolean",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Culled list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "01640871-69ea-40ac-9380-4660d6d28bd2",
+      "name": "Char Sequence",
+      "nickname": "CharSeq",
+      "description": "Create a sequence of textual characters.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Count",
+          "nickname": "C",
+          "description": "Number of elements in the sequence.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Char Pool",
+          "nickname": "P",
+          "description": "Pool of characters available to the sequence.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Format",
+          "nickname": "F",
+          "description": "Optional formatting mask",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Sequence",
+          "nickname": "S",
+          "description": "Sequence of character tags",
+          "type": "string",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "01cbd6e3-ccbe-4c24-baeb-46e10553e18b",
+      "name": "Concatenate",
+      "nickname": "Concat",
+      "description": "Concatenate two fragments of text",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Start",
+          "nickname": "A",
+          "description": "Text to append to.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "End",
+          "nickname": "B",
+          "description": "Text to append.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting text consisting of A+B",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "035bf8a7-b9e0-4e37-b031-4567bc60d047",
+      "name": "Multiplication",
+      "nickname": "Mul",
+      "description": "Perform colour multiplication.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour A",
+          "nickname": "A",
+          "description": "First colour",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Colour B",
+          "nickname": "B",
+          "description": "Second colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "03b801eb-87cd-476a-a591-257fe5d5bf0f",
+      "name": "Pick'n'Choose",
+      "nickname": "P'n'C",
+      "description": "Pick and choose from a set of input data.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Pattern",
+          "nickname": "P",
+          "description": "Pick pattern of input indices",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Picked result",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "040f195d-0b4e-4fe0-901f-fedb2fd3db15",
+      "name": "Gate And",
+      "nickname": "And",
+      "description": "Perform boolean conjunction (AND gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "First boolean for AND operation",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Second boolean for AND operation",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "04887d01-504c-480e-b2a2-01ea19cc5922",
+      "name": "Text Split",
+      "nickname": "Split",
+      "description": "Split some text into fragments using separators",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to split.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Separators",
+          "nickname": "C",
+          "description": "Separator characters.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting text fragments",
+          "type": "string",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "07e0811f-034a-4504-bca0-2d03b2c46217",
+      "name": "Text Fragment",
+      "nickname": "Fragment",
+      "description": "Extract a fragment (subset) of some text",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to operate on.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Start",
+          "nickname": "i",
+          "description": "Zero based index of first character to copy.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Optional number of characters to copy. If blank, the entire remainder will be copied.",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Fragment",
+          "nickname": "F",
+          "description": "The resulting text fragment",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0a1331c8-c58d-4b3f-a886-47051532e35e",
+      "name": "Split AHSL",
+      "nickname": "AHSL",
+      "description": "Split a colour into floating point {AHSL} channels",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Input colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Hue",
+          "nickname": "H",
+          "description": "Hue",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Saturation",
+          "nickname": "S",
+          "description": "Saturation",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Luminance",
+          "nickname": "L",
+          "description": "Luminance",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0b5c7fad-0473-41aa-bf52-d7a861dcaa29",
+      "name": "Find Domain",
+      "nickname": "FDom",
+      "description": "Find the first domain that contains a specific value",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domains",
+          "nickname": "D",
+          "description": "Collection of domains to search",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Number to test",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Strict",
+          "nickname": "S",
+          "description": "Strict comparison, if true then the value must be on the interior of a domain",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Index of first domain that includes the specified value",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Neighbour",
+          "nickname": "N",
+          "description": "Index of domain that is closest to the specified value",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0b6c5dac-6c93-4158-b8d1-ca3187d45f25",
+      "name": "Merge Multiple",
+      "nickname": "Merge",
+      "description": "Merge multiple input streams into one",
+      "category": "Merge",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Stream 0",
+          "nickname": "0",
+          "description": "Input stream #1",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Stream 1",
+          "nickname": "1",
+          "description": "Input stream #2",
+          "type": "generic",
+          "access": "tree"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Stream",
+          "nickname": "S",
+          "description": "Merged stream",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "0bb7682f-333c-4bb7-b6fe-91ed2c886100",
+      "name": "Mean",
+      "nickname": "Mean",
+      "description": "Solves statistical means and averages for a set of numbers",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for mean calculation",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Arithmetic mean",
+          "nickname": "AM",
+          "description": "Arithmetic mean (average) of all input values",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Geometric mean",
+          "nickname": "GM",
+          "description": "Geometric mean of all input values",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Harmonic mean",
+          "nickname": "HM",
+          "description": "Harmonic mean of all input values",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0c2f0932-5ddc-4ece-bd84-a3a059d3df7a",
+      "name": "Construct Date",
+      "nickname": "Date",
+      "description": "Construct a date and time instance.",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Year",
+          "nickname": "Y",
+          "description": "Year number (must be between 1 and 9999)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Month",
+          "nickname": "M",
+          "description": "Month number (must be between 1 and 12)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Day",
+          "nickname": "D",
+          "description": "Day of month (must be between 1 and 31)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Hour",
+          "nickname": "h",
+          "description": "Hour of day (must be between 0 and 23)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Minute",
+          "nickname": "m",
+          "description": "Minute of the hour (must be between 0 and 59)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Second",
+          "nickname": "s",
+          "description": "Second of the minute (must be between 0 and 59)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Date",
+          "nickname": "D",
+          "description": "Date and Time data",
+          "type": "time",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0c80d9c0-d8b3-4817-b8e1-6214d443704b",
+      "name": "Subtraction",
+      "nickname": "Sub",
+      "description": "Perform colour subtraction.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour A",
+          "nickname": "A",
+          "description": "First colour",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Colour B",
+          "nickname": "B",
+          "description": "Second colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0d77c51e-584f-44e8-aed2-c2ddf4803888",
+      "name": "Degrees",
+      "nickname": "Deg",
+      "description": "Convert an angle specified in radians to degrees",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Radians",
+          "nickname": "R",
+          "description": "Angle in radians",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Degrees",
+          "nickname": "D",
+          "description": "Angle in degrees",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0e90b1f3-b870-4e09-8711-4bf819675d90",
+      "name": "Transpose Matrix",
+      "nickname": "Transpose",
+      "description": "Transpose a matrix (swap rows and columns)",
+      "category": "Matrix",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "A newly created matrix",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Transposed matrix",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0f3a13d4-5bb7-499e-9b57-56bb6dce93fd",
+      "name": "F(a,b,c,d) [OBSOLETE]",
+      "nickname": "F(a,b,c,d)",
+      "description": "A function of four variables a, b, c and d",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Function",
+          "nickname": "F",
+          "description": "The function script",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Variable a",
+          "nickname": "a",
+          "description": "The first variable",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Variable b",
+          "nickname": "b",
+          "description": "The second variable",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Variable c",
+          "nickname": "c",
+          "description": "The third variable",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Variable d",
+          "nickname": "d",
+          "description": "The fourth variable",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result R",
+          "nickname": "R",
+          "description": "Equation solution",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1274d51a-81e6-4ccf-ad1f-0edf4c769cac",
+      "name": "Text Join",
+      "nickname": "Join",
+      "description": "Join a collection of text fragments into one",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text fragments to join.",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Join",
+          "nickname": "J",
+          "description": "Fragment separator.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting text",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "17af01a5-a846-4769-9478-de1df65a0afa",
+      "name": "Colour CMYK",
+      "nickname": "CMYK",
+      "description": "Create a colour from floating point {CMYK} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Cyan",
+          "nickname": "C",
+          "description": "Cyan channel (cyan is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Magenta",
+          "nickname": "M",
+          "description": "Magenta channel (magenta is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Yellow",
+          "nickname": "Y",
+          "description": "Yellow channel (yellow is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Key",
+          "nickname": "K",
+          "description": "Key channel (key is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1817fd29-20ae-4503-b542-f0fb651e67d7",
+      "name": "List Length",
+      "nickname": "Lng",
+      "description": "Measure the length of a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Base list",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Number of items in L",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "190d042c-2270-4bc1-81c0-4f90c170c9c9",
+      "name": "Delete Consecutive",
+      "nickname": "DCon",
+      "description": "Delete consecutive similar members in a set.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "Set to operate on.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "If true, the last and first member are considered to be adjacent.",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "Set with consecutive identical members removed.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of members removed.",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1edcc3cf-cf84-41d4-8204-561162cfe510",
+      "name": "Key/Value Search",
+      "nickname": "KeySearch",
+      "description": "Extract an item from a collection using a key-value match",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "A list of key values.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "A list of value data, one for each key.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Search",
+          "nickname": "S",
+          "description": "A key value to search for",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting item in the value list that matches the Search key",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1f384257-b26b-4160-a6d3-1dcd89b64acd",
+      "name": "Complex Components",
+      "nickname": "Complex",
+      "description": "Extract the Real and Imaginary components from a complex number",
+      "category": "Complex",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Complex",
+          "nickname": "C",
+          "description": "Complex number to disembowel",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Real",
+          "nickname": "R",
+          "description": "Real component of complex number",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Imaginary",
+          "nickname": "i",
+          "description": "Imaginary component of complex number",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1ff80a00-1b1d-4fb3-926a-0c246261fc55",
+      "name": "Sort Text",
+      "nickname": "TSort",
+      "description": "Sort a collection of text fragments",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "Text fragments to sort (sorting key)",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Optional values to sort synchronously",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "Sorted text fragments",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Sorted values",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "2013e425-8713-42e2-a661-b57e78840337",
+      "name": "Concatenate",
+      "nickname": "Concat",
+      "description": "Concatenate some fragments of text",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Fragment A",
+          "nickname": "A",
+          "description": "First text fragment",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Fragment B",
+          "nickname": "B",
+          "description": "Second text fragment",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting text consisting of all the fragments",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "2653b135-4df1-4a6b-820c-55e2ad3bc1e0",
+      "name": "Relative Items",
+      "nickname": "RelItem2",
+      "description": "Retrieve a relative item combo from two data trees",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Tree A",
+          "nickname": "A",
+          "description": "First Data Tree",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Tree B",
+          "nickname": "B",
+          "description": "Second Data Tree",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Offset",
+          "nickname": "O",
+          "description": "Relative offset for item combo",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Wrap Paths",
+          "nickname": "Wp",
+          "description": "Wrap paths when the shift is out of bounds",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Wrap Items",
+          "nickname": "Wi",
+          "description": "Wrap items when the shift is out of bounds",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Item A",
+          "nickname": "A",
+          "description": "Item in tree A",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Item B",
+          "nickname": "B",
+          "description": "Relative item in tree B",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "28f35e12-cd50-4bce-b036-695c2a3d04da",
+      "name": "Gate And",
+      "nickname": "And",
+      "description": "Perform boolean conjunction (AND gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Left hand boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Right hand boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "2ab17f9a-d852-4405-80e1-938c5e57e78d",
+      "name": "Random",
+      "nickname": "Random",
+      "description": "Generate a list of pseudo random numbers.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Range",
+          "nickname": "R",
+          "description": "Domain of random numeric range",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Number of random values",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Seed",
+          "nickname": "S",
+          "description": "Seed of random engine",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Random",
+          "nickname": "R",
+          "description": "Random numbers",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "2cb4bf85-a282-464c-b42c-8e735d2a0a74",
+      "name": "Create Set",
+      "nickname": "CSet",
+      "description": "Creates the valid set from a list of items (a valid set only contains distinct elements).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List of data.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "A set of all the distincts values in L.",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "2fcc2743-8339-4cdf-a046-a1f17439191d",
+      "name": "Remap Numbers",
+      "nickname": "ReMap",
+      "description": "Remap numbers into a new numeric domain",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Value to remap",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Source domain",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Target domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mapped",
+          "nickname": "R",
+          "description": "Remapped number",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Clipped",
+          "nickname": "C",
+          "description": "Remapped and clipped number",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "30d58600-1aab-42db-80a3-f1ea6c4269a0",
+      "name": "Larger Than",
+      "nickname": "Larger",
+      "description": "Larger than (or equal to)",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "First Number",
+          "nickname": "A",
+          "description": "Number to test",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Second Number",
+          "nickname": "B",
+          "description": "Number to test against",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Larger than",
+          "nickname": ">",
+          "description": "True if A > B",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "… or Equal to",
+          "nickname": ">=",
+          "description": "True if A >= B",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "31534405-6573-4be6-8bf8-262e55847a3a",
+      "name": "Combine Date & Time",
+      "nickname": "CDate",
+      "description": "Combine a pure date and a pure time into a single date",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Date",
+          "nickname": "D",
+          "description": "Date portion",
+          "type": "time",
+          "access": "item"
+        },
+        {
+          "name": "Time",
+          "nickname": "T",
+          "description": "Time portion",
+          "type": "time",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting combination of date and time.",
+          "type": "time",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "3249222f-f536-467a-89f4-f0353fba455a",
+      "name": "Sift Pattern",
+      "nickname": "Sift",
+      "description": "Sift elements in a list using a repeating index pattern.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to sift",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Sift Pattern",
+          "nickname": "P",
+          "description": "Sifting pattern",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "338666eb-14c5-4d9b-82e2-2b5be60655df",
+      "name": "Weighted Average",
+      "nickname": "Wav",
+      "description": "Solve the arithmetic weighted average for a set of items",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for averaging",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Weights",
+          "nickname": "W",
+          "description": "Collection of weights for each value",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Arithmetic mean",
+          "nickname": "AM",
+          "description": "Arithmetic mean (average) of all input values",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "350f7d03-a48f-4121-bcee-328cfe1ed9ef",
+      "name": "Split ARGB",
+      "nickname": "ARGB",
+      "description": "Split a colour into floating point {ARGB} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Input colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Red",
+          "nickname": "R",
+          "description": "Red channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Green",
+          "nickname": "G",
+          "description": "Green channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Blue",
+          "nickname": "B",
+          "description": "Blue channel",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "37084b3f-2b66-4f3a-9737-80d0b0b7f0cb",
+      "name": "Extremes",
+      "nickname": "Extrz",
+      "description": "Find the extremes in a list of values",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Value for comparison",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Value for comparison",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mininum",
+          "nickname": "V-",
+          "description": "Lowest of all values",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Maximum",
+          "nickname": "V+",
+          "description": "Highest of all values",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "3756c55f-95c3-442c-a027-6b3ab0455a94",
+      "name": "Match Text",
+      "nickname": "TMatch",
+      "description": "Match a text against a pattern",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to match",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Pattern",
+          "nickname": "P",
+          "description": "Optional wildcard pattern for matching",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "RegEx",
+          "nickname": "R",
+          "description": "Optional RegEx pattern for matching",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Case",
+          "nickname": "C",
+          "description": "Compare using case-sensitive matching",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Match",
+          "nickname": "M",
+          "description": "True if the text adheres to all supplied patterns",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "38a4e722-ad5a-4229-a170-e27ae1345538",
+      "name": "Date Range",
+      "nickname": "RDate",
+      "description": "Create a range of successive dates or times",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Time A",
+          "nickname": "A",
+          "description": "First time",
+          "type": "time",
+          "access": "item"
+        },
+        {
+          "name": "Time B",
+          "nickname": "B",
+          "description": "Second time",
+          "type": "time",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of times to create between A and B",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Range",
+          "nickname": "R",
+          "description": "Range of varying times between A and B.",
+          "type": "time",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "3a710c1e-1809-4e19-8c15-82adce31cd62",
+      "name": "Tree Branch",
+      "nickname": "Branch",
+      "description": "Retrieve a specific branch from a data tree.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Tree",
+          "nickname": "T",
+          "description": "Data Tree",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Path",
+          "nickname": "P",
+          "description": "Data tree branch path",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Branch",
+          "nickname": "B",
+          "description": "Branch at {P}",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "3aa2a080-e322-4be3-8c6e-baf6c8000cf1",
+      "name": "Deconstruct Matrix",
+      "nickname": "DeMatrix",
+      "description": "Deconstruct a matrix into its component parts",
+      "category": "Matrix",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Matrix to deconstruct",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Rows",
+          "nickname": "R",
+          "description": "Number of rows in the matrix",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Columns",
+          "nickname": "C",
+          "description": "Number of columns in the matrix",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Matrix values",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "3cadddef-1e2b-4c09-9390-0e8f78f7609f",
+      "name": "Merge",
+      "nickname": "Merge",
+      "description": "Merge a bunch of data streams",
+      "category": "Merge",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of merge",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "3ff27857-b988-417a-b495-b24c733dbd00",
+      "name": "Member Index",
+      "nickname": "MIndex",
+      "description": "Find the occurences of a specific member in a set.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "Set to operate on.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Member",
+          "nickname": "M",
+          "description": "Member to search for.",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Indices of member.",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of occurences of the member.",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "40177d8a-a35c-4622-bca7-d150031fe427",
+      "name": "Similarity",
+      "nickname": "Similar",
+      "description": "Test for similarity of two numbers",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "First Number",
+          "nickname": "A",
+          "description": "Number to compare",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Second Number",
+          "nickname": "B",
+          "description": "Number to compare to",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Threshold",
+          "nickname": "T%",
+          "description": "Percentage (0% ~ 100%) of A and B below which similarity is assumed",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Similarity",
+          "nickname": "=",
+          "description": "True if A ≈ B",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Absolute difference",
+          "nickname": "dt",
+          "description": "The absolute difference between A and B",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4083802b-3dd9-4b13-9756-bf5441213e70",
+      "name": "Interpolate Date",
+      "nickname": "IntDate",
+      "description": "Interpolate between two dates or times.",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Date A",
+          "nickname": "A",
+          "description": "First date",
+          "type": "time",
+          "access": "item"
+        },
+        {
+          "name": "Date B",
+          "nickname": "B",
+          "description": "Second date",
+          "type": "time",
+          "access": "item"
+        },
+        {
+          "name": "Interpolation",
+          "nickname": "t",
+          "description": "Interpolation factor",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Date",
+          "nickname": "D",
+          "description": "Interpolated Date & Time",
+          "type": "time",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "455925fd-23ff-4e57-a0e7-913a4165e659",
+      "name": "Random Reduce",
+      "nickname": "Reduce",
+      "description": "Randomly remove N items from a list",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to reduce",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Reduction",
+          "nickname": "R",
+          "description": "Number of items to remove",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Seed",
+          "nickname": "S",
+          "description": "Random Generator Seed value",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Reduced list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "47c30f9d-b685-4d4d-9b20-5b60e48d5af8",
+      "name": "Deconstruct Domain²",
+      "nickname": "DeDom2Num",
+      "description": "Deconstruct a two-dimensional domain into four numbers",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Base domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "U min",
+          "nickname": "U0",
+          "description": "Lower limit of domain in {u} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "U max",
+          "nickname": "U1",
+          "description": "Upper limit of domain in {u} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "V min",
+          "nickname": "V0",
+          "description": "Lower limit of domain in {v} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "V max",
+          "nickname": "V1",
+          "description": "Upper limit of domain in {v} direction",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "49d2e200-b34e-4e1c-82a3-07feb4cb9378",
+      "name": "Colour RGB",
+      "nickname": "RGB",
+      "description": "Create a colour from {RGB} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (255 = opaque)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Red",
+          "nickname": "R",
+          "description": "Red channel",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Green",
+          "nickname": "G",
+          "description": "Green channel",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Blue",
+          "nickname": "B",
+          "description": "Blue channel",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4cebcaf7-9a6a-435b-8f8f-95a62bacb0f2",
+      "name": "Swap Columns",
+      "nickname": "SwapC",
+      "description": "Swap two columns in a matrix",
+      "category": "Matrix",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Matrix for column swap",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Column A",
+          "nickname": "A",
+          "description": "First column index",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Column B",
+          "nickname": "B",
+          "description": "Second column index",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Matrix with swapped rows",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4cfc0bb0-0745-4772-a520-39f9bf3d99bc",
+      "name": "SubSet",
+      "nickname": "SubSet",
+      "description": "Test two sets for inclusion.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "Super set.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Sub set.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "True if all items in B are present in A.",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4df8df00-3635-45bd-95e6-f9206296c110",
+      "name": "Replace Text",
+      "nickname": "Rep",
+      "description": "Replace all occurences of a specific text fragment with another",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to operate on.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Find",
+          "nickname": "F",
+          "description": "Fragment to replace.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Replace",
+          "nickname": "R",
+          "description": "Optional fragment to replace with. If blank, all occurences of F will be removed.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of text replacement",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4fdfe351-6c07-47ce-9fb9-be027fb62186",
+      "name": "Shift List",
+      "nickname": "Shift",
+      "description": "Offset all items in a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to shift",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Shift",
+          "nickname": "S",
+          "description": "Shift offset",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "Wrap values",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Shifted list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "501aecbb-c191-4d13-83d6-7ee32445ac50",
+      "name": "Cull Index",
+      "nickname": "Cull i",
+      "description": "Cull (remove) indexed elements from a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to cull",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Culling indices",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "Wrap indices to list range",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Culled list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "50faccbd-9c92-4175-a5fa-d65e36013db6",
+      "name": "Weave",
+      "nickname": "Weave",
+      "description": "Weave a set of input data using a custom pattern.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Pattern",
+          "nickname": "P",
+          "description": "Weave pattern of input indices",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Weave",
+          "nickname": "W",
+          "description": "Weave result",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "548177c2-d1db-4172-b667-bec979e2d38b",
+      "name": "Gate Nor",
+      "nickname": "Nor",
+      "description": "Perform boolean joint denial (NOR gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Left hand boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Right hand boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "54ac80cf-74f3-43f7-834c-0e3fe94632c6",
+      "name": "Construct Matrix",
+      "nickname": "Matrix",
+      "description": "Construct a matrix from initial values",
+      "category": "Matrix",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Rows",
+          "nickname": "R",
+          "description": "Number of rows in the matrix",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Columns",
+          "nickname": "C",
+          "description": "Number of columns in the matrix",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Optional matrix values, if omitted, an identity matrix will be created",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "A newly created matrix",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "54db2568-3441-4ae2-bcef-92c4cc608e11",
+      "name": "Integer Division",
+      "nickname": "A\\\\B",
+      "description": "Mathematical integer division",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Item to divide (dividend)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Item to divide with (divisor)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of integer division",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "55104772-8096-4ffc-a78a-30e36191ace2",
+      "name": "Gate Or Ternary",
+      "nickname": "Or",
+      "description": "Perform ternary boolean disjunction (Or gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "First boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Second boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "C",
+          "nickname": "C",
+          "description": "Third boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "579c9f8c-6fb6-419b-8086-523a2dc99e8a",
+      "name": "Eval [OBSOLETE]",
+      "nickname": "Eval",
+      "description": "Evaluate an expression",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Expression",
+          "nickname": "E",
+          "description": "The expression to evaluate",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Expression value",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "57e1d392-e3fb-4de9-be98-982854a92351",
+      "name": "Blur Numbers",
+      "nickname": "NBlur",
+      "description": "Blur a list of numbers by averaging neighbours",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Numbers",
+          "nickname": "N",
+          "description": "Numbers to blur",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Strength",
+          "nickname": "S",
+          "description": "Blurring strength (0=none, 1=full)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Iterations",
+          "nickname": "I",
+          "description": "Number of successive blurring iterations",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Lock",
+          "nickname": "L",
+          "description": "Lock first and last value",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "Treat the list as a cyclical collection",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Numbers",
+          "nickname": "N",
+          "description": "Blurred numbers",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "586706a8-109b-43ec-b581-743e920c951a",
+      "name": "Series Addition",
+      "nickname": "SA",
+      "description": "Perform serial addition until a goal has been reached",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Numbers",
+          "nickname": "N",
+          "description": "Number pool from which to take summands",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Goal",
+          "nickname": "G",
+          "description": "Goal value of addition series",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Start",
+          "nickname": "S",
+          "description": "Starting value of addition series",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Series",
+          "nickname": "S",
+          "description": "Addition series",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Remainder",
+          "nickname": "R",
+          "description": "Difference between series summation and goal",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5958a658-20c2-4a2b-86ba-4d1b81bf5348",
+      "name": "Colour HSV",
+      "nickname": "HSV",
+      "description": "Create a colour from floating point {HSV} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (alpha is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Hue",
+          "nickname": "H",
+          "description": "Hue channel (hue is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Saturation",
+          "nickname": "S",
+          "description": "Saturation channel (saturation is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Value channel (value/brightness is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "595aded2-8916-402d-87a3-a825244bbe3d",
+      "name": "Construct Time",
+      "nickname": "Time",
+      "description": "Construct a time instance",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Hour",
+          "nickname": "H",
+          "description": "Number of hours",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Minute",
+          "nickname": "M",
+          "description": "Number of minutes",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Second",
+          "nickname": "S",
+          "description": "Number of seconds",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Time",
+          "nickname": "T",
+          "description": "Time construct",
+          "type": "time",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "59daf374-bc21-4a5e-8282-5504fb7ae9ae",
+      "name": "List Item",
+      "nickname": "Item",
+      "description": "Retrieve a specific item from a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Base list",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Index",
+          "nickname": "i",
+          "description": "Item index",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "Wrap index to list bounds",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Item",
+          "nickname": "i",
+          "description": "Item at {i'}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5a93246d-2595-4c28-bc2d-90657634f92a",
+      "name": "Partition List",
+      "nickname": "Partition",
+      "description": "Partition a list into sub-lists",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to partition",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Size",
+          "nickname": "S",
+          "description": "Size of partitions",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Chunks",
+          "nickname": "C",
+          "description": "List chunks",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "5b850221-b527-4bd6-8c62-e94168cd6efa",
+      "name": "Mass Addition",
+      "nickname": "MA",
+      "description": "Perform mass addition of a list of items",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for mass addition.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of mass addition",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Partial Results",
+          "nickname": "Pr",
+          "description": "List of partial results",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "5ca5de6b-bc71-46c4-a8f7-7f30d7040acb",
+      "name": "Gate Nand",
+      "nickname": "Nand",
+      "description": "Perform boolean alternative denial (NAND gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Left hand boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Right hand boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5cad70f9-5a53-4c5c-a782-54a479b4abe3",
+      "name": "Gate Or",
+      "nickname": "Or",
+      "description": "Perform boolean disjunction (OR gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "First boolean for OR operation",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Second boolean for OR operation",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5db0fb89-4f22-4f09-a777-fa5e55aed7ec",
+      "name": "Equality",
+      "nickname": "Equals",
+      "description": "Test for (in)equality of two numbers",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "First Number",
+          "nickname": "A",
+          "description": "Number to compare",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Second Number",
+          "nickname": "B",
+          "description": "Number to compare to",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Equality",
+          "nickname": "=",
+          "description": "True if A = B",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Inequality",
+          "nickname": "≠",
+          "description": "True if A ≠ B",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5fa4e736-0d82-4af0-97fb-30a79f4cbf41",
+      "name": "Stack Data",
+      "nickname": "Stack",
+      "description": "Duplicate individual items in a list of data",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Data to stack",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Stack",
+          "nickname": "S",
+          "description": "Stacking pattern",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Stacked data",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "60327ca4-c548-40e6-a11f-3c6759582f13",
+      "name": "Addition",
+      "nickname": "Add",
+      "description": "Perform colour addition.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour A",
+          "nickname": "A",
+          "description": "First colour",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Colour B",
+          "nickname": "B",
+          "description": "Second colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "63d12974-2915-4ccf-ac26-5d566c3bac92",
+      "name": "Create Complex",
+      "nickname": "Complex",
+      "description": "Create a complex number from a Real and an Imaginary component",
+      "category": "Complex",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Real",
+          "nickname": "R",
+          "description": "Real component of complex number",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Imaginary",
+          "nickname": "i",
+          "description": "Imaginary component of complex number",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Complex",
+          "nickname": "C",
+          "description": "Complex number",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "655c5f2f-1e40-42b8-a93a-f05032794449",
+      "name": "Evaluate Expression [OBSOLETE]",
+      "nickname": "Eval",
+      "description": "Evaluate an expression",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Expression",
+          "nickname": "E",
+          "description": "The expression to evaluate",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Variable a",
+          "nickname": "a",
+          "description": "The first variable",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Variable b",
+          "nickname": "b",
+          "description": "The second variable",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Variable c",
+          "nickname": "c",
+          "description": "The third variable",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Variable x",
+          "nickname": "x",
+          "description": "The fourth variable",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Variable y",
+          "nickname": "y",
+          "description": "The fifth variable",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Variable z",
+          "nickname": "z",
+          "description": "The sixth variable",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Expression result",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "6568e019-f59c-4984-84d6-96bd5bfbe9e7",
+      "name": "Cull Index",
+      "nickname": "Cull i",
+      "description": "Cull (remove) indexed elements from a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to cull",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Culling indices",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Culled list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "6ec97ea8-c559-47a2-8d0f-ce80c794d1f4",
+      "name": "Reverse List",
+      "nickname": "Rev",
+      "description": "Reverse the order of a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Base list",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Reversed list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "6f93d366-919f-4dda-a35e-ba03dd62799b",
+      "name": "Sort List",
+      "nickname": "Sort",
+      "description": "Sort a list of numeric keys.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "List of sortable keys",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Values A",
+          "nickname": "A",
+          "description": "Optional list of values to sort synchronously",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "Sorted keys",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Values A",
+          "nickname": "A",
+          "description": "Synchronous values in A",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "74d95062-0bec-4a4e-9026-5141fca954a6",
+      "name": "Mass Addition",
+      "nickname": "MA",
+      "description": "Perform mass addition of a list of numbers",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for mass addition",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting of mass addition",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Partial Result",
+          "nickname": "Pr",
+          "description": "List of partial results",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "758d91a0-4aec-47f8-9671-16739a8a2c5d",
+      "name": "Format",
+      "nickname": "Format",
+      "description": "Format some data using placeholders and formatting tags",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Format",
+          "nickname": "F",
+          "description": "Text format",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Culture",
+          "nickname": "C",
+          "description": "Formatting culture",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Formatted text",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "75a07554-8a2c-4d87-81b9-d854f498509d",
+      "name": "Colour LCH",
+      "nickname": "LCH",
+      "description": "Create a colour from floating point {CIE LCH} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (alpha is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Luminance",
+          "nickname": "L",
+          "description": "Luminance channel (luminance is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Chroma",
+          "nickname": "C",
+          "description": "Chromaticity channel (chroma is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Hue",
+          "nickname": "H",
+          "description": "Hue channel (hue is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "75ac008b-1bc2-4edd-b967-667d628b9d24",
+      "name": "Divide Domain²",
+      "nickname": "Divide",
+      "description": "Divides a two-dimensional domain into equal segments.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Base domain",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "U Count",
+          "nickname": "U",
+          "description": "Number of segments in {u} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "V Count",
+          "nickname": "V",
+          "description": "Number of segments in {v} direction",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Segments",
+          "nickname": "S",
+          "description": "Individual segments",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "75ef4190-91a2-42d9-a245-32a7162b0384",
+      "name": "Divide Domain",
+      "nickname": "Div",
+      "description": "Divide a domain into equal segments.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Base domain",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "C",
+          "description": "Number of segments",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Segments",
+          "nickname": "S",
+          "description": "Division segments",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "76975309-75a6-446a-afed-f8653720a9f2",
+      "name": "Create Material",
+      "nickname": "Material",
+      "description": "Create an OpenGL material.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Diffuse",
+          "nickname": "Kd",
+          "description": "Colour of the diffuse channel",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Specular",
+          "nickname": "Ks",
+          "description": "Colour of the specular highlight",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Emission",
+          "nickname": "Ke",
+          "description": "Emissive colour of the material",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Transparency",
+          "nickname": "T",
+          "description": "Amount of transparency (0.0 = opaque, 1.0 = transparent",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Shine",
+          "nickname": "S",
+          "description": "Amount of shinyness (0 = none, 1 = low shine, 100 = max shine",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "77185dc2-2f18-469d-9686-00f5b6049195",
+      "name": "Colour XYZ",
+      "nickname": "XYZ",
+      "description": "Create a colour from floating point {XYZ} channels (CIE 1931 spec).",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (alpha is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "X",
+          "nickname": "X",
+          "description": "X stimulus (X is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Y",
+          "nickname": "Y",
+          "description": "Y stimulus (y is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Z",
+          "nickname": "Z",
+          "description": "Z stimulus (Z is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "78669f9c-4fea-44fd-ab12-2a69eeec58de",
+      "name": "Gate Majority",
+      "nickname": "Vote",
+      "description": "Calculates the majority vote among three booleans.",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "First boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Second boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "C",
+          "nickname": "C",
+          "description": "Third boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Average value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "7986486c-621a-48fb-8f27-a28a22c91cc9",
+      "name": "Average",
+      "nickname": "Avr",
+      "description": "Solve the arithmetic average for a set of items",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for averaging",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Arithmetic mean",
+          "nickname": "AM",
+          "description": "Arithmetic mean (average) of all input values",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "7a218bfb-b93d-4c1f-83d3-5a0b909dd60b",
+      "name": "Replace Items",
+      "nickname": "Replace",
+      "description": "Replace certain items in a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to modify",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Item",
+          "nickname": "I",
+          "description": "Items to replace with. If no items are supplied, nulls will be inserted.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "i",
+          "description": "Replacement index for each item",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "If true, indices will be wrapped",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List with replaced values",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "7d2a6064-51f0-45b2-adc4-f417b30dcd15",
+      "name": "Complex Conjugate",
+      "nickname": "z*",
+      "description": "Create the conjugate of a Complex number",
+      "category": "Complex",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Complex",
+          "nickname": "C",
+          "description": "Complex number",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Conjugate",
+          "nickname": "C",
+          "description": "Conjugate of the Complex number [C]",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "80da90e3-3ea9-4cfe-b7cc-2b6019f850e3",
+      "name": "Factorial",
+      "nickname": "Fac",
+      "description": "Returns the factorial of an integer.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Input integer",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Factorial",
+          "nickname": "F",
+          "description": "Factorial of {N}",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "81800098-1060-4e2b-80d4-17f835cc825f",
+      "name": "Disjoint",
+      "nickname": "Disjoint",
+      "description": "Test whether two sets are disjoint.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "First set.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Second set.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "True if none of the items in A occur in B.",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "825ea536-aebb-41e9-af32-8baeb2ecb590",
+      "name": "Deconstruct Domain",
+      "nickname": "DeDomain",
+      "description": "Deconstruct a numeric domain into its component parts.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Base domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Start",
+          "nickname": "S",
+          "description": "Start of domain",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "End",
+          "nickname": "E",
+          "description": "End of domain",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "82f19c48-9e73-43a4-ae6c-3a8368099b08",
+      "name": "Set Intersection",
+      "nickname": "Intersection",
+      "description": "Creates the intersection of two sets (the collection of unique objects present in both sets).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "Data for set Intersection",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Data for set Intersection",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "The Set Union of all input sets",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "8555a743-36c1-42b8-abcc-06d9cb94519f",
+      "name": "Construct Domain²",
+      "nickname": "Dom²",
+      "description": "Create a two-dimensional domain from two simple domains.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain U",
+          "nickname": "U",
+          "description": "Domain in {u} direction",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Domain V",
+          "nickname": "V",
+          "description": "Domain in {v} direction",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "2D Domain",
+          "nickname": "I²",
+          "description": "Two dimensional numeric domain of {u} and {v}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "8600a3fc-30f0-4df6-b126-aaa79ece5bfe",
+      "name": "Swap Rows",
+      "nickname": "SwapR",
+      "description": "Swap two rows in a matrix",
+      "category": "Matrix",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Matrix for row swap",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Row A",
+          "nickname": "A",
+          "description": "First row index",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Row B",
+          "nickname": "B",
+          "description": "Second row index",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Matrix with swapped rows",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "86503240-d884-43f9-9323-efe30488a6e1",
+      "name": "Characters",
+      "nickname": "Chars",
+      "description": "Break text into individual characters",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to split.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "C",
+          "description": "Resulting characters",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Unicode",
+          "nickname": "U",
+          "description": "Unicode value of character",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "88fb33f9-f467-452b-a0e3-44bdb78a9b06",
+      "name": "Complex Modulus",
+      "nickname": "CMod",
+      "description": "Get the modulus of a Complex number",
+      "category": "Complex",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Complex",
+          "nickname": "C",
+          "description": "Complex number",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Modulus",
+          "nickname": "M",
+          "description": "Modulus of the Complex number [C]",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "8a55f680-cf53-4634-a486-b828de92b71d",
+      "name": "Set Intersection",
+      "nickname": "Intersection",
+      "description": "Creates the intersection of two sets (the collection of unique objects present in both sets).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "First set for Intersection",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Second set for Intersection",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "The Set Union of A and B",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "8b4da37d-1124-436a-9de2-952e4224a220",
+      "name": "Blend Colours",
+      "nickname": "BlendCol",
+      "description": "Interpolate (blend) between two colours.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour A",
+          "nickname": "A",
+          "description": "First colour",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Colour B",
+          "nickname": "B",
+          "description": "Second colour",
+          "type": "colour",
+          "access": "item"
+        },
+        {
+          "name": "Factor",
+          "nickname": "F",
+          "description": "Interpolation factor",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Interpolated colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "8eed5d78-7810-4ba1-968e-8a1f1db98e39",
+      "name": "Set Union",
+      "nickname": "SUnion",
+      "description": "Creates the union of two sets (the collection of unique objects present in either set).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "Data for set Union.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Data for set Union.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "The Set Union of A and B.",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "9083b87f-a98c-4e41-9591-077ae4220b19",
+      "name": "Construct Domain²",
+      "nickname": "Dom²Num",
+      "description": "Create a two-dimensinal domain from four numbers.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "U min",
+          "nickname": "U0",
+          "description": "Lower limit of domain in {u} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "U max",
+          "nickname": "U1",
+          "description": "Upper limit of domain in {u} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "V min",
+          "nickname": "V0",
+          "description": "Lower limit of domain in {v} direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "V max",
+          "nickname": "V1",
+          "description": "Upper limit of domain in {v} direction",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "2D Domain",
+          "nickname": "I²",
+          "description": "Two dimensional numeric domain of {u} and {v}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "921775f7-bf22-4cfc-a4db-c415a56069c4",
+      "name": "Mass Multiplication",
+      "nickname": "MM",
+      "description": "Perform mass multiplication of a list of numbers",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input numbers for mass multiplication",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of mass multiplication",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Partial Results",
+          "nickname": "Pr",
+          "description": "List of partial results",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "932b9817-fcc6-4ac3-b5fd-c0e8eeadc53f",
+      "name": "Cull Nth",
+      "nickname": "CullN",
+      "description": "Cull (remove) every Nth element in a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to cull",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Cull frequency",
+          "nickname": "N",
+          "description": "Cull frequency",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Culled list",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "9445ca40-cc73-4861-a455-146308676855",
+      "name": "Range",
+      "nickname": "Range",
+      "description": "Create a range of numbers.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain",
+          "nickname": "D",
+          "description": "Domain of numeric range",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Steps",
+          "nickname": "N",
+          "description": "Number of steps",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Range",
+          "nickname": "R",
+          "description": "Range of numbers",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "946cb61e-18d2-45e3-8840-67b0efa26528",
+      "name": "Construct Path",
+      "nickname": "Path",
+      "description": "Construct a data tree branch path.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Branch path indices",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Branch",
+          "nickname": "B",
+          "description": "Branch path",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "95992b33-89e1-4d36-bd35-2754a11af21e",
+      "name": "Consecutive Domains",
+      "nickname": "Consec",
+      "description": "Create consecutive domains from a list of numbers",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Numbers",
+          "nickname": "N",
+          "description": "Numbers for consecutive domains",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Additive",
+          "nickname": "A",
+          "description": "If True, values are added to a sum-total",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Domains",
+          "nickname": "D",
+          "description": "Domains describing the spaces between the numbers",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "9624aeeb-f2a1-49da-b1c7-8789db217177",
+      "name": "Remap Numbers",
+      "nickname": "ReMap",
+      "description": "Remap numbers into a new numeric domain",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Values to remap",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Optional source domain. If left blank, the value range will be used.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Target domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Remapped numbers.",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "98c3c63a-e78a-43ea-a111-514fcf312c95",
+      "name": "Create Set",
+      "nickname": "CSet",
+      "description": "Creates the valid set from a list of items (a valid set only contains distinct elements).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List of data.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "A set of all the distincts values in L",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Map",
+          "nickname": "M",
+          "description": "An index map from original indices to set indices",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "99bee19d-588c-41a0-b9b9-1d00fb03ea1a",
+      "name": "Tree Statistics",
+      "nickname": "TStat",
+      "description": "Get some statistics regarding a data tree.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Tree",
+          "nickname": "T",
+          "description": "Data Tree to analyze",
+          "type": "generic",
+          "access": "tree"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Paths",
+          "nickname": "P",
+          "description": "All the paths of the tree",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "The length of each branch in the tree",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Count",
+          "nickname": "C",
+          "description": "Number of paths and branches in the tree",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9ab93e1a-ebdf-4090-9296-b000cff7b202",
+      "name": "Split List",
+      "nickname": "Split",
+      "description": "Split a list into separate parts.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Base list",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Index",
+          "nickname": "i",
+          "description": "Splitting index",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List A",
+          "nickname": "A",
+          "description": "Items to the left of (i)",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "List B",
+          "nickname": "B",
+          "description": "Items to the right of and including (i)",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "9c007a04-d0d9-48e4-9da3-9ba142bc4d46",
+      "name": "Subtraction",
+      "nickname": "A-B",
+      "description": "Mathematical subtraction",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of subtraction",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9df5e896-552d-4c8c-b9ca-4fc147ffa022",
+      "name": "Expression",
+      "nickname": "Expression",
+      "description": "Evaluate an expression",
+      "category": "Expression",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of expression",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a0a38131-c5fc-4984-b05d-34cf57f0c018",
+      "name": "Factorial",
+      "nickname": "Fac",
+      "description": "Returns the factorial of an integer.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Input integer",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Factorial",
+          "nickname": "F",
+          "description": "Factorial of {N}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a0d62394-a118-422d-abb3-6af115c75b25",
+      "name": "Addition",
+      "nickname": "A+B",
+      "description": "Mathematical addition",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of addition",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a45d68b3-c299-4b17-bdae-7975f216cec6",
+      "name": "Colour HSL",
+      "nickname": "HSL",
+      "description": "Create a colour from floating point {HSL} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (alpha is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Hue",
+          "nickname": "H",
+          "description": "Hue channel (hue is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Saturation",
+          "nickname": "S",
+          "description": "Saturation channel (saturation is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Luminance",
+          "nickname": "L",
+          "description": "Luminance channel (luminance is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a4cd2751-414d-42ec-8916-476ebf62d7fe",
+      "name": "Radians",
+      "nickname": "Rad",
+      "description": "Convert an angle specified in degrees to radians",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Degrees",
+          "nickname": "D",
+          "description": "Angle in degrees",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Radians",
+          "nickname": "R",
+          "description": "Angle in radians",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a50c4a3b-0177-4c91-8556-db95de6c56c8",
+      "name": "Round",
+      "nickname": "Round",
+      "description": "Round a floating point value.",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Number",
+          "nickname": "x",
+          "description": "Number to round",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Nearest",
+          "nickname": "N",
+          "description": "Integer nearest to x",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Floor",
+          "nickname": "F",
+          "description": "First integer smaller than or equal to x",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Ceiling",
+          "nickname": "C",
+          "description": "First integer larger than or equal to x",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a759fd55-e6be-4673-8365-c28d5b52c6c0",
+      "name": "Item Index",
+      "nickname": "Index",
+      "description": "Retrieve the index of a certain item in a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to search",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Item",
+          "nickname": "i",
+          "description": "Item to search for",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Index",
+          "nickname": "i",
+          "description": "The index of item in the list, or -1 if the item could not be found.",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a8de2000-073d-412d-a0b2-3a4894ba71f8",
+      "name": "Truncate",
+      "nickname": "Trunc",
+      "description": "Perform truncation of numerical extremes",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for mass addition",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Truncation factor",
+          "nickname": "t",
+          "description": "Truncation factor. Must be between 0.0 (no trucation) and 1.0 (full truncation)",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "T",
+          "description": "Truncated set",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "ab34845d-4ab9-4ff4-8870-eedd0c5594cb",
+      "name": "Set Union",
+      "nickname": "SUnion",
+      "description": "Creates the union of two sets (the collection of unique objects present in either set).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "First set for Union.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Second set for Union.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "The Set Union of A and B.",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "ae840986-cade-4e5a-96b0-570f007d4fc0",
+      "name": "Smaller Than",
+      "nickname": "Smaller",
+      "description": "Smaller than (or equal to)",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "First Number",
+          "nickname": "A",
+          "description": "Number to test",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Second Number",
+          "nickname": "B",
+          "description": "Number to test against",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Smaller than",
+          "nickname": "<",
+          "description": "True if A < B",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "… or Equal to",
+          "nickname": "<=",
+          "description": "True if A <= B",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b1991128-8bf1-4dea-8497-4b7188a64e9d",
+      "name": "Text Case",
+      "nickname": "Case",
+      "description": "Change the CaSiNg of a piece of text",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to modify",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Culture",
+          "nickname": "C",
+          "description": "Cultural rules for text casing",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Upper Case",
+          "nickname": "U",
+          "description": "Upper case representation of T",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Lower Case",
+          "nickname": "L",
+          "description": "Lower case representation of T",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b333ff42-93bd-406b-8e17-15780719b6ec",
+      "name": "Sub List",
+      "nickname": "SubSet",
+      "description": "Extract a subset from a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Base list",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Domain",
+          "nickname": "D",
+          "description": "Domain of indices to copy",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "Remap indices that overshoot list domain",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Subset of base list",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Indices of subset items",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "b4d4235f-14ff-4d4e-a29a-b358dcd2baf4",
+      "name": "Find similar member",
+      "nickname": "FSim",
+      "description": "Find the most similar member in a set.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Data to search for.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "Set to search.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Hit",
+          "nickname": "H",
+          "description": "Member in S closest to D.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "i",
+          "description": "Index of H in set.",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b6aedcac-bf43-42d4-899e-d763612f834d",
+      "name": "Gate Xnor",
+      "nickname": "Xnor",
+      "description": "Perform boolean biconditional (XNOR gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Left hand boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Right hand boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b7e4e0ef-a01d-48c4-93be-2a12d4417e22",
+      "name": "Random",
+      "nickname": "Random",
+      "description": "Generate a list of pseudo random numbers.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Range",
+          "nickname": "R",
+          "description": "Domain of random numeric range",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Number of random values",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Seed",
+          "nickname": "S",
+          "description": "Seed of random engine",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Integers",
+          "nickname": "I",
+          "description": "Limit to integers only",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Range",
+          "nickname": "R",
+          "description": "Range of random numbers",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "bafac914-ede4-4a59-a7b2-cc41bc3de961",
+      "name": "Replace Members",
+      "nickname": "Replace",
+      "description": "Replace members in a set.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set",
+          "nickname": "S",
+          "description": "Set to operate on.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Find",
+          "nickname": "F",
+          "description": "Item(s) to replace.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Replace",
+          "nickname": "R",
+          "description": "Item(s) to replace with.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Sets with replaced members.",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "bb64b2fb-f87a-432f-86f8-393f4ee21310",
+      "name": "Mass Addition",
+      "nickname": "MA",
+      "description": "Perform mass addition of a list of numbers",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for mass addition",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting of mass addition",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "bd96f893-d57b-4f04-90d0-dca0d72ff2f9",
+      "name": "Truncate",
+      "nickname": "Trunc",
+      "description": "Perform truncation of numerical extremes",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for truncation",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Truncation factor",
+          "nickname": "t",
+          "description": "Truncation factor. Must be between 0.0 (no trucation) and 1.0 (full truncation)",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "T",
+          "description": "Truncated set",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "bdd2a14a-1302-4152-a484-7198716d1a11",
+      "name": "Text Case",
+      "nickname": "Case",
+      "description": "Change the CaSiNg of a piece of text",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to operate on.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Upper Case",
+          "nickname": "U",
+          "description": "Upper case representation of S",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Lower Case",
+          "nickname": "L",
+          "description": "Lower case representation of S",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "be715e4c-d6d8-447b-a9c3-6fea700d0b83",
+      "name": "Complex Argument",
+      "nickname": "Arg",
+      "description": "Get the argument of a Complex number",
+      "category": "Complex",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Complex",
+          "nickname": "C",
+          "description": "Complex number",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Argument",
+          "nickname": "A",
+          "description": "Argument of the Complex number [C]",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c1364962-87dd-4a6d-901a-e5b170e5ef9e",
+      "name": "Gate And Ternary",
+      "nickname": "And",
+      "description": "Perform ternary boolean conjunction (AND gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "First boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Second boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "C",
+          "nickname": "C",
+          "description": "Third boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c1ec65a3-bda4-4fad-87d0-edf86ed9d81c",
+      "name": "Tree Item",
+      "nickname": "Item",
+      "description": "Retrieve a specific item from a data tree.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Tree",
+          "nickname": "T",
+          "description": "Data Tree",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Path",
+          "nickname": "P",
+          "description": "Data tree branch path",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "i",
+          "description": "Item index",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "Wrap index to list bounds",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Element",
+          "nickname": "E",
+          "description": "Item at {P:i'}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c40dc145-9e36-4a69-ac1a-6d825c654993",
+      "name": "Repeat Data",
+      "nickname": "Repeat",
+      "description": "Repeat a pattern until it reaches a certain length.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Pattern to repeat",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Length of final pattern",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Repeated data",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "c74efd0e-7fe3-4c2d-8c9d-295c5672fb13",
+      "name": "Null Item",
+      "nickname": "Null",
+      "description": "Test a data item for null or invalidity",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Item",
+          "nickname": "I",
+          "description": "Item to test",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Null Flags",
+          "nickname": "N",
+          "description": "True if item is Null",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Invalid Flags",
+          "nickname": "X",
+          "description": "True if item is Invalid",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Description",
+          "nickname": "D",
+          "description": "A textual description of the object state",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c8203c3c-6bcd-4f8c-a906-befd92ebf0cb",
+      "name": "Format",
+      "nickname": "Format",
+      "description": "Format some text using placeholders and formatting tags",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Format",
+          "nickname": "F",
+          "description": "Text format",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Formatted text",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c9785b8e-2f30-4f90-8ee3-cca710f82402",
+      "name": "Entwine",
+      "nickname": "Entwine",
+      "description": "Flatten and combine a collection of data streams",
+      "category": "Merge",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Entwined result",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "cb2c7d3c-41b4-4c6d-a6bd-9235bd2851bb",
+      "name": "Gate Not",
+      "nickname": "Not",
+      "description": "Perform boolean negation (NOT gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Boolean value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Inverse of {A}",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "cc2b626f-6eff-4d08-9829-2877560693f4",
+      "name": "Evaluate",
+      "nickname": "Eval",
+      "description": "Evaluate an expression with a flexible number of variables.",
+      "category": "Expression",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "r",
+          "description": "Expression result",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ce46b74e-00c9-43c4-805a-193b69ea4a11",
+      "name": "Multiplication",
+      "nickname": "A×B",
+      "description": "Mathematical multiplication",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of multiplication",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "cec16c67-7b8b-41f7-a5a5-f675177e524b",
+      "name": "Sort Text",
+      "nickname": "TSort",
+      "description": "Sort a collection of text fragments",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "Text fragments to sort (sorting key)",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Optional values to sort synchronously",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Culture",
+          "nickname": "C",
+          "description": "Cultural sorting rules",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Keys",
+          "nickname": "K",
+          "description": "Sorted text fragments",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Sorted values",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "d1a28e95-cf96-4936-bf34-8bf142d731bf",
+      "name": "Construct Domain",
+      "nickname": "Dom",
+      "description": "Create a numeric domain from two numeric extremes.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain start",
+          "nickname": "A",
+          "description": "Start value of numeric domain",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Domain end",
+          "nickname": "B",
+          "description": "End value of numeric domain",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Numeric domain between {A} and {B}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d2461702-3164-4894-8c10-ed1fc4b52965",
+      "name": "Set Difference (S)",
+      "nickname": "ExDiff",
+      "description": "Create the symmetric difference of two sets (the collection of objects present in A or B but not both).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "First set for symmetric difference.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Second set for symmetric difference.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ExDifference",
+          "nickname": "X",
+          "description": "The symmetric difference between A and B.",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "d2b10b82-f612-4763-91ca-0cbdbe276171",
+      "name": "F(x,y) [OBSOLETE]",
+      "nickname": "F(x,y)",
+      "description": "A function of two variables x and y",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Function",
+          "nickname": "F",
+          "description": "The function script",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Variable x",
+          "nickname": "x",
+          "description": "The first variable",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Variable y",
+          "nickname": "y",
+          "description": "The second variable",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "r",
+          "description": "Expression result",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d3e721b4-f5ea-4e40-85fc-b68616939e47",
+      "name": "F(x) [OBSOLETE]",
+      "nickname": "F(x)",
+      "description": "A function of a single variable x (OBSOLETE)",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Function",
+          "nickname": "F",
+          "description": "The function script",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Variable X",
+          "nickname": "x",
+          "description": "The variable to solve",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result Y",
+          "nickname": "y",
+          "description": "Equation solution",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d4136a7b-7422-4660-9404-640474bd2725",
+      "name": "Set Majority",
+      "nickname": "Majority",
+      "description": "Determine majority member presence amongst three sets.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "First set.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Second set.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set C",
+          "nickname": "C",
+          "description": "Third set.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Set containing all unique elements in that occur in at least two of the input sets.",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "d5e28df8-495b-4892-bca8-60748743d955",
+      "name": "Deconstruct Date",
+      "nickname": "DDate",
+      "description": "Deconstruct a date into years, months, days, hours, minutes and seconds",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Date",
+          "nickname": "D",
+          "description": "Date and Time data",
+          "type": "time",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Year",
+          "nickname": "Y",
+          "description": "Year number",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Month",
+          "nickname": "M",
+          "description": "Month number",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Day",
+          "nickname": "D",
+          "description": "Day of month",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Hour",
+          "nickname": "h",
+          "description": "Hour of day",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Minute",
+          "nickname": "m",
+          "description": "Minute of the hour",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Second",
+          "nickname": "s",
+          "description": "Second of the minute",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d8332545-21b2-4716-96e3-8559a9876e17",
+      "name": "Dispatch",
+      "nickname": "Dispatch",
+      "description": "Dispatch the items in a list into two target lists.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to filter",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Dispatch pattern",
+          "nickname": "P",
+          "description": "Dispatch pattern",
+          "type": "boolean",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List A",
+          "nickname": "A",
+          "description": "Dispatch target for True values",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "List B",
+          "nickname": "B",
+          "description": "Dispatch target for False values",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "d84d2c2a-2813-4667-afb4-46642581e5f9",
+      "name": "Split AHSV",
+      "nickname": "AHSV",
+      "description": "Split a colour into floating point {AHSV} channels",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Input colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Hue",
+          "nickname": "H",
+          "description": "Hue",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Saturation",
+          "nickname": "S",
+          "description": "Saturation",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Value (Brightness)",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "dca05f6f-e3d9-42e3-b3bb-eb20363fb335",
+      "name": "Text Length",
+      "nickname": "Len",
+      "description": "Get the length (character count) of some text",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to measure.",
+          "type": "string",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Number of characters",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "dd17d442-3776-40b3-ad5b-5e188b56bd4c",
+      "name": "Relative Differences",
+      "nickname": "RelDif",
+      "description": "Compute relative differences for a list of data",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "List of data to operate on (numbers or points or vectors allowed)",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Differenced",
+          "nickname": "D",
+          "description": "Differences between consecutive items",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "dd53b24c-003a-4a04-b185-a44d91633cbe",
+      "name": "Bounds 2D",
+      "nickname": "Bnd",
+      "description": "Create a numeric two-dimensional domain which encompasses a list of coordinates.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Coordinates",
+          "nickname": "C",
+          "description": "Two dimensional coordinates to include in Bounds",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Numeric two-dimensional domain between the lowest and highest numbers in {N.x ; N.y}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "dd8134c0-109b-4012-92be-51d843edfff7",
+      "name": "Duplicate Data",
+      "nickname": "Dup",
+      "description": "Duplicate data a predefined number of times.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Data to duplicate",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Number of duplicates",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Order",
+          "nickname": "O",
+          "description": "Retain list order",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Duplicated data",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "de4a0d86-2709-4564-935a-88bf4d40af89",
+      "name": "Gate Xor",
+      "nickname": "Xor",
+      "description": "Perform boolean exclusive disjunction (XOR gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Left hand boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Right hand boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "deffaf1e-270a-4c15-a693-9216b68afd4a",
+      "name": "Carthesian Product",
+      "nickname": "CProd",
+      "description": "Create the Carthesian product for two sets of identical cardinality.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "First set for carthesian product.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Second set for carthesian product.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Product",
+          "nickname": "P",
+          "description": "Carthesian product of A and B.",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "df6d9197-9a6e-41a2-9c9d-d2221accb49e",
+      "name": "Deconstruct Path",
+      "nickname": "DPath",
+      "description": "Deconstruct a data tree path into individual integers.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Branch",
+          "nickname": "B",
+          "description": "Branch path",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Branch path indices",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e168ff6b-e5c0-48f1-b831-f6996bf3b459",
+      "name": "Interpolate data",
+      "nickname": "Interp",
+      "description": "Interpolate a collection of data.",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Data to interpolate (simple data types only).",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Parameter",
+          "nickname": "t",
+          "description": "Normalised interpolation parameter.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Interpolated value.",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e1c4bccc-4ecf-4f18-885d-dfd8983e572a",
+      "name": "F(x,y,z) [OBSOLETE]",
+      "nickname": "F(x,y,z)",
+      "description": "A function of three variables x, y and z",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Function",
+          "nickname": "F",
+          "description": "The function script",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Variable x",
+          "nickname": "x",
+          "description": "The first variable",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Variable y",
+          "nickname": "y",
+          "description": "The second variable",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Variable z",
+          "nickname": "z",
+          "description": "The third variable",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "r",
+          "description": "Expression result",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e2039b07-d3f3-40f8-af88-d74fed238727",
+      "name": "Insert Items",
+      "nickname": "Ins",
+      "description": "Insert a collection of items into a list.",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List to modify",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Item",
+          "nickname": "I",
+          "description": "Items to insert. If no items are supplied, nulls will be inserted.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "i",
+          "description": "Insertion index for each item",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Wrap",
+          "nickname": "W",
+          "description": "If true, indices will be wrapped",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "List with inserted values",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e3b1a10c-4d49-4140-b8e6-0b5732a26c31",
+      "name": "Set Difference",
+      "nickname": "Difference",
+      "description": "Create the difference of two sets (the collection of objects present in A but not in B).",
+      "category": "Set",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Set A",
+          "nickname": "A",
+          "description": "Set to subtract from.",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Set B",
+          "nickname": "B",
+          "description": "Substraction set.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "The Set Difference of A minus B",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e44c1bd7-72cc-4697-80c9-02787baf7bb4",
+      "name": "Mass Multiplication",
+      "nickname": "MM",
+      "description": "Perform mass multiplication of a list of items",
+      "category": "Operator",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Input",
+          "nickname": "I",
+          "description": "Input values for mass multiplication.",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of mass multiplication",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Partial Results",
+          "nickname": "Pr",
+          "description": "List of partial results",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e4cb7168-5e32-4c54-b425-5a31c6fd685a",
+      "name": "Text Trim",
+      "nickname": "Trim",
+      "description": "Remove whitespace characters from the start and end of some text.",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text",
+          "nickname": "T",
+          "description": "Text to split.",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Start",
+          "nickname": "S",
+          "description": "Trim whitespace at start.",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "End",
+          "nickname": "E",
+          "description": "Trim whitespace at end.",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Trimmed text.",
+          "type": "string",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e5ff52c5-40df-4f43-ac3b-d2418d05ae32",
+      "name": "Construct Exotic Date",
+      "nickname": "DateEx",
+      "description": "Construct a date using a specific calendar",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Year",
+          "nickname": "Y",
+          "description": "Year number (must be between 1 and 9999)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Month",
+          "nickname": "M",
+          "description": "Month number (must be between 1 and 12)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Day",
+          "nickname": "D",
+          "description": "Day of month (must be between 1 and 31)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Time",
+          "nickname": "T",
+          "description": "Gregorian representation of date.",
+          "type": "time",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e64c5fb1-845c-4ab1-8911-5f338516ba67",
+      "name": "Series",
+      "nickname": "Series",
+      "description": "Create a series of numbers.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Start",
+          "nickname": "S",
+          "description": "First number in the series",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Step",
+          "nickname": "N",
+          "description": "Step size for each successive number",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "C",
+          "description": "Number of values in the series",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Series",
+          "nickname": "S",
+          "description": "Series of numbers",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "e7c80ff6-0299-4303-be36-3080977c14a1",
+      "name": "Combine Data",
+      "nickname": "Combine",
+      "description": "Combine non-null items out of several inputs",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "",
+          "nickname": "",
+          "description": "",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting data with as few nulls as possible",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Index of input that was copied into result",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e9b2d2a6-0377-4c1c-a89e-b3f219a95b4d",
+      "name": "Sequence",
+      "nickname": "Seq",
+      "description": "Generate a sequence of numbers",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Notation",
+          "nickname": "N",
+          "description": "Sequence notation",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Final length of sequence",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Initial",
+          "nickname": "I",
+          "description": "Initial values in sequence",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Sequence",
+          "nickname": "S",
+          "description": "Sequence",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "eb3c8610-85b9-4593-a366-52550e8305b7",
+      "name": "Gate Or",
+      "nickname": "Or",
+      "description": "Perform boolean disjunction (OR gate).",
+      "category": "BooleanOperators",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Left hand boolean",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Right hand boolean",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Resulting value",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ef4ead41-6762-4adf-8a20-12b973bdf008",
+      "name": "Variable Expression",
+      "nickname": "Exp",
+      "description": "Expression component with a variable amount of input parameters.",
+      "category": "ExpressionComponentsObsolete",
+      "status": "pending",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "r",
+          "description": "Expression result",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f02a20f6-bb49-4e3d-b155-8ed5d3c6b000",
+      "name": "Jitter",
+      "nickname": "Jitter",
+      "description": "Randomly shuffles a list of values.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "List",
+          "nickname": "L",
+          "description": "Values to shuffle",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Jitter",
+          "nickname": "J",
+          "description": "Shuffling strength. (0.0 = no shuffling, 1.0 = complete shuffling)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Seed",
+          "nickname": "S",
+          "description": "Seed of shuffling engine",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Values",
+          "nickname": "V",
+          "description": "Shuffled values",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Index map of shuffled items",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "f0adfc96-b175-46a6-80c7-2b0ee17395c4",
+      "name": "Deconstruct Domain²",
+      "nickname": "DeDom2",
+      "description": "Deconstruct a two-dimensional domain into its component parts",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Base domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "U component",
+          "nickname": "U",
+          "description": "{u} component of domain",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "V component",
+          "nickname": "V",
+          "description": "{v} component of domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f151b0b9-cef8-4809-96fc-9b14f1c3a7b9",
+      "name": "Construct Smooth Time",
+      "nickname": "SmTime",
+      "description": "Construct a time instance from smooth components",
+      "category": "Time",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Days",
+          "nickname": "D",
+          "description": "Number of days",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Hours",
+          "nickname": "H",
+          "description": "Number of hours",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Minutes",
+          "nickname": "M",
+          "description": "Number of minutes",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Seconds",
+          "nickname": "S",
+          "description": "Number of seconds",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Time",
+          "nickname": "T",
+          "description": "Time construct",
+          "type": "time",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f217f873-92f1-47ae-ad71-ca3c5a45c3f8",
+      "name": "Includes",
+      "nickname": "Inc",
+      "description": "Test a numeric value to see if it is included in the domain",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Value to test for inclusion",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Domain",
+          "nickname": "D",
+          "description": "Domain to test with",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Includes",
+          "nickname": "I",
+          "description": "True if the value is included in the domain",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Deviation",
+          "nickname": "D",
+          "description": "Distance between the value and the nearest value inside the domain",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f3230ecb-3631-4d6f-86f2-ef4b2ed37f45",
+      "name": "Replace Nulls",
+      "nickname": "NullRep",
+      "description": "Replace nulls or invalid data with other data",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Items",
+          "nickname": "I",
+          "description": "Items to test for null",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Replacements",
+          "nickname": "R",
+          "description": "Items to replace nulls with",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Items",
+          "nickname": "I",
+          "description": "List without any nulls",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of items replaced",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f35132c0-c298-4b9c-b446-42e960f52677",
+      "name": "Colour RGB (f)",
+      "nickname": "fRGB",
+      "description": "Create a colour from floating point {RGB} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (1.0 = opaque)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Red",
+          "nickname": "R",
+          "description": "Red channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Green",
+          "nickname": "G",
+          "description": "Green channel",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Blue",
+          "nickname": "B",
+          "description": "Blue channel",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f44b92b0-3b5b-493a-86f4-fd7408c3daf3",
+      "name": "Bounds",
+      "nickname": "Bnd",
+      "description": "Create a numeric domain which encompasses a list of numbers.",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Numbers",
+          "nickname": "N",
+          "description": "Numbers to include in Bounds",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Domain",
+          "nickname": "I",
+          "description": "Numeric Domain between the lowest and highest numbers in {N}",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f7608c4d-836c-4adf-9d1f-3b04e6a2647d",
+      "name": "Text Distance",
+      "nickname": "TDist",
+      "description": "Compute the Levenshtein distance between two fragments of text.",
+      "category": "String",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Text A",
+          "nickname": "A",
+          "description": "First text fragment",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Text B",
+          "nickname": "B",
+          "description": "Second text fragment",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Case",
+          "nickname": "C",
+          "description": "Compare using case-sensitive matching",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Levenshtein distance between the two fragments",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f922ed44-6e4a-44a0-8b4b-4b4a46bdfe29",
+      "name": "Colour L*ab",
+      "nickname": "L*AB",
+      "description": "Create a colour from floating point {CIE L*ab} channels.",
+      "category": "Colour",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Alpha",
+          "nickname": "A",
+          "description": "Alpha channel (alpha is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Luminance",
+          "nickname": "L",
+          "description": "Luminance channel (luminance is defined in the range {0.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "First colour channel (A is defined in the range {-1.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Opposing colour channel (B is defined in the range {-1.0 to 1.0})",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Resulting colour",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f986e79a-1215-4822-a1e7-3311dbdeb851",
+      "name": "Invert Matrix",
+      "nickname": "MInvert",
+      "description": "Invert a matrix",
+      "category": "Matrix",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Matrix to invert",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Tolerance",
+          "nickname": "t",
+          "description": "Zero-tolerance for inversion",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Matrix",
+          "nickname": "M",
+          "description": "Inverted matrix",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Success",
+          "nickname": "S",
+          "description": "Boolean indicating inversion success",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "fa314286-867b-41fa-a7f6-3f474197bb81",
+      "name": "Remap Numbers",
+      "nickname": "ReMap",
+      "description": "Remap numbers into a new numeric domain",
+      "category": "Domain",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Value",
+          "nickname": "V",
+          "description": "Value to remap",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Optional source domain.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Target domain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Remapped number.",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "fac0d5be-e3ff-4bbb-9742-ec9a54900d41",
+      "name": "Relative Item",
+      "nickname": "RelItem",
+      "description": "Retrieve a relative item combo from a data tree",
+      "category": "Array",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Tree",
+          "nickname": "T",
+          "description": "Tree to operate on",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Offset",
+          "nickname": "O",
+          "description": "Relative offset for item combo",
+          "type": "string",
+          "access": "item"
+        },
+        {
+          "name": "Wrap Paths",
+          "nickname": "Wp",
+          "description": "Wrap paths when the shift is out of bounds",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Wrap Items",
+          "nickname": "Wi",
+          "description": "Wrap items when the shift is out of bounds",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Item A",
+          "nickname": "A",
+          "description": "Tree item",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Item B",
+          "nickname": "B",
+          "description": "Tree item relative to A",
+          "type": "generic",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "fe99f302-3d0d-4389-8494-bd53f7935a02",
+      "name": "Fibonacci",
+      "nickname": "Fib",
+      "description": "Creates a Fibonacci sequence.",
+      "category": "Function",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Seed A",
+          "nickname": "A",
+          "description": "First seed number of the sequence",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Seed B",
+          "nickname": "B",
+          "description": "Second seed number of the sequence",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Number",
+          "nickname": "N",
+          "description": "Number of values in the sequence",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Series",
+          "nickname": "S",
+          "description": "First N numbers in this Fibonacci sequence",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    }
+  ]
+}

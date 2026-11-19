@@ -9,10 +9,15 @@ import releaseTable from './releaseTable'
 import { meshQualityOptions } from './MeshQuality'
 import { CAD_EXTENSIONS, parseCad } from './CadFileImport'
 import { parseDxf } from './DxfImport'
+import { convertDwgToAsciiDxf } from './LibredwgImport'
+import ProgressiveStepImport from './ProgressiveStepImport'
+import { parseSketchUp } from './SketchUpImport'
 
 let module, reader, referenceReader, locatedInstances = 0, document, file, cache, cacheStart = 0, processedObjects = 0, totalObjects, stlTriangle = 0, stlCount = null
 let meshingOptions, forceMeshing = false, deferMeshing = false, sampleEdges = false
 let displayRecords = null, displayMetadata = null, occt = null
+let displayProgress = null
+let stepImport = null
 const readWindow = 1024 * 1024
 const syncReader = new FileReaderSync()
 
@@ -36,10 +41,28 @@ function readAt (offset, target) {
 }
 
 function release () {
+  stepImport?.dispose(); stepImport = null
   displayRecords?.return?.()
   displayRecords = displayMetadata = null
+  displayProgress = null
   reader?.delete(); referenceReader?.delete(); document?.delete()
   reader = referenceReader = document = file = cache = null
+}
+
+async function loadCadRuntime () {
+  if (!occt) {
+    importScripts('/vendor/occt/occt-import-js.js')
+    occt = await self.occtimportjs({ locateFile: name => '/vendor/occt/' + name })
+  }
+  return occt
+}
+
+async function loadGeometryRuntime () {
+  if (!module) {
+    importScripts('/nodec/NodeC.js')
+    module = await self.createNodeC({ locateFile: name => '/nodec/' + name })
+  }
+  return module
 }
 
 async function open (source, settings = {}, notify = () => {}) {
@@ -51,11 +74,31 @@ async function open (source, settings = {}, notify = () => {}) {
   sampleEdges = settings.edgesOnly === true
   processedObjects = 0; locatedInstances = 0; totalObjects = undefined; stlTriangle = 0; stlCount = null
   const extension = file.name.split('.').pop().toLowerCase()
-  if (CAD_EXTENSIONS.includes(extension) || extension === 'dxf') {
+  if (extension === 'skp') {
+    notify({ phase: 'Loading local SketchUp parser', sourceBytes: file.size, readBytes: 0 })
+    if (!self.PandaSkp) importScripts('/shared/skp/PandaSkp.js')
+    let contents = await file.arrayBuffer()
+    const parsed = parseSketchUp(self.PandaSkp, contents, file.name, state => notify({ ...state, sourceBytes: file.size, readBytes: file.size }))
+    contents = null
+    displayRecords = parsed.records
+    displayProgress = parsed.progress
+    displayMetadata = { ...parsed }; delete displayMetadata.records; delete displayMetadata.progress
+    totalObjects = parsed.totalObjects
+    return { header: null, ...displayMetadata, readBytes: file.size, sourceBytes: file.size }
+  }
+  if (extension === 'step' || extension === 'stp') {
+    stepImport = new ProgressiveStepImport(file, loadCadRuntime, meshingOptions, loadGeometryRuntime)
+    return stepImport.open(notify)
+  }
+  if (CAD_EXTENSIONS.includes(extension) || extension === 'dxf' || extension === 'dwg') {
     let parsed
-    if (extension === 'dxf') {
-      notify({ phase: 'Parsing DXF on frontend', sourceBytes: file.size, readBytes: 0 })
-      const dxf = parseDxf(await file.text(), meshingOptions)
+    if (extension === 'dxf' || extension === 'dwg') {
+      notify({ phase: extension === 'dwg' ? 'Decoding DWG on frontend' : 'Parsing DXF on frontend', sourceBytes: file.size, readBytes: 0 })
+      const text = extension === 'dwg'
+        ? await convertDwgToAsciiDxf(new Uint8Array(await file.arrayBuffer()))
+        : await file.text()
+      notify({ phase: extension === 'dwg' ? 'Parsing converted DXF on frontend' : 'Parsing DXF on frontend', sourceBytes: file.size, readBytes: file.size })
+      const dxf = parseDxf(text, meshingOptions)
       if (!dxf.records.length) throw new Error('No supported DXF geometry was found. ' + dxf.metadata.warnings.join('; '))
       parsed = { ...dxf.metadata,
         totalObjects: dxf.records.length,
@@ -64,10 +107,7 @@ async function open (source, settings = {}, notify = () => {}) {
         })() }
     } else {
       notify({ phase: 'Loading local CAD parser', sourceBytes: file.size, readBytes: 0 })
-      if (!occt) {
-        importScripts('/vendor/occt/occt-import-js.js')
-        occt = await self.occtimportjs({ locateFile: name => '/vendor/occt/' + name })
-      }
+      await loadCadRuntime()
       notify({ phase: 'Parsing and meshing CAD on frontend', sourceBytes: file.size, readBytes: file.size })
       parsed = parseCad(occt, extension, new Uint8Array(await file.arrayBuffer()), meshingOptions)
     }
@@ -76,10 +116,7 @@ async function open (source, settings = {}, notify = () => {}) {
     totalObjects = parsed.totalObjects
     return { header: null, ...displayMetadata, readBytes: file.size, sourceBytes: file.size }
   }
-  if (!module) {
-    importScripts('/nodec/NodeC.js')
-    module = await self.createNodeC({ locateFile: name => '/nodec/' + name })
-  }
+  await loadGeometryRuntime()
   if (file.name.toLowerCase().endsWith('.3dm')) {
     reader = settings.surfaceOnly ? new module.NodeCDocumentReader(file.size, readAt, module.ObjectType.Brep.value) : new module.NodeCDocumentReader(file.size, readAt)
     // Skip heavy geometry chunks while locating instance transforms. 3DM often
@@ -133,6 +170,7 @@ function pull () {
     } else if (displayRecords) {
       const next = displayRecords.next()
       if (next.done) { done = true; break }
+      if (next.value.importCheckpoint) break
       record = next.value
       bytes += collectTransferables(record).reduce((sum, buffer) => sum + buffer.byteLength, 0)
     } else if (stlCount != null) {
@@ -165,6 +203,7 @@ function pull () {
   // RDK embedded images can live after the geometry table. Read them only at
   // EOF, after every geometry component has been removed from the reader model.
   const materialHeader = done && sampleEdges && reader ? reader.header() : undefined
+  if (displayProgress) Object.assign(progress, displayProgress())
   if (done) release()
   return { records, done, ...progress, ...(materialHeader ? { materialHeader } : {}) }
 }
@@ -174,7 +213,9 @@ let queue = Promise.resolve()
 self.onmessage = ({ data }) => {
   queue = queue.then(async () => {
     try {
-      const result = data.type === 'open' ? await open(data.file, data.settings, progress => self.postMessage({ id: data.id, progress })) : pull()
+      const notify = progress => self.postMessage({ id: data.id, progress })
+      const result = data.type === 'open' ? await open(data.file, data.settings, notify) : stepImport ? await stepImport.pull(notify) : pull()
+      if (result.done && stepImport) release()
       self.postMessage({ id: data.id, result }, collectTransferables(result))
     } catch (error) {
       release()

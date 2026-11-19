@@ -55,3 +55,18 @@ Auto focus detects horizontal receivers whose shorter span is at least four time
 Run focused tests: `node scripts/test-render-resources.js`.
 
 Run actual r120 GPU/background/shader checks: `node scripts/test-render-resources-browser.js` (requires Playwright and installed Microsoft Edge; dependencies can be supplied through `NODE_PATH`). The test reads sky/HDR backdrop pixels, runs physical/area/shadow shaders, and checks shared renderer state restoration.
+
+
+## Progressive real-time AA and configuration updates (2026-11-17)
+
+RenderEngine uses quality.rasterSamples (default 8, range 1-32). During interaction it renders one FXAA frame at interaction scale; after 180 ms idle it accumulates paired Halton-jittered frames. RasterAccumulationPass averages linear radiance before bloom, ACES and output encoding. It is static progressive supersampling, not motion-reprojected TAA or a path-tracing denoiser.
+
+Camera world/projection, viewport size, effect settings, scene/config revisions and clipping changes reset history. The camera matrices are restored after each draw. A completed image is reused without further scene draws. Direct RasterRenderer callers default to one sample and must advance quality.revision for scene, material, environment or visibility changes when enabling accumulation. Both history targets are lazy, have no depth buffers, and are released during single-sample interaction, disable and disposal. Half-float history costs about 16 bytes per pixel for both buffers (about 31.6 MiB at 1920 x 1080), excluding existing raster targets. Set rasterSamples to 1 to disable accumulation; FXAA remains controlled separately.
+
+Exposure/quality/camera-only configuration changes reuse the current environment, lighting and material resources. A ready isolated WebGL2 path-tracing scene is retained when its resource, ground and visibility descriptors are unchanged; camera and sampling changes remain handled by the path tracer. Geometry/material changes still invalidate its scene. Raster image export completes the requested AA budget and honors cancellation.
+
+Selection is one-way: scene object selection/reselection locates its material; library choice never selects an object. Catalog refresh and material edits retain a manual library choice. Selection notifications carry a monotonically increasing selectionRevision for actual object-selection events, separate from material-change notifications.
+
+Changed runtime: RasterAccumulationPass.js, RasterRenderer.js, RenderEngine.js, RenderConfiguration.js, ../PandaUIApp.js, ../display/SceneSelection.js, ../composables/useEditorBridge.js, and public/editor/plugins/{Material_Nodes,Render_Nodes}.js. Source regression scripts test-render-raster-fixture.js, test-render-nodes.js and test-render-input-ports.js cover these changes and stay in the development project (outside the export script allowlist).
+
+The path-tracing backend has been replaced with the isolated three-gpu-pathtracer runtime; see [migration details](../../docs/PATH_TRACER_MIGRATION.md). Current acceptance includes 55 adapter/configuration cases, 11 physical-material snapshot cases, real GPU material/denoise/lifecycle tests and Preview production-browser integration. Prior raster regression coverage remains separate. No full-size scene performance or image-quality benchmark is claimed.

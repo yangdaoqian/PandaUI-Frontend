@@ -1,0 +1,5 @@
+PandaUI path-tracing runtime
+Includes three-gpu-pathtracer 0.0.23, Three.js 0.170.0 and three-mesh-bvh 0.8.3 (MIT).
+DenoiseMaterial includes glslSmartDeNoise by Michele Morrone (BSD-2-Clause).
+Full license texts are shipped beside this file. xatlas-web is an unused peer dependency and is not bundled.
+The runtime is built from scripts/pathtracer-runtime using scripts/build-pathtracer-runtime.cjs.

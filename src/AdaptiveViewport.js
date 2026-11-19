@@ -178,7 +178,9 @@ export default class AdaptiveViewport {
     this.observeRefresh(now)
     this.loading = loading
     const previousScale = this.scale
-    if (!idle || loading) this.resumeResolution()
+    // Progressive AA/path-tracing requests are drawing work, not interaction.
+    // Keep idle full resolution until an explicit invalidation or import resumes.
+    if (loading) this.resumeResolution()
     const lastCompleted = this.frameTimes.length ? this.frameTimes[this.frameTimes.length - 1] : this.lastFrame
     if (idle && (lastCompleted == null || now - lastCompleted > 300)) {
       this.idle = true

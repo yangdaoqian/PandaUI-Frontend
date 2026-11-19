@@ -81,6 +81,11 @@ module.exports = function (ctx) {
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
         require('./scripts/SceneFileWebpack')(cfg)
+        // libredwg-web ships one ESM WASM loader for both browser and Node.
+        // Its dead Node branch contains a dynamic import of Node's `module`
+        // package; the browser build must resolve that branch as unavailable.
+        cfg.resolve = cfg.resolve || {}
+        cfg.resolve.fallback = { ...(cfg.resolve.fallback || {}), module: false }
         // dev 模式下显式开启 source map，确保断点映射
         if (ctx.dev) {
           cfg.devtool = 'eval-source-map'
@@ -101,10 +106,10 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: Number(process.env.PANDAUI_FRONTEND_PORT || 9002),
-      open: false, // opens browser window automatically
+      port: 9000,
+      open: true, // opens browser window automatically
       proxy: {
-          '/api': backendDevProxy(process.env.PANDAUI_BACKEND_URL || 'http://127.0.0.1:1')
+          '/api': backendDevProxy()
       }
     },
 
@@ -124,7 +129,7 @@ module.exports = function (ctx) {
       manifest: {
         name: 'PandaUI',
         short_name: 'PandaUI',
-        description: 'PandaUI frontend',
+        description: 'Rhino model viewer',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -162,7 +167,7 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-      id: 'org.pandaui.frontend'
+      id: 'com.mcneel.pandaui'
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor

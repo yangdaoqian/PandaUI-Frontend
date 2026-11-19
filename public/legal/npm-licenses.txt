@@ -3979,6 +3979,13 @@ SOFTWARE.
 
 
 ========================================================================
+@mlightcad/libredwg-web@0.8.8
+Declared license: GPL-3.0
+Dependency scope: production
+Source: https://github.com/mlightcad/libredwg-web
+No bundled notice text found; see the dependency inventory and upstream source.
+
+========================================================================
 @nodelib/fs.scandir@2.1.5
 Declared license: MIT
 Dependency scope: development/build

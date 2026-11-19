@@ -15,3 +15,5 @@ The upstream McNeel MIT notice in LICENSE is preserved. PandaUI frontend contrib
 - Build-time webpack-chain uses MPL-2.0; its source is available from the pinned npm package and https://github.com/neutrinojs/webpack-chain. caniuse-lite data is CC-BY-4.0, with attribution and license in the consolidated notices. Packages offering BSD-3-Clause OR GPL-2.0 are used under the BSD-3-Clause option.
 
 The extracted third-party node catalog, SDK binaries, sample media, robot model assets and backend implementation are excluded. API names, small interoperability mappings and copyright notices are retained; they do not imply affiliation. The deferred NodeC algorithm provenance review is recorded in docs/RELEASE_REVIEW.md.
+
+- @mlightcad/libredwg-web 0.8.8: GPL-3.0-only. The browser DWG runtime and full license are retained under public/shared/libredwg/.

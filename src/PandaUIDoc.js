@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { applyLocalDocumentVisibility } from './GeometryDocumentViewState'
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import FileObj from './FileObj'
 import FileDraco from './FileDraco'
@@ -7,6 +8,7 @@ import FileStl from './FileStl'
 import SceneUtilities from './SceneUtilities'
 import releaseTable from './import/releaseTable'
 import StreamingBlocks from './import/StreamingBlocks'
+import StreamingStepInstances from './import/StreamingStepInstances'
 import ImportWorkBudget from './import/ImportWorkBudget'
 import { decodeDisplayRecord } from './import/DisplayRecord'
 import { replaceImportedBrep } from './import/replaceImportedBrep'
@@ -17,9 +19,10 @@ import { configureRenderShadows } from './RenderShadows'
 import { applyRenderMaterialSettings, applyShadingMaterialSettings, normalizeRenderSettings, normalizeShadingSettings } from './DisplayMaterialSettings'
 import ImportedRenderBatcher from './display/ImportedRenderBatcher'
 import DisplayResources from './import/DisplayResources'
-import { mountDisplayObject, normalizeImportLayerPath, clearDisplayObjectImport } from './import/DisplayObjectImport'
+import { mountDisplayObject, normalizeImportLayerPath, clearDisplayObjectImport, prepareDisplayMaterials, replaceDisplayImportMaterial } from './import/DisplayObjectImport'
 import clearObjectChildren from './display/clearObjectChildren'
 import RhinoMaterials from './import/RhinoMaterials'
+import { releaseLocalArchive } from './storage/LocalDocumentArchive'
 
 function addToDictionary (node, chunks, layer) {
   let fullPath = ''
@@ -59,6 +62,8 @@ export default class PandaUIDoc {
   documentId = THREE.MathUtils.generateUUID()
   rhinoDoc = null
   subdSources = new Map()
+  importedGeometrySources = new Map()
+  importedGeometryHeader = null
   layers = []
   three = {
     middleground: null,
@@ -85,7 +90,10 @@ export default class PandaUIDoc {
   importedObjectCount = 0
   displayedPartCount = 0
   #blocks = null
+  #stepInstances = null
   #importBudget = { vertices: 0, maxVertices: Number.POSITIVE_INFINITY }
+  #initialMeshDiagnostics = new Map()
+  #meshDisplayDiagnostics = new Map()
   #layerVisibility = new Map()
   #triangleEdges = new MeshTriangleEdges()
   #renderBatcher = null
@@ -103,7 +111,11 @@ export default class PandaUIDoc {
     this.setSourceDocument(rhinoDoc)
   }
 
-  setSourceDocument (rhinoDoc) {
+  setSourceDocument (rhinoDoc, preserveLayerState = false) {
+    const visibility = preserveLayerState ? new Map(this.#layerVisibility) : null
+    const existingLayers = new Map()
+    const remember = nodes => nodes?.forEach(node => { existingLayers.set(node.fullPath, node); remember(node.children) })
+    if (preserveLayerState) remember(this.layers)
     this.rhinoDoc?.delete()
     this.rhinoDoc = rhinoDoc
     this.rhinoMaterials.bind(rhinoDoc)
@@ -124,10 +136,21 @@ export default class PandaUIDoc {
       layer.delete()
     }
     this.layers = createNodes(topLayers)
+    if (preserveLayerState) {
+      const retain = nodes => nodes.map(node => {
+        const previous = existingLayers.get(node.fullPath)
+        const children = node.children ? retain(node.children) : undefined
+        if (!previous) return { ...node, ...(children ? { children } : {}) }
+        if (children) previous.children = children
+        return previous
+      })
+      this.layers = retain(this.layers)
+    }
     releaseTable(layers)
     const initializeVisibility = (layers, parentVisible = true) => layers.forEach(layer => {
-      this.#layerVisibility.set(layer.fullPath, parentVisible && layer.visible !== false)
-      initializeVisibility(layer.children || [], parentVisible && layer.visible !== false)
+      const visible = visibility?.has(layer.fullPath) ? visibility.get(layer.fullPath) : parentVisible && layer.visible !== false
+      this.#layerVisibility.set(layer.fullPath, visible)
+      initializeVisibility(layer.children || [], visible)
     })
     this.#layerVisibility.clear()
     initializeVisibility(this.layers)
@@ -195,7 +218,15 @@ export default class PandaUIDoc {
           const layerIndex = attr.layerIndex
           layer = layerTable.get(layerIndex)
           if (layer == null) throw new Error(`Missing layer ${layerIndex}`)
+          const previousDiagnostics = ['missingMeshObjects', 'missingMeshFaces', 'meshingFailures'].map(key => conversionBudget?.[key] || 0)
           const objectsToAdd = SceneUtilities.createThreeGeometryOnLayer([[geometry, attr, options.brepPreviews?.get(objectKey), options.edgePreviews?.get(objectKey)]], doc, this.disposableResources, renderWires, conversionBudget, options.edgesOnly)
+          if (conversionBudget === this.#importBudget) {
+            this.#initialMeshDiagnostics.set(attr.id || String(objectKey), {
+              missingMeshObjects: (conversionBudget.missingMeshObjects || 0) - previousDiagnostics[0],
+              missingMeshFaces: (conversionBudget.missingMeshFaces || 0) - previousDiagnostics[1],
+              meshingFailures: (conversionBudget.meshingFailures || 0) - previousDiagnostics[2]
+            })
+          }
           let roots = objectsToAdd.map(([part, bbox], partIndex) => {
             if (bbox) {
               part.boundingBox = new THREE.Box3(new THREE.Vector3(...bbox.min), new THREE.Vector3(...bbox.max))
@@ -226,6 +257,10 @@ export default class PandaUIDoc {
             root.name = attr.name || `Object ${i + 1}`
             root.userData.importedModelObject = true
             root.userData.geometryType = isSubD ? 'SubD' : isBrep ? 'Brep' : 'Curve'
+            if (isBrep) {
+              const faces = geometry.faces()
+              try { root.userData.sourceFaceCount = faces.count } finally { faces.delete() }
+            }
             if (isSubD) root.userData.subdDisplayMode = geometry.subdDisplayMode || 'smooth'
             root.userData.sourceGeometryId = attr.id || String(objectKey)
             if (attr.visible === false) { root.visible = false; root.userData.pandauiHidden = true; root.userData.importedHiddenObject = true }
@@ -266,10 +301,44 @@ export default class PandaUIDoc {
     } finally { releaseTable(objects); releaseTable(layerTable) }
   }
 
+  setStepInstances (descriptors = []) {
+    if (this.disposed) return
+    this.#stepInstances ||= new StreamingStepInstances(this)
+    this.#stepInstances.setInstances(descriptors)
+    this.onImportDisplay?.(0)
+  }
+
+  get stepInstanceState () { return this.#stepInstances?.state || null }
+
+  finishStepInstances (options = {}) { return this.#stepInstances?.finish(options) }
+
   async appendImportRecord (record, module) {
     if (this.disposed) throw Object.assign(new Error('Import cancelled.'), { name: 'AbortError' })
+    if (record.stepInstances) this.setStepInstances(record.stepInstances)
+    if (record.stepInstanceFailure) this.#stepInstances?.fail(record.stepInstanceFailure)
+    const stepInstanceId = record.stepInstanceId
+    if (stepInstanceId != null) {
+      if (!this.#stepInstances) throw new Error(`Unknown STEP instance: ${stepInstanceId}`)
+      if (!this.#stepInstances.target(stepInstanceId)) return
+    }
+    if (record.sourceHeader) {
+      const metadata = module.File3dm.fromByteArray(record.sourceHeader)
+      if (!metadata) throw new Error('Unable to read imported geometry metadata.')
+      // STEP tables grow with each conversion job. Preserve live layer nodes
+      // and user visibility while adding the newly discovered native tables.
+      this.setSourceDocument(metadata, true)
+      this.importedGeometryHeader = record.sourceHeader
+    }
+    if ((record.stepInstances || record.stepInstanceFailure) && !record.objectRecord && !record.instanceRecord && !record.displayInfo && !record.displayObject && !record.positions) return
+    if (record.exactSource && !record.displayObject) {
+      const source = record.exactSource
+      if (!source.id || !source.geometry?.data || !source.attributes || !this.importedGeometryHeader) throw new Error('Incomplete exact geometry source.')
+      this.importedGeometrySources.set(source.id, { id: source.id, geometry: source.geometry, attributes: source.attributes })
+    }
     if (record.displayObject) {
-      const mounted = mountDisplayObject(this, record.displayObject)
+      const target = stepInstanceId == null ? this : this.#stepInstances.displayDocument(stepInstanceId)
+      if (record.displayObject.sourceMaterial) await prepareDisplayMaterials(target, record.displayObject)
+      const mounted = mountDisplayObject(target, record.displayObject, record.exactSource)
       if (mounted.newObject) this.importedObjectCount++
       this.#importBudget.vertices += mounted.vertices
       this.onImportDisplay?.(record.byteLength ?? mounted.byteLength)
@@ -335,7 +404,15 @@ export default class PandaUIDoc {
       await blocks.drain()
       return id
     }
-    await this.buildSceneIncrementally(32, true, { ids: [id], importBytes, release: true, definition: true, budget: this.#importBudget, brepPreviews, edgePreviews, edgesOnly: record.edgesOnly, displayInfo: record.displayInfo, module })
+    const onObjects = stepInstanceId == null ? undefined : roots => {
+      if (!this.#stepInstances?.mount(stepInstanceId, roots)) return
+      roots.forEach(root => {
+        this.configureImportedObject(root, root.fullLayerPath)
+        this.countImportedParts(root)
+        this.onImportedRoot?.(root)
+      })
+    }
+    await this.buildSceneIncrementally(32, true, { ids: [id], importBytes, release: true, definition: true, budget: this.#importBudget, brepPreviews, edgePreviews, edgesOnly: record.edgesOnly, displayInfo: record.displayInfo, module, onObjects })
     return id
   }
 
@@ -343,6 +420,7 @@ export default class PandaUIDoc {
     await this.#blocks?.drain()
     if (this.disposed) throw Object.assign(new Error('Import cancelled.'), { name: 'AbortError' })
     if (this.#blocks) this.skippedObjectCount += this.#blocks.pendingObjects + this.#blocks.errors
+    this.finishStepInstances()
     // Build render batches only after all streaming records have arrived. The
     // source roots remain in the scene for the tree and editing system; the
     // batcher only replaces their visible mesh buffers.
@@ -358,6 +436,11 @@ export default class PandaUIDoc {
   replaceBrepDisplay (roots, parts, resources) {
     roots.forEach(root => this.#renderBatcher?.invalidate(root))
     const replaced = replaceImportedBrep(this, roots, parts, resources, this.#importBudget)
+    if (replaced) {
+      let diagnostic
+      parts.forEach(part => part.traverse(child => { diagnostic ||= child.userData.brepMeshing }))
+      this.recordMeshDisplayResult(roots, diagnostic || { status: 'success' })
+    }
     roots.forEach(root => this.#renderBatcher?.queue(root))
     return replaced
   }
@@ -429,8 +512,53 @@ export default class PandaUIDoc {
 
   completePlacementScan () { this.streamingBlocks().indexed = true }
 
+  recordMeshDisplayResult (roots, preview, sourceFaceCount = preview.sourceFaceCount || preview.faceCount || 0) {
+    if (this.disposed) return
+    for (const root of roots) {
+      let mounted = false
+      for (let node = root; node; node = node.parent) if (node === this.three.middleground) mounted = true
+      if (!mounted) continue
+      const previous = this.#meshDisplayDiagnostics.get(root)
+      const faceCount = sourceFaceCount || previous?.sourceFaceCount || root.userData.sourceFaceCount || 0
+      const failed = preview.status === 'failed' || preview.status === 'partial'
+      let missingMeshFaces = preview.status === 'partial' ? (preview.failedFaces?.length || Math.max(0, sourceFaceCount - (preview.faceCount || 0))) : 0
+      if (preview.status === 'failed') {
+        // A failed retry retains its previous display, including usable faces.
+        let hasMesh = false
+        root.traverse(part => { if (part.isMesh) hasMesh = true })
+        missingMeshFaces = previous?.missingMeshFaces ?? (hasMesh ? (this.#initialMeshDiagnostics.get(root.userData.sourceGeometryId)?.missingMeshFaces || 0) : faceCount)
+      }
+      this.#meshDisplayDiagnostics.set(root, {
+        objectId: root.userData.sourceGeometryId,
+        status: preview.status,
+        message: preview.message || '',
+        failedFaces: preview.failedFaces?.map(face => ({ ...face })) || [],
+        faceReports: preview.faceReports?.map(report => ({ ...report })) || [],
+        sourceFaceCount: faceCount,
+        missingMeshFaces,
+        missingMeshObjects: missingMeshFaces > 0 ? 1 : 0,
+        meshingFailures: failed ? 1 : 0
+      })
+    }
+  }
+
   importDisplayProgress () {
-    return { displayParts: this.displayedPartCount, pendingBlockObjects: this.#blocks?.pendingObjects || 0, skippedObjects: this.skippedObjectCount, missingMeshObjects: this.#importBudget.missingMeshObjects || 0, missingMeshFaces: this.#importBudget.missingMeshFaces || 0, meshingFailures: this.#importBudget.meshingFailures || 0, meshingMessages: this.#importBudget.meshingMessages || [] }
+    const result = { displayParts: this.displayedPartCount, pendingBlockObjects: this.#blocks?.pendingObjects || 0, skippedObjects: this.skippedObjectCount, missingMeshObjects: this.#importBudget.missingMeshObjects || 0, missingMeshFaces: this.#importBudget.missingMeshFaces || 0, meshingFailures: this.#importBudget.meshingFailures || 0, meshingMessages: [] }
+    const objects = new Map()
+    for (const [root, diagnostic] of this.#meshDisplayDiagnostics) {
+      let mounted = false
+      for (let node = root; node; node = node.parent) if (node === this.three.middleground) mounted = true
+      if (!mounted) { this.#meshDisplayDiagnostics.delete(root); continue }
+      const previous = objects.get(diagnostic.objectId)
+      if (!previous || diagnostic.missingMeshFaces > previous.missingMeshFaces || (diagnostic.meshingFailures && !previous.meshingFailures)) objects.set(diagnostic.objectId, diagnostic)
+    }
+    result.meshingMessages = (this.#importBudget.meshingMessages || []).filter(item => !objects.has(item.objectId))
+    for (const [id, diagnostic] of objects) {
+      const initial = this.#initialMeshDiagnostics.get(id)
+      for (const key of ['missingMeshObjects', 'missingMeshFaces', 'meshingFailures']) result[key] += diagnostic[key] - (initial?.[key] || 0)
+      if (diagnostic.meshingFailures && result.meshingMessages.length < 10) result.meshingMessages.push({ objectId: id, status: diagnostic.status, message: diagnostic.message, failedFaces: diagnostic.failedFaces, faceReports: diagnostic.faceReports, sourceFaceCount: diagnostic.sourceFaceCount })
+    }
+    return result
   }
 
   tagImportedObject (root, key, layerPath, name = '') {
@@ -453,7 +581,7 @@ export default class PandaUIDoc {
     root.traverse(child => { if (child.geometry && (child.geometry.attributes?.position?.count || child.geometry.vertices?.length)) this.displayedPartCount++ })
   }
 
-  configureImportedObject (root, layerPath, indexLayer = true) {
+  configureImportedObject (root, layerPath, indexLayer = true, parentOwnsLayer = false) {
     root.fullLayerPath = layerPath
     if (indexLayer && this.#threeObjectsByRootLayer) (this.#threeObjectsByRootLayer[layerPath] ||= []).push(root)
     root.traverse(object => {
@@ -462,13 +590,15 @@ export default class PandaUIDoc {
       if (object.isMesh) object.visible = this.surfaceMeshesVisible !== false
       if (object.userData.edgeLines) object.visible = this.edgesVisible && (object.userData.sharpEdge === true || this.nonSharpEdgesVisible)
       if (object.userData.surfaceWires && !object.userData.edgeLines) object.visible = this.surfaceMeshesVisible === false
+      if (object.userData.meshGeometryEdges && !object.userData.surfaceWires) object.visible = this.meshEdgesVisible === true
       const materials = object.userData.displayMaterials
       if (materials) {
         this.configureImportedMaterials(materials)
         object.material = this.renderModeEnabled ? materials.render : materials.shading
       }
     })
-    root.visible &&= this.#layerVisibility.get(layerPath) !== false && root.userData.pandauiHidden !== true
+    root.visible &&= (parentOwnsLayer || this.#layerVisibility.get(layerPath) !== false) && root.userData.pandauiHidden !== true
+    applyLocalDocumentVisibility(root, this, root.visible)
     root.traverse(object => this.disposableResources.track(object))
     this.#renderBatcher?.queue(root)
   }
@@ -484,6 +614,8 @@ export default class PandaUIDoc {
       this.#configuredShadingMaterials.add(materials.shading)
     }
   }
+
+  replaceImportedDisplayMaterial (previous, replacement) { replaceDisplayImportMaterial(this, previous, replacement) }
 
   static create (name, contents, rhino3dm) {
     let rhinoDoc = null
@@ -674,14 +806,19 @@ export default class PandaUIDoc {
     this.sourceFile = null
     if (this.disposed) return
     this.disposed = true
+    releaseLocalArchive(this)
     this.geometryEdits?.clear()
     this.subdSources.clear()
+    this.importedGeometrySources.clear()
+    this.importedGeometryHeader = null
     this.subdSourceHeader = null
     this.importStream?.dispose()
     this.importStream = null
     this.#blocks?.dispose()
     this.#blocks = null
     this.#renderBatcher?.dispose()
+    this.#stepInstances?.dispose()
+    this.#stepInstances = null
     this.#renderBatcher = null
     this.onImportDisplay = null
     this.onImportedRoot = null
@@ -734,6 +871,8 @@ export default class PandaUIDoc {
     })
     this.disposableResources.clear()
     this.#layerVisibility.clear()
+    this.#initialMeshDiagnostics.clear()
+    this.#meshDisplayDiagnostics.clear()
     this.#triangleEdges = null
     this.displayLighting = null
     this.renderEnvironment = null
@@ -793,6 +932,10 @@ export default class PandaUIDoc {
     })
   }
 
+  importedObjectSourceVisible (object) {
+    return this.#layerVisibility.get(object.fullLayerPath) !== false && object.userData.pandauiHidden !== true
+  }
+
   setLayerVisibility (name, visible) {
     this.#layerVisibility.set(name, visible !== false)
     for (const object of this.getSceneObjectsOnLayer(name) || []) {
@@ -850,6 +993,15 @@ export default class PandaUIDoc {
           dict[layerPath] = []
         }
         dict[layerPath].push(item)
+      })
+      // Source-header refreshes invalidate this cache during STEP streaming.
+      // Only occurrence containers and their mounted model roots carry this
+      // marker; their mesh/wire children must not become separate layer targets.
+      // Keep the existing direct-child indexing rules for every other format.
+      this.three.middleground.traverse(item => {
+        if (item.parent === this.three.middleground || item.userData?.stepInstanceId == null || item.userData?.renderBatch) return
+        if (typeof item.fullLayerPath !== 'string') return
+        ;(dict[item.fullLayerPath] ||= []).push(item)
       })
       this.#threeObjectsByRootLayer = dict
     }

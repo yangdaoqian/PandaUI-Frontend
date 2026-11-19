@@ -3,6 +3,7 @@ import ParameterScenePicker, { scenePickAccessError } from '../ParameterScenePic
 import { isDisplayOnlySharedObject } from './SharedSelectionPolicy'
 import { rangeAtIntersection, createBrepSelection, materializeBrepSelection } from '../BrepDisplayRanges'
 import GumballController from '../modeling/GumballController'
+import { sceneObjectLocked } from '../GeometryDocumentViewState'
 
 export default class SceneInteraction {
   #services
@@ -212,6 +213,7 @@ export default class SceneInteraction {
   deletionTarget () {
     const selected = this.#services.getSelectedObject()
     if (!selected) return null
+    if (sceneObjectLocked(selected)) return null
     for (let object = selected; object; object = object.parent) {
       if (object.userData?.nodePreview || object.userData?.nonselectable || object.userData?.readOnly || object.userData?.clippingHelper) return null
     }
@@ -507,6 +509,7 @@ export default class SceneInteraction {
   }
 
   isSelectable (object) {
+    if (sceneObjectLocked(object)) return false
     if (isDisplayOnlySharedObject(object)) return false
     if (object === this.#services.getSelectionHighlight()) return false
     if ((this.#objectPickHandler || this.#curvePickHandler || this.isPicking()) && scenePickAccessError(object)) return false

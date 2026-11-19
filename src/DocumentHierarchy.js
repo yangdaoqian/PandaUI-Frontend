@@ -3,7 +3,14 @@ export function ownsWorkspaceDocument (document, workspace) {
 }
 
 export function visibleWorkspaceDocuments (workspace) {
-  return (workspace.documents || []).filter(document => document.publicDocumentId === workspace.publicDocumentId && (document.publishedAt || (ownsWorkspaceDocument(document, workspace) && (workspace.openedPrivateDocumentIds || []).includes(document.documentId))))
+  const local = workspace.localDocuments || []
+  const entries = (workspace.documents || []).filter(document => document.publicDocumentId === workspace.publicDocumentId && (document.publishedAt || (ownsWorkspaceDocument(document, workspace) && (workspace.openedPrivateDocumentIds || []).includes(document.documentId))))
+  const result = entries.map(entry => {
+    const model = local.find(doc => doc.workspaceDocumentId === entry.documentId)
+    return model ? { ...entry, localDocument: true, localDocumentId: model.documentId, localObjects: model.localObjects, layers: model.layers, objectCount: model.objectCount } : entry
+  })
+  for (const model of local) if (!result.some(entry => entry.localDocumentId === model.documentId)) result.push({ ...model, publicDocumentId: workspace.publicDocumentId })
+  return result
 }
 
 export function workspaceObjectLoaded (object, workspace) {
@@ -31,14 +38,14 @@ export function documentHierarchy ({ documents, workspace, pages, expanded, geom
   const children = visibleWorkspaceDocuments(workspace)
   const publicDocument = (workspace.documents || []).find(document => document.documentId === workspace.publicDocumentId)
   const addDocument = entry => {
-    const document = { ...entry, ...(!entry.displayOnly && native.get(entry.nativeDocumentId || entry.documentId)) }
+    const document = { ...entry, ...(!entry.displayOnly && native.get(entry.nativeDocumentId || entry.documentId)), ...(entry.localDocumentId ? { documentId: entry.localDocumentId } : {}) }
     const key = entry.treeKey || 'document:' + entry.documentId
     const writable = !entry.displayOnly && ownsWorkspaceDocument(entry, workspace) && !entry.publishedAt && entry.role !== 'viewer'
     const page = entry.displayOnly ? null : pages[document.documentId]
-    const shared = entry.sceneObjects || (workspace.sceneObjects || []).filter(object => object.privateDocumentId === entry.documentId)
+    const shared = entry.localDocument ? [] : entry.sceneObjects || (workspace.sceneObjects || []).filter(object => object.privateDocumentId === entry.documentId)
     const byGeometry = new Map(shared.filter(object => object.geometryId).map(object => [object.geometryId, object]))
     const represented = new Set()
-    const items = (page?.items || []).map(item => {
+    const items = (entry.localObjects || page?.items || []).map(item => {
       const object = byGeometry.get(item.geometryId)
       if (!object || object.nativeDocumentId !== document.documentId || (item.poolGeneration && object.poolGeneration !== item.poolGeneration)) return item
       represented.add(object.objectId)
@@ -69,9 +76,17 @@ export function documentHierarchy ({ documents, workspace, pages, expanded, geom
     // Recreate those layers here so the public document keeps its hierarchy.
     displays.filter(object => object.layerPath).forEach(object => layer(object.layerPath).objects.push(displayItem(object)))
     const groups = new Map()
+    const localChildren = new Map()
+    for (const item of items) {
+      if (item.localParentId) {
+        const children = localChildren.get(item.localParentId) || []
+        children.push(item); localChildren.set(item.localParentId, children)
+      }
+    }
     const unlayeredDisplays = displays.filter(object => !object.layerPath)
     if (unlayeredDisplays.length) groups.set('display', { documentId: document.documentId, document, workspaceDocumentId: entry.documentId, writable: writable && unlayeredDisplays.every(object => !object.nativeDocumentId), key: key + ':display', depth: 2, label: 'Scene objects', branch: true, group: true, displayOnly: true, icon: 'view_in_ar', children: [], objects: unlayeredDisplays.map(displayItem) })
     for (const item of items) {
+      if (item.localParentId) continue
       const origin = item.origin || {}
       if (origin.kind === 'nodeOutput') {
         const id = String(origin.nodeInstanceId || 'unknown')
@@ -84,7 +99,15 @@ export function documentHierarchy ({ documents, workspace, pages, expanded, geom
       result.push({ ...group, count: count(group) })
       if (!expanded.has(group.key)) return
       group.children.forEach(addGroup)
-      group.objects.forEach(item => result.push({ ...geometryRow(item), ownerUsername: item.ownerUsername || (!entry.publishedAt ? entry.ownerUsername : null), ownerId: item.ownerId || (!entry.publishedAt ? entry.ownerId : null), workspaceDocumentId: entry.documentId, writable: writable && (!item.sharedObjectId || !item.nativeDocumentId), document, depth: group.depth + 1 }))
+      const addItem = (item, depth, ancestorReferences = []) => {
+        const children = localChildren.get(item.localObjectId) || []
+        const row = { ...geometryRow(item), ownerUsername: item.ownerUsername || (!entry.publishedAt ? entry.ownerUsername : null), ownerId: item.ownerId || (!entry.publishedAt ? entry.ownerId : null), workspaceDocumentId: entry.documentId, writable: writable && (!item.sharedObjectId || !item.nativeDocumentId), document, depth, branch: children.length > 0, count: children.length || null }
+        row.ancestorReferences = ancestorReferences
+        result.push(row)
+        const parent = { documentId: document.documentId, geometryId: item.geometryId, layerPath: item.layerPath, visible: item.visible !== false }
+        if (expanded.has(row.key)) children.forEach(child => addItem(child, depth + 1, [...ancestorReferences, parent]))
+      }
+      group.objects.forEach(item => addItem(item, group.depth + 1))
     }
     ;[...layers.values()].filter(row => row.depth === 2).forEach(addGroup)
     groups.forEach(addGroup)

@@ -1,0 +1,15 @@
+# Object UV repeat
+
+U repeat and V repeat default to 1. Positive fractional values are supported; 4 / 2 creates four horizontal tiles and two vertical tiles. Use scale for scaling/mirroring, offsets and rotation as before; repeat multiplies the resulting UV coordinates. Reset UV restores the session's original geometry and sampler wrapping. UV Match copies repeat behavior without multiplying copied coordinates a second time.
+
+PandaUI: Render / UV Edit, with Parameter Geometry connected to Target. U repeat and V repeat are appended at input indices 8/9; existing inputs 0-7 retain their indices, including Auto apply. Controls participate in automatic changed-input execution and graph serialization.
+
+Preview: Render / Object UV / U repeat, V repeat, then Apply UV. Settings remain across panel remounts. Render/full-document archives store the resulting UV coordinates, texture sampler wrapping and a material repeat marker. As with existing UV edits, reopening treats saved coordinates as the new base; Reset UV is not cross-session history.
+
+Repeat edits detach materials and UV-mapped texture samplers for the target mesh while borrowing original image data. This prevents shared objects from changing. Private copies are reused on subsequent edits and owned by the document until close. Environment textures are not tiled. Detached materials receive a distinct catalog identity so deduplication cannot merge them back into the source. New textures assigned through Scene materials inherit the repeat axes. UV edits run against source materials even with active renderer overrides, preserving Shade/Render switching and saved results.
+
+Changed files: src/render/ObjectUVEditor.js, src/render/ImportedMaterialEditor.js, src/DisplayPipeline.js, src/collaboration/SceneDisplayPacket.js, public/editor/plugins/UV_Nodes.js; Preview also changes src/components/PreviewUvPanel.vue. Preview runtime adaptations are preserved. Tests remain in their development projects: test-object-uv.js, test-render-input-ports.js, test-scene-display-packet.js, test-imported-material-editor.js and Preview test-preview-render.cjs.
+
+Validation: unit checks cover shared sampler/material isolation, absolute nonaccumulating repeats, matching, reset/undo, positive finite validation, unchanged node port indices, connected repeat inputs and packet metadata/UV/wrapping persistence. Targeted ESLint passes. PandaUI and Preview production builds pass. Full Preview browser integration and standalone export checks are recorded after completion.
+
+Final verification: PandaUI, Preview and standalone Frontend builds pass. Preview production-browser integration passes, including U/V repeat controls under active render overrides, assigning textures after UV edits, Shade/Render restoration, and repeated UV coordinates plus repeat samplers after save/reopen. Standalone release check passes for 441 candidate files. Selective synchronization updated the export manifest and both frontend change logs. Source/Preview test scripts remain local under the export policy; no remote publication.

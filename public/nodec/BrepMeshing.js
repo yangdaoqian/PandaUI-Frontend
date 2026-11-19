@@ -61,6 +61,10 @@
       if (!Number.isFinite(preview[key]) || preview[key] < 0 || (key !== 'maximumBoundaryDeviation' && !Number.isInteger(preview[key]))) return invalid('invalid repair diagnostics.')
       diagnostics[key] = preview[key]
     }
+    if (preview.faceReports !== undefined) {
+      if (!Array.isArray(preview.faceReports) || preview.faceReports.some(report => !report || !Number.isInteger(report.faceIndex) || typeof report.surfaceType !== 'string' || typeof report.entryPoint !== 'string' || typeof report.boundaryPath !== 'string' || typeof report.triangulationPath !== 'string' || !Number.isInteger(report.fallbackStage) || report.fallbackStage < 0 || typeof report.success !== 'boolean' || !Number.isInteger(report.vertexCount) || report.vertexCount < 0 || !Number.isInteger(report.triangleCount) || report.triangleCount < 0 || typeof report.message !== 'string')) return invalid('invalid face path diagnostics.')
+      diagnostics.faceReports = preview.faceReports.map(report => ({ ...report }))
+    }
     return { status: 'success', message: preview.message, positions, normals, indices, faceCount, ...diagnostics, ...(preview.uv ? { uv: preview.uv } : {}), ...(preview.faceRanges ? { faceRanges: preview.faceRanges } : {}), ...(typeof preview.engine === 'string' ? { engine: preview.engine } : {}) }
   }
 

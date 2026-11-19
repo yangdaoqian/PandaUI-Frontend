@@ -64,6 +64,7 @@
     this.visible_area = [0, 0, 0, 0]
     this.low_quality = false
     this.editorModeActive = true
+    this._modeLayoutNodes = new WeakSet()
     this.appearance = NodeAppearance.normalize()
     var kernel = global.PandaUIKernel || {}
     var ensureAttributes = function (node) { return node && typeof node.getNodeAttributes === 'function' ? node.getNodeAttributes() : node && node._attributes }
@@ -382,8 +383,22 @@
     if (this.tooltip) this.tooltip.hide()
     this.editorModeActive = active !== false
     if (!this.editorModeActive) this.cancelPointerInteraction()
+    this.syncNodeModeLayout(true)
+    if (typeof global.PandaUISyncPanelNodes === 'function') global.PandaUISyncPanelNodes(this, true)
+    if (typeof global.PandaUISyncWidgetControls === 'function') global.PandaUISyncWidgetControls(this)
     this.setDirty()
     return this.editorModeActive
+  }
+  GraphCanvas.prototype.syncNodeModeLayout = function (force) {
+    // Apply the active workspace to new/restored nodes too, without a graph edit
+    // or solution request. Manual collapse remains available until the next switch.
+    if (!this._modeLayoutNodes) this._modeLayoutNodes = new WeakSet()
+    this.graph._nodes.forEach(function (node) {
+      if (!force && this._modeLayoutNodes.has(node)) return
+      node.flags = node.flags || {}
+      node.flags.collapsed = !this.editorModeActive
+      this._modeLayoutNodes.add(node)
+    }, this)
   }
   GraphCanvas.prototype.stopEdgePan = function () {
     if (this._edgePanHandle != null) {
@@ -811,6 +826,7 @@
   }
   GraphCanvas.prototype.draw = function () {
     this.dirty = false
+    this.syncNodeModeLayout()
     var context = this.context
     context.setTransform(this.ratio, 0, 0, this.ratio, 0, 0)
     context.clearRect(0, 0, this.canvas.width / this.ratio, this.canvas.height / this.ratio)
@@ -1317,6 +1333,59 @@
       return exposure !== 'hidden' && exposure.indexOf('hidden') === -1
     })
   }
+  // Presentation paths only. Registered type strings remain serialization keys.
+  var nodeMenuRoots = ['Panels', 'Parameters', 'Data', 'Math', 'Geometry', 'Transform', 'Display', 'Render', 'Robotics', 'Scripting', 'AI', 'Extensions']
+  var nodeMenuAliases = {
+    panels: ['Panels'], params: ['Parameters'], parameters: ['Parameters'],
+    input: ['Parameters', 'Input'], widget: ['Parameters', 'Input'],
+    basic: ['Data', 'Basic'], convert: ['Data', 'Conversion'], list: ['Data', 'Lists'],
+    sets: ['Data', 'Sets'], string: ['Data', 'Text'], pandaui: ['Data', 'Trees'], data: ['Data'],
+    math: ['Math'], maths: ['Math'], math3d: ['Math', '3D'], logic: ['Math', 'Logic'],
+    geometry: ['Geometry', 'Utilities'], curve: ['Geometry', 'Curves'], surface: ['Geometry', 'Surfaces'],
+    mesh: ['Geometry', 'Meshes'], vector: ['Geometry', 'Vectors'], intersect: ['Geometry', 'Intersection'],
+    mnurbs: ['Geometry', 'SubD'], transform: ['Transform'], display: ['Display'], render: ['Render'],
+    robot: ['Robotics'], robotics: ['Robotics'], 'kuka|prc': ['Robotics', 'KUKA prc'],
+    wb: ['Geometry', 'Meshes', 'WeaverBird'], graph: ['Scripting', 'Graph'], events: ['Scripting', 'Events'],
+    mantis: ['Scripting', 'Mantis'], scripting: ['Scripting'], ai: ['AI'], extensions: ['Extensions']
+  }
+  var wasmMenuAliases = {
+    nodecurvec: ['Geometry', 'Curves'], nodepointc: ['Geometry', 'Points'],
+    nodemeshc: ['Geometry', 'Meshes'], nodesurfacec: ['Geometry', 'Surfaces'],
+    nodemathc: ['Math'], nodexformc: ['Transform'], nodetrianglec: ['Geometry', 'Triangulation']
+  }
+  var nodeMenuAcronyms = Object.assign(Object.create(null), { ai: 'AI', ui: 'UI', uv: 'UV', rgb: 'RGB', rgba: 'RGBA', xyz: 'XYZ', xy: 'XY', xz: 'XZ', yz: 'YZ', '3d': '3D', '2d': '2D', subd: 'SubD', nurbs: 'NURBS', wasm: 'WASM' })
+  function nodeCategoryLabel (value) {
+    if (nodeMenuAcronyms[String(value).toLowerCase()]) return nodeMenuAcronyms[String(value).toLowerCase()]
+    return String(value).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]+/g, ' ').trim().split(/\s+/).map(function (word) {
+      return nodeMenuAcronyms[word.toLowerCase()] || word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    }).join(' ')
+  }
+  GraphCanvas.prototype.nodeMenuPath = function (type) {
+    var parts = String(type).split('/')
+    parts.pop() // Node name/GUID is not a category.
+    var sourceCategory = String(parts.shift() || '')
+    var first = sourceCategory.toLowerCase()
+    var prefix
+    if (first === 'wasm') {
+      var packageName = parts.shift() || 'Other'
+      prefix = Object.prototype.hasOwnProperty.call(wasmMenuAliases, packageName.toLowerCase()) ? wasmMenuAliases[packageName.toLowerCase()] : null
+      prefix = prefix ? prefix.concat('WASM') : ['Extensions', 'WASM', nodeCategoryLabel(packageName)]
+    } else if (first === 'nodec') {
+      // Current NodeC/Edit nodes are control-point tools; keep future modules visible.
+      if (String(parts[0]).toLowerCase() === 'edit') { parts.shift(); prefix = ['Geometry', 'Control Points'] }
+      else prefix = ['Geometry', 'NodeC']
+    } else {
+      prefix = Object.prototype.hasOwnProperty.call(nodeMenuAliases, first) ? nodeMenuAliases[first] : ['Extensions', nodeCategoryLabel(sourceCategory || 'Other')]
+    }
+    return prefix.concat(parts.filter(Boolean).map(nodeCategoryLabel))
+  }
+  GraphCanvas.prototype.nodeMenuLabel = function (type) {
+    var ctor = PandaUI.nodeTypes[type]
+    var definition = ctor && ctor.pandauiDefinition || {}
+    var label = ctor && ctor.title || type.split('/').pop()
+    if (definition.execution === 'wasm-package' && definition.metadata && definition.metadata.frontendImplementation && definition.metadata.frontendImplementation.status === 'placeholder') label += ' · Pending'
+    return label
+  }
   GraphCanvas.prototype.addNodeAt = function (type, graphPoint, connection) {
     var node = PandaUI.createNode(type)
     if (!node) return null
@@ -1364,30 +1433,31 @@
     var categories = new Set()
     var directTypes = []
     this.availableNodeTypes().forEach(function (type) {
-      var parts = type.split('/')
+      var parts = this.nodeMenuPath(type)
       var matches = categoryPath.every(function (part, index) { return parts[index] === part })
       if (!matches) return
-      if (parts.length > categoryPath.length + 1) categories.add(parts[categoryPath.length])
+      if (parts.length > categoryPath.length) categories.add(parts[categoryPath.length])
       else directTypes.push(type)
-    })
+    }, this)
 
     Array.from(categories).sort(function (left, right) {
-      if (!categoryPath.length && left === 'Panels' && right !== 'Panels') return -1
-      if (!categoryPath.length && right === 'Panels' && left !== 'Panels') return 1
+      if (!categoryPath.length) return nodeMenuRoots.indexOf(left) - nodeMenuRoots.indexOf(right)
       return left.localeCompare(right)
     }).forEach(function (category) {
       var categoryItem = this.addMenuItem(list, category + ' ›', function () {
         this.showAddNodeMenu(x, y, graphPoint, categoryPath.concat(category), connection)
       }.bind(this))
-      this.styleNodeMenuItem(categoryItem, categoryPath.concat(category).join('/'))
+      this.styleNodeMenuItem(categoryItem, categoryPath.concat(category)[0])
     }, this)
 
-    directTypes.forEach(function (type) {
-      var constructor = PandaUI.nodeTypes[type]
-      var nodeItem = this.addMenuItem(list, constructor.title || type.split('/').pop(), function () {
+    directTypes.sort(function (left, right) {
+      return this.nodeMenuLabel(left).localeCompare(this.nodeMenuLabel(right)) || left.localeCompare(right)
+    }.bind(this)).forEach(function (type) {
+      var nodeItem = this.addMenuItem(list, this.nodeMenuLabel(type), function () {
         this.addNodeAt(type, graphPoint, connection)
       }.bind(this))
-      this.styleNodeMenuItem(nodeItem, type)
+      nodeItem.title = (PandaUI.nodeTypes[type].desc || '') + '\n' + type
+      this.styleNodeMenuItem(nodeItem, this.nodeMenuPath(type)[0])
     }, this)
   }
   GraphCanvas.prototype.showNodeChooser = function (x, y, graphPoint) {
@@ -1400,11 +1470,11 @@
       var query = search.value.trim().toLowerCase()
       this.availableNodeTypes(true).filter(function (type) {
         var ctor = PandaUI.nodeTypes[type]
-        return !query || type.toLowerCase().indexOf(query) >= 0 || String(ctor.title || '').toLowerCase().indexOf(query) >= 0
-      }).slice(0, 120).forEach(function (type) {
-        var ctor = PandaUI.nodeTypes[type]
-        var item = this.addMenuItem(list, (ctor.title || type) + '  ·  ' + type, function () { this.addNodeAt(type, graphPoint) }.bind(this))
-        this.styleNodeMenuItem(item, type)
+        return !query || type.toLowerCase().indexOf(query) >= 0 || String(ctor.title || '').toLowerCase().indexOf(query) >= 0 || this.nodeMenuPath(type).join(' / ').toLowerCase().indexOf(query) >= 0
+      }, this).slice(0, 120).forEach(function (type) {
+        var item = this.addMenuItem(list, this.nodeMenuLabel(type) + '  ·  ' + this.nodeMenuPath(type).join(' / '), function () { this.addNodeAt(type, graphPoint) }.bind(this))
+        item.title = type
+        this.styleNodeMenuItem(item, this.nodeMenuPath(type)[0])
       }, this)
     }.bind(this)
     search.addEventListener('input', render); render(); this.scheduleMenuFit(menu); setTimeout(function () { search.focus() }, 0)

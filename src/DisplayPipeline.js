@@ -272,11 +272,13 @@ export default class DisplayPipeline {
       invalidate: () => this.setDirtyFlag()
     })
     this.#objectUV = new ObjectUVEditor({
+      edit: action => this.#nodeRenderer?.resources ? this.#nodeRenderer.resources.editSourceMaterials(action) : action(),
       documents: () => this.renderDocuments(),
       record: (before, after, label) => PandaUIApp.getOperations().recordState('scene.uv', before, after, label),
       invalidate: () => { this.refreshSelectionHighlight(); this.setDirtyFlag() }
     })
     this.#visibility = new SceneVisibility({
+      refreshModelVisibility: () => PandaUIApp.updateVisibility(),
       controlPoints: this.#controlPoints,
       documentTreeObjects: (...args) => this.documentTreeObjects(...args),
       getSelectedObjectRoot: (...args) => this.getSelectedObjectRoot(...args),
@@ -670,6 +672,7 @@ export default class DisplayPipeline {
   }
 
   setDirtyFlag (sceneChanged = true, notifyScene = true) {
+    this.#adaptiveViewport.resumeResolution()
     this.#importedMaterials?.pruneDocuments()
     this.#dirtyFlag = true
     this.#nodeRenderer?.invalidate(sceneChanged)
@@ -695,6 +698,9 @@ export default class DisplayPipeline {
   renderDocuments = () => [...PandaUIApp.modelDocuments(), ...(window.PandaUISceneWorkspace?.renderDocuments() || [])]
   updateImportedMaterial = (key, settings) => this.#importedMaterials.update(key, settings)
   importedMaterialPreview = key => this.#importedMaterials.preview(key)
+  copyImportedMaterial = key => this.#importedMaterials.copy(key)
+  renameImportedMaterial = (key, name) => this.#importedMaterials.rename(key, name)
+  applyImportedMaterialToSelection = key => this.#importedMaterials.applyToSelection(key, this.#selection.object)
   importedMaterialSelection = () => this.#importedMaterials.selection(this.#selection.object)
   importedMaterialReference (reference) {
     const { root } = resolveSceneReference(this.renderDocuments(), reference)
@@ -762,6 +768,10 @@ export default class DisplayPipeline {
   zoomDocumentTreeItem = (...args) => this.#previews.zoomDocumentTreeItem(...args)
 
   setDocumentTreeVisibility = (...args) => this.#visibility.setDocumentTreeVisibility(...args)
+  showDocumentTreeChildren = (...args) => this.#visibility.showDocumentTreeChildren(...args)
+  setDocumentTreeLocked = (...args) => this.#visibility.setDocumentTreeLocked(...args)
+  isolateDocumentTreeItem = (...args) => this.#visibility.isolateDocumentTreeItem(...args)
+  applyDocumentViewState = (...args) => this.#visibility.applyDocumentViewState(...args)
 
   graphIdForObject = (...args) => this.#previews.graphIdForObject(...args)
 
@@ -1207,6 +1217,43 @@ export default class DisplayPipeline {
     this.#controls.mouseButtons.RIGHT = on ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE
     this.#controls.touches.ONE = THREE.TOUCH.ROTATE
     this.#controls.update()
+    this.setDirtyFlag(false)
+  }
+
+  // Pixel deltas from viewport navigation UI; do not alter selection or mouse bindings.
+  navigateView (mode, deltaX = 0, deltaY = 0) {
+    if (this.#disposed || !['rotate', 'pan', 'zoom'].includes(mode) || !Number.isFinite(deltaX) || !Number.isFinite(deltaY)) return
+    const camera = this.#camera, controls = this.#controls
+    const height = Math.max(1, this.#renderer.domElement.clientHeight)
+    const offset = camera.position.clone().sub(controls.target)
+    if (mode === 'rotate') {
+      const alignment = new THREE.Quaternion().setFromUnitVectors(camera.up.clone().normalize(), new THREE.Vector3(0, 1, 0))
+      const spherical = new THREE.Spherical().setFromVector3(offset.applyQuaternion(alignment))
+      spherical.theta -= 2 * Math.PI * deltaX / height
+      spherical.phi = THREE.MathUtils.clamp(spherical.phi - 2 * Math.PI * deltaY / height, controls.minPolarAngle, controls.maxPolarAngle)
+      spherical.makeSafe()
+      offset.setFromSpherical(spherical).applyQuaternion(alignment.inverse())
+      camera.position.copy(controls.target).add(offset)
+    } else if (mode === 'pan') {
+      camera.updateMatrixWorld(true)
+      const span = camera.isOrthographicCamera ? (camera.top - camera.bottom) / camera.zoom : 2 * offset.length() * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) / camera.zoom
+      const shift = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0).multiplyScalar(-deltaX * span / height)
+      shift.addScaledVector(new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1), deltaY * span / height)
+      camera.position.add(shift); controls.target.add(shift)
+    } else {
+      const scale = Math.exp(THREE.MathUtils.clamp(deltaY * 0.01, -2, 2))
+      if (camera.isOrthographicCamera) {
+        camera.zoom = THREE.MathUtils.clamp(camera.zoom / scale, Math.max(controls.minZoom, 0.000001), Math.min(controls.maxZoom, 1000000))
+        camera.updateProjectionMatrix()
+      } else {
+        const distance = THREE.MathUtils.clamp(offset.length() * scale, Math.max(controls.minDistance, 0.000001), controls.maxDistance)
+        if (!offset.lengthSq()) offset.copy(camera.getWorldDirection(new THREE.Vector3())).negate()
+        camera.position.copy(controls.target).add(offset.setLength(distance))
+      }
+    }
+    camera.lookAt(controls.target)
+    controls.update()
+    this.#adaptiveViewport.noteInteraction()
     this.setDirtyFlag(false)
   }
 

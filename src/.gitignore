@@ -1,0 +1,6 @@
+# The standalone export excludes runtime storage directories globally.
+# These two files are browser source code, not saved documents or backend data.
+!storage/
+storage/*
+!storage/FolderDocumentStore.mjs
+!storage/LocalDocumentArchive.js

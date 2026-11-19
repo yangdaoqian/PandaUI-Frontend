@@ -66,7 +66,7 @@
         <q-item :inset-level="insetLevel">
           <q-item-section>
             <q-select v-model="fileProcessing" dense outlined emit-value map-options :options="[{ label: 'Frontend · Local / WASM', value: 'frontend' }, { label: 'Backend · Native', value: 'backend', disable: sceneState.localMode }]" label="File processing" :disable="modelImportBusy" />
-            <q-item-label caption class="q-mt-sm">{{ fileProcessing === 'backend' ? 'Backend: 3DM, STEP, SKP, DWG, DXF.' : 'Local CAD, mesh and scene import. See Open file for formats. Select a model and its resource files together when needed (for example .gltf + .bin). Files are not uploaded.' }} Applies to open, import and drop.</q-item-label>
+            <q-item-label caption class="q-mt-sm">{{ fileProcessing === 'backend' ? 'Backend: 3DM, STEP, SKP, DWG, DXF.' : 'Frontend: local CAD, mesh and scene import, including DWG/DXF. See Open file for formats. Select a model and its resource files together when needed (for example .gltf + .bin). Files are not uploaded.' }} Applies to open, import and drop.</q-item-label>
           </q-item-section>
         </q-item>
         <q-item :inset-level="insetLevel">
@@ -371,8 +371,12 @@
         <template v-if="selectedRenderMaterial.materialType === 'glass'">
           <q-item-label header>Glass</q-item-label>
           <q-item><q-item-section>Transmission</q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.transmission" :min="0" :max="1" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
+          <q-item><q-item-section>Refraction roughness</q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.refractionRoughness" :min="0" :max="1" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
+          <q-item><q-item-section>Glass thickness</q-item-section><q-item-section side class="material-control"><q-input v-model.number="selectedRenderMaterial.thickness" dense outlined type="number" min="0" step="0.01" @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
+          <q-item><q-item-section>Fog color</q-item-section><q-item-section side><q-input v-model="selectedRenderMaterial.refractionColor" dense outlined type="color" @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
+          <q-item><q-item-section>Fog distance</q-item-section><q-item-section side class="material-control"><q-input v-model.number="selectedRenderMaterial.attenuationDistance" dense outlined type="number" min="0.0001" step="0.1" @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
           <q-item><q-item-section>Surface roughness</q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.roughness" :min="0.04" :max="0.6" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
-          <q-item><q-item-section>Index of refraction<q-item-label caption>Stored from Rhino; Three.js r120 approximates it through reflectivity.</q-item-label></q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.ior" :min="1" :max="2.5" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
+          <q-item><q-item-section>Index of refraction<q-item-label caption>Controls screen-space Fresnel and refraction; Reflectivity controls the native environment response.</q-item-label></q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.ior" :min="1" :max="2.5" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
           <q-item><q-item-section>Reflectivity</q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.reflectivity" :min="0" :max="1" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
           <q-item><q-item-section>Surface opacity</q-item-section><q-item-section side class="material-control"><q-slider v-model="selectedRenderMaterial.opacity" :min="0" :max="1" :step="0.01" label @update:model-value="updateRenderMaterial" /></q-item-section></q-item>
         </template>

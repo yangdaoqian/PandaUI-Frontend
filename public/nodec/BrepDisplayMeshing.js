@@ -140,7 +140,7 @@
     return { status: 'success', message: 'Meshed independent source faces for display.', positions, normals, indices, faceRanges, faceCount: entries.length, ...(uv ? { uv } : {}), ...(origin ? { origin } : {}), engine: 'panda-brep-mesher' }
   }
 
-  function meshBrepForDisplay (module, brep, options, sourceFaceCount) {
+  function meshBrepForDisplay (module, brep, options, sourceFaceCount, observer) {
     const nativeDisplay = typeof module.nodecBrepDisplayPreview === 'function'
     const settings = validateOptions(options, true)
     if (nativeDisplay) {
@@ -149,7 +149,13 @@
           const faces = brep.faces()
           try { sourceFaceCount = faces.count } finally { faces.delete() }
         }
-        return validateDisplayPreview(module.nodecBrepDisplayPreview(brep, settings), sourceFaceCount, module.HEAPU8?.buffer)
+        const observedSettings = { ...settings }
+        if (typeof observer?.onProgress === 'function') observedSettings.onProgress = observer.onProgress
+        if (typeof observer?.onPreview === 'function') observedSettings.onPreview = preview => {
+          const checked = validateDisplayPreview(preview, sourceFaceCount, module.HEAPU8?.buffer)
+          if (checked.status !== 'failed') observer.onPreview(checked)
+        }
+        return validateDisplayPreview(module.nodecBrepDisplayPreview(brep, observedSettings), sourceFaceCount, module.HEAPU8?.buffer)
       } catch (error) { return failedPreview(error?.message || String(error)) }
     }
     // Compatibility with older runtimes lacking native partial display output.

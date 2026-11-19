@@ -128,7 +128,13 @@ export default class LocalImportClient {
           for (const record of records) {
             const bytes = record.objectRecord?.byteLength || record.byteLength || 0
             outstanding++; sourceBytes += bytes
-            this.meshPool.run(surfaceOnly ? { ...record, displayOnly: true } : record, meshingOptions, forceMeshing).then(result => {
+            const onPreview = surfaceOnly ? async result => {
+              if (!this.worker) throw abortError()
+              const bytes = bufferBytes(result)
+              readyBytes += bytes; report()
+              try { await onRecord(result) } finally { readyBytes -= bytes; wake() }
+            } : undefined
+            this.meshPool.run(surfaceOnly ? { ...record, displayOnly: true } : record, meshingOptions, forceMeshing, onPreview).then(result => {
               if (!this.worker) return
               const outputBytes = bufferBytes(result)
               sourceBytes -= bytes; readyBytes += outputBytes
@@ -173,6 +179,9 @@ export default class LocalImportClient {
       if (!readerDone || outstanding) this.dispose()
       await producer
       await Promise.allSettled(applying)
+      // The pool can also be delivering a primary preview while a native
+      // retry runs. Its callback must unwind before metadata is released.
+      await this.meshPool.drainPreviews()
       ready.length = 0
       this.signal.removeEventListener('abort', wake)
       this.wakePrefetch = null

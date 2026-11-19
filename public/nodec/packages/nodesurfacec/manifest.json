@@ -1,0 +1,5528 @@
+{
+  "schemaVersion": 1,
+  "abiVersion": 1,
+  "id": "nodesurfacec",
+  "name": "NodeSurfaceC",
+  "version": "0.1.0",
+  "stage": "registration-only",
+  "module": "NodeSurfaceC.wasm",
+  "nodes": [
+    {
+      "id": "0148a65d-6f42-414a-9db7-9a9b2eb78437",
+      "name": "Brep Edges",
+      "nickname": "Edges",
+      "description": "Extract the edge curves of a brep.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Base Brep",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Naked",
+          "nickname": "En",
+          "description": "Naked edge curves",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Interior",
+          "nickname": "Ei",
+          "description": "Interior edge curves",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Non-Manifold",
+          "nickname": "Em",
+          "description": "Non-Manifold edge curves",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "01e3991d-18bd-474f-9fbd-076a8700159f",
+      "name": "Mesh Inclusion",
+      "nickname": "MInc",
+      "description": "Test a point for Mesh inclusion",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for inclusion test (only closed meshes will be considered)",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Point for inclusion test",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Strict",
+          "nickname": "S",
+          "description": "If true, then the inclusion is strict",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Inside",
+          "nickname": "I",
+          "description": "Inside flag for point inclusion",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0373008a-80ee-45be-887d-ab5a244afc29",
+      "name": "Cylinder",
+      "nickname": "Cyl",
+      "description": "Create a cylindrical surface.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Cylinder radius",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Cylinder height",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Cylinder",
+          "nickname": "C",
+          "description": "Resulting cylinder",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "03e331ed-c4d1-4a23-afa2-f57b87d2043c",
+      "name": "Cone",
+      "nickname": "Cone",
+      "description": "Create a conical surface",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Radius at cone base",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Cone height",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Cone",
+          "nickname": "C",
+          "description": "Resulting cone",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Tip",
+          "nickname": "T",
+          "description": "Tip of cone",
+          "type": "point",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "03f22640-ff80-484e-bb53-a4025c5faa07",
+      "name": "Split Brep Multiple",
+      "nickname": "SplitMul",
+      "description": "Split one brep with a bunch of others.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep to split",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Cutters",
+          "nickname": "C",
+          "description": "Cutting shapes",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Brep fragments",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "07a3b2a0-c4d0-4638-9044-39ac4681e782",
+      "name": "Mesh Depth",
+      "nickname": "MDepth",
+      "description": "Validate the depth of a mesh.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for inclusion test (only closed meshes will be considered)",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Minimum",
+          "nickname": "Min",
+          "description": "Minimum valid mesh depth.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Maximum",
+          "nickname": "Max",
+          "description": "Maximum valid mesh depth.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Coloured mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Valid",
+          "nickname": "V",
+          "description": "True if mesh does not exceed limits",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0a391eac-5048-443c-9c1b-f592299b6dd6",
+      "name": "Mesh Sphere",
+      "nickname": "MSphere",
+      "description": "Create a mesh sphere.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Radius of mesh sphere",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "U Count",
+          "nickname": "U",
+          "description": "Number of faces around sphere",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "V Count",
+          "nickname": "V",
+          "description": "Number of faces from pole to pole",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh sphere",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "0b4ac802-fc4a-4201-9c66-0078b837c1eb",
+      "name": "Face Boundaries",
+      "nickname": "FaceB",
+      "description": "Convert all mesh faces to polylines",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for face boundary extraction",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Boundaries",
+          "nickname": "B",
+          "description": "Boundary polylines for each mesh face",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "0bb3d234-9097-45db-9998-621639c87d3b",
+      "name": "Bounding Box",
+      "nickname": "BBox",
+      "description": "Solve oriented geometry bounding boxes.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Content",
+          "nickname": "C",
+          "description": "Geometry to contain",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "BoundingBox orientation plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Aligned bounding box in world coordinates",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Bounding box in orientation plane coordinates",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "0efd7f0c-f63d-446d-970e-9fb0e636ea41",
+      "name": "Surface Inflection",
+      "nickname": "SInf",
+      "description": "Compute the inflection curves for a surface",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface to analyse",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Tolerance",
+          "nickname": "T",
+          "description": "Sampling tolerance",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Inflection curves",
+          "type": "line",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "0feeeaca-8f1f-4d7c-a24a-8e7dd68604a2",
+      "name": "Region Slits",
+      "nickname": "RSlits",
+      "description": "Add slits to a collection of intersecting planar regions",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Regions",
+          "nickname": "R",
+          "description": "Planar regions to intersect",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Width",
+          "nickname": "W",
+          "description": "Width of slits",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Gap",
+          "nickname": "G",
+          "description": "Additional gap size at slit meeting points",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Regions",
+          "nickname": "R",
+          "description": "Regions with slits",
+          "type": "surface",
+          "access": "tree"
+        },
+        {
+          "name": "Topology",
+          "nickname": "T",
+          "description": "Slit topology",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "10434a15-da85-4281-bb64-a2b3a995b9c6",
+      "name": "Solid Union",
+      "nickname": "SUnion",
+      "description": "Perform a solid union on a set of Breps.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Breps",
+          "nickname": "B",
+          "description": "Breps to union",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Union result",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "1222394f-0d33-4f31-9101-7281bde89fe5",
+      "name": "Region Union",
+      "nickname": "RUnion",
+      "description": "Union of a set of planar closed curves (regions)",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Curves for boolean union operation",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Optional plane for boolean solution",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result outlines of boolean union",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "13b40e9c-3aed-4669-b2e8-60bd02091421",
+      "name": "Evaluate Box",
+      "nickname": "Box",
+      "description": "Evaluate a box in normalised {UVW} space.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Base box",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "U parameter",
+          "nickname": "U",
+          "description": "{u} parameter (values between 0.0 and 1.0 are inside the box)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "V parameter",
+          "nickname": "V",
+          "description": "{v} parameter (values between 0.0 and 1.0 are inside the box)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "W parameter",
+          "nickname": "W",
+          "description": "{w} parameter (values between 0.0 and 1.0 are inside the box)",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Plane",
+          "nickname": "Pl",
+          "description": "Plane at {uvw} coordinate",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "Pt",
+          "description": "Point at {uvw} coordinate",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Include",
+          "nickname": "I",
+          "description": "True if point is inside or on box",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "15128198-399d-4d6c-9586-1f65db3ce7bf",
+      "name": "Surface Points",
+      "nickname": "SrfPt",
+      "description": "Get the control-points of a Nurbs Surface",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface for control-point extraction",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Control point locations",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Weights",
+          "nickname": "W",
+          "description": "Control point weights",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Greville",
+          "nickname": "G",
+          "description": "Greville uv points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "U Count",
+          "nickname": "U",
+          "description": "Number of points along U direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "V Count",
+          "nickname": "V",
+          "description": "Number of points along V direction",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "1583bd7e-4ab7-4439-b922-d6f8cd63c399",
+      "name": "Occlusion",
+      "nickname": "Occ",
+      "description": "Solve occlusion for a collection of view rays and obstructions.",
+      "category": "Shading",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Samples",
+          "nickname": "S",
+          "description": "Sample points for occlusion testing",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Obstructions",
+          "nickname": "O",
+          "description": "Obstructing geometry",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Rays",
+          "nickname": "R",
+          "description": "View rays",
+          "type": "vector",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Hits",
+          "nickname": "H",
+          "description": "Number of occluded rays per sample.",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Occlusion",
+          "nickname": "O",
+          "description": "Occlusion topology for every individual sample.",
+          "type": "boolean",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "19632848-4b95-4e5e-9e86-b79b47987a46",
+      "name": "Mesh | Curve",
+      "nickname": "MCX",
+      "description": "Mesh Curve intersection",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to intersect",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Curve to intersect with",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Points",
+          "nickname": "X",
+          "description": "Intersection points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Faces",
+          "nickname": "F",
+          "description": "Intersection face index for each point",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "1addcc85-b04e-46e6-bd4a-6f6c93bf7efd",
+      "name": "Brep Join",
+      "nickname": "Join",
+      "description": "Join a number of Breps together",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Breps",
+          "nickname": "B",
+          "description": "Breps to join",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Breps",
+          "nickname": "B",
+          "description": "Joined Breps",
+          "type": "brep",
+          "access": "list"
+        },
+        {
+          "name": "Closed",
+          "nickname": "C",
+          "description": "Closed flag for each resulting Brep",
+          "type": "boolean",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "1b0ee096-cc76-4847-8941-04a9e256de76",
+      "name": "Settings (Quality)",
+      "nickname": "Smooth",
+      "description": "Represents 'Smooth & slower' mesh settings.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [],
+      "outputs": []
+    },
+    {
+      "id": "1cb59c86-7f6b-4e52-9a0c-6441850e9520",
+      "name": "Mesh Quad",
+      "nickname": "Quad",
+      "description": "Create a mesh quad.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Corner A",
+          "nickname": "A",
+          "description": "Index of first face corner",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner B",
+          "nickname": "B",
+          "description": "Index of second face corner",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner C",
+          "nickname": "C",
+          "description": "Index of third face corner",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner D",
+          "nickname": "D",
+          "description": "Index of fourth face corner",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "2168853c-acd8-4a63-9c9b-ecde9e239eae",
+      "name": "Collision Many|Many",
+      "nickname": "ColMM",
+      "description": "Test for many|many collision between objects",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Colliders",
+          "nickname": "C",
+          "description": "Objects for collision",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Collision",
+          "nickname": "C",
+          "description": "True if object at this index collides with any of the other objects",
+          "type": "boolean",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "Index of object in set which collided with the object at this index",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "21b6a605-9568-4bf8-acc1-631565d609d7",
+      "name": "Mesh | Mesh",
+      "nickname": "MMX",
+      "description": "Mesh Mesh intersection",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh A",
+          "nickname": "A",
+          "description": "First mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Mesh B",
+          "nickname": "B",
+          "description": "Second mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Intersections",
+          "nickname": "X",
+          "description": "Intersection polylines",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "22e61c07-c02f-4c53-b567-c821a164fd92",
+      "name": "Cone [OBSOLETE]",
+      "nickname": "Cone",
+      "description": "This component is obsolete and has been replaced by another Cone component.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane of cone",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Radius at cone base",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Length",
+          "nickname": "L",
+          "description": "Length override",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Cone",
+          "nickname": "C",
+          "description": "The 3D cone",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "23d715f7-4bc6-4e69-b76d-7c04ca2ebf5f",
+      "name": "Delete Vertices",
+      "nickname": "DeleteV",
+      "description": "Delete vertices from a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for vertex deletion",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "List of all vertex indices to delete",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "Shrink",
+          "nickname": "S",
+          "description": "Shrink quads, if true, quads will become triangles if possible",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh with all indexed vertices removed",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "246cda78-5e88-4087-ba09-ae082bbc4af8",
+      "name": "Contour (ex)",
+      "nickname": "Contour",
+      "description": "Create a set of Brep or Mesh contours",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Shape",
+          "nickname": "S",
+          "description": "Brep or Mesh to contour",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Base plane for contours",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Offsets",
+          "nickname": "O",
+          "description": "Contour offsets from base plane (if omitted, you must specify distances instead)",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Distances",
+          "nickname": "D",
+          "description": "Distances between contours (if omitted, you must specify offset instead)",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Contours",
+          "nickname": "C",
+          "description": "Resulting contours (grouped by section)",
+          "type": "curve",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "255ca3e9-2c1e-443a-a404-e76b5c63f4cb",
+      "name": "Settings (Speed)",
+      "nickname": "Jagged",
+      "description": "Represents 'Jagged & faster' mesh settings.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [],
+      "outputs": []
+    },
+    {
+      "id": "2696bd14-3fb5-4750-827f-86df6c31d664",
+      "name": "Mesh Box",
+      "nickname": "MBox",
+      "description": "Create a mesh box.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base box",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "X Count",
+          "nickname": "X",
+          "description": "Face count in {x} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Y Count",
+          "nickname": "Y",
+          "description": "Face count in {y} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Z Count",
+          "nickname": "Z",
+          "description": "Face count in {z} direction",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The 3D mesh box",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "28061aae-04fb-4cb5-ac45-16f3b66bc0a4",
+      "name": "Center Box",
+      "nickname": "Box",
+      "description": "Create a box centered on a plane.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "X",
+          "nickname": "X",
+          "description": "Size of box in {x} direction.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Y",
+          "nickname": "Y",
+          "description": "Size of box in {y} direction.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Z",
+          "nickname": "Z",
+          "description": "Size of box in {z} direction.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Resulting box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "2a43ef96-8f87-4892-8b94-237a47e8d3cf",
+      "name": "Box 2Pt",
+      "nickname": "Box",
+      "description": "Create a box defined by two points.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point A",
+          "nickname": "A",
+          "description": "First corner",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Point B",
+          "nickname": "B",
+          "description": "Second corner",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Resulting box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "2b9bf01d-5fe5-464c-b0b3-b469eb5f2efb",
+      "name": "Mesh Edges",
+      "nickname": "MEdges",
+      "description": "Get all the edges of a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for edge extraction",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Naked Edges",
+          "nickname": "E1",
+          "description": "Edges with valence 1 (a single adjacent face)",
+          "type": "line",
+          "access": "list"
+        },
+        {
+          "name": "Interior Edges",
+          "nickname": "E2",
+          "description": "Edges with valence 2 (two adjacent faces)",
+          "type": "line",
+          "access": "list"
+        },
+        {
+          "name": "Non-Manifold Edges",
+          "nickname": "E3",
+          "description": "Edges with valence 3 or higher",
+          "type": "line",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "2ba64356-be21-4c12-bbd4-ced54f04c8ef",
+      "name": "Shape In Brep",
+      "nickname": "ShapeIn",
+      "description": "Tests whether a shape is inside a brep",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Closed brep for inside/outside testing",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Shape",
+          "nickname": "S",
+          "description": "Shape for inside/outside testing",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Relation",
+          "nickname": "R",
+          "description": "Relationship of shape to brep (0=inside, 1=intersecting, 2=outside)",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "2d3b6ef3-5c26-4e2f-bcb3-8ffb9fb0f7c3",
+      "name": "Box Slits",
+      "nickname": "Slits",
+      "description": "Add slits to a collection of intersecting boxes",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Boxes",
+          "nickname": "B",
+          "description": "Boxes to intersect",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Gap",
+          "nickname": "G",
+          "description": "Additional gap width",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Breps",
+          "nickname": "B",
+          "description": "Boxes with slits",
+          "type": "brep",
+          "access": "tree"
+        },
+        {
+          "name": "Topology",
+          "nickname": "T",
+          "description": "Slit topology",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "330eb9c9-0098-4375-9078-e00a419d49fb",
+      "name": "Mesh Split Plane",
+      "nickname": "MSplit",
+      "description": "Split a mesh with an infinite plane.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to split",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Splitting plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Above",
+          "nickname": "A",
+          "description": "Pieces above the plane.",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Below",
+          "nickname": "B",
+          "description": "Pieces below the plane.",
+          "type": "mesh",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "353b206e-bde5-4f02-a913-b3b8a977d4b9",
+      "name": "Evaluate Surface",
+      "nickname": "EvalSrf",
+      "description": "Evaluate local surface properties at a {uv} coordinate.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "uv",
+          "description": "{uv} coordinate to evaluate",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Point at {uv}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Normal",
+          "nickname": "N",
+          "description": "Normal at {uv}",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "U direction",
+          "nickname": "U",
+          "description": "U direction at {uv}",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "V direction",
+          "nickname": "V",
+          "description": "V direction at {uv}",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Frame",
+          "nickname": "F",
+          "description": "Frame at {uv}",
+          "type": "plane",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "36132830-e2ef-4476-8ea1-6a43922344f0",
+      "name": "Edge Surface",
+      "nickname": "EdgeSrf",
+      "description": "Create a surface from two, three or four edge curves.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve A",
+          "nickname": "A",
+          "description": "First curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Curve B",
+          "nickname": "B",
+          "description": "Second curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Curve C",
+          "nickname": "C",
+          "description": "Optional Third curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Curve D",
+          "nickname": "D",
+          "description": "Optional Fourth curve",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Brep representing the edge-surface",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "361790d6-9d66-4808-8c5a-8de9c218c227",
+      "name": "Quad Sphere",
+      "nickname": "QSph",
+      "description": "Create a spherical brep made from quad nurbs patches.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Sphere radius",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Sphere",
+          "nickname": "S",
+          "description": "Resulting quad sphere",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "38a5638b-6d01-4417-bf11-976d925f8a71",
+      "name": "Extrude Along",
+      "nickname": "ExtrCrv",
+      "description": "Extrude curves and surfaces along a curve.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Profile curve or surface",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Extrusion curve",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Extrusion",
+          "nickname": "E",
+          "description": "Extrusion result",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "3b112fb6-3eba-42d2-ba75-0f903c18faab",
+      "name": "Contour",
+      "nickname": "Contour",
+      "description": "Create a set of Brep or Mesh contours",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Shape",
+          "nickname": "S",
+          "description": "Brep or Mesh to contour",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Contour start point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "N",
+          "description": "Contour normal direction",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Distance between contours",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Contours",
+          "nickname": "C",
+          "description": "Resulting contours (grouped by section)",
+          "type": "curve",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "3e7e4827-6edd-4e10-93ac-cc234414d2b9",
+      "name": "Contour (ex)",
+      "nickname": "Contour",
+      "description": "Create a set of Curve contours",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Curve to contour",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Base plane for contours",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Offsets",
+          "nickname": "O",
+          "description": "Contour offsets from base plane (if omitted, you must specify distances instead)",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Distances",
+          "nickname": "D",
+          "description": "Distances between contours (if omitted, you must specify offset instead)",
+          "type": "number",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Contours",
+          "nickname": "C",
+          "description": "Resulting contour points (grouped by section)",
+          "type": "point",
+          "access": "tree"
+        },
+        {
+          "name": "Parameters",
+          "nickname": "t",
+          "description": "Curve parameters for all contour points",
+          "type": "number",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "3fba11d5-b30a-4146-8d80-d591e7a0a287",
+      "name": "Triangulate",
+      "nickname": "Tri",
+      "description": "Triangulate all quads in a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to triangulate",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh with only triangle faces",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of quads that were triangulated",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "404f75ac-5594-4c48-ad8a-7d0f472bbf8a",
+      "name": "Principal Curvature",
+      "nickname": "Curvature",
+      "description": "Evaluate the principal curvature of a surface at a {uv} coordinate.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "uv",
+          "description": "{uv} coordinate to evaluate",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Frame",
+          "nickname": "F",
+          "description": "Surface frame at (uv) coordinate",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Maximum",
+          "nickname": "C¹",
+          "description": "Maximum (absolute) principal curvature",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Minimum",
+          "nickname": "C²",
+          "description": "Minimum (absolute) principal curvature",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Max direction",
+          "nickname": "K¹",
+          "description": "Principal curvature direction corresponding to C¹.",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Min direction",
+          "nickname": "K²",
+          "description": "Principal curvature direction corresponding to C².",
+          "type": "vector",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4139f3a3-cf93-4fc0-b5e0-18a3acd0b003",
+      "name": "Surface Curvature",
+      "nickname": "Curvature",
+      "description": "Evaluate the surface curvature at a {uv} coordinate.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "uv",
+          "description": "{uv} coordinate to evaluate",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Frame",
+          "nickname": "F",
+          "description": "Surface frame at {uv} coordinate",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Gaussian",
+          "nickname": "G",
+          "description": "Gaussian curvature",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Mean",
+          "nickname": "M",
+          "description": "Mean curvature",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "439a55a5-2f9e-4f66-9de2-32f24fec2ef5",
+      "name": "Plane Surface",
+      "nickname": "PlaneSrf",
+      "description": "Create a plane surface",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Surface base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "X Size",
+          "nickname": "X",
+          "description": "Dimensions in X direction",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Y Size",
+          "nickname": "Y",
+          "description": "Dimensions in Y direction",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Resulting plane surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "45f19d16-1c9f-4b0f-a9a6-45a77f3d206c",
+      "name": "Loft Options",
+      "nickname": "Loft Opt",
+      "description": "Create loft options from atomic inputs",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Closed",
+          "nickname": "Cls",
+          "description": "Closed loft",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Adjust",
+          "nickname": "Adj",
+          "description": "Adjust seams",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Rebuild",
+          "nickname": "Rbd",
+          "description": "Rebuild count (zero = no rebuild)",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Refit",
+          "nickname": "Rft",
+          "description": "Refit tolerance (zero = no refit)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Type",
+          "nickname": "T",
+          "description": "Loft type (0=Normal, 1=Loose, 2=Tight, 3=Straight, 5=Uniform)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "477c2e7b-c5e5-421e-b8b2-ba60cdf5398b",
+      "name": "Region Intersection",
+      "nickname": "RInt",
+      "description": "Intersection between two sets of planar closed curves (regions)",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curves A",
+          "nickname": "A",
+          "description": "First set of regions.",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Curves B",
+          "nickname": "B",
+          "description": "Second set of regions.",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Optional plane for boolean solution",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result outlines of boolean intersection (A and B)",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "47814a17-ca9e-4305-9400-3a9c8d71c19d",
+      "name": "Unweld Mesh",
+      "nickname": "Unweld",
+      "description": "Unweld (split) creases in a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to unweld",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Unweld angle",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Unwelded mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "47fbc929-e88a-4a13-882e-dad84763256d",
+      "name": "Flip Mesh",
+      "nickname": "FlipM",
+      "description": "Flip the normal vectors of a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to flip",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Vertex Normals",
+          "nickname": "Vn",
+          "description": "Flip all vertex normals",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Face Normals",
+          "nickname": "Fn",
+          "description": "Flip all face normals",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Face Orientation",
+          "nickname": "Fo",
+          "description": "Reverse all face orientations",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Flipped mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "48a9fa10-8d3c-4767-aca6-81232271f6e0",
+      "name": "Blur Mesh",
+      "nickname": "MBlur",
+      "description": "Blur the colours on a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to blur",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Iterations",
+          "nickname": "I",
+          "description": "Number of consecutive blurring iterations",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh with blurred vertex colours",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4a0180e5-d8f9-46e7-bd34-ced804601462",
+      "name": "Settings (Custom)",
+      "nickname": "Custom Mesh Settings",
+      "description": "Represents custom mesh settings.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Stitch Seams",
+          "nickname": "Stitch",
+          "description": "Edges of adjacent faces are matched up if True.",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Simple Planes",
+          "nickname": "Planes",
+          "description": "Planar faces are meshed with a minimum amount of triangles.",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Refine",
+          "nickname": "Refine",
+          "description": "Refine the initial grid if it exceeds tolerance accuracy.",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Min Count",
+          "nickname": "Min",
+          "description": "Minimum number of quads in the initial grid per face.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Max Count",
+          "nickname": "Max",
+          "description": "Maximum number of quads in the initial grid per face.",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Aspect Ratio",
+          "nickname": "Aspect",
+          "description": "Maximum aspect ratio of quads in the initial grid.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Max Distance",
+          "nickname": "Max Dist",
+          "description": "Maximum allowed distance between center of edges and underlying surface.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Max Angle",
+          "nickname": "Max Angle",
+          "description": "Maximum allowed angle (in degrees) between the normals of two adjacent quads.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Min Edge",
+          "nickname": "Min Edge",
+          "description": "Minimum allowed edge length.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Max Edge",
+          "nickname": "Max Edge",
+          "description": "Maximum allowed edge length.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "4a9e9a8e-0943-4438-b360-129c30f2bb0f",
+      "name": "Surface Closest Point",
+      "nickname": "Srf CP",
+      "description": "Find the closest point on a surface.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Sample point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Closest point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "UV Point",
+          "nickname": "uvP",
+          "description": "{uv} coordinates of closest point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Distance between sample point and surface",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4b04a1e1-cddf-405d-a7db-335aaa940541",
+      "name": "Surface From Points",
+      "nickname": "SrfGrid",
+      "description": "Create a nurbs surface from a grid of points.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Grid of points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "U Count",
+          "nickname": "U",
+          "description": "Number of points in {u} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Interpolate",
+          "nickname": "I",
+          "description": "Interpolate samples",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Resulting surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4bc9dbbf-fec8-4348-a3af-e33e7edc8e7b",
+      "name": "Mesh Join",
+      "nickname": "MJoin",
+      "description": "Join a set of meshes into a single mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Meshes",
+          "nickname": "M",
+          "description": "Meshes to join",
+          "type": "mesh",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh join result",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4c02a168-9aba-4f42-8951-2719f24d391f",
+      "name": "Mesh | Ray",
+      "nickname": "MeshRay",
+      "description": "Intersect a mesh with a semi-infinite ray",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to intersect",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Ray start point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "D",
+          "description": "Ray direction",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "X",
+          "description": "First intersection point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Hit",
+          "nickname": "H",
+          "description": "Boolean indicating hit or miss",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4dce5963-dc1a-4710-8991-9437ea23888d",
+      "name": "Disjoint Mesh",
+      "nickname": "Disjoint",
+      "description": "Split a mesh into disjoint pieces.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to split",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Meshes",
+          "nickname": "M",
+          "description": "Disjoint pieces",
+          "type": "mesh",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "4f3147f4-9fcd-4a7e-be0e-b1841caa5f97",
+      "name": "Mesh Difference",
+      "nickname": "MDif",
+      "description": "Perform a solid difference on two sets of meshes",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Meshes A",
+          "nickname": "A",
+          "description": "First mesh set",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Meshes B",
+          "nickname": "B",
+          "description": "Second mesh set",
+          "type": "mesh",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Difference result of A-B",
+          "type": "mesh",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "5723c845-cafc-442d-a667-8c76532845e6",
+      "name": "Solid Intersection",
+      "nickname": "SInt",
+      "description": "Perform a solid intersection on two Brep sets.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Breps A",
+          "nickname": "A",
+          "description": "First Brep set",
+          "type": "brep",
+          "access": "list"
+        },
+        {
+          "name": "Breps B",
+          "nickname": "B",
+          "description": "Second Brep set",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Intersection result",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "57b2184c-8931-4e70-9220-612ec5b3809a",
+      "name": "Patch",
+      "nickname": "Patch",
+      "description": "Create a patch surface",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Curves to patch",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points to patch",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Spans",
+          "nickname": "S",
+          "description": "Number of spans",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Flexibility",
+          "nickname": "F",
+          "description": "Patch flexibility (low number; less flexibility)",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Trim",
+          "nickname": "T",
+          "description": "Attempt to trim the result",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Patch",
+          "nickname": "P",
+          "description": "Patch result",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "57edd208-760a-4f0f-87e6-ca1bbd74133b",
+      "name": "Cull Faces",
+      "nickname": "CullF",
+      "description": "Cull faces from a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for face culling",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Pattern",
+          "nickname": "P",
+          "description": "Face culling pattern",
+          "type": "boolean",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh with all indicated faces removed",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "58cf422f-19f7-42f7-9619-fc198c51c657",
+      "name": "Mesh Surface",
+      "nickname": "Mesh UV",
+      "description": "Create a Surface UV mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface geometry",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "U Count",
+          "nickname": "U",
+          "description": "Number of quads in U direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "V Count",
+          "nickname": "V",
+          "description": "Number of quads in V direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Overhang",
+          "nickname": "H",
+          "description": "Allow faces to overhang trims",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Equalize",
+          "nickname": "Q",
+          "description": "Equalize span length",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "UV Mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5a4ddedd-5af9-49e5-bace-12910a8b9366",
+      "name": "Mesh Triangle",
+      "nickname": "Triangle",
+      "description": "Create a mesh triangle.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Corner A",
+          "nickname": "A",
+          "description": "Index of first face corner",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner B",
+          "nickname": "B",
+          "description": "Index of second face corner",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner C",
+          "nickname": "C",
+          "description": "Index of third face corner",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "5d192b90-1ae3-4439-bbde-b05976fc4ac3",
+      "name": "Copy Trim",
+      "nickname": "Trim",
+      "description": "Copy UV trim data from one surface to another.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Source surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Target surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Retrimmed surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "5e33c760-adcd-4235-b1dd-05cf72eb7a38",
+      "name": "Sum Surface",
+      "nickname": "SumSrf",
+      "description": "Create a sum surface from two edge curves.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve A",
+          "nickname": "A",
+          "description": "First curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Curve B",
+          "nickname": "B",
+          "description": "Second curve",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "BRep representing the sum-surface",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "60e7defa-8b21-4ee1-99aa-a9223d6134ff",
+      "name": "Mesh Brep",
+      "nickname": "Mesh",
+      "description": "Create a mesh that approximates Brep geometry",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep geometry",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh approximation",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "68546dd0-aa82-471c-87e9-81cb16ac50ed",
+      "name": "Surface | Curve",
+      "nickname": "SCX",
+      "description": "Solve intersection events for a surface and a curve.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Intersection curve",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Intersection overlap curves",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Intersection points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "UV Points",
+          "nickname": "uv",
+          "description": "Surface {uv} coordinates at intersection events",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Normals",
+          "nickname": "N",
+          "description": "Surface normal vector at intersection events",
+          "type": "vector",
+          "access": "list"
+        },
+        {
+          "name": "Parameters",
+          "nickname": "t",
+          "description": "Curve parameter at intersection events",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Tangents",
+          "nickname": "T",
+          "description": "Curve tangent vector at intersection events",
+          "type": "vector",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "6a9ccaab-1b03-484e-bbda-be9c81584a66",
+      "name": "Isotrim",
+      "nickname": "SubSrf",
+      "description": "Extract an isoparametric subset of a surface.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Domain",
+          "nickname": "D",
+          "description": "Domain of subset",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Subset of base surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "6aa8da2e-6f25-4585-8b37-aa44609beb46",
+      "name": "Bounding Box",
+      "nickname": "BBox",
+      "description": "Solve world oriented geometry bounding boxes.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Content",
+          "nickname": "C",
+          "description": "Geometry to contain",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "Create a single unified box for all objects",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "World aligned bounding box",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "6e5de495-ba76-42d0-9985-a5c265e9aeca",
+      "name": "Ruled Surface",
+      "nickname": "RuleSrf",
+      "description": "Create a surface between two curves.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve A",
+          "nickname": "A",
+          "description": "First curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Curve B",
+          "nickname": "B",
+          "description": "Second curve",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Ruled surface between A and B",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "71506fa8-9bf0-432d-b897-b2e0c5ac316c",
+      "name": "Network Surface",
+      "nickname": "NetSurf",
+      "description": "Create a surface from curve networks",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curves U",
+          "nickname": "U",
+          "description": "Curves in U direction",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Curves V",
+          "nickname": "V",
+          "description": "Curves in V direction",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Continuity",
+          "nickname": "C",
+          "description": "Surface continuity (0=loose, 1=position, 2=tangency, 3=curvature)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Network surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "75164624-395a-4d24-b60b-6bf91cab0194",
+      "name": "Sweep2",
+      "nickname": "Swp2",
+      "description": "Create a sweep surface with two rail curves.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Rail 1",
+          "nickname": "R¹",
+          "description": "First rail curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Rail 2",
+          "nickname": "R²",
+          "description": "Second rail curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Sections",
+          "nickname": "S",
+          "description": "Section curves",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Same Height",
+          "nickname": "H",
+          "description": "Create a sweep with same-height properties.",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Brep",
+          "nickname": "S",
+          "description": "Resulting Brep",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "76f85ee4-5a88-4511-8ba7-30df07e50533",
+      "name": "Mesh Sphere Ex",
+      "nickname": "MSphereEx",
+      "description": "Create a mesh sphere from square patches.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Radius of mesh sphere",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "C",
+          "description": "Number of faces along each patch edge",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh sphere",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "79aa7f47-397c-4d3f-9761-aaf421bb7f5f",
+      "name": "Domain Box",
+      "nickname": "Box",
+      "description": "Create a box defined by a base plane and size domains.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "X",
+          "nickname": "X",
+          "description": "Domain of the box in the {x} direction.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Y",
+          "nickname": "Y",
+          "description": "Domain of the box in the {y} direction.",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Z",
+          "nickname": "Z",
+          "description": "Domain of the box in the {z} direction.",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Resulting box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "7db14002-c09c-4d7b-9f80-e4e2b00dfa1d",
+      "name": "Surface Split",
+      "nickname": "SrfSplit",
+      "description": "Split a surface with a bunch of curves.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Splitting curves",
+          "type": "curve",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Fragments",
+          "nickname": "F",
+          "description": "Splitting fragments",
+          "type": "surface",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "866ee39d-9ebf-4e1d-b209-324c56825605",
+      "name": "Brep Topology",
+      "nickname": "Topology",
+      "description": "Get and display the topology of a brep.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Base Brep",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Face|Face Adjacency",
+          "nickname": "FF",
+          "description": "For each face lists all faces that surround it.",
+          "type": "integer",
+          "access": "tree"
+        },
+        {
+          "name": "Face|Edge Adjacency",
+          "nickname": "FE",
+          "description": "For each face lists all edges that surround it.",
+          "type": "integer",
+          "access": "tree"
+        },
+        {
+          "name": "Edge|Face Adjacency",
+          "nickname": "EF",
+          "description": "for each edge lists all faces that surround it.",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "87df35c8-6e1d-4e2a-821a-7c1066714409",
+      "name": "Bounding Box",
+      "nickname": "BBox",
+      "description": "Solve oriented geometry bounding boxes.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Content",
+          "nickname": "C",
+          "description": "Geometry to contain",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Union",
+          "nickname": "U",
+          "description": "Create a single unified box for all objects",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "BoundingBox orientation plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Aligned bounding box in world coordinates",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Bounding box in orientation plane coordinates",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "88060a82-0bf7-46bb-9af8-bdc860cf7e1d",
+      "name": "Mesh Union",
+      "nickname": "MUnion",
+      "description": "Perform a solid union on a set of meshes",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Meshes",
+          "nickname": "M",
+          "description": "Meshes to union",
+          "type": "mesh",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Mesh solid union result",
+          "type": "mesh",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "888f9c3c-f1e1-4344-94b0-5ee6a45aee11",
+      "name": "Pipe Variable",
+      "nickname": "VPipe",
+      "description": "Create a pipe surface with variable radii around a rail curve.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Base curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Parameters",
+          "nickname": "t",
+          "description": "Curve parameters for radii",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Radii",
+          "nickname": "R",
+          "description": "A list of radii for every defined parameter",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Caps",
+          "nickname": "E",
+          "description": "Specifies the type of caps (0=None, 1=Flat, 2=Round)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Pipe",
+          "nickname": "P",
+          "description": "Resulting Pipe",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "88cff285-7f5e-41b3-96d5-9588ff9a52b1",
+      "name": "Contour",
+      "nickname": "Contour",
+      "description": "Create a set of Curve contours",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Curve to contour",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Contour start point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "N",
+          "description": "Contour normal direction",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Distance between contours",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Contours",
+          "nickname": "C",
+          "description": "Resulting contour points (grouped by section)",
+          "type": "point",
+          "access": "tree"
+        },
+        {
+          "name": "Parameters",
+          "nickname": "t",
+          "description": "Curve parameters for all contour points",
+          "type": "number",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "8adbf481-7589-4a40-b490-006531ea001d",
+      "name": "Mesh Plane",
+      "nickname": "MPlane",
+      "description": "Create a mesh plane.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Boundary",
+          "nickname": "B",
+          "description": "Rectangle describing boundary of plane",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Width count",
+          "nickname": "W",
+          "description": "Number of faces along {x} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Height count",
+          "nickname": "H",
+          "description": "Number of faces along {y} direction",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh plane",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Area",
+          "nickname": "A",
+          "description": "Area of mesh plane",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "8d372bdc-9800-45e9-8a26-6e33c5253e21",
+      "name": "Deconstruct Brep",
+      "nickname": "DeBrep",
+      "description": "Deconstruct a brep into its constituent parts.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Base Brep",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Faces",
+          "nickname": "F",
+          "description": "Faces of Brep",
+          "type": "surface",
+          "access": "list"
+        },
+        {
+          "name": "Edges",
+          "nickname": "E",
+          "description": "Edges of Brep",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Vertices",
+          "nickname": "V",
+          "description": "Vertices of Brep",
+          "type": "point",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "8efd5eb9-a896-486e-9f98-d8d1a07a49f3",
+      "name": "Extrude Linear",
+      "nickname": "Extrude",
+      "description": "Extrude curves and surfaces along a straight path.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Profile",
+          "nickname": "P",
+          "description": "Profile curve or surface",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Orientation (P)",
+          "nickname": "Po",
+          "description": "Plane indicating orientation of profile shape",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Axis",
+          "nickname": "A",
+          "description": "Extrusion axis",
+          "type": "line",
+          "access": "item"
+        },
+        {
+          "name": "Orientation (A)",
+          "nickname": "Ao",
+          "description": "Optional orientational plane for the axis",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Extrusion",
+          "nickname": "E",
+          "description": "Extrusion result",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9266a2bb-918f-4675-9c91-f67d0dd33eac",
+      "name": "Quadrangulate",
+      "nickname": "Quad",
+      "description": "Quadrangulate as many triangles as possible in a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to quadrangulate",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Angle threshold. Triangles that exceed this kink-angle will not be merged.",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Ratio",
+          "nickname": "R",
+          "description": "Ratio threshold. Quads that have a ratio (shortest diagonal/longest diagonal) that exceed the threshold, will not be considered.",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Quadrangulated mesh (not all triangles are guaranteed to be converted).",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of triangles that were quadrangulated",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "95aef4f6-66fc-477e-b8f8-32395a837831",
+      "name": "Mesh Intersection",
+      "nickname": "MInt",
+      "description": "Perform a solid intersection on a set of meshes",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Meshes A",
+          "nickname": "A",
+          "description": "First mesh set",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Meshes B",
+          "nickname": "B",
+          "description": "Second mesh set",
+          "type": "mesh",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Intersection result of A&B",
+          "type": "mesh",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "962034e9-cc27-4394-afc4-5c16e3447cf9",
+      "name": "Extrude",
+      "nickname": "Extr",
+      "description": "Extrude curves and surfaces along a vector.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Profile curve or surface",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Direction",
+          "nickname": "D",
+          "description": "Extrusion direction",
+          "type": "vector",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Extrusion",
+          "nickname": "E",
+          "description": "Extrusion result",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9aef6eb4-98c3-4b0e-b875-1a7cb1bb1038",
+      "name": "Box 2Pt [OBSOLETE]",
+      "nickname": "Box",
+      "description": "Create a box defined by two points.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point A",
+          "nickname": "A",
+          "description": "First corner",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Point B",
+          "nickname": "B",
+          "description": "Second corner",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Resulting box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9d375779-649d-49f1-baaf-04560a51cd3d",
+      "name": "Bounding Box [OBSOLETE]",
+      "nickname": "BBox",
+      "description": "Solve world oriented geometry bounding boxes.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Content",
+          "nickname": "C",
+          "description": "Geometry to contain",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "World aligned bounding box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9d50bf9b-46bc-403a-9ec9-1052f51dd6b6",
+      "name": "Cull Vertices",
+      "nickname": "CullV",
+      "description": "Cull vertices from a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for vertex culling",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Pattern",
+          "nickname": "P",
+          "description": "Vertex culling pattern",
+          "type": "boolean",
+          "access": "list"
+        },
+        {
+          "name": "Shrink",
+          "nickname": "S",
+          "description": "Shrink quads, if true, quads will become triangles if possible",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh with all indicated vertices removed",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "9f6d85c9-1143-4538-bca7-69dcb11a74ef",
+      "name": "Weld Mesh",
+      "nickname": "Weld",
+      "description": "Weld (merge) creases in a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to weld",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Angle",
+          "nickname": "A",
+          "description": "Weld angle",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Welded mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a10e8cdf-7c7a-4aac-aa70-ddb7010ab231",
+      "name": "Box Corners",
+      "nickname": "Box Corners",
+      "description": "Extract all 8 corners of a box.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Base box",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Corner A",
+          "nickname": "A",
+          "description": "Corner at {x=min, y=min, z=min}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner B",
+          "nickname": "B",
+          "description": "Corner at {x=max, y=min, z=min}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner C",
+          "nickname": "C",
+          "description": "Corner at {x=max, y=max, z=min}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner D",
+          "nickname": "D",
+          "description": "Corner at {x=min, y=max, z=min}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner E",
+          "nickname": "E",
+          "description": "Corner at {x=min, y=min, z=max}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner F",
+          "nickname": "F",
+          "description": "Corner at {x=max, y=min, z=max}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner G",
+          "nickname": "G",
+          "description": "Corner at {x=max, y=max, z=max}",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner H",
+          "nickname": "H",
+          "description": "Corner at {x=min, y=min, z=max}",
+          "type": "point",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a1da39b7-6387-4522-bf2b-2eaee6b14072",
+      "name": "Retrim",
+      "nickname": "Retrim",
+      "description": "Retrim a surface based on 3D trim data from another surface.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Source surface providing the UV trim data.",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Target surface to be trimmed",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Retrimmed surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a559fee2-4b76-4370-8042-c7440cd75049",
+      "name": "Mesh Closest Point",
+      "nickname": "MeshCP",
+      "description": "Finds the closest point on a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Point to search from",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to search for closest point",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Location on mesh closest to search point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Face index of closest point",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a78e3fbc-d199-4bd9-8df0-fc4c2743eb31",
+      "name": "Exposure",
+      "nickname": "Exposure",
+      "description": "Solve mesh exposure for a collection of energy rays and obstructions.",
+      "category": "Shading",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Shape",
+          "nickname": "S",
+          "description": "Mesh for exposure solution",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Obstructions",
+          "nickname": "O",
+          "description": "Optional additional obstructing geometry",
+          "type": "mesh",
+          "access": "list"
+        },
+        {
+          "name": "Rays",
+          "nickname": "R",
+          "description": "Light ray directions",
+          "type": "vector",
+          "access": "list"
+        },
+        {
+          "name": "Energy",
+          "nickname": "E",
+          "description": "Optional Energy values for each ray",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Lambert",
+          "nickname": "L",
+          "description": "If true, Lambertian shading will be applied,",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Exposure",
+          "nickname": "E",
+          "description": "Combined exposure for every individual mesh vertex.",
+          "type": "number",
+          "access": "list"
+        },
+        {
+          "name": "Range",
+          "nickname": "R",
+          "description": "Exposure Range for the entire mesh.",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a7a41d0a-2188-4f7a-82cc-1a2c4e4ec850",
+      "name": "Loft",
+      "nickname": "Loft",
+      "description": "Create a lofted surface through a set of section curves.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Section curves",
+          "type": "curve",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loft",
+          "nickname": "L",
+          "description": "Resulting Loft surfaces",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a834e823-ae01-44d8-9066-c138eeb6f391",
+      "name": "Surface | Line",
+      "nickname": "SLX",
+      "description": "Solve intersection events for a surface and a line.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Line",
+          "nickname": "L",
+          "description": "Intersection line",
+          "type": "line",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Curves",
+          "nickname": "C",
+          "description": "Intersection overlap curves",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Intersection points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "UV Points",
+          "nickname": "uv",
+          "description": "Surface {uv} coordinates at intersection events",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Normal",
+          "nickname": "N",
+          "description": "Surface normal vector at intersection events",
+          "type": "vector",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "aab142b1-b870-46de-8e86-654c9a554d90",
+      "name": "Deconstruct Face",
+      "nickname": "DeFace",
+      "description": "Deconstruct a mesh face into its four corner indices.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Face",
+          "nickname": "F",
+          "description": "Mesh face",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Corner A",
+          "nickname": "A",
+          "description": "Index of first face vertex",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner B",
+          "nickname": "B",
+          "description": "Index of second face vertex",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner C",
+          "nickname": "C",
+          "description": "Index of third face vertex",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Corner D",
+          "nickname": "D",
+          "description": "Index of fourth face vertex (identical to C if face is a triangle)",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ac750e41-2450-4f98-9658-98fef97b01b2",
+      "name": "Brep Wireframe",
+      "nickname": "Wires",
+      "description": "Extract the wireframe curves of a brep.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Base Brep",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Density",
+          "nickname": "D",
+          "description": "Wireframe isocurve density",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Wireframe",
+          "nickname": "W",
+          "description": "Wireframe curves",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "af9cdb9d-9617-4827-bb3c-9efd88c76a70",
+      "name": "Box Properties",
+      "nickname": "BoxProp",
+      "description": "Get some properties of a box",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Box to analyze",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Center",
+          "nickname": "C",
+          "description": "Center point of box",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Diagonal",
+          "nickname": "D",
+          "description": "Diagonal vector of box",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Area",
+          "nickname": "A",
+          "description": "Area of box",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Volume",
+          "nickname": "V",
+          "description": "Volume of box",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Degeneracy",
+          "nickname": "d",
+          "description": "Degeneracy of box",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "afbf2fe0-4965-48d2-8470-9e991540093b",
+      "name": "Mesh Split",
+      "nickname": "MSplit",
+      "description": "Mesh Mesh split",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to split",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Splitters",
+          "nickname": "S",
+          "description": "Meshes to split with",
+          "type": "mesh",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result of mesh split",
+          "type": "mesh",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "b083c06d-9a71-4f40-b354-1d80bba1e858",
+      "name": "Sphere 4Pt",
+      "nickname": "Sph4Pt",
+      "description": "Create a spherical surface from 4 points.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Point 1",
+          "nickname": "P1",
+          "description": "First point",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Point 2",
+          "nickname": "P2",
+          "description": "Second point (cannot be coincident with P1)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Point 3",
+          "nickname": "P3",
+          "description": "Third point (cannot be colinear with P1 & P2)",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Point 4",
+          "nickname": "P4",
+          "description": "Fourth point (cannot be coplanar with P1, P2 & P3)",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Center",
+          "nickname": "C",
+          "description": "Center of sphere",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Radius of sphere",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Sphere",
+          "nickname": "S",
+          "description": "Sphere fitted to P1~P4",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b25c5762-f90e-4839-9fc5-74b74ab42b1e",
+      "name": "Offset Surface",
+      "nickname": "Offset",
+      "description": "Offset a surface by a fixed amount.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Offset distance",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Retrim",
+          "nickname": "T",
+          "description": "Retrim offset",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Offset result",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b2dc090f-b022-4264-8889-87e22979336e",
+      "name": "Mesh Eval",
+      "nickname": "MEval",
+      "description": "Evaluate a mesh at a given parameter",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to evaluate",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Point at mesh parameter",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Normal",
+          "nickname": "N",
+          "description": "Normal vector at mesh parameter",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Colour at mesh parameter",
+          "type": "colour",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b57bf805-046a-4360-ad76-51aeddfe9720",
+      "name": "Boundary Volume",
+      "nickname": "BVol",
+      "description": "Create a closed polysurface from boundary surfaces",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Boundaries",
+          "nickname": "B",
+          "description": "Boundary surfaces",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Solid",
+          "nickname": "S",
+          "description": "Solid volume",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b648d933-ddea-4e75-834c-8f6f3793e311",
+      "name": "Cap Holes",
+      "nickname": "Cap",
+      "description": "Cap all planar holes in a Brep.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep to cap",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Capped Brep",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b799b7c0-76df-4bdb-b3cc-401b1d021aa5",
+      "name": "Osculating Circles",
+      "nickname": "Osc",
+      "description": "Calculate the principal osculating circles of a surface at a {uv} coordinate.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "uv",
+          "description": "{uv} coordinate to evaluate",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Surface point at {uv} coordinate",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "First circle",
+          "nickname": "C1",
+          "description": "First osculating circle",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Second circle",
+          "nickname": "C2",
+          "description": "Second osculating circle",
+          "type": "curve",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ba2d8f57-0738-42b4-b5a5-fe4d853517eb",
+      "name": "Deconstruct Mesh",
+      "nickname": "DeMesh",
+      "description": "Deconstruct a mesh into its component parts.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Base mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Vertices",
+          "nickname": "V",
+          "description": "Mesh vertices",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Colours",
+          "nickname": "C",
+          "description": "Mesh vertex colours",
+          "type": "colour",
+          "access": "list"
+        },
+        {
+          "name": "Normals",
+          "nickname": "N",
+          "description": "Mesh normals",
+          "type": "vector",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "bb6666e7-d0f4-41ec-a257-df2371619f13",
+      "name": "Sweep1",
+      "nickname": "Swp1",
+      "description": "Create a sweep surface with one rail curve.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Rail",
+          "nickname": "R",
+          "description": "Rail curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Sections",
+          "nickname": "S",
+          "description": "Section curves",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Miter",
+          "nickname": "M",
+          "description": "Kink miter type (0=None, 1=Trim, 2=Rotate)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Brep",
+          "nickname": "S",
+          "description": "Resulting Brep",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "bb6c6501-0500-4678-859b-b838348981d1",
+      "name": "Collision One|Many",
+      "nickname": "ColOM",
+      "description": "Test for one|many collision between objects",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Collider",
+          "nickname": "C",
+          "description": "Object for collision",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Obstacles",
+          "nickname": "O",
+          "description": "Obstacles for collision",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Collision",
+          "nickname": "C",
+          "description": "True if objects collides with any of the obstacles",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Index",
+          "nickname": "I",
+          "description": "Index of first obstacle that collides with the object",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "be6636b2-2f1a-4d42-897b-fdef429b6f17",
+      "name": "Extrude Point",
+      "nickname": "Extr",
+      "description": "Extrude curves and surfaces to a point.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Profile curve or surface",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Point",
+          "nickname": "P",
+          "description": "Extrusion tip",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Extrusion",
+          "nickname": "E",
+          "description": "Extrusion result",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c277f778-6fdf-4890-8f78-347efb23c406",
+      "name": "Pipe",
+      "nickname": "Pipe",
+      "description": "Create a pipe surface around a rail curve.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Base curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Pipe radius",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Caps",
+          "nickname": "E",
+          "description": "Specifies the type of caps (0=None, 1=Flat, 2=Round)",
+          "type": "integer",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Pipe",
+          "nickname": "P",
+          "description": "Resulting Pipe",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "c3d1f2b8-8596-4e8d-8861-c28ba8ffb4f4",
+      "name": "Flip",
+      "nickname": "Flip",
+      "description": "Flip the normals of a surface based on local or remote geometry",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface to flip",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Guide",
+          "nickname": "G",
+          "description": "Optional guide surface to match",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Flipped surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result: True if surface was flipped",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c3dce3e8-c9cc-413c-a93f-732434282fdd",
+      "name": "Mesh Shadow",
+      "nickname": "MShadow",
+      "description": "Compute the shadow outline for a mesh object",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for shadow casting",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Light",
+          "nickname": "L",
+          "description": "Direction of light rays",
+          "type": "vector",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Plane that receives the shadows",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Outlines",
+          "nickname": "O",
+          "description": "Shadow contours",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "c3f9cea5-6fd4-4db5-959b-08cd08ed9fe1",
+      "name": "Simple Mesh",
+      "nickname": "SMesh",
+      "description": "Create a mesh that represents a Brep as simply as possible",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep to mesh, only breps with triangle or quad faces are supported.",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "c77a8b3b-c569-4d81-9b59-1c27299a1c45",
+      "name": "4Point Surface",
+      "nickname": "Srf4Pt",
+      "description": "Create a surface connecting three or four corner points.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Corner A",
+          "nickname": "A",
+          "description": "First corner",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner B",
+          "nickname": "B",
+          "description": "Second corner",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner C",
+          "nickname": "C",
+          "description": "Third corner",
+          "type": "point",
+          "access": "item"
+        },
+        {
+          "name": "Corner D",
+          "nickname": "D",
+          "description": "Optional fourth corner",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Resulting surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ca6a48f4-b681-4989-b0c1-301a2929a84c",
+      "name": "Unify Mesh",
+      "nickname": "UniM",
+      "description": "Unify the normals of a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to unify",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Unified mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of faces that were flipped",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "cb4ca22c-3419-4962-a078-ad4ff7f1f929",
+      "name": "Face Normals",
+      "nickname": "FaceN",
+      "description": "Extract the normals and center points of all faces in a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for normal and center point extraction",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Centers",
+          "nickname": "C",
+          "description": "Center-points of all faces",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Normals",
+          "nickname": "N",
+          "description": "Normal vectors for all faces",
+          "type": "vector",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "cb56b26c-2595-4d03-bdb2-eb2e6aeba82d",
+      "name": "Fragment Patch",
+      "nickname": "FPatch",
+      "description": "Create a fragmented patch from a polyline boundary",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Boundary",
+          "nickname": "B",
+          "description": "Fragment polyline boundary",
+          "type": "curve",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Patch",
+          "nickname": "P",
+          "description": "Fragmented patch",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "cdee962f-4202-456b-a1b4-f3ed9aa0dc29",
+      "name": "Revolution",
+      "nickname": "RevSrf",
+      "description": "Create a surface of revolution.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "P",
+          "description": "Profile curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Axis",
+          "nickname": "A",
+          "description": "Revolution axis",
+          "type": "line",
+          "access": "item"
+        },
+        {
+          "name": "Domain",
+          "nickname": "D",
+          "description": "Angle domain (in radians)",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Brep representing the revolution result.",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d0a56c9e-2483-45e7-ab98-a450b97f1bc0",
+      "name": "Box Rectangle",
+      "nickname": "BoxRec",
+      "description": "Create a box defined by a rectangle and a height.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Rectangle",
+          "nickname": "R",
+          "description": "Base rectangle",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Height",
+          "nickname": "H",
+          "description": "Box height",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Resulting box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d0f1311b-8287-4484-b2ea-1475c6770926",
+      "name": "Delete Faces",
+      "nickname": "DeleteF",
+      "description": "Delete faces from a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for face deletion",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Indices",
+          "nickname": "I",
+          "description": "List of all face indices to delete",
+          "type": "integer",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh with all indexed faces removed",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d2cedf38-1149-4adc-8dbf-b06571cb5106",
+      "name": "Mesh Colours",
+      "nickname": "MCol",
+      "description": "Assign a repeating colour pattern to a mesh object.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Base mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Colours",
+          "nickname": "C",
+          "description": "Colour pattern",
+          "type": "colour",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Coloured mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d4bc9653-c770-4bee-a31d-d120cbb75b39",
+      "name": "Is Planar",
+      "nickname": "Planar",
+      "description": "Test whether a surface is planar",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface to test for planarity",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Interior",
+          "nickname": "I",
+          "description": "Limit planarity test to the interior of trimmed surfaces",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Planar",
+          "nickname": "F",
+          "description": "Planarity flag of surface",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Surface plane",
+          "type": "plane",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d6b43673-55dd-4e2f-95c4-6c69a14513a6",
+      "name": "Merge Faces",
+      "nickname": "FMerge",
+      "description": "Merge all adjacent co-planar faces in a brep",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep to simplify",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Breps",
+          "nickname": "B",
+          "description": "Simplified Brep",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Before",
+          "nickname": "N0",
+          "description": "Number of faces before simplification",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "After",
+          "nickname": "N1",
+          "description": "Number of faces after simplification",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d8698126-0e91-4ae7-ba05-2490258573ea",
+      "name": "Plane Through Shape",
+      "nickname": "PxS",
+      "description": "Make a rectangular surface that is larger than a given shape.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Surface plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Shape",
+          "nickname": "S",
+          "description": "Shape to exceed",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Inflate",
+          "nickname": "I",
+          "description": "Boundary inflation amount",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Resulting planar surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "d8cf1555-a0d5-43cb-8a10-46f8c014db3a",
+      "name": "Face Circles",
+      "nickname": "FaceC",
+      "description": "Solve the circumscribed circles for all mesh faces",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh for normal and center point extraction",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Centers",
+          "nickname": "C",
+          "description": "Circum-circles for all mesh triangles (quads are skipped)",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Ratio",
+          "nickname": "R",
+          "description": "Ratio of triangles; altitude / longest edge. (quads are skipped)",
+          "type": "number",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "d8d68c35-f869-486d-adf3-69ee3cc2d501",
+      "name": "Rail Revolution",
+      "nickname": "RailRev",
+      "description": "Create a surface of revolution using a sweep rail.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "P",
+          "description": "Profile curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Rail",
+          "nickname": "R",
+          "description": "Rail curve",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Axis",
+          "nickname": "A",
+          "description": "Revolution axis",
+          "type": "line",
+          "access": "item"
+        },
+        {
+          "name": "Scale",
+          "nickname": "S",
+          "description": "Scale height of profile curve",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Brep representing the Rail-Revolve result.",
+          "type": "brep",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "dabc854d-f50e-408a-b001-d043c7de151d",
+      "name": "Sphere",
+      "nickname": "Sph",
+      "description": "Create a spherical surface.",
+      "category": "Primitive",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Base",
+          "nickname": "B",
+          "description": "Base plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "Radius",
+          "nickname": "R",
+          "description": "Sphere radius",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Sphere",
+          "nickname": "S",
+          "description": "Resulting sphere",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "db661dd7-63a4-44c6-91f2-6faab2471383",
+      "name": "Align Vertices",
+      "nickname": "AlignVert",
+      "description": "Align nearby vertices in a mesh",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to align",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Tolerance",
+          "nickname": "T",
+          "description": "Alignment tolerance",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Aligned mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Count",
+          "nickname": "N",
+          "description": "Number of aligned vertices",
+          "type": "integer",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "db7d83b1-2898-4ef9-9be5-4e94b4e2048d",
+      "name": "Deconstruct Box",
+      "nickname": "DeBox",
+      "description": "Deconstruct a box into its constituent parts.",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Box",
+          "nickname": "B",
+          "description": "Base box",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Box plane",
+          "type": "plane",
+          "access": "item"
+        },
+        {
+          "name": "X",
+          "nickname": "X",
+          "description": "{x} dimension of box",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Y",
+          "nickname": "Y",
+          "description": "{y} dimension of box",
+          "type": "generic",
+          "access": "item"
+        },
+        {
+          "name": "Z",
+          "nickname": "Z",
+          "description": "{z} dimension of box",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e2c0f9db-a862-4bd9-810c-ef2610e7a56f",
+      "name": "Construct Mesh",
+      "nickname": "ConMesh",
+      "description": "Construct a mesh from vertices, faces and optional colours.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Vertices",
+          "nickname": "V",
+          "description": "Vertices of mesh object",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Faces",
+          "nickname": "F",
+          "description": "Faces of mesh object",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Colours",
+          "nickname": "C",
+          "description": "Optional vertex colours",
+          "type": "colour",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "e7e43403-f913-4d83-8aff-5b1c7a7f9fbc",
+      "name": "Offset Surface Loose",
+      "nickname": "Offset (L)",
+      "description": "Offset a surface by moving the control points.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Distance",
+          "nickname": "D",
+          "description": "Offset distance",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Retrim",
+          "nickname": "T",
+          "description": "Retrim offset",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Offset result",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "edcf10e1-02a0-48a4-ae2d-70c50d903dc8",
+      "name": "Mesh Spray",
+      "nickname": "MSpray",
+      "description": "Assign colours to a mesh based on spray points.",
+      "category": "Mesh",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Base mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Spray points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Colours",
+          "nickname": "C",
+          "description": "Colours of spray points",
+          "type": "colour",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Sprayed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ef6b26f4-f820-48d6-b0c5-85898ef8888b",
+      "name": "Split Brep",
+      "nickname": "Split",
+      "description": "Split one brep with another.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep to split",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Cutter",
+          "nickname": "C",
+          "description": "Cutting shape",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Brep fragments",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "f0b70e8e-7337-4ce4-a7bb-317fc971f918",
+      "name": "Trim Solid",
+      "nickname": "Trim",
+      "description": "Cut holes into a shape with a set of solid cutters.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Shape",
+          "nickname": "S",
+          "description": "Shape to trim",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Cutters",
+          "nickname": "T",
+          "description": "Trimming shapes",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Shape with holes",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "f241e42e-8983-4ed3-b869-621c07630b00",
+      "name": "Dimensions",
+      "nickname": "Dim",
+      "description": "Get the approximate dimensions of a surface",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Surface to measure",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "U dimension",
+          "nickname": "U",
+          "description": "Approximate dimension in U direction",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "V dimension",
+          "nickname": "V",
+          "description": "Approximate dimension in V direction",
+          "type": "number",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f6409a9c-3d2a-4b14-9f2c-e3c3f2cb72f8",
+      "name": "Cap Holes Ex",
+      "nickname": "CapEx",
+      "description": "Cap as many holes as possible in a Brep.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Brep to cap",
+          "type": "brep",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Brep",
+          "nickname": "B",
+          "description": "Capped Brep",
+          "type": "brep",
+          "access": "item"
+        },
+        {
+          "name": "Caps",
+          "nickname": "C",
+          "description": "Number of caps added",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Solid",
+          "nickname": "S",
+          "description": "Value indicating whether capped brep is solid",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f72c480b-7ee6-42ef-9821-c371e9203b44",
+      "name": "Region Difference",
+      "nickname": "RDiff",
+      "description": "Difference between two sets of planar closed curves (regions)",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curves A",
+          "nickname": "A",
+          "description": "Curves to subtract from.",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Curves B",
+          "nickname": "B",
+          "description": "Curves to subtract.",
+          "type": "curve",
+          "access": "list"
+        },
+        {
+          "name": "Plane",
+          "nickname": "P",
+          "description": "Optional plane for boolean solution",
+          "type": "plane",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Result outlines of boolean difference (A - B)",
+          "type": "curve",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "f881810b-96de-4668-a95a-f9a6d683e65c",
+      "name": "Point In Trim",
+      "nickname": "TrimInc",
+      "description": "Test whether a {uv} coordinate is inside the trimmed portion of a surface",
+      "category": "Analysis",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "UV Point",
+          "nickname": "P",
+          "description": "UV point to test for trim inclusion",
+          "type": "point",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Inclusion",
+          "nickname": "I",
+          "description": "Inclusion flag. TRUE if point is inside the trim boundaries.",
+          "type": "boolean",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "fa92858a-a180-4545-ad4d-0dc644b3a2a8",
+      "name": "Untrim",
+      "nickname": "Untrim",
+      "description": "Remove all trim curves from a surface.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Base surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Surface",
+          "nickname": "S",
+          "description": "Untrimmed surface",
+          "type": "surface",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "fab11c30-2d9c-4d15-ab3c-2289f1ae5c21",
+      "name": "Solid Difference",
+      "nickname": "SDiff",
+      "description": "Perform a solid difference on two Brep sets.",
+      "category": "Solid",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Breps A",
+          "nickname": "A",
+          "description": "First Brep set",
+          "type": "brep",
+          "access": "list"
+        },
+        {
+          "name": "Breps B",
+          "nickname": "B",
+          "description": "Second Brep set",
+          "type": "brep",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Result",
+          "nickname": "R",
+          "description": "Difference result",
+          "type": "brep",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "fc5b7d12-7247-4de0-81bc-9b2c2f8f72f6",
+      "name": "Map to Surface",
+      "nickname": "Map Srf",
+      "description": "Map a curve onto a surface via control points.",
+      "category": "Surface",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Curve to map",
+          "type": "curve",
+          "access": "item"
+        },
+        {
+          "name": "Source",
+          "nickname": "S",
+          "description": "Base surface for initial coordinate space",
+          "type": "surface",
+          "access": "item"
+        },
+        {
+          "name": "Target",
+          "nickname": "T",
+          "description": "Surface for target coordinate space",
+          "type": "surface",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Curve",
+          "nickname": "C",
+          "description": "Mapped curve",
+          "type": "curve",
+          "access": "item"
+        }
+      ]
+    }
+  ]
+}

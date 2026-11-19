@@ -3,6 +3,7 @@
     <div class="document-manager__toolbar">
       <q-icon name="account_tree" size="18px" /><strong>Document tree</strong>
       <span class="document-manager__count">{{ documentCount }}</span>
+      <q-btn v-if="isolationActive" flat round dense icon="filter_center_focus" aria-label="End isolation" @click="treeAction(null, 'end-isolation')"><q-tooltip>End isolation</q-tooltip></q-btn>
       <q-btn flat round dense icon="refresh" aria-label="Refresh documents" :loading="refreshing" @click="refresh(true)"><q-tooltip>Refresh</q-tooltip></q-btn>
       <q-btn flat round dense icon="unfold_less" aria-label="Collapse all" @click="expanded = new Set()"><q-tooltip>Collapse all</q-tooltip></q-btn>
       <q-btn flat round dense icon="center_focus_strong" aria-label="Zoom to selected item" :disable="!selected" @click="zoom(selected)"><q-tooltip>Zoom extents</q-tooltip></q-btn>
@@ -18,24 +19,39 @@
           role="treeitem" :aria-level="item.depth + 1" :aria-selected="selected?.key === item.key"
           :aria-expanded="item.branch ? expanded.has(item.key) : undefined" :data-tree-key="item.key" :data-geometry-id="item.geometryId"
           :style="{ paddingLeft: (item.depth * 16 + 2) + 'px' }" tabindex="0"
-          :draggable="item.writable && !state.busy" @dragstart.stop="startDrag($event, item)" @dragover.stop="dragOver($event, item)" @drop.stop="drop($event, item)" @dragend="endDrag" @dragleave="dropKey = ''"
+          :draggable="item.writable && !state.busy && !isLocked(item)" @dragstart.stop="startDrag($event, item)" @dragover.stop="dragOver($event, item)" @drop.stop="drop($event, item)" @dragend="endDrag" @dragleave="dropKey = ''"
           @click="select(item)" @dblclick.stop="item.branch ? toggle(item) : zoom(item)" @keydown="navigate($event, item)">
-          <q-menu v-if="item.deletable || (item.document && !item.group && !item.geometryId && !item.sharedObjectId && item.writable)" context-menu touch-position>
+          <q-menu v-if="canControl(item)" context-menu touch-position>
             <q-list dense style="min-width: 150px">
-              <q-item v-if="item.writable" clickable v-close-popup :disable="state.busy" @click="save(item)"><q-item-section avatar><q-icon name="save" /></q-item-section><q-item-section>Save document</q-item-section></q-item>
-              <q-item v-if="item.writable" clickable v-close-popup :disable="state.busy" @click="publish(item)"><q-item-section avatar><q-icon name="public" /></q-item-section><q-item-section>Public</q-item-section></q-item>
-              <q-item v-if="item.deletable" clickable v-close-popup :disable="state.busy" @click="pendingDelete = item"><q-item-section avatar><q-icon name="delete_outline" /></q-item-section><q-item-section>Delete document</q-item-section></q-item>
+              <q-item clickable v-close-popup @click="treeAction(item, 'visibility')"><q-item-section avatar><q-icon :name="isHidden(item) ? 'visibility' : 'visibility_off'" /></q-item-section><q-item-section>{{ isHidden(item) ? 'Show' : 'Hide' }}</q-item-section></q-item>
+              <q-item v-if="item.branch" clickable v-close-popup @click="treeAction(item, 'show-children')"><q-item-section avatar><q-icon name="visibility" /></q-item-section><q-item-section>Show all children</q-item-section></q-item>
+              <q-item clickable v-close-popup @click="treeAction(item, 'isolate')"><q-item-section avatar><q-icon name="filter_center_focus" /></q-item-section><q-item-section>Isolate</q-item-section></q-item>
+              <q-item clickable v-close-popup :disable="!isolationActive" @click="treeAction(item, 'end-isolation')"><q-item-section avatar><q-icon name="visibility" /></q-item-section><q-item-section>End isolation</q-item-section></q-item>
+              <q-separator />
+              <q-item clickable v-close-popup @click="treeAction(item, 'lock')"><q-item-section avatar><q-icon :name="isLocked(item) ? 'lock_open' : 'lock'" /></q-item-section><q-item-section>{{ isLocked(item) ? 'Unlock' : 'Lock' }}</q-item-section></q-item>
+              <q-item v-if="item.branch" clickable v-close-popup @click="treeAction(item, 'unlock-children')"><q-item-section avatar><q-icon name="lock_open" /></q-item-section><q-item-section>Unlock all children</q-item-section></q-item>
+              <q-item clickable v-close-popup @click="zoom(item)"><q-item-section avatar><q-icon name="center_focus_strong" /></q-item-section><q-item-section>Zoom extents</q-item-section></q-item>
+              <template v-if="isDocumentRow(item)">
+              <q-separator />
+              <q-item v-if="item.localDocument" clickable v-close-popup :disable="state.localFolderBusy" @click="saveLocal(item)"><q-item-section avatar><q-icon name="save" /></q-item-section><q-item-section>Save locally</q-item-section></q-item>
+              <q-item v-if="item.localDocument" clickable v-close-popup :disable="state.localFolderBusy" @click="saveLocal(item, true)"><q-item-section avatar><q-icon name="save_as" /></q-item-section><q-item-section>Save as...</q-item-section></q-item>
+              <q-item v-if="item.writable && serverDocument(item)" clickable v-close-popup :disable="state.busy" @click="save(item)"><q-item-section avatar><q-icon name="cloud_upload" /></q-item-section><q-item-section>Save to server</q-item-section></q-item>
+              <q-item v-if="item.writable && serverDocument(item)" clickable v-close-popup :disable="state.busy" @click="publish(item)"><q-item-section avatar><q-icon name="public" /></q-item-section><q-item-section>Public</q-item-section></q-item>
+              <q-item v-if="item.localDocument" clickable v-close-popup :disable="state.localFolderBusy" @click="closeLocal(item)"><q-item-section avatar><q-icon name="close" /></q-item-section><q-item-section>Close local document</q-item-section></q-item>
+              <q-item v-if="item.deletable && serverDocument(item)" clickable v-close-popup :disable="state.busy" @click="pendingDelete = item"><q-item-section avatar><q-icon name="delete_outline" /></q-item-section><q-item-section>Delete on server</q-item-section></q-item>
+              </template>
             </q-list>
           </q-menu>
           <button class="document-manager__expand" :disabled="!item.branch" :aria-label="(expanded.has(item.key) ? 'Collapse ' : 'Expand ') + item.label" @click.stop="toggle(item)">
             <q-icon v-if="item.branch" :name="expanded.has(item.key) ? 'arrow_drop_down' : 'arrow_right'" size="20px" />
           </button>
-          <button v-if="item.documentId && !item.group && !item.message" class="document-manager__visibility" :aria-label="(isHidden(item) ? 'Show ' : 'Hide ') + item.label" @click.stop="toggleVisibility(item)">
+          <button v-if="canControl(item)" class="document-manager__visibility" :aria-label="(isHidden(item) ? 'Show ' : 'Hide ') + item.label" @click.stop="toggleVisibility(item)">
             <q-icon :name="isHidden(item) ? 'visibility_off' : 'visibility'" size="16px" /><q-tooltip>{{ isHidden(item) ? 'Show' : 'Hide' }}</q-tooltip>
           </button>
           <span v-else class="document-manager__visibility-space" />
           <q-icon :name="item.icon" size="17px" class="document-manager__type" />
           <span class="document-manager__label" :title="item.label">{{ item.label }}</span>
+          <q-icon v-if="isLocked(item)" name="lock" size="14px" aria-label="Locked"><q-tooltip>Locked by this item or a parent</q-tooltip></q-icon>
           <span v-if="ownerLabel(item)" class="document-manager__owner" :title="'Private owner: ' + ownerLabel(item)">Owner: {{ ownerLabel(item) }}</span>
           <span v-if="item.count != null" class="document-manager__count">{{ item.count }}</span>
           <q-spinner v-if="item.loading" size="14px" />
@@ -68,7 +84,7 @@
 import { computed, onUnmounted, reactive, ref, shallowRef, watch } from 'vue'
 import { Box3 } from 'three'
 import PandaUIApp from '../PandaUIApp'
-import { documentGeometryVisible, sharedDocumentGeometryVisible } from '../GeometryDocumentViewState'
+import { documentGeometryVisible, sharedDocumentGeometryVisible, documentGeometryLocked, documentIsolationActive } from '../GeometryDocumentViewState'
 import { documentHierarchy, documentMovePayload, visibleWorkspaceDocuments, sharedSceneDocument } from '../DocumentHierarchy'
 
 export default {
@@ -100,7 +116,40 @@ export default {
     const editor = () => document.getElementById('editorFrame')?.contentWindow
     const documentKey = document => 'document:' + document.documentId
     const geometryKey = item => item.documentId + ':' + (item.sharedObjectId || item.geometryId)
-    const reference = item => ({ kind: item.sharedObjectId ? 'sceneObjectRef' : item.geometryId ? item.kind || 'geometryRef' : 'documentRef', objectId: item.sharedObjectId, documentId: item.documentId, geometryId: item.geometryId, layerPath: item.layerPath, poolGeneration: item.poolGeneration, revision: item.revision, geometryType: item.geometryType, visible: item.visible !== false })
+    const reference = item => ({ kind: item.sharedObjectId ? 'sceneObjectRef' : item.geometryId ? item.kind || 'geometryRef' : 'documentRef', objectId: item.sharedObjectId, documentId: item.documentId, geometryId: item.geometryId, layerPath: item.layerPath, poolGeneration: item.poolGeneration || item.document?.poolGeneration, revision: item.revision, geometryType: item.geometryType, visible: item.visible !== false, localDocument: !!(item.localDocument || item.document?.localDocument), localObjectId: item.localObjectId, ancestorReferences: item.ancestorReferences, nodeInstanceId: item.nodeInstanceId })
+    const canControl = item => !!item.documentId && !item.message
+    const isDocumentRow = item => !item.group && !item.geometryId && !item.sharedObjectId
+    const isolationActive = computed(() => { void viewRevision.value; return documentIsolationActive() })
+    function isLocked (item) {
+      void viewRevision.value
+      const shared = item.sharedObjectId ? props.workspace.objects.get(item.sharedObjectId) : null
+      return documentGeometryLocked({ ...reference(item), ...shared, ...(shared ? { publicDocumentId: props.state.publicDocumentId } : {}) })
+    }
+    function treeAction (item, action) {
+      error.value = ''; notice.value = ''
+      try {
+        if (action === 'visibility') toggleVisibility(item)
+        else if (action === 'show-children') pipeline().showDocumentTreeChildren(reference(item))
+        else if (action === 'isolate') pipeline().isolateDocumentTreeItem(reference(item))
+        else if (action === 'end-isolation') pipeline().isolateDocumentTreeItem(null)
+        else if (action === 'lock') {
+          const locked = isLocked(item)
+          pipeline().setDocumentTreeLocked(reference(item), !locked)
+          if (locked && isLocked(item)) notice.value = 'A parent is locked. Unlock the parent first.'
+        } else if (action === 'unlock-children') {
+          pipeline().setDocumentTreeLocked(reference(item), false, true)
+          if (isLocked(item)) notice.value = 'A parent is locked. Unlock the parent first.'
+        }
+      } catch (failure) { error.value = failure.message }
+    }
+    const serverDocument = item => props.state.connected && props.state.documents.some(doc => doc.documentId === item.workspaceDocumentId)
+    async function saveLocal (item, saveAs = false) {
+      error.value = ''; notice.value = 'Saving document...'
+      try { await PandaUIApp.saveLocalDocumentFolder(item.localDocumentId || item.documentId, { saveAs, onProgress: state => { notice.value = `${state.phase} · ${state.completed || 0}${state.total ? ' / ' + state.total : ''}` } }); notice.value = item.label + ' saved locally.' } catch (failure) { notice.value = ''; if (failure.name !== 'AbortError') error.value = failure.message }
+    }
+    async function closeLocal (item) {
+      try { await props.workspace.closeLocalPrivate(item.localDocumentId || item.documentId); selected.value = null } catch (failure) { error.value = failure.message }
+    }
     async function request (url) {
       const controller = new AbortController()
       controllers.add(controller)
@@ -113,6 +162,7 @@ export default {
     }
     async function load (document, append = false) {
       if (disposed || !props.active) return
+      if (document.localDocument) return
       const id = document.documentId
       if (!documents.value.some(entry => entry.documentId === id)) { pages[id] = { items: [], revision: 0 }; return }
       const token = ++sequence
@@ -143,6 +193,8 @@ export default {
       if (refreshing.value) { pendingRefresh = pendingRefresh || force; return }
       refreshing.value = true
       try {
+        props.workspace.notify(true)
+        if (props.state.localMode || !props.state.connected) { error.value = ''; return }
         const result = await request('/api/documents')
         if (disposed) return
         error.value = ''
@@ -160,7 +212,7 @@ export default {
         }
         const live = new Set(result.documents.map(document => document.documentId))
         Object.keys(pages).forEach(id => { if (!live.has(id)) { requests.delete(id); delete pages[id] } })
-        if (selected.value?.documentId && !live.has(selected.value.documentId)) selected.value = null
+        if (selected.value?.documentId && !selected.value.localDocument && !live.has(selected.value.documentId)) selected.value = null
         for (const document of result.documents) {
           if (expanded.value.has(documentKey(document)) && (force || pages[document.documentId]?.revision !== document.revision || pages[document.documentId]?.search !== (search.value || ''))) await load(document)
         }
@@ -180,7 +232,11 @@ export default {
       return item.ownerUsername || (item.ownerId ? 'Unknown account (' + item.ownerId.slice(0, 8) + ')' : '')
     }
     const documentCount = computed(() => visibleWorkspaceDocuments(props.state).length)
-    const rows = computed(() => documentHierarchy({ documents: documents.value, workspace: props.state, pages, expanded: expanded.value, geometryRow, nodeTitle }))
+    const rows = computed(() => {
+      const query = (search.value || '').toLowerCase()
+      const workspace = query ? { ...props.state, localDocuments: (props.state.localDocuments || []).map(doc => ({ ...doc, localObjects: doc.localObjects.filter(item => (item.name + ' ' + item.layerPath).toLowerCase().includes(query)) })) } : props.state
+      return documentHierarchy({ documents: documents.value, workspace, pages, expanded: expanded.value, geometryRow, nodeTitle })
+    })
     function expandPublishedSharedBranches () {
       if (!props.state.publicDocumentId) return
       let changed = false
@@ -243,13 +299,13 @@ export default {
       } catch (failure) { error.value = failure.message; pendingDelete.value = null }
     }
     function startDrag (event, item) {
-      if (!item.writable || props.state.busy) { event.preventDefault(); return }
+      if (!item.writable || isLocked(item) || item.localDocument || item.document?.localDocument || props.state.busy) { event.preventDefault(); return }
       dragging = item
       event.dataTransfer.effectAllowed = 'move'
       event.dataTransfer.setData('application/x-pandaui-document-item', item.key)
     }
     function dragOver (event, item) {
-      if (!documentMovePayload(dragging, item, generation) || props.state.busy) return
+      if (!documentMovePayload(dragging, item, generation) || isLocked(item) || (dragging && isLocked(dragging)) || props.state.busy) return
       event.preventDefault()
       event.dataTransfer.dropEffect = 'move'
       dropKey.value = item.key
@@ -257,6 +313,7 @@ export default {
     function endDrag () { dragging = null; dropKey.value = '' }
     async function drop (event, item) {
       event.preventDefault()
+      if (isLocked(item) || (dragging && isLocked(dragging))) { endDrag(); return }
       const payload = documentMovePayload(dragging, item, generation)
       endDrag()
       if (!payload) return
@@ -288,9 +345,10 @@ export default {
     function select (item) {
       if (item.message) return
       selected.value = item
-      if (item.writable && !item.geometryId && !item.sharedObjectId && !item.group) props.workspace.selectPrivate(item.workspaceDocumentId)
+      if (item.localDocument && !item.geometryId && !item.group) { props.workspace.selectLocalPrivate(item.localDocumentId || item.documentId) } else if (item.writable && !item.geometryId && !item.sharedObjectId && !item.group) props.workspace.selectPrivate(item.workspaceDocumentId)
       notice.value = ''
-      if ((item.geometryId || item.sharedObjectId) && !isHidden(item) && !pipeline().selectDocumentTreeItem(reference(item))) notice.value = 'Object is in the pool; no selectable scene geometry is loaded.'
+      if (isLocked(item)) notice.value = 'This item or a parent is locked.'
+      else if ((item.geometryId || item.sharedObjectId) && !isHidden(item) && !pipeline().selectDocumentTreeItem(reference(item))) notice.value = 'Object is in the pool; no selectable scene geometry is loaded.'
     }
     function zoom (item) {
       if (item?.sharedObjectId) {
@@ -358,7 +416,7 @@ export default {
       window.removeEventListener('pandaui-document-deleted', onDelete)
       unsubscribe()
     })
-    return { documentCount, rows, expanded, selected, pendingDelete, removeDocument, search, error, notice, refreshing, refresh, load, toggle, select, zoom, isHidden, toggleVisibility, locateNode, copyReference, navigate, save, publish, startDrag, dragOver, drop, endDrag, dropKey, ownerLabel }
+    return { documentCount, rows, expanded, selected, pendingDelete, removeDocument, search, error, notice, refreshing, refresh, load, toggle, select, zoom, isHidden, toggleVisibility, locateNode, copyReference, navigate, save, saveLocal, closeLocal, serverDocument, publish, startDrag, dragOver, drop, endDrag, dropKey, ownerLabel, canControl, isDocumentRow, isLocked, isolationActive, treeAction }
   }
 }
 </script>

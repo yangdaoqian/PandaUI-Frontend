@@ -1,0 +1,12 @@
+{
+  "name": "pandaui-pathtracer-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isolated, pinned Three.js runtime for the open-source path tracer",
+  "dependencies": {
+    "three": "0.170.0",
+    "three-gpu-pathtracer": "0.0.23",
+    "three-mesh-bvh": "0.8.3",
+    "xatlas-web": "0.1.0"
+  }
+}

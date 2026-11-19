@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { materializeBrepSelection } from '../BrepDisplayRanges'
 import { detachDisplayMaterials } from '../DisplayResources'
 import TextureAssets from './TextureAssets'
+import { applyMaterialSurface, setSurfaceSettings } from '../render/MaterialSurface'
 
 export default class SceneMaterialEditor {
   #services
@@ -58,7 +59,17 @@ export default class SceneMaterialEditor {
       opacity: material.opacity,
       transparent: material.transparent,
       wireframe: material.wireframe,
-      depthWrite: material.depthWrite
+      depthWrite: material.depthWrite,
+      clearcoat: material.clearcoat,
+      clearcoatRoughness: material.clearcoatRoughness,
+      transmission: material.transmission,
+      ior: material.userData?.pandaSurface?.ior ?? material.ior,
+      thickness: material.userData?.pandaSurface?.thickness ?? material.thickness,
+      attenuationDistance: material.userData?.pandaSurface?.attenuationDistance ?? material.attenuationDistance,
+      reflectivity: material.reflectivity,
+      bumpScale: material.bumpScale,
+      normalScale: material.normalScale?.x,
+      surface: material.userData?.pandaSurface ? { ...material.userData.pandaSurface } : null
     }
   }
 
@@ -80,6 +91,15 @@ export default class SceneMaterialEditor {
     if (state.transparent != null && material.transparent != null) material.transparent = state.transparent
     if (state.wireframe != null && material.wireframe != null) material.wireframe = state.wireframe
     if (state.depthWrite != null) material.depthWrite = state.depthWrite
+    if (state.clearcoat != null && material.clearcoat != null) material.clearcoat = state.clearcoat
+    if (state.clearcoatRoughness != null && material.clearcoatRoughness != null) material.clearcoatRoughness = state.clearcoatRoughness
+    if (state.transmission != null && material.transmission != null) material.transmission = state.transmission
+    if (state.reflectivity != null && material.reflectivity != null) material.reflectivity = state.reflectivity
+    if (state.bumpScale != null && material.bumpScale != null) material.bumpScale = state.bumpScale
+    if (state.normalScale != null && material.normalScale != null) material.normalScale.setScalar(state.normalScale)
+    if (state.surface) setSurfaceSettings(material, state.surface)
+    if (state.reflectivity != null && material.reflectivity != null) material.reflectivity = state.reflectivity
+    applyMaterialSurface(material)
     material.needsUpdate = true
   }
 

@@ -165,7 +165,7 @@ export default class GroupEditContext {
     roots.push(this.#services.getPreviewScene())
     roots.forEach(root => {
       root.traverse(object => {
-        if (this.isDescendantOf(object, editGroup) || object === this.#services.getSelectionHighlight() || object.userData?.renderShadowGround === true) return
+        if (this.isDescendantOf(object, editGroup) || object === this.#services.getSelectionHighlight() || object.userData?.selectionHighlight || object.userData?.renderShadowGround === true) return
         if (!(object.isMesh || object.isPoints || object.isLine) || object.material == null) return
         const wasArray = Array.isArray(object.material)
         const original = wasArray ? object.material.slice() : [object.material]

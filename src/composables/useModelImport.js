@@ -1,3 +1,4 @@
+import showImportMessage from '../ui/ImportMessageDialog'
 import PandaUIApp from '../PandaUIApp'
 import ImportChunkStream from '../ImportChunkStream'
 import ModelFileDrop from '../ModelFileDrop'
@@ -55,7 +56,7 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
   }
 
   function showMemoryFullMessage (name) {
-    window.alert(`Memory is full. ${name} was not opened. Close the current model or other browser tabs, then try again.`)
+    showImportMessage(`Memory is full. ${name} was not opened. Close the current model or other browser tabs, then try again.`)
   }
 
   function formatProgressBytes (bytes) {
@@ -78,6 +79,15 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
     else if (progress.totalObjects != null) details.push(`${Number(objectCount || 0).toLocaleString()}/${Number(progress.totalObjects).toLocaleString()} objects`)
     else if (objectCount != null) addCount(objectCount, 'objects')
     if (progress.displayParts != null) addCount(progress.displayParts, 'display parts added')
+    if (progress.stepPartsTotal != null) details.push(`${progress.stepPartsComplete || 0}/${progress.stepPartsTotal} STEP jobs`)
+    if (progress.stepNativeParts) addCount(progress.stepNativeParts, 'native parts')
+    if (progress.stepExactObjects) addCount(progress.stepExactObjects, 'exact Breps')
+    if (progress.stepDisplayOnlyObjects) addCount(progress.stepDisplayOnlyObjects, 'display-only meshes')
+    if (progress.stepFallbackParts) addCount(progress.stepFallbackParts, 'compatibility parts')
+    if (progress.stepEntityCount != null) addCount(progress.stepEntityCount, 'STEP entities')
+    if (progress.stepCurrentPart != null) details.push(`part ${progress.stepCurrentPart}`)
+    if (progress.stepFailedParts) addCount(progress.stepFailedParts, 'failed STEP jobs')
+    if (progress.stepFallbackReason) details.push('single-job fallback: ' + progress.stepFallbackReason)
     if (progress.locatedInstances) addCount(progress.locatedInstances, 'block references')
     if (progress.pendingBlockObjects) addCount(progress.pendingBlockObjects, 'block geometries pending')
     if (progress.meshWorkerLimit) details.push(`${progress.meshWorkers || 0}/${progress.meshWorkerLimit} mesh workers · ${progress.meshQueue || 0} queued`)
@@ -85,6 +95,11 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
     else if (progress.meshWaitingForTasks && progress.meshBufferLimited) details.push('Waiting for display buffer space')
     else if (progress.meshWaitingForTasks && progress.meshReaderDone) details.push('Finishing remaining objects')
     else if (progress.meshWaitingForTasks) details.push('Waiting for file data')
+    const activeFace = progress.meshFaceProgress?.find(item => item.retryStage) || progress.meshFaceProgress?.[0]
+    if (activeFace) {
+      const face = activeFace.faceIndex >= 0 ? `face ${activeFace.faceIndex + 1}/${activeFace.sourceFaceCount}` : activeFace.stage
+      details.push(`${activeFace.objectName || 'Brep'}: ${face}${activeFace.retryStage ? ` · recovery ${activeFace.retryStage}` : ''}${activeFace.stage === 'refining' ? ` · refinement ${activeFace.round}` : ''}`)
+    }
     if (progress.meshReadyRecords) details.push(`${progress.meshReadyRecords} mesh results ready`)
     if (progress.meshedObjects) addCount(progress.meshedObjects, 'surface placements updated')
     if (progress.failedMeshObjects) addCount(progress.failedMeshObjects, 'Brep meshes failed')
@@ -188,8 +203,8 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
           showFileDropMessage(`CAD loaded with warnings. ${unsupported > 0 ? 'Skipped ' + job.manifest.warningSummary + '. ' : ''}${warnings[0] || ''}`)
           console.warn('CAD import warnings:', { skipped: job.manifest.skippedEntities, warnings })
         }
-      } else if (unsupported > 0) window.alert(`Loaded ${chunks} display chunk(s). Skipped ${unsupported} unsupported object(s); the import continued.`)
-      if (sceneResult.deferredChunks > 0) window.alert(`Loaded ${sceneResult.loadedVertices.toLocaleString()} GPU vertices into Three.js. Deferred ${sceneResult.deferredChunks} surface mesh chunk(s), containing ${sceneResult.deferredVertices.toLocaleString()} vertices, because the 50,000,000 vertex safety budget was reached.`)
+      } else if (unsupported > 0) showImportMessage(`Loaded ${chunks} display chunk(s). Skipped ${unsupported} unsupported object(s); the import continued.`)
+      if (sceneResult.deferredChunks > 0) showImportMessage(`Loaded ${sceneResult.loadedVertices.toLocaleString()} GPU vertices into Three.js. Deferred ${sceneResult.deferredChunks} surface mesh chunk(s), containing ${sceneResult.deferredVertices.toLocaleString()} vertices, because the 50,000,000 vertex safety budget was reached.`)
       if (sceneResult.progressiveEdgeChunks > 0) console.info(`Progressively loading ${sceneResult.progressiveEdgeChunks} edge chunk(s), containing ${sceneResult.progressiveEdgeVertices.toLocaleString()} line-index vertices.`)
     } catch (error) {
       stream.dispose()
@@ -216,7 +231,7 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
       await completeBackendImport(accepted, file.name, { name: file.name, displayPath: file.name }, mode)
     } catch (error) {
       console.error('Backend model import failed:', error)
-      window.alert(`Unable to ${mode === 'import' ? 'import' : 'open'} ${file.name}. ${error.message}`)
+      showImportMessage(`Unable to ${mode === 'import' ? 'import' : 'open'} ${file.name}. ${error.message}`)
     } finally {
       loadingModel.value = false
       loadingDetail.value = ''
@@ -240,7 +255,7 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
       await completeBackendImport(accepted, name, entry, mode)
     } catch (error) {
       console.error('Recent model import failed:', error)
-      window.alert(`Unable to ${mode === 'import' ? 'import' : 'open'} ${name}. ${error.message}`)
+      showImportMessage(`Unable to ${mode === 'import' ? 'import' : 'open'} ${name}. ${error.message}`)
     } finally {
       loadingModel.value = false
       loadingDetail.value = ''
@@ -259,7 +274,7 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
       return
     }
     if (!entry?.reopenable || !entry.path) {
-      window.alert(`The browser did not retain the original path for ${entry?.name || 'this file'}. Please select it again.`)
+      showImportMessage(`The browser did not retain the original path for ${entry?.name || 'this file'}. Please select it again.`)
       openFile(null, 'open')
       return
     }
@@ -273,17 +288,17 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
       const result = await response.json()
       if (!response.ok) throw new Error(result.error || 'The file path could not be checked.')
       if (!result.exists || !result.isFile) {
-        window.alert(`The recent file no longer exists:\n${filePath}`)
+        showImportMessage(`The recent file no longer exists:\n${filePath}`)
         return
       }
       if (!result.supported) {
-        window.alert(`This recent file type cannot be reopened from its saved path:\n${filePath}`)
+        showImportMessage(`This recent file type cannot be reopened from its saved path:\n${filePath}`)
         return
       }
       pendingRecentFilePath.value = filePath
       recentFileDialogVisible.value = true
     } catch (error) {
-      window.alert(`Unable to check the recent file. ${error.message}`)
+      showImportMessage(`Unable to check the recent file. ${error.message}`)
     }
   }
 
@@ -330,13 +345,13 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
       if (error.name === 'AbortError') return false
       console.error('Failed to open model:', error)
       if (/WebAssembly parser memory limit/i.test(error.message || '')) {
-        window.alert(`Unable to open ${name}. ${error.message}`)
+        showImportMessage(`Unable to open ${name}. ${error.message}`)
         return false
       }
       if (hasInsufficientMemory() || /memory|allocation|heap/i.test(error.message)) {
         showMemoryFullMessage(name)
       } else {
-        window.alert(`Unable to open ${name}. ${error.message}`)
+        showImportMessage(`Unable to open ${name}. ${error.message}`)
       }
       return false
     } finally {
@@ -376,7 +391,7 @@ export default function useModelImport ({ fileDrawerVisible, recentFiles, rememb
     const supported = processor === 'backend' ? backendExtensions : frontendExtensions
     if (!supported.includes(extension)) {
       const other = processor === 'backend' ? 'Frontend' : 'Backend'
-      window.alert(`${file.name} cannot be opened with ${processor === 'backend' ? 'Backend' : 'Frontend'} processing. Select ${other} in Files > File processing, then choose the file again.`)
+      showImportMessage(`${file.name} cannot be opened with ${processor === 'backend' ? 'Backend' : 'Frontend'} processing. Select ${other} in Files > File processing, then choose the file again.`)
       return
     }
     showFileDropMessage('')

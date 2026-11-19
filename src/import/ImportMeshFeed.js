@@ -23,10 +23,11 @@ export default class ImportMeshFeed {
   async run (file, options) {
     if (this.disposed) throw abortError()
     this.options = options
+    this.sourceHeader = this.header
     this.completion = new Promise((resolve, reject) => { this.resolve = resolve; this.reject = reject })
     // Install handlers before a producer can fail/cancel this feed.
     this.completion.catch(() => {})
-    this.meshPool = new MeshWorkerPool(this.createWorker, options.workerCount, this.hardware, state => {
+    this.meshPool = new MeshWorkerPool(this.createWorker, options.scheduling ? options.scheduling.workerLimit(options.workerCount) : options.workerCount, this.hardware, state => {
       this.wakeProducer()
       this.reportProgress(state)
     })
@@ -39,27 +40,56 @@ export default class ImportMeshFeed {
       // Consumers can hold native metadata across an await. Let them unwind
       // before the caller releases that metadata or drops the document.
       await Promise.allSettled(this.pending)
+      await this.meshPool?.drainPreviews()
       this.options = this.resolve = this.reject = this.completion = null
     }
   }
 
   async push (record) {
     if (this.disposed || this.ended) return
+    // STEP auxiliary display records (such as point sets) are mounted by the
+    // document importer and intentionally do not contain a binary
+    // OpenNURBS objectRecord. Keep the feed defensive so a future producer
+    // cannot turn one of those records into an undefined.byteLength error.
+    if (record == null || record.objectRecord == null || typeof record.objectRecord.byteLength !== 'number') return
+    if (this.options.scheduling) {
+      try { await this.options.scheduling.wait(this.signal) } catch (error) {
+        // Cancelling surface fill must leave the independent edge import usable.
+        if (this.disposed) return
+        throw error
+      }
+      if (this.disposed || this.ended) return
+      const limit = this.options.scheduling.workerLimit(this.options.workerCount)
+      if (limit !== this.meshPool.limit) this.meshPool.configure(limit)
+    }
     while (!this.disposed && this.pending.size && (this.pending.size >= this.meshPool.limit * 2 || this.bytes + this.displayBytes >= 64 * 1024 * 1024)) {
       // Capacity can grow without a job finishing (live Worker count change).
       await new Promise(resolve => this.capacityWaiters.add(resolve))
     }
     if (this.disposed) return
-    const bytes = record.objectRecord.byteLength
+    // Keep the cumulative table snapshot with this job, not the transferable
+    // geometry packet. Later jobs can introduce layers before this one finishes.
+    if (record.sourceHeader) this.sourceHeader = record.sourceHeader
+    const sourceHeader = record.sourceHeader || (record.exactSource ? this.sourceHeader : null)
+    const bytes = record.objectRecord.byteLength + (sourceHeader?.byteLength || 0)
     let displayBytes = 0
     this.bytes += bytes
-    const task = this.meshPool.run({ ...record, needsMeshing: true, displayOnly: true }, this.options.meshingOptions, this.options.forceMeshing)
+    const onPreview = async preview => {
+      if (this.disposed) return
+      const bytes = collectTransferables(preview).reduce((sum, buffer) => sum + buffer.byteLength, 0)
+      this.displayBytes += bytes
+      this.reportProgress()
+      try { await this.options.onRecord(sourceHeader ? { ...preview, sourceHeader } : preview) } finally {
+        this.displayBytes -= bytes; this.wakeProducer(); this.reportProgress()
+      }
+    }
+    const task = this.meshPool.run({ objectRecord: record.objectRecord, needsMeshing: true, displayOnly: true }, this.options.meshingOptions, this.options.forceMeshing, onPreview)
       .then(result => {
         if (this.disposed) return
         displayBytes = collectTransferables(result).reduce((sum, buffer) => sum + buffer.byteLength, 0)
         this.displayBytes += displayBytes
         this.reportProgress()
-        return this.options.onRecord(result)
+        return this.options.onRecord(sourceHeader ? { ...result, sourceHeader } : result)
       })
       .catch(error => { this.dispose(error) })
       .finally(() => {
@@ -105,6 +135,7 @@ export default class ImportMeshFeed {
     this.controller.abort()
     this.meshPool?.dispose(error)
     this.header = null
+    this.sourceHeader = null
     this.reject?.(error)
   }
 }

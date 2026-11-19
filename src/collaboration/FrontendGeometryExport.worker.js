@@ -5,7 +5,7 @@ import releaseTable from '../import/releaseTable'
 // upload, so neither the main thread nor this WASM heap queues a whole model.
 export function * geometryArchives (module, file, sourceIds, syncReader = new FileReaderSync()) {
   const wanted = new Set(sourceIds.map(id => id.toLowerCase()))
-  let cache, start = 0, reader, metadata, table
+  let cache, start = 0, reader, metadata, table, sourceHeader
   const readAt = (offset, target) => {
     let copied = 0
     while (copied < target.length && offset < file.size) {
@@ -22,20 +22,23 @@ export function * geometryArchives (module, file, sourceIds, syncReader = new Fi
   }
   try {
     reader = new module.NodeCDocumentReader(file.size, readAt)
-    metadata = module.File3dm.fromByteArray(reader.header())
+    sourceHeader = reader.header()
+    metadata = module.File3dm.fromByteArray(sourceHeader)
     if (!metadata) throw new Error('Unable to read original geometry metadata.')
     table = metadata.objects()
     let record
     while (wanted.size && (record = reader.next())) {
-      let id, object, geometry, value
+      let id, object, geometry, attributes, value
       try {
         id = module.nodecAppendObject(metadata, record)
         if (!wanted.has(String(id).toLowerCase())) continue
         object = table.findId(id); geometry = object?.geometry()
         if (!geometry) throw new Error('Unable to read original geometry ' + id)
-        value = { sourceGeometryId: String(id), geometry: geometry.encode() }
+        attributes = object.attributes()
+        value = { sourceGeometryId: String(id), geometry: geometry.encode(), attributes: Array.from(module.nodecEncodeAttributes(attributes)), ...(sourceHeader ? { sourceHeader } : {}) }
+        sourceHeader = null
         wanted.delete(String(id).toLowerCase())
-      } finally { geometry?.delete(); object?.delete(); if (id) table.delete(id) }
+      } finally { attributes?.delete(); geometry?.delete(); object?.delete(); if (id) table.delete(id) }
       if (value) yield value
     }
     if (wanted.size) throw new Error('Original geometry not found: ' + [...wanted].join(', '))

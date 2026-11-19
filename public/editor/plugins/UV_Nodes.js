@@ -4,9 +4,10 @@
   var nodes = new Set(), sequence = 0, refs = global.PandaUISceneReferences
   var mappings = ['existing', 'xy', 'xz', 'yz', 'box', 'cylindrical', 'spherical']
   var fields = [['Mapping', 'mapping', 'string'], ['U scale', 'scaleU', 'number'], ['V scale', 'scaleV', 'number'], ['U offset', 'offsetU', 'number'], ['V offset', 'offsetV', 'number'], ['Rotation (degrees)', 'rotation', 'number']]
+  var repeatFields = [['U repeat', 'repeatU', 'number'], ['V repeat', 'repeatV', 'number']]
   function status (node, text) { node._status.value = text; node.setDirtyCanvas(true, true) }
   function ports (node) {
-    var inputs = [['Target', 'target', 'geometry,scene.object']].concat(node._match ? [['Source', 'source', 'geometry,scene.object'], ['Match', 'matchMode', 'string']] : fields).concat([['Auto apply', 'autoApply', 'boolean']])
+    var inputs = [['Target', 'target', 'geometry,scene.object']].concat(node._match ? [['Source', 'source', 'geometry,scene.object'], ['Match', 'matchMode', 'string']] : fields).concat([['Auto apply', 'autoApply', 'boolean']]).concat(node._match ? [] : repeatFields)
     inputs.forEach(function (field) { if (node.findInputSlot(field[0]) < 0) node.addInput(field[0], field[2]) })
   }
   function single (node, label, key) {
@@ -24,7 +25,7 @@
       if (['mapping', 'coordinates'].indexOf(result.matchMode) < 0) throw new Error('Choose a valid UV match mode')
     } else {
       result.settings = {}
-      fields.forEach(function (field) {
+      fields.concat(repeatFields).forEach(function (field) {
         var value = refs.scalar(refs.value(node, field[0], node.properties[field[1]]))
         if (field[1] === 'mapping') {
           if (mappings.indexOf(value) < 0) throw new Error('Choose a valid UV mapping')
@@ -33,6 +34,7 @@
           value = Number(value)
           if (!Number.isFinite(value)) throw new Error(field[0] + ' must be a finite number')
         }
+        if ((field[1] === 'repeatU' || field[1] === 'repeatV') && value <= 0) throw new Error(field[0] + ' must be greater than zero')
         result.settings[field[1]] = value
       })
     }
@@ -73,14 +75,14 @@
     node.size[0] = 350; node.computeSize()
   }
   function UVEdit () {
-    this.properties = { target: null, mapping: 'existing', scaleU: 1, scaleV: 1, offsetU: 0, offsetV: 0, rotation: 0, autoApply: true }
+    this.properties = { target: null, mapping: 'existing', scaleU: 1, scaleV: 1, repeatU: 1, repeatV: 1, offsetU: 0, offsetV: 0, rotation: 0, autoApply: true }
     shared(this)
     this.addWidget('combo', 'Mapping', 'existing', 'mapping', { values: mappings })
-    fields.slice(1).forEach(function (pair) { this.addWidget('number', pair[0], this.properties[pair[1]], pair[1], { step: 0.01 }) }, this)
+    fields.slice(1).concat(repeatFields).forEach(function (pair) { this.addWidget('number', pair[0], this.properties[pair[1]], pair[1], { step: 0.01 }) }, this)
     controls(this, 'Apply UV', 'apply')
   }
   UVEdit.title = 'UV Edit'
-  UVEdit.desc = 'Connect Parameter Geometry to edit one object UV projection, scale, offset and rotation. Connected values override controls.'
+  UVEdit.desc = 'Connect Parameter Geometry to edit one object UV projection, scale, offset, rotation and U/V repeat. Connected values override controls.'
   function UVMatch () {
     this._match = true
     this.properties = { source: null, target: null, matchMode: 'mapping', autoApply: true }

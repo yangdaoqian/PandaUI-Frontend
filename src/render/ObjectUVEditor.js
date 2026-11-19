@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { applyMaterialSurface } from './MaterialSurface'
 import { resourceMeshes } from './RenderResourceMaterials'
 import { resolveSceneReference } from './SceneObjectReference'
 
@@ -47,7 +48,7 @@ export default class ObjectUVEditor {
   state (mesh) {
     let state = this.states.get(mesh)
     if (!state || (mesh.geometry !== state.base && mesh.geometry !== state.generated)) {
-      state = { base: mesh.geometry, generated: null, recipe: null }; this.states.set(mesh, state)
+      state = { base: mesh.geometry, generated: null, recipe: null, materials: new Set(), textures: new Map() }; this.states.set(mesh, state)
     }
     return state
   }
@@ -56,11 +57,12 @@ export default class ObjectUVEditor {
     const mapping = settings.mapping || 'existing'
     if (!modes.includes(mapping) || mapping === 'copy') throw new Error('Unknown UV mapping mode.')
     const values = { mapping }
-    for (const [key, fallback] of Object.entries({ scaleU: 1, scaleV: 1, offsetU: 0, offsetV: 0, rotation: 0 })) {
+    for (const [key, fallback] of Object.entries({ scaleU: 1, scaleV: 1, repeatU: 1, repeatV: 1, offsetU: 0, offsetV: 0, rotation: 0 })) {
       const value = settings[key] ?? fallback
       if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error('Invalid UV ' + key)
       values[key] = value
     }
+    if (values.repeatU <= 0 || values.repeatV <= 0) throw new Error('UV repeat must be greater than zero.')
     if (!values.scaleU || !values.scaleV) throw new Error('UV scale cannot be zero.')
     const frame = target.root.matrixWorld.clone(), bounds = new THREE.Box3(), point = new THREE.Vector3()
     for (const mesh of target.meshes) {
@@ -84,7 +86,7 @@ export default class ObjectUVEditor {
           if (!uv || topology(input) !== topology(this.state(mesh).base)) throw new Error('UV coordinate copying requires matching vertex counts and triangle indices. Use mapping settings for different topology.')
           const coordinates = []
           for (let vertex = 0; vertex < uv.count; vertex++) coordinates.push(uv.getX(vertex), uv.getY(vertex))
-          return { mapping: 'copy', coordinates, topology: topology(input) }
+          return { mapping: 'copy', coordinates, topology: topology(input), repeatU: this.state(origin.meshes[i]).recipe?.repeatU ?? 1, repeatV: this.state(origin.meshes[i]).recipe?.repeatV ?? 1 }
         })
       } else if (matchMode === 'mapping') {
         const recipe = this.state(origin.meshes[0]).recipe
@@ -101,6 +103,9 @@ export default class ObjectUVEditor {
   build (mesh, recipe) {
     const base = this.state(mesh).base
     if (!recipe) return base
+    for (const key of ['repeatU', 'repeatV']) {
+      if (recipe[key] != null && (typeof recipe[key] !== 'number' || !Number.isFinite(recipe[key]) || recipe[key] <= 0)) throw new Error('Invalid saved UV repeat.')
+    }
     if (!modes.includes(recipe.mapping)) throw new Error('Invalid saved UV mapping.')
     let geometry
     try {
@@ -146,6 +151,9 @@ export default class ObjectUVEditor {
           uv[i] = u * cos - v * sin + 0.5 + recipe.offsetU; uv[i + 1] = u * sin + v * cos + 0.5 + recipe.offsetV
         }
       }
+      if (recipe.mapping !== 'copy') {
+        for (let i = 0; i < uv.length; i += 2) { uv[i] *= recipe.repeatU ?? 1; uv[i + 1] *= recipe.repeatV ?? 1 }
+      }
       if (!uv.every(Number.isFinite)) throw new Error('UV settings exceeded the finite coordinate range.')
       geometry.setAttribute('uv', new THREE.BufferAttribute(uv, 2))
       geometry.deleteAttribute('tangent') // Normal mapping must use derivatives after reparameterization.
@@ -153,7 +161,51 @@ export default class ObjectUVEditor {
     } catch (error) { geometry?.dispose(); throw error }
   }
 
+  // UVs are object-local; repeat wrapping must not mutate a shared material or
+  // texture. Keep one private material/texture copy per edited mesh and reuse it.
+  applyRepeat (mesh, recipe, doc) {
+    const state = this.state(mesh)
+    const repeat = { u: (recipe?.repeatU ?? 1) !== 1, v: (recipe?.repeatV ?? 1) !== 1 }
+    const copies = new Map()
+    const copy = source => {
+      if (!source) return source
+      if (copies.has(source)) return copies.get(source)
+      if (!repeat.u && !repeat.v && !state.materials.has(source) && !source.userData.pandaUVRepeat) return source
+      const material = state.materials.has(source) ? source : source.clone()
+      if (material !== source) {
+        material.userData.pandaSceneMaterialSourceId = material.uuid
+        applyMaterialSurface(material)
+        state.materials.add(material); doc.disposableResources.push(material)
+      }
+      material.userData.pandaUVRepeat = repeat
+      for (const [slot, texture] of Object.entries(material)) {
+        if (!texture?.isTexture || slot === 'envMap' || texture.mapping !== THREE.UVMapping) continue
+        let entry = state.textures.get(texture)
+        if (!entry) {
+          const cloned = texture.clone(); cloned.needsUpdate = true
+          entry = { texture: cloned, s: texture.wrapS, t: texture.wrapT }
+          state.textures.set(texture, entry); state.textures.set(cloned, entry)
+          doc.disposableResources.push(cloned)
+        }
+        material[slot] = entry.texture
+        const s = repeat.u ? THREE.RepeatWrapping : entry.s, t = repeat.v ? THREE.RepeatWrapping : entry.t
+        if (entry.texture.wrapS !== s || entry.texture.wrapT !== t) {
+          entry.texture.wrapS = s; entry.texture.wrapT = t; entry.texture.needsUpdate = true
+        }
+      }
+      material.needsUpdate = true; copies.set(source, material)
+      return material
+    }
+    const replace = value => Array.isArray(value) ? value.map(copy) : copy(value)
+    mesh.material = replace(mesh.material)
+    if (mesh.userData.displayMaterials) mesh.userData.displayMaterials = Object.fromEntries(Object.entries(mesh.userData.displayMaterials).map(([key, value]) => [key, replace(value)]))
+  }
+
   applyState (snapshot) {
+    return this.services.edit ? this.services.edit(() => this.applySnapshot(snapshot)) : this.applySnapshot(snapshot)
+  }
+
+  applySnapshot (snapshot) {
     const target = this.resolve(snapshot.target), staged = []
     try {
       for (const item of snapshot.items) {
@@ -165,6 +217,7 @@ export default class ObjectUVEditor {
     for (const item of staged) {
       const { mesh, geometry, recipe, state } = item, previous = state.generated
       target.doc.materializeRenderObject?.(mesh)
+      this.applyRepeat(mesh, recipe, target.doc)
       mesh.geometry = geometry; state.generated = recipe ? geometry : null; state.recipe = recipe
       target.doc.disposableResources.push(geometry)
       target.doc.disposableResources.track?.(mesh)

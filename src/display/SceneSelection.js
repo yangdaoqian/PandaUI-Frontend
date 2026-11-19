@@ -1,7 +1,8 @@
 import * as THREE from 'three'
-import { releaseBrepSelection } from '../BrepDisplayRanges'
+import { compactRangeGeometry, releaseBrepSelection } from '../BrepDisplayRanges'
 import { createPointMaterial } from '../PointDisplaySettings'
 import { isDisplayOnlySharedObject } from './SharedSelectionPolicy'
+import { sceneObjectLocked } from '../GeometryDocumentViewState'
 
 export default class SceneSelection {
   #services
@@ -25,18 +26,20 @@ export default class SceneSelection {
   }
 
   setSelectedObject (object, clientX = null, clientY = null) {
+    if (sceneObjectLocked(object)) object = null
     if (isDisplayOnlySharedObject(object)) object = null
     for (let ancestor = object; ancestor; ancestor = ancestor.parent) {
       if (ancestor.userData?.nodePreview || ancestor.userData?.nonselectable) { object = null; break }
     }
     if (this.#selectedObject === object) {
       if (object != null && Number.isFinite(clientX) && Number.isFinite(clientY)) this.showSelectionInfo(object, clientX, clientY)
+      if (object != null) this.#services.notifySelectionChanged(this.#services.getSelectedMaterialSettings(), { reason: 'object-selection' })
       return
     }
     this.restoreSelectedObject()
     this.#selectedObject = object
     if (object == null) {
-      this.#services.notifySelectionChanged(null)
+      this.#services.notifySelectionChanged(null, { reason: 'object-selection' })
       this.#services.setDirtyFlag()
       return
     }
@@ -51,7 +54,7 @@ export default class SceneSelection {
     const transformTarget = this.#services.getTransformTarget(object)
     if (!this.#services.isPicking() && transformTarget != null) this.#services.attachGumball(transformTarget, !transformTarget.userData?.readOnly)
     if (Number.isFinite(clientX) && Number.isFinite(clientY)) this.showSelectionInfo(object, clientX, clientY)
-    this.#services.notifySelectionChanged(this.#services.getSelectedMaterialSettings())
+    this.#services.notifySelectionChanged(this.#services.getSelectedMaterialSettings(), { reason: 'object-selection' })
     this.#services.setDirtyFlag()
   }
 
@@ -94,9 +97,6 @@ export default class SceneSelection {
       highlight.userData.selectionHighlight = true
       return highlight
     }
-    if (object.userData.selectionRole === 'brepFace') {
-      highlight = new THREE.Mesh(object.geometry, new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide, transparent: true, opacity: 0.45, depthTest: false, depthWrite: false, toneMapped: false }))
-    }
     const edgeObjects = []
     root.traverse(child => {
       if (child.isLine && !child.userData?.selectionHighlight && !child.userData?.nonselectable && !child.userData?.meshGeometryEdges && !child.userData?.meshFaceEdges) edgeObjects.push(child)
@@ -131,6 +131,35 @@ export default class SceneSelection {
         ? new THREE.LineSegments(object.geometry, material)
         : new THREE.Line(object.geometry, material)
     }
+    // Mesh-only members (including progressive import packets) have no
+    // analytic edge object. Use boundaries/creases, never a face tint or the
+    // complete triangle wireframe. Coplanar triangulation diagonals disappear.
+    if (highlight == null) {
+      const outlines = new THREE.Group()
+      outlines.userData.worldSpaceHighlight = true
+      root.traverseVisible(child => {
+        if (!child.isMesh || !child.geometry || child.userData?.selectionHighlight || child.userData?.nonselectable || child.userData?.renderBatch) return
+        const source = child.geometry
+        const total = source.index?.count ?? source.attributes.position?.count ?? 0
+        const start = source.drawRange.start
+        const count = Math.max(0, Math.min(source.drawRange.count, total - start))
+        if (!count) return
+        // EdgesGeometry ignores drawRange; a material packet may share the
+        // entire position/index buffers while drawing only one member range.
+        const subset = start || count < total ? compactRangeGeometry(source, { indexStart: start, indexCount: count }) : null
+        let geometry
+        try { geometry = new THREE.EdgesGeometry(subset || source, 30) } finally { subset?.dispose() }
+        const outline = new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({ color, depthTest: false, depthWrite: false, toneMapped: false }))
+        child.updateWorldMatrix(true, false)
+        outline.matrixAutoUpdate = false
+        outline.matrix.copy(child.matrixWorld)
+        outline.matrixWorld.copy(child.matrixWorld)
+        outline.userData.ownedSelectionGeometry = true
+        outline.raycast = () => {}
+        outlines.add(outline)
+      })
+      if (outlines.children.length) highlight = outlines
+    }
     if (highlight == null) return null
     if (highlight.userData.worldSpaceHighlight !== true) {
       object.updateWorldMatrix(true, false)
@@ -140,7 +169,7 @@ export default class SceneSelection {
       highlight.matrixWorldNeedsUpdate = true
     }
     highlight.renderOrder = 1001
-    highlight.traverse(child => { child.renderOrder = 1001 })
+    highlight.traverse(child => { child.renderOrder = 1001; child.userData.selectionHighlight = true; child.userData.nonselectable = true })
     highlight.userData.selectionHighlight = true
     return highlight
   }
@@ -153,7 +182,7 @@ export default class SceneSelection {
     this.#services.ui.clearSelection()
     if (this.#selectionHighlight != null) {
       this.#selectionHighlight.parent?.remove(this.#selectionHighlight)
-      this.#selectionHighlight.traverse(object => object.material?.dispose())
+      this.#selectionHighlight.traverse(object => { object.material?.dispose(); if (object.userData.ownedSelectionGeometry) object.geometry?.dispose() })
       this.#selectionHighlight = null
     }
     releaseBrepSelection(previous)
@@ -163,7 +192,7 @@ export default class SceneSelection {
   refreshSelectionHighlight () {
     if (this.#selectionHighlight != null) {
       this.#selectionHighlight.parent?.remove(this.#selectionHighlight)
-      this.#selectionHighlight.traverse(object => object.material?.dispose())
+      this.#selectionHighlight.traverse(object => { object.material?.dispose(); if (object.userData.ownedSelectionGeometry) object.geometry?.dispose() })
       this.#selectionHighlight = null
     }
     if (this.#selectedObject == null) return

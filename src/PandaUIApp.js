@@ -1,3 +1,4 @@
+import showImportMessage from './ui/ImportMessageDialog'
 import * as THREE from 'three'
 import KukaPreview from './plugins/KukaPreview'
 import WorkspaceOperations from './operations/WorkspaceOperations'
@@ -11,12 +12,14 @@ import { expandVisibleSceneBounds } from './SceneBounds'
 import { setPointDisplaySettings } from './PointDisplaySettings'
 import { createDefaultRenderSettings, createDefaultShadingSettings } from './DisplayMaterialSettings'
 import NodeCClient from './compute/NodeCClient.mjs'
-import createLocalImport from './import/createLocalImport'
+import createLocalImport, { createImportMeshFeed } from './import/createLocalImport'
 import ImportPerformanceBudget from './import/ImportPerformanceBudget'
 import ImportRefresh from './import/ImportRefresh'
 import remeshLocalDocument from './import/remeshLocalDocument'
 import ImportMeshTargets from './import/ImportMeshTargets'
 import { DEFAULT_MESH_PRECISION, DEFAULT_MESH_WORKER_COUNT, meshQualityOptions, normalizeMeshPrecision } from './import/MeshQuality'
+import { saveLocalDocument, saveLocalRenderDocument, readLocalDocument, mountLocalDocument, importLocalRenderDocument } from './storage/LocalDocumentArchive'
+import { applyLocalDocumentVisibility } from './GeometryDocumentViewState'
 
 let _cachedDoc = null
 let _modes = DisplayMode.defaultModes()
@@ -63,6 +66,7 @@ class PandaUIApp {
   #nodePreviewVisibility = new Map()
   #graphPoints = new Map()
   #selectionChangedHandlers = new Set()
+  #objectSelectionRevision = 0
   #renderLoopRunning = false
   #renderFrame = null
   #disposed = false
@@ -183,6 +187,8 @@ class PandaUIApp {
     this.#viewportUi.dispose()
     const closing = this.closeModel()
     this.#displayPipeline?.dispose()
+    for (const url of this.localRenderAssetUrls || []) URL.revokeObjectURL(url)
+    this.localRenderAssetUrls = null
     this.#displayPipeline = null
     this.#graphPoints.clear()
     this.#nodePreviewVisibility.clear()
@@ -279,7 +285,7 @@ class PandaUIApp {
       throw error
     }
     if (doc == null) {
-      alert('Invalid document')
+      showImportMessage('Invalid document')
       return false
     }
 
@@ -294,7 +300,7 @@ class PandaUIApp {
       console.warn('Model loaded with incomplete view initialization:', error)
     }
     if (doc.skippedObjectCount > 0) {
-      alert(`Loaded ${name}. Skipped ${doc.skippedObjectCount} object(s) that could not be converted.`)
+      showImportMessage(`Loaded ${name}. Skipped ${doc.skippedObjectCount} object(s) that could not be converted.`)
     }
     return opened
   }
@@ -322,10 +328,12 @@ class PandaUIApp {
     doc.beginRenderBatchUpdate()
     let batchUpdateOpen = true
     doc.initialChunkTransferComplete = false
-    const edgesFirst = file.name.toLowerCase().endsWith('.3dm')
+    const progressiveStep = /\.(?:stp|step)$/i.test(file.name)
+    const edgesFirst = progressiveStep || file.name.toLowerCase().endsWith('.3dm')
     const importQuality = doc.meshPrecision
     const importTargets = edgesFirst ? new ImportMeshTargets() : null
     let meshTask = null
+    let meshFeed = null
     const meshScheduling = new ImportPerformanceBudget(() => doc.localImportInProgress, typeof navigator === 'undefined' ? {} : navigator,
       () => this.#displayPipeline?.getFrameDiagnostics(), () => this._viewmodel.workerCount)
     const refresh = new ImportRefresh(() => { if (!doc.disposed) this.getDisplayPipeline().setDirtyFlag() })
@@ -341,6 +349,7 @@ class PandaUIApp {
       if (doc.disposed) return
       if (!loaded && state.placementScanComplete) doc.completePlacementScan()
       readProgress = { ...readProgress, ...state }
+      if (state.importWarnings) doc.importWarnings = [...new Set([...(doc.importWarnings || []), ...state.importWarnings])]
       const now = performance.now()
       if (state.done || readProgress.phase !== lastPhase || now - lastProgressTime >= 100) {
         lastProgressTime = now
@@ -359,9 +368,10 @@ class PandaUIApp {
         }
       }
     }
-    doc.onImportDisplay = bytes => {
+    doc.onImportDisplay = (bytes, force = false) => {
       progress({})
-      refresh.request(bytes)
+      if (force) refresh.flush()
+      else refresh.request(bytes)
     }
     try {
       if (mode === 'import') this.#importDocument(doc)
@@ -381,13 +391,15 @@ class PandaUIApp {
             if (!source) throw new Error('Unable to read the file metadata.')
             doc.setSourceDocument(source)
           } else doc.setImportMetadata(metadata)
+          if (metadata.stepInstances?.length) doc.setStepInstances(metadata.stepInstances)
           mergeLayerTrees(this._viewmodel.layers, doc.layers)
           this.updateVisibility()
           if (importTargets) {
             doc.meshPrecision = null
+            if (progressiveStep) meshFeed = createImportMeshFeed(header)
             meshTask = this.remeshDocument(doc, importQuality, {
               signal,
-              stream: createLocalImport(),
+              stream: meshFeed || createLocalImport(),
               scheduling: meshScheduling,
               importTargets,
               reuseCachedMeshes: true,
@@ -404,8 +416,31 @@ class PandaUIApp {
         },
         onRecord: async record => {
           const id = await doc.appendImportRecord(record, this.#nodeC)
+          if (record.stepInstances || record.stepInstanceFailure) {
+            refresh.flush()
+            return
+          }
           importTargets?.complete(id)
+          // STEP conversion runs once. Only after analytic edges and their
+          // source archive are mounted may the pool take the binary record.
+          // Auxiliary STEP display records (for example point sets from a
+          // GEOMETRIC_SET) are already mounted by appendImportRecord. They
+          // do not carry an OpenNURBS objectRecord and must not enter the
+          // Brep mesh queue, which expects record.objectRecord.byteLength.
+          if (meshFeed && record.objectRecord) {
+            try { await meshFeed.push(record) } catch (error) {
+              // A surface scheduler/queue failure must not abort conversion or
+              // discard the already selectable analytic edge scene.
+              meshFeed.dispose(error)
+            }
+          }
           if (edgesFirst && performance.now() - refresh.last >= meshScheduling.edgeRefreshInterval()) refresh.flush()
+          // STEP/SKP parts can be much smaller than the 30 MiB import redraw
+          // threshold. Make the first part visible, then refresh at most 4 Hz.
+          if ((progressiveStep || record.displayObject?.skpDisplay) && performance.now() - refresh.last >= 250) {
+            mergeLayerTrees(this._viewmodel.layers, doc.layers)
+            refresh.flush()
+          }
         },
         onMaterialHeader: async header => {
           checkCancelled()
@@ -417,38 +452,42 @@ class PandaUIApp {
           ? { ...state, done: false, phase: 'Importing edges and meshing surfaces' }
           : state)
       })
-      await doc.finishImport(progress)
+      if (!progressiveStep) await doc.finishImport(progress)
+      if (progressiveStep) mergeLayerTrees(this._viewmodel.layers, doc.layers)
       loaded = true
       doc.localImportInProgress = false
       doc.initialChunkTransferComplete = true
       doc.localFileLoaded = true
       importTargets?.finish()
+      meshFeed?.finish()
       this.getDisplayPipeline().setDirtyFlag()
       if (edgesFirst) progress({ done: false, phase: 'Meshing surfaces' })
       if (edgesFirst) {
         try {
-          let { result, error } = await meshTask
+          let { error } = await meshTask
           checkCancelled()
           const quality = normalizeMeshPrecision(this._viewmodel.meshPrecision)
           // Quality changes during edge loading cancel the initial mesh reader.
           // Once placements are complete, rebuild using the latest setting.
           if (quality !== importQuality && doc.meshPrecision !== quality && !doc.disposed && !doc.remeshStream) {
-            result = await this.remeshDocument(doc, quality, { signal, onProgress: state => progress({ ...state, phase: 'Meshing surfaces' }) })
+            await this.remeshDocument(doc, quality, { signal, onProgress: state => progress({ ...state, phase: 'Meshing surfaces' }) })
             error = null
           }
           if (error) throw error
-          if (result.failures.length) alert(`Loaded ${file.name}.\n\nDisplay meshes are incomplete for ${result.failures.length} Brep object(s). Successfully meshed faces and original edges are retained.\n${result.failures.slice(0, 3).map(item => item.message).join('\n')}`)
+          // Per-object mesh diagnostics live on the document and are included
+          // in the final import warning together with conversion failures.
         } catch (error) {
           // Cancelling, changing quality or a worker failure must never remove
           // the already usable edge scene. Closing the document still disposes it.
           if (error.name !== 'AbortError') {
             console.warn('Surface meshing failed; imported edges retained:', error)
-            alert(`Loaded ${file.name}. Surface meshing stopped: ${error.message}. Imported edges are retained.`)
+            showImportMessage(`Loaded ${file.name}. Surface meshing stopped: ${error.message}. Imported edges are retained.`)
           }
         }
       }
       checkCancelled()
       if (doc.disposed) throw Object.assign(new Error('Import cancelled.'), { name: 'AbortError' })
+      if (progressiveStep) await doc.finishImport(progress)
       this.updateVisibility()
       progress({ done: false, phase: 'Finishing display' })
       doc.endRenderBatchUpdate()
@@ -464,7 +503,7 @@ class PandaUIApp {
         warnings.push(`Frontend meshing is incomplete for ${meshingFailures} Brep object(s).${reasons.length ? '\n' + reasons.join('\n') : ''}`)
       }
       if (missingMeshObjects) warnings.push(`${missingMeshObjects} surface object(s)${missingMeshFaces ? ` (${missingMeshFaces} Brep faces)` : ''} have incomplete display meshes. Successfully meshed faces, available cached faces and original edges are retained. Original Brep geometry is unchanged.`)
-      if (warnings.length) alert(`Loaded ${file.name}.\n\n${warnings.join('\n\n')}`)
+      if (warnings.length) showImportMessage(`Loaded ${file.name}.\n\n${warnings.join('\n\n')}`)
       return true
     } catch (error) {
       if (!loaded) {
@@ -479,7 +518,11 @@ class PandaUIApp {
       importTargets?.dispose(); doc.onImportedRoot = null
       // An edge-reader failure also terminates its independent mesh pipeline.
       if (!loaded) doc.remeshStream?.dispose()
+      if (!loaded) meshFeed?.dispose()
       if (meshTask) await meshTask
+      // Aborting after the reader finishes preserves its usable edge scene,
+      // but must still release native tables once all mesh consumers unwind.
+      if (progressiveStep && loaded && !doc.disposed && doc.rhinoDoc) await doc.finishImport()
       if (batchUpdateOpen) doc.endRenderBatchUpdate()
       doc.onImportDisplay = null
       if (!doc.disposed) this.getDisplayPipeline().setDirtyFlag()
@@ -488,6 +531,202 @@ class PandaUIApp {
 
   cancelLocalImport () {
     this.removeSceneDocuments(this.modelDocuments().filter(doc => doc.localImportInProgress).map(doc => doc.documentId))
+  }
+
+  captureLocalRenderState () {
+    return this.localRenderState?.capture?.() || this.#displayPipeline?.getRenderEngine().configuration || null
+  }
+
+  async restoreLocalRenderState (settings, doc) {
+    if (this.localRenderState?.restore) await this.localRenderState.restore(settings.renderConfiguration)
+    else if (settings.renderConfiguration && settings.model?.displayMode === 'render') await this.#displayPipeline?.getRenderEngine().setConfiguration('local-archive', settings.renderConfiguration)
+    else return
+    // The active renderer can outlive the source document. Transfer asset URL
+    // ownership until another configuration replaces it or the app is disposed.
+    for (const url of this.localRenderAssetUrls || []) URL.revokeObjectURL(url)
+    this.localRenderAssetUrls = doc?.localRenderAssetUrls || []
+    if (doc) doc.localRenderAssetUrls = []
+  }
+
+  async saveLocalDocumentFolder (id, { directory, saveAs = false, onProgress } = {}) {
+    const doc = this.modelDocuments().find(doc => doc.documentId === id || doc.workspaceDocumentId === id)
+    if (!doc?.localFileLoaded) throw new Error('Select an opened frontend private document.')
+    if (this.localFolderBusy) throw new Error('Another local document operation is in progress.')
+    this.localFolderBusy = true
+    const controller = new AbortController()
+    this.localFolderController = controller
+    try {
+      if (!directory) {
+        if (!window.showDirectoryPicker) throw new Error('Folder saving requires a desktop browser with directory access (Edge or Chrome on HTTPS/localhost).')
+        const parent = await window.showDirectoryPicker({ mode: 'readwrite' })
+        const name = Array.from(doc.name).filter(c => c.charCodeAt(0) >= 32).join('').replace(/\.[^.]+$/, '').replace(/[<>:"/\\|?*]/g, '_').slice(0, 80) || 'Document'
+        directory = await parent.getDirectoryHandle(`${name}-${doc.documentId}.panda`, { create: true })
+      }
+      const save = () => saveLocalDocument(doc, this.#nodeC, directory, { signal: controller.signal,
+        onProgress,
+        workspace: {
+          renderConfiguration: this.captureLocalRenderState(),
+          camera: this.#displayPipeline?.getCameraSettings(),
+          model: this._viewmodel.model1,
+          renderSettings: this._viewmodel.renderSettings,
+          shadingSettings: this._viewmodel.shadingSettings
+        } })
+      return await (navigator.locks ? navigator.locks.request('panda-folder-' + doc.documentId, { mode: 'exclusive', signal: controller.signal }, save) : save())
+    } finally {
+      this.localFolderBusy = false; this.localFolderController = null
+      window.PandaUISceneWorkspace?.notify()
+    }
+  }
+
+  async openLocalDocumentFolder ({ directory, onProgress } = {}) {
+    if (this.localFolderBusy) throw new Error('Another local document operation is in progress.')
+    this.localFolderBusy = true
+    const controller = new AbortController()
+    this.localFolderController = controller
+    let doc
+    try {
+      if (!directory) {
+        if (!window.showDirectoryPicker) throw new Error('Folder opening requires Edge or Chrome on HTTPS/localhost.')
+        directory = await window.showDirectoryPicker({ mode: 'readwrite' })
+      }
+      const archive = await readLocalDocument(directory)
+      if (archive.metadata.renderOnly) throw new Error('This folder contains render data only. Use Import render data instead.')
+      if (this.modelDocuments().some(doc => doc.documentId === archive.snapshot.commit.documentId)) throw new Error('This document is already open. Close it before reopening the saved folder.')
+      if (!this.#nodeC) this.#nodeC = await this.#nodeCReady
+      if (!this.#nodeC) throw new Error('The frontend geometry runtime is not available.')
+      doc = PandaUIDoc.createEmpty(archive.metadata.name, this.#nodeC)
+      doc.documentId = archive.snapshot.commit.documentId
+      doc.localFileLoaded = true; doc.localImportInProgress = true; doc.initialChunkTransferComplete = false
+      this.#importDocument(doc)
+      let treeAnnounced = false
+      await mountLocalDocument(doc, archive, { signal: controller.signal,
+        onProgress,
+        changed: () => {
+          mergeLayerTrees(this._viewmodel.layers, doc.layers)
+          this.#displayPipeline?.setDirtyFlag()
+          window.PandaUISceneWorkspace?.notify(!treeAnnounced)
+          treeAnnounced = true
+        } })
+      const settings = doc.localWorkspace || archive.metadata.workspace || {}
+      if (settings.renderSettings) Object.assign(this._viewmodel.renderSettings, settings.renderSettings)
+      if (settings.shadingSettings) Object.assign(this._viewmodel.shadingSettings, settings.shadingSettings)
+      if (settings.model) for (const key of ['displayMode', 'edgesVisible', 'nonSharpEdgesVisible', 'meshEdgesVisible', 'meshFaceEdgesVisible']) if (settings.model[key] != null) this._viewmodel.model1[key] = settings.model[key]
+      if (settings.camera) this.#displayPipeline?.setCameraSettings(settings.camera)
+      else this.#displayPipeline?.zoomDocumentExtents(true)
+      doc.localImportInProgress = false
+      this.updateVisibility()
+      await this.restoreLocalRenderState(settings, doc)
+      this.#displayPipeline?.setDirtyFlag()
+      return doc
+    } catch (error) {
+      if (doc) this.removeSceneDocuments([doc.documentId])
+      throw error
+    } finally { this.localFolderBusy = false; this.localFolderController = null; window.PandaUISceneWorkspace?.notify(true) }
+  }
+
+  async saveLocalRenderDataFolder (id, { directory, saveAs = false, permissionChecked = false, onProgress } = {}) {
+    const doc = this.modelDocuments().find(candidate => candidate.documentId === id || candidate.workspaceDocumentId === id)
+    if (!doc?.localFileLoaded) throw new Error('Select an opened frontend private document.')
+    if (this.localFolderBusy) throw new Error('Another local document operation is in progress.')
+    this.localFolderBusy = true
+    const controller = new AbortController(); this.localFolderController = controller
+    try {
+      if (directory?.requestPermission && !saveAs && !permissionChecked && await directory.requestPermission({ mode: 'readwrite' }) !== 'granted') throw new Error('Write permission is required to save this folder. Use Save as to choose another location.')
+      if (!directory || saveAs) {
+        if (!window.showDirectoryPicker) throw new Error('Render data saving requires Edge or Chrome on HTTPS/localhost.')
+        const parent = await window.showDirectoryPicker({ mode: 'readwrite' })
+        const name = Array.from(doc.name).filter(c => c.charCodeAt(0) >= 32).join('').replace(/\.[^.]+$/, '').replace(/[<>:"/\\|?*]/g, '_').slice(0, 80) || 'Document'
+        directory = await parent.getDirectoryHandle(`${name}-${doc.documentId}.panda-render`, { create: true })
+      }
+      const save = () => saveLocalRenderDocument(doc, directory, { signal: controller.signal, onProgress, workspace: { renderConfiguration: this.captureLocalRenderState(), camera: this.#displayPipeline?.getCameraSettings(), model: this._viewmodel.model1, renderSettings: this._viewmodel.renderSettings, shadingSettings: this._viewmodel.shadingSettings } })
+      return await (navigator.locks ? navigator.locks.request('panda-render-folder-' + doc.documentId, { mode: 'exclusive', signal: controller.signal }, save) : save())
+    } catch (error) {
+      throw error
+    } finally { this.localFolderBusy = false; this.localFolderController = null; window.PandaUISceneWorkspace?.notify() }
+  }
+
+  async browserArchiveDirectory (collectionName, name, create = true) {
+    if (!navigator.storage?.getDirectory) throw new Error('Browser render storage is unavailable in this browser.')
+    const raw = String(name || '').trim().replace(/\\/g, '/')
+    const clean = (raw.split('/').filter(Boolean).at(-1) || '').split('').filter(character => character.charCodeAt(0) >= 32).join('').replace(/[<>:"/\\|?*]/g, '_').replace(/[. ]+$/g, '').slice(0, 80)
+    if (!clean) throw new Error('Enter a browser folder name.')
+    const root = await navigator.storage.getDirectory()
+    const collection = await root.getDirectoryHandle(collectionName, { create: true })
+    return collection.getDirectoryHandle(clean, { create })
+  }
+
+  async browserDocumentDirectory (name, create = true) {
+    return this.browserArchiveDirectory('panda-documents', name, create)
+  }
+
+  async browserRenderDirectory (name, create = true) {
+    return this.browserArchiveDirectory('panda-render-data', name, create)
+  }
+
+  async saveLocalDocumentByName (id, name, { onProgress } = {}) {
+    const doc = this.modelDocuments().find(candidate => candidate.documentId === id || candidate.workspaceDocumentId === id)
+    if (!doc) throw new Error('Select an opened frontend private document.')
+    const parent = await this.browserDocumentDirectory(name, true)
+    const projectName = Array.from(doc.name).filter(character => character.charCodeAt(0) >= 32).join('').replace(/\.[^.]+$/, '').replace(/[<>:"/\\|?*]/g, '_').slice(0, 80) || 'Document'
+    const directory = await parent.getDirectoryHandle(`${projectName}-${doc.documentId}.panda`, { create: true })
+    return this.saveLocalDocumentFolder(id, { directory, onProgress })
+  }
+
+  async openLocalDocumentByName (name, { onProgress } = {}) {
+    const directory = await this.browserDocumentDirectory(name, false)
+    return this.openLocalDocumentFolder({ directory, onProgress })
+  }
+
+  async saveLocalRenderDataByName (id, name, { onProgress } = {}) {
+    const doc = this.modelDocuments().find(candidate => candidate.documentId === id || candidate.workspaceDocumentId === id)
+    if (!doc) throw new Error('Select an opened frontend private document.')
+    const parent = await this.browserRenderDirectory(name, true)
+    const projectName = Array.from(doc.name).filter(character => character.charCodeAt(0) >= 32).join('').replace(/\.[^.]+$/, '').replace(/[<>:"/\\|?*]/g, '_').slice(0, 80) || 'Document'
+    const directory = await parent.getDirectoryHandle(`${projectName}-${doc.documentId}.panda-render`, { create: true })
+    return this.saveLocalRenderDataFolder(id, { directory, permissionChecked: true, onProgress })
+  }
+
+  async openLocalRenderDataFolder ({ directory, onProgress } = {}) {
+    if (this.localFolderBusy) throw new Error('Another local document operation is in progress.')
+    this.localFolderBusy = true
+    const controller = new AbortController(); this.localFolderController = controller
+    let doc
+    try {
+      if (!directory) {
+        if (!window.showDirectoryPicker) throw new Error('Render data opening requires Edge or Chrome on HTTPS/localhost.')
+        directory = await window.showDirectoryPicker({ mode: 'readwrite' })
+      }
+      const archive = await readLocalDocument(directory)
+      if (!archive.metadata.renderOnly) throw new Error('This folder is a full document. Use Open folder instead.')
+      if (this.modelDocuments().some(candidate => candidate.documentId === archive.snapshot.commit.documentId)) throw new Error('This render document is already open.')
+      if (!this.#nodeC) this.#nodeC = await this.#nodeCReady
+      doc = PandaUIDoc.createEmpty(archive.metadata.name, this.#nodeC)
+      doc.documentId = archive.snapshot.commit.documentId
+      doc.localFileLoaded = true; doc.localImportInProgress = true; doc.initialChunkTransferComplete = false
+      this.#importDocument(doc)
+      await importLocalRenderDocument(doc, archive, { signal: controller.signal, onProgress, changed: () => { mergeLayerTrees(this._viewmodel.layers, doc.layers); this.#displayPipeline?.setDirtyFlag(); window.PandaUISceneWorkspace?.notify() } })
+      const settings = doc.localWorkspace || archive.metadata.workspace || {}
+      if (settings.renderSettings) Object.assign(this._viewmodel.renderSettings, settings.renderSettings)
+      if (settings.shadingSettings) Object.assign(this._viewmodel.shadingSettings, settings.shadingSettings)
+      if (settings.model) for (const key of ['displayMode', 'edgesVisible', 'nonSharpEdgesVisible', 'meshEdgesVisible', 'meshFaceEdgesVisible']) if (settings.model[key] != null) this._viewmodel.model1[key] = settings.model[key]
+      if (settings.camera) this.#displayPipeline?.setCameraSettings(settings.camera); else this.#displayPipeline?.zoomDocumentExtents(true)
+      this.updateVisibility(); await this.restoreLocalRenderState(settings, doc); return doc
+    } catch (error) { if (doc) this.removeSceneDocuments([doc.documentId]); throw error } finally { this.localFolderBusy = false; this.localFolderController = null; window.PandaUISceneWorkspace?.notify(true) }
+  }
+
+  async openLocalRenderDataByName (name, { onProgress } = {}) {
+    const directory = await this.browserRenderDirectory(name, false)
+    return this.openLocalRenderDataFolder({ directory, onProgress })
+  }
+
+  async createLocalPrivateDocument (name = 'Untitled') {
+    if (!this.#nodeC) this.#nodeC = await this.#nodeCReady
+    if (!this.#nodeC) throw new Error('The frontend geometry runtime is not available.')
+    const doc = PandaUIDoc.createEmpty(name, this.#nodeC)
+    doc.localFileLoaded = true; doc.initialChunkTransferComplete = true
+    this.#importDocument(doc)
+    window.PandaUISceneWorkspace?.notify()
+    return doc
   }
 
   cancelRenderMeshing () {
@@ -533,7 +772,7 @@ class PandaUIApp {
     const result = { updated: 0, failures: [], documents: 0 }
     try {
       for (const doc of this.modelDocuments()) {
-        if (!doc.sourceFile?.name?.toLowerCase().endsWith('.3dm') || doc.localImportInProgress || doc.disposed || doc.meshPrecision === quality) continue
+        if ((!doc.sourceFile?.name?.toLowerCase().endsWith('.3dm') && !doc.importedGeometrySources?.size && !doc.localGeometryRefs?.size) || doc.localImportInProgress || doc.disposed || doc.meshPrecision === quality) continue
         const changed = await this.remeshDocument(doc, quality, { signal: controller.signal, onProgress })
         result.documents++
         result.updated += changed.updated
@@ -850,12 +1089,13 @@ class PandaUIApp {
 
   onSelectionChanged (handler) {
     this.#selectionChangedHandlers.add(handler)
-    handler(this.#displayPipeline == null ? null : this.#displayPipeline.getSelectedMaterialSettings())
+    handler(this.#displayPipeline == null ? null : this.#displayPipeline.getSelectedMaterialSettings(), { selectionRevision: this.#objectSelectionRevision, reason: 'subscribe' })
     return () => this.#selectionChangedHandlers.delete(handler)
   }
 
-  notifySelectionChanged (selection) {
-    this.#selectionChangedHandlers.forEach(handler => handler(selection))
+  notifySelectionChanged (selection, detail = {}) {
+    if (detail.reason === 'object-selection') this.#objectSelectionRevision++
+    this.#selectionChangedHandlers.forEach(handler => handler(selection, { ...detail, selectionRevision: this.#objectSelectionRevision }))
   }
 
   getRenderMaterials () {
@@ -955,6 +1195,13 @@ class PandaUIApp {
           if (obj.visible && obj.userData['surfaceWires'] && !obj.userData['edgeLines']) {
             obj.visible = model1Mode === 'wires'
           }
+        })
+      })
+
+      this.modelDocuments().forEach(doc => {
+        if (!doc.localFileLoaded) return
+        doc.three.middleground.traverse(object => {
+          if (object.userData.localDocumentId === doc.documentId && object.userData.pandauiObjectId) applyLocalDocumentVisibility(object, doc, object.visible)
         })
       })
 

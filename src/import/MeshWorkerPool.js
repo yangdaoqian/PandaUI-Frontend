@@ -25,12 +25,14 @@ export default class MeshWorkerPool {
     this.createWorker = createWorker
     this.onChange = onChange
     this.workers = []; this.queue = []; this.sequence = 0; this.activeBytes = 0; this.disposed = false
+    this.previewDeliveries = new Set()
   }
 
   progress () {
     const active = this.workers.filter(slot => slot.job).length
     const memoryLimited = active < this.limit && this.queue.length > 0 && active > 0 && this.nextJobIndex(active) < 0
-    return { meshWorkers: active, meshWorkerLimit: this.limit, meshQueue: this.queue.length, meshMemoryLimited: memoryLimited, meshWaitingForTasks: active < this.limit && this.queue.length === 0, meshEstimatedActiveBytes: this.activeBytes, meshBudgetBytes: this.budgetBytes }
+    const meshFaceProgress = this.workers.filter(slot => slot.job?.progress).map(slot => slot.job.progress)
+    return { meshWorkers: active, meshWorkerLimit: this.limit, meshQueue: this.queue.length, meshMemoryLimited: memoryLimited, meshWaitingForTasks: active < this.limit && this.queue.length === 0, meshEstimatedActiveBytes: this.activeBytes, meshBudgetBytes: this.budgetBytes, meshFaceProgress }
   }
 
   nextJobIndex (active) {
@@ -48,9 +50,15 @@ export default class MeshWorkerPool {
     this.pump()
   }
 
-  run (record, options, forceMeshing) {
+  run (record, options, forceMeshing, onPreview) {
     if (this.disposed) return Promise.reject(abortError())
     if (!record?.needsMeshing) return Promise.resolve(record)
+    // Conversion streams may also yield metadata, instance failures or
+    // auxiliary records. They are consumed by the document importer but do
+    // not have a serialized OpenNURBS object for a mesh worker. Treat them as
+    // already handled instead of dereferencing an absent byteLength and
+    // aborting the independent surface queue.
+    if (record.objectRecord == null || typeof record.objectRecord.byteLength !== 'number') return Promise.resolve(record)
     const bytes = record.objectRecord.byteLength
     // Reserve runtime/scratch memory plus expanded source and output buffers.
     // An unlimited geometric vertex budget must not turn into an unlimited
@@ -60,7 +68,7 @@ export default class MeshWorkerPool {
     const estimatedTriangles = options?.maxTriangles > 0 ? options.maxTriangles : Math.max(20000, Math.ceil(bytes / 24))
     const cost = 128 * MiB + bytes * 12 + estimatedVertices * 24 + estimatedTriangles * 12
     return new Promise((resolve, reject) => {
-      this.queue.push({ id: ++this.sequence, record: record.objectRecord, displayOnly: record.displayOnly === true, options, forceMeshing, cost, resolve, reject })
+      this.queue.push({ id: ++this.sequence, record: record.objectRecord, displayOnly: record.displayOnly === true, options, forceMeshing, cost, resolve, reject, onPreview, delivery: Promise.resolve() })
       this.pump()
     })
   }
@@ -88,10 +96,27 @@ export default class MeshWorkerPool {
           this.workers.push(slot)
           slot.worker.onmessage = ({ data }) => {
             if (this.disposed || !slot.job || data.id !== slot.job.id) return
+            if (data.progress) {
+              slot.job.progress = data.progress; this.onChange(this.progress()); return
+            }
+            if (data.intermediate) {
+              const job = slot.job
+              job.delivery = job.delivery.then(() => {
+                if (this.disposed) throw abortError()
+                return job.onPreview?.(data.result)
+              })
+              const delivery = job.delivery
+              this.previewDeliveries.add(delivery)
+              delivery.catch(error => { job.reject(error); this.dispose(error) }).finally(() => this.previewDeliveries.delete(delivery))
+              return
+            }
             const completed = slot.job
             slot.job = null; this.activeBytes -= completed.cost
             if (data.error) { completed.reject(new Error(data.error)); this.dispose(new Error(data.error)); return }
-            completed.resolve(data.result)
+            completed.delivery.then(() => {
+              if (this.disposed) throw abortError()
+              completed.resolve(data.result)
+            }).catch(completed.reject)
             // WASM heaps do not shrink. Recycle a worker after a large job.
             if (completed.cost > this.budgetBytes / 2 || data.heapBytes > this.budgetBytes / this.limit) {
               slot.worker.terminate(); this.workers = this.workers.filter(candidate => candidate !== slot)
@@ -105,7 +130,7 @@ export default class MeshWorkerPool {
       for (let i = 0; i < next; i++) this.queue[i].bypassed = (this.queue[i].bypassed || 0) + 1
       this.queue.splice(next, 1); slot.job = job; this.activeBytes += job.cost
       try {
-        slot.worker.postMessage({ id: job.id, record: job.record, displayOnly: job.displayOnly, options: job.options, forceMeshing: job.forceMeshing }, [job.record.buffer])
+        slot.worker.postMessage({ id: job.id, record: job.record, displayOnly: job.displayOnly, options: job.options, forceMeshing: job.forceMeshing, streamPreview: typeof job.onPreview === 'function' }, [job.record.buffer])
       } catch (error) { this.dispose(error); return }
     }
     this.onChange(this.progress())
@@ -119,4 +144,6 @@ export default class MeshWorkerPool {
     this.workers = []; this.queue = []; this.activeBytes = 0
     this.onChange = () => {}
   }
+
+  async drainPreviews () { await Promise.allSettled([...this.previewDeliveries]) }
 }

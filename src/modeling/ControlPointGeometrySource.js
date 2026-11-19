@@ -83,7 +83,7 @@ export default class ControlPointGeometrySource {
     this.check(doc, signal)
     const root = this.root(doc, selected), objectId = root.userData.pandauiObjectId
     const sourceGeometryId = root.userData.sourceGeometryId
-    const edit = doc.geometryEdits?.get(objectId)
+    const edit = doc.geometryEdits?.get(objectId) || await doc.loadLocalGeometryEdit?.(objectId)
     let cache = this.documents.get(doc)
     if (!cache) { cache = { originals: new Map(), header: null }; this.documents.set(doc, cache) }
     let original = cache.originals.get(sourceGeometryId)
@@ -92,6 +92,8 @@ export default class ControlPointGeometrySource {
       this.check(doc, signal)
       let table, object, geometry, attributes
       try {
+        const imported = doc.importedGeometrySources?.get(sourceGeometryId) || await doc.loadLocalGeometry?.(sourceGeometryId)
+        if (imported && doc.importedGeometryHeader) original = { ...imported, header: doc.importedGeometryHeader }
         const archive = doc.subdSources?.get(sourceGeometryId)
         if (archive && (doc.subdSourceHeader || doc.rhinoDoc)) {
           // SubD cages are compact and retained once per definition. Avoid a
@@ -121,7 +123,7 @@ export default class ControlPointGeometrySource {
       cache.originals.set(sourceGeometryId, original)
     }
     // Re-read the map after await: another edit may have committed while loading.
-    const current = doc.geometryEdits?.get(objectId) || original || edit
+    const current = doc.geometryEdits?.get(objectId) || edit || original
     return { documentId: doc.documentId, objectId, sourceGeometryId, geometry: copyArchive(current.geometry), attributes: Array.from(current.attributes), displayAttributes: original?.displayAttributes }
   }
 
@@ -210,7 +212,7 @@ export default class ControlPointGeometrySource {
     return entry
   }
 
-  async remeshEdits (doc, { signal, quality, beforeReplace, afterReplace, onProgress, header, check } = {}) {
+  async remeshEdits (doc, { signal, quality, beforeReplace, afterReplace, onProgress, header, check, includeImported = false } = {}) {
     let updated = 0
     const failures = []
     if (header) {
@@ -220,18 +222,26 @@ export default class ControlPointGeometrySource {
     }
     const roots = new Map()
     doc.three?.middleground?.traverse(root => { if (root.userData?.importedModelObject) roots.set(root.userData.pandauiObjectId, root) })
-    for (const [id, state] of doc.geometryEdits || []) {
+    const states = new Map(doc.geometryEdits || [])
+    if (includeImported) {
+      for (const [id, root] of roots) {
+        if (!states.has(id) && (doc.importedGeometrySources?.has(root.userData.sourceGeometryId) || doc.localGeometryRefs?.has(root.userData.sourceGeometryId))) states.set(id, null)
+      }
+    }
+    for (const [id, savedState] of states) {
       this.check(doc, signal)
       check?.()
       const root = roots.get(id)
       if (!root) continue
       let prepared
       try {
+        const previous = doc.geometryEdits?.get(id)
+        const state = savedState || await this.read(doc, root, { signal })
         prepared = await this.prepare(doc, root, state, { signal, quality })
         check?.()
-        if (doc.geometryEdits.get(id) !== state) continue
+        if (doc.geometryEdits?.get(id) !== previous) continue
         beforeReplace?.([root])
-        try { this.apply(doc, root, state, prepared); updated++ } finally { afterReplace?.([root]) }
+        try { this.apply(doc, root, state, prepared, { displayOnly: includeImported }); updated++ } finally { afterReplace?.([root]) }
         onProgress?.({ updated })
       } catch (error) {
         if (error.name === 'AbortError') throw error

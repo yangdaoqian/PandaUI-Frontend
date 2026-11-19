@@ -67,7 +67,7 @@
     this.addOutput('geometry', geometryOutputTypes)
     this.properties = { marker: null }
     this.size = [190, 66]
-    this.addWidget('button', 'Pick in Viewport', null, this.requestPick.bind(this))
+    this.addWidget('button', 'Pick in Viewport', 'Select object', this.requestPick.bind(this))
   }
 
   PickSceneObject.title = 'Pick Scene Object'
@@ -88,9 +88,17 @@
 
   PickSceneObject.prototype.setMarker = function (marker) {
     if (!isMarker(marker)) return
-    this.properties.marker = marker
-    this.title = 'Pick: ' + (marker.name || marker.objectType || marker.id)
+    // The reply arrives after the initial solution. Use the property operation
+    // so the scheduler invalidates this node and its connected consumers.
+    this.setProperty('marker', marker)
     this.setDirtyCanvas(true, true)
+  }
+
+  PickSceneObject.prototype.onPropertyChanged = function (name, marker) {
+    if (name !== 'marker') return
+    if (marker != null && !isMarker(marker)) return false
+    this.title = marker ? 'Pick: ' + (marker.name || marker.objectType || marker.id) : PickSceneObject.title
+    this.widgets[0].value = marker ? (marker.name || marker.objectType || marker.id) : 'Select object'
   }
 
   PandaUI.registerNode('transform/pick_scene_object', PickSceneObject)

@@ -3,6 +3,50 @@ import { createPointMaterial } from '../PointDisplaySettings'
 import { SCENE_FILE_TEXTURE_SLOTS, SCENE_FILE_MATERIAL_SCALARS } from './SceneFileRecords'
 
 const documents = new WeakMap()
+function importState (document) {
+  let state = documents.get(document)
+  if (!state) { state = { objects: new Map(), sequence: 0, materials: new Map(), appearances: new Map() }; documents.set(document, state) }
+  return state
+}
+
+// Feed named source materials into the same scene-material editor as 3DM.
+// Encoded images are transferred once, decoded once and owned by the document.
+export async function prepareDisplayMaterials (document, packet) {
+  validate(packet)
+  const state = importState(document)
+  const descriptor = packet.sourceMaterial
+  if (descriptor && !state.materials.has(descriptor.id)) {
+    const signature = JSON.stringify([descriptor.color, descriptor.opacity, descriptor.texture ? descriptor.id : null])
+    let entry = state.appearances.get(signature)
+    if (!entry) {
+      entry = { descriptor, render: null, texture: null }
+      const image = descriptor.texture
+      if (image?.bytes?.byteLength) {
+        const url = URL.createObjectURL(new Blob([image.bytes]))
+        try {
+          const texture = await new THREE.TextureLoader().loadAsync(url)
+          if (document.disposed) { texture.dispose(); throw new Error('Import cancelled.') }
+          texture.name = image.name || descriptor.name
+          texture.encoding = THREE.sRGBEncoding
+          texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+          entry.texture = texture
+          document.disposableResources.push(texture)
+        } catch (error) {
+          if (document.disposed) throw error
+          document.importWarnings ||= []
+          document.importWarnings.push(`Unable to decode SketchUp texture ${image.name || descriptor.name}: ${error.message}`)
+        } finally { URL.revokeObjectURL(url); image.bytes = null }
+      }
+      state.appearances.set(signature, entry)
+    }
+    state.materials.set(descriptor.id, entry)
+  }
+  for (const child of packet.children || []) if (child.sourceMaterial) await prepareDisplayMaterials(document, child)
+}
+
+export function replaceDisplayImportMaterial (document, previous, replacement) {
+  for (const entry of documents.get(document)?.appearances.values() || []) if (entry.render === previous) entry.render = replacement
+}
 
 // This index only joins material packets during import. The scene owns the
 // mounted roots; retaining this index after EOF keeps deleted roots alive.
@@ -113,13 +157,16 @@ function textureMaps (descriptors, resources, cache) {
   return maps
 }
 
-function materials (packet, descriptor, resources, textureCache) {
+function materials (packet, descriptor, resources, textureCache, library) {
   const options = { ...packet, ...(Array.isArray(descriptor) ? { color: descriptor } : descriptor) }
   const opacity = Number.isFinite(options.opacity) ? THREE.MathUtils.clamp(options.opacity, 0, 1) : 1
   const common = { color: color(options.color), vertexColors: !!packet.colors, opacity, transparent: options.transparent ?? opacity < 1, depthTest: true, depthWrite: options.depthWrite ?? opacity === 1 }
   const maps = textureMaps(options.textures, resources, textureCache)
   const retain = material => { resources.add(material); return material }
-  if (packet.kind === 'lines') return { material: retain(new THREE.LineBasicMaterial({ ...common, toneMapped: false })) }
+  if (packet.kind === 'lines') {
+    if (packet.skpDisplay) return { material: retain(new THREE.LineDashedMaterial({ color: packet.meshGeometryEdges ? 0x607d8b : 0x37474f, transparent: true, opacity: packet.meshGeometryEdges ? 0.55 : 0.72, depthTest: true, depthWrite: false, toneMapped: false })) }
+    return { material: retain(new THREE.LineBasicMaterial({ ...common, toneMapped: false })) }
+  }
   if (packet.kind === 'points') {
     const material = retain(createPointMaterial({ ...common, toneMapped: false }))
     if (Number.isFinite(options.pointSize)) material.size = Math.max(1, options.pointSize)
@@ -129,8 +176,22 @@ function materials (packet, descriptor, resources, textureCache) {
   }
   const side = [THREE.FrontSide, THREE.BackSide, THREE.DoubleSide].includes(options.side) ? options.side : THREE.DoubleSide
   const shading = retain(new THREE.MeshPhongMaterial({ ...common, side, toneMapped: false, shininess: 42 }))
-  const render = retain(options.unlit ? new THREE.MeshBasicMaterial({ ...common, side }) : new THREE.MeshPhysicalMaterial({ ...common, side, metalness: options.metalness ?? 0.12, roughness: options.roughness ?? 0.42, clearcoat: options.clearcoat ?? 0.08 }))
-  for (const material of [shading, render]) {
+  if (packet.skpDisplay) {
+    shading.opacity = 1; shading.transparent = false; shading.depthWrite = true
+    shading.emissive.copy(shading.color).multiplyScalar(0.045)
+    shading.specular.setHex(0x8a949c)
+  }
+  const entry = library?.get(packet.sourceMaterialId)
+  const existing = entry?.render
+  const render = existing || retain(options.unlit ? new THREE.MeshBasicMaterial({ ...common, side }) : new THREE.MeshPhysicalMaterial({ ...common, side, metalness: options.metalness ?? 0.12, roughness: options.roughness ?? 0.42, clearcoat: options.clearcoat ?? 0.08 }))
+  if (entry && !existing) {
+    render.name = entry.descriptor.name || 'SketchUp Default'
+    render.userData.pandaSceneMaterialSourceId = entry.descriptor.id
+    render.color.convertSRGBToLinear()
+    if (entry.texture) render.map = entry.texture
+    entry.render = render
+  }
+  for (const material of existing ? [shading] : [shading, render]) {
     for (const key of SCENE_FILE_MATERIAL_SCALARS) if (key in material && Number.isFinite(options[key])) material[key] = options[key]
     for (const key of ['emissive', 'specular']) if (key in material && options[key]) material[key].copy(color(options[key], [0, 0, 0]))
     for (const key of ['normalScale', 'clearcoatNormalScale']) {
@@ -169,7 +230,7 @@ function addSurfaceWires (parent, source, appearance, resources) {
   parent.add(wires)
 }
 
-function build (packet, resources, textureCache = new Map()) {
+function build (packet, resources, textureCache = new Map(), library = null) {
   // Visibility lives on a wrapper: switching display modes may show a mesh,
   // but must never unhide a hidden source object or a hidden child.
   const root = new THREE.Group()
@@ -181,6 +242,7 @@ function build (packet, resources, textureCache = new Map()) {
   }
   // sourceGeometryId is reserved for recoverable native control-point data.
   root.userData.sourceDisplayId = packet.id == null ? undefined : String(packet.id)
+  if (packet.edgeLines && !packet.skpDisplay) root.userData.edgeLines = true
   if (packet.hierarchyPath) root.userData.hierarchyPath = [...packet.hierarchyPath]
   const matrix = packet.matrix ? new THREE.Matrix4().fromArray(packet.matrix) : new THREE.Matrix4()
   let content = root
@@ -212,16 +274,26 @@ function build (packet, resources, textureCache = new Map()) {
       partGeometry.addGroup(group.start, group.count, 0)
       partGeometry.setDrawRange(group.start, group.count)
     }
-    const appearance = materials(packet, packet.materials?.[group.materialIndex || 0], resources, textureCache)
+    const appearance = materials(packet, packet.materials?.[group.materialIndex || 0], resources, textureCache, library)
     const ObjectType = packet.kind === 'mesh' ? THREE.Mesh : packet.kind === 'lines' ? THREE.LineSegments : THREE.Points
     const part = new ObjectType(partGeometry, appearance.material)
+    if (packet.edgeLines) part.userData.edgeLines = true
+    if (packet.sharpEdge) part.userData.sharpEdge = true
+    if (packet.meshGeometryEdges) part.userData.meshGeometryEdges = true
+    if (packet.skpDisplay && packet.kind === 'lines') {
+      partGeometry.computeBoundingSphere()
+      appearance.material.dashSize = Math.max(0.002, (partGeometry.boundingSphere?.radius || 1) * 0.018)
+      appearance.material.gapSize = appearance.material.dashSize * 0.62
+      part.computeLineDistances()
+      part.userData.edgeColorFollowsShading = false
+    }
     if (appearance.displayMaterials) part.userData.displayMaterials = appearance.displayMaterials
-    part.userData.materialId = group.materialIndex || 0
+    part.userData.materialId = packet.sourceMaterialId || group.materialIndex || 0
     if (packet.kind === 'mesh') part.userData.diffuse = appearance.displayMaterials.render.color
     content.add(part)
-    if (packet.kind === 'mesh' && group.count) addSurfaceWires(content, partGeometry, appearance.material, resources)
+    if (packet.kind === 'mesh' && group.count && !packet.skpDisplay) addSurfaceWires(content, partGeometry, appearance.material, resources)
   })
-  for (const child of packet.children || []) content.add(build(child, resources, textureCache))
+  for (const child of packet.children || []) content.add(build(child, resources, textureCache, library))
   return root
 }
 
@@ -241,14 +313,17 @@ function ensureLayer (document, path) {
  * objectId optionally joins flat material records into one editable object.
  * lines always contain independent segment pairs. Colors use normalized RGB.
  */
-export function mountDisplayObject (document, packet) {
+export function mountDisplayObject (document, packet, exactSource = null) {
   if (document.disposed) throw Object.assign(new Error('Import cancelled.'), { name: 'AbortError' })
+  if (exactSource && (!exactSource.geometry?.data || !exactSource.id || !exactSource.header)) throw new Error('Incomplete exact geometry source.')
   validate(packet)
+  const state = importState(document)
   const resources = new Set()
   let part
-  try { part = build(packet, resources) } catch (error) { resources.forEach(resource => resource.dispose()); throw error }
-  let state = documents.get(document)
-  if (!state) { state = { objects: new Map(), sequence: 0 }; documents.set(document, state) }
+  try { part = build(packet, resources, new Map(), state.materials) } catch (error) {
+    for (const entry of state.appearances.values()) if (resources.has(entry.render)) entry.render = null
+    resources.forEach(resource => resource.dispose()); throw error
+  }
   const layerPath = normalizeImportLayerPath(packet.layerPath)
   const existing = packet.objectId == null ? null : state.objects.get(String(packet.objectId))
   if (existing && existing.layerPath !== layerPath) {
@@ -265,6 +340,10 @@ export function mountDisplayObject (document, packet) {
       root.updateMatrix()
       root.name = packet.name || id
       root.userData.displayOnly = true
+      if (packet.sourceVisible === false) {
+        root.visible = false
+        Object.assign(root.userData, { pandauiHidden: true, importedHiddenObject: true })
+      }
       if (packet.hierarchyPath) root.userData.hierarchyPath = [...packet.hierarchyPath]
       document.tagImportedObject(root, `${key}:root`, layerPath, root.name)
     }
@@ -282,8 +361,21 @@ export function mountDisplayObject (document, packet) {
     ensureLayer(document, layerPath)
     document.three.middleground.add(root)
   }
+  // The occurrence may arrive as edges before its first surface batch.
+  if (packet.kind === 'mesh') root.userData.geometryType = 'Mesh'
   resources.forEach(resource => document.disposableResources.push(resource))
-  document.configureImportedObject(root, layerPath, !existing)
+  if (exactSource) {
+    document.importedGeometrySources ||= new Map()
+    document.importedGeometryHeader ||= exactSource.header
+    const archive = { id: exactSource.id, geometry: exactSource.geometry, attributes: exactSource.attributes }
+    document.importedGeometrySources.set(exactSource.id, archive)
+    root.userData.geometryType = 'Brep'
+    root.userData.sourceGeometryId = exactSource.id
+    root.userData.displayOnly = false
+  }
+  // Previously every arriving batch traversed the entire growing occurrence.
+  // Configure/queue only its new subtree; keep the registered editable root.
+  document.configureImportedObject(existing ? part : root, layerPath, !existing, !!existing)
   document.countImportedParts(part)
   document.onImportedRoot?.(root)
   let vertices = 0, byteLength = 0

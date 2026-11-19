@@ -5,7 +5,10 @@
   "productName": "PandaUI",
   "private": true,
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/yangdaoqian/PandaUI-Frontend.git" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yangdaoqian/PandaUI-Frontend.git"
+  },
   "scripts": {
     "dev": "quasar dev",
     "build": "quasar build",
@@ -24,7 +27,8 @@
     "three": "^0.120.0",
     "vue": "3",
     "vue-router": "4",
-    "ws": "^7.5.7"
+    "ws": "^7.5.7",
+    "@mlightcad/libredwg-web": "0.8.8"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.0.0",

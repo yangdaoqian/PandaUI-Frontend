@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Pass } from 'three/examples/jsm/postprocessing/Pass.js'
 import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js'
-import { RenderConfigurationStore } from './RenderConfiguration'
+import { RenderConfigurationStore, renderConfigurationKey } from './RenderConfiguration'
 import RenderResources from './RenderResources'
 import { withRenderVisibility } from './RenderVisibility'
 import { RasterRenderer } from './RasterRenderer'
@@ -65,16 +65,23 @@ export default class RenderEngine {
 
   async setConfiguration (nodeId, descriptor) {
     if (this.disposed) throw new Error('Render engine is disposed.')
-    const previous = this.nodeId
+    const previous = this.nodeId, previousConfig = this.configuration, wasActive = this.active
+    const resourceKey = config => renderConfigurationKey(config && { environment: config.environment, lights: config.lights, bindings: config.bindings })
+    const traceKey = config => renderConfigurationKey(config && {
+      resources: resourceKey(config),
+      effects: Object.fromEntries(Object.entries(config.effects).filter(([key]) => key.startsWith('ground') || ['shadows', 'showEdges', 'showCurves'].includes(key)))
+    })
     if (!this.store.set(nodeId, descriptor)) return
+    const resourcesUnchanged = wasActive && this.active && !this.renderError && resourceKey(previousConfig) === resourceKey(this.configuration)
+    const reuseTrace = resourcesUnchanged && this.pathReady && traceKey(previousConfig) === traceKey(this.configuration)
     const version = ++this.version
     this.renderError = null
     if (this.pathStatus?.state === 'fallback') { this.pathTracer?.dispose(); this.pathTracer = null; this.pathStatus = null }
     this.pathPreparation?.abort()
-    this.pathReady = false
+    this.pathReady = reuseTrace
     this.pathFailure = null
     this.pathCopied = -1
-    this.snapshotSignature = null
+    if (!reuseTrace) this.snapshotSignature = null
     if (previous && previous !== this.nodeId) this.services.onStatus({ type: 'pandaui-render-status', nodeId: previous, state: 'inactive', message: 'Another Render Output controls this viewport.' })
     if (!this.active) {
       this.resources.dispose()
@@ -82,19 +89,21 @@ export default class RenderEngine {
       this.pathTracer?.dispose(); this.pathTracer = null
       this.pathTexture?.dispose(); this.pathTexture = null
       this.pathCanvas = null
+      this.raster?.accumulation?.release()
+      this.raster?.studioFloor?.releaseTargets()
       this.services.setEnabled(false)
       this.services.onStatus({ type: 'pandaui-render-status', nodeId: String(nodeId), state: 'inactive', message: 'Render Output disabled.' })
       this.services.requestFrame()
       return
     }
-    this.services.setEnabled(true)
+    if (!wasActive) this.services.setEnabled(true)
     const config = this.configuration
     const cameraKey = JSON.stringify(config.camera)
     if (config.camera && cameraKey !== this.cameraConfiguration) this.services.setCamera(config.camera)
     this.cameraConfiguration = cameraKey
     this.status({ state: 'loading', message: 'Loading render resources…', backend: 'WebGL' })
     const context = this.services.sceneContext()
-    this.resourceTask = this.resources.apply(config, context)
+    if (!resourcesUnchanged) this.resourceTask = this.resources.apply(config, context)
     const result = await this.resourceTask
     if (this.disposed || version !== this.version) return
     if (!result.applied) {
@@ -135,22 +144,20 @@ export default class RenderEngine {
           onStatus: progress => {
             this.pathStatus = progress
             if (progress.state === 'fallback') {
-              this.pathReady = false; this.pathFailure = progress.reason || 'WebGPU unavailable.'
+              this.pathReady = false; this.pathFailure = progress.reason || 'WebGL2 path tracing unavailable.'
               this.services.requestFrame()
             }
           }
         })
       }
       const capability = await this.pathTracer.initialize()
-      if (!capability.supported) throw new Error(capability.reason || 'WebGPU is unavailable in this browser.')
-      const snapshot = await createRenderSnapshot(scenes, configuration, { signal: controller.signal })
+      if (!capability.supported) throw new Error(capability.reason || 'WebGL2 path tracing is unavailable in this browser.')
+      const snapshot = await createRenderSnapshot(scenes, configuration, { signal: controller.signal, lightScene: this.resources.lightScene })
       if (controller.signal.aborted || version !== this.version || sceneVersion !== this.sceneVersion) throw aborted()
-      const signature = JSON.stringify({ geometries: snapshot.geometries.map(item => item.geometryId), instances: snapshot.instances, lights: snapshot.lights, sky: snapshot.sky })
-      if (signature !== this.snapshotSignature) {
-        await this.pathTracer.setScene(snapshot)
-        this.snapshotSignature = signature
-        this.pathCopied = -1
-      }
+      // Preparing is already gated by scene/configuration versions. Avoid
+      // serializing texture images and huge instance tables a second time.
+      await this.pathTracer.setScene(snapshot)
+      this.pathCopied = -1
       if (controller.signal.aborted || version !== this.version || sceneVersion !== this.sceneVersion) throw aborted()
       this.pathReady = true
     } catch (error) {
@@ -206,7 +213,7 @@ export default class RenderEngine {
     }
   }
 
-  rasterFrame (context, camera, width, height, scale = 1) {
+  rasterFrame (context, camera, width, height, scale = 1, rasterSamples = 1) {
     if (!this.raster) this.raster = new RasterRenderer(this.renderer)
     return this.withScene(context, scenes => this.raster.render({
       scenes,
@@ -216,7 +223,8 @@ export default class RenderEngine {
       background: this.resources.background || new THREE.Color('#252a32'),
       environment: this.resources.environment,
       effects: this.configuration.effects,
-      quality: { scale, maxDimension: this.renderer.capabilities.maxTextureSize, maxPixels: 16777216 }
+      bounds: this.resources.bounds,
+      quality: { scale, rasterSamples, revision: [this.version, this.sceneVersion, this.renderer.clippingPlanes.map(plane => [...plane.normal.toArray(), plane.constant])], maxDimension: this.renderer.capabilities.maxTextureSize, maxPixels: 16777216 }
     }))
   }
 
@@ -253,26 +261,32 @@ export default class RenderEngine {
       if (!this.pathReady && !this.pathPreparation) this.preparePath(context.scenes, config, this.version, this.sceneVersion)
       if (this.pathReady) {
         try {
-          this.pathTracer.configure({ samples: quality.samples, bounces: quality.bounces, resolutionScale: quality.resolutionScale, exposure: config.effects.exposure })
+          this.pathTracer.configure({ samples: quality.samples, bounces: quality.bounces, resolutionScale: quality.resolutionScale, exposure: config.effects.exposure, denoise: quality.denoise, denoiseStrength: quality.denoiseStrength })
           const descriptor = renderCameraDescriptor(camera), cameraKey = JSON.stringify(descriptor)
           if (cameraKey !== this.pathCameraKey) { this.pathCopied = -1; this.pathCameraKey = cameraKey }
           this.pathTracer.setCamera(descriptor)
           this.copyPathImage()
           if (!this.pathCopy) this.pathStatus = this.pathTracer.step(width, height)
           if (this.pathTexture && this.pathStatus.samples > 0 && this.pathCopied >= 0) texture = this.pathTexture
-          this.status({ ...this.pathStatus, backend: 'WebGPU', message: 'Progressive path tracing · no denoising' })
+          if (this.pathStatus.state === 'fallback') throw new Error(this.pathStatus.reason || 'Path tracing stopped.')
+          this.status({ ...this.pathStatus, backend: 'WebGL2 · three-gpu-pathtracer', message: quality.denoise ? 'Path tracing · edge-preserving denoising' : 'Path tracing · raw accumulation' })
         } catch (error) { this.pathFailure = error.message; this.pathReady = false }
       }
     }
     if (!texture) {
-      texture = this.rasterFrame(context, camera, width, height, quality.resolutionScale * (moving ? quality.interactionScale : 1))?.texture
+      const raster = this.rasterFrame(context, camera, width, height, quality.resolutionScale * (moving ? quality.interactionScale : 1), moving ? 1 : quality.rasterSamples)
+      texture = raster?.texture
+      if (raster?.status && !raster.status.done) this.services.requestFrame()
+      if (config.mode === 'raster') this.status({ state: raster?.status.done ? 'ready' : 'rendering', backend: 'WebGL', samples: raster?.status.samples, targetSamples: raster?.status.targetSamples, message: this.resourceIssues?.map(issue => issue.message).join('; ') || (moving ? 'Interactive preview.' : 'Progressive anti-aliasing'), warning: raster?.status.reason })
       if (config.mode === 'pathtrace') {
         const reason = clippingPlanes.length ? 'Clipping uses real-time rendering.' : this.pathFailure
-        this.status({ state: reason ? 'fallback' : 'loading', backend: 'WebGL', message: reason || (moving ? 'Interactive preview; path tracing resumes when idle.' : 'Preparing WebGPU scene…') })
+        this.status({ state: reason ? 'fallback' : 'loading', backend: 'WebGL', message: reason || (moving ? 'Interactive preview; path tracing resumes when idle.' : 'Preparing path-tracing scene…') })
       }
     }
     this.composite(texture)
-    if (moving || (config.mode === 'pathtrace' && !this.pathFailure && !clippingPlanes.length && (!this.pathStatus?.done || this.pathCopy))) this.services.requestFrame()
+    // A synchronous GPU step can finish the last sample after copyPathImage.
+    // Schedule its final copy once, then allow the viewport to become idle.
+    if (moving || (config.mode === 'pathtrace' && !this.pathFailure && !clippingPlanes.length && (!this.pathStatus?.done || this.pathCopy || (this.pathReady && this.pathCopied !== this.pathStatus.samples)))) this.services.requestFrame()
     return !!texture
   }
 
@@ -302,22 +316,28 @@ export default class RenderEngine {
       const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height
       const context = canvas.getContext('2d')
       if (this.configuration.mode === 'pathtrace' && this.pathReady && !this.pathFailure && !this.services.getClippingPlanes().length) {
-        this.lastExportBackend = 'WebGPU'
+        this.lastExportBackend = 'WebGL2 · three-gpu-pathtracer'
         const sampleCount = Math.min(65536, Math.max(1, Math.floor(Number(samples) || 128)))
         this.pathTracer.setCamera(renderCameraDescriptor(camera))
-        this.pathTracer.configure({ bounces: this.configuration.quality.bounces, resolutionScale: 1, samples: sampleCount, exposure: this.configuration.effects.exposure })
+        this.pathTracer.configure({ bounces: this.configuration.quality.bounces, resolutionScale: 1, samples: sampleCount, exposure: this.configuration.effects.exposure, denoise: this.configuration.quality.denoise, denoiseStrength: this.configuration.quality.denoiseStrength })
         while (true) {
           check()
           const progress = this.pathTracer.step(width, height)
           if (progress.state === 'fallback') throw new Error(progress.reason)
-          this.status({ ...progress, backend: 'WebGPU', message: 'Exporting image…' })
+          this.status({ ...progress, backend: 'WebGL2 · three-gpu-pathtracer', message: 'Exporting image…' })
           if (progress.done) break
           await nextFrame()
         }
         await this.pathTracer.copyToCanvas(canvas)
       } else {
         this.lastExportBackend = 'WebGL'
-        const output = this.rasterFrame(this.services.sceneContext(), camera, width, height)
+        let output
+        do {
+          check()
+          output = this.rasterFrame(this.services.sceneContext(), camera, width, height, 1, this.configuration.quality.rasterSamples)
+          if (output?.status?.done !== false) break
+          await nextFrame()
+        } while (true)
         if (!output?.target || output.width !== width || output.height !== height) throw new Error('Requested export dimensions are unavailable on this GPU.')
         const pixels = new Uint8Array(width * height * 4)
         this.renderer.readRenderTargetPixels(output.target, 0, 0, width, height, pixels)

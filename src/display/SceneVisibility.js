@@ -1,4 +1,4 @@
-import { documentGeometryVisible, documentItemVisible, setDocumentItemVisible, applySharedDocumentVisibility } from '../GeometryDocumentViewState'
+import { documentItemVisible, setDocumentItemVisible, applySharedDocumentVisibility, applyLocalDocumentVisibility, sceneDocumentReference, sceneObjectLocked, setDocumentItemLocked, documentViewSnapshot, restoreDocumentViewSnapshot, setDocumentIsolation, documentReferenceContains } from '../GeometryDocumentViewState'
 import { materializeBrepSelection } from '../BrepDisplayRanges'
 
 export default class SceneVisibility {
@@ -9,6 +9,103 @@ export default class SceneVisibility {
     this.#services = services
   }
 
+  treeObjects () {
+    const objects = new Map()
+    for (const document of this.#services.getModelDocuments()) {
+      for (const scene of [document.three?.middleground, document.three?.foreground]) {
+        scene?.traverse(object => {
+          const data = object.userData || {}
+          if (data.renderBatch || data.nodePreview || data.selectionHighlight || data.groupEditBounds || object.isLight || object.isCamera || object.isScene) return
+          if (data.importedModelObject || data.importedBlockInstance || data.sharedObject || data.sharedDocument || data.selectionRole === 'whole' || (object.parent === scene && data.pandauiObjectId)) objects.set(object, document)
+        })
+      }
+      document.objectsByGeometryId?.forEach(object => objects.set(object, document))
+    }
+    this.#services.getPreviewScene?.()?.traverse(object => {
+      if (object.userData?.sharedObject || object.userData?.sharedDocument) objects.set(object, null)
+    })
+    return objects
+  }
+
+  refreshDocumentView () {
+    this.#services.refreshModelVisibility?.()
+    this.treeObjects().forEach((document, object) => {
+      if (object.userData.sharedObject || object.userData.sharedDocument) applySharedDocumentVisibility(object)
+      else applyLocalDocumentVisibility(object, document)
+    })
+    const selected = this.#services.getSelectedObjectRoot()
+    let hidden = false
+    for (let ancestor = selected; ancestor; ancestor = ancestor.parent) if (!ancestor.visible) hidden = true
+    if (selected && (hidden || sceneObjectLocked(selected))) {
+      this.#services.controlPoints?.stop?.(false)
+      this.#services.setSelectedObject(null)
+    }
+    this.#services.getModelDocuments().forEach(document => document.rebuildRenderBatches?.())
+    this.#services.setDirtyFlag(false)
+    window.dispatchEvent(new CustomEvent('pandaui-document-view-changed'))
+  }
+
+  applyDocumentViewState (state) {
+    restoreDocumentViewSnapshot(state)
+    this.refreshDocumentView()
+    return true
+  }
+
+  changeDocumentView (label, change) {
+    const before = documentViewSnapshot()
+    change()
+    const after = documentViewSnapshot()
+    this.refreshDocumentView()
+    this.#services.getOperations().recordState('scene.document_view', before, after, label)
+  }
+
+  childReferences (reference, candidate) {
+    if (!documentReferenceContains(reference, candidate)) return []
+    const targets = [candidate]
+    if (candidate.objectId && candidate.nativeDocumentId && candidate.geometryId) targets.push({ documentId: candidate.nativeDocumentId, geometryId: candidate.geometryId, poolGeneration: candidate.poolGeneration })
+    if (reference.geometryId || reference.objectId || reference.nodeInstanceId) return targets
+    const ids = [...new Set([reference.documentId, candidate.documentId, candidate.nativeDocumentId, candidate.privateDocumentId, candidate.publicDocumentId].filter(Boolean))]
+    for (const documentId of ids) {
+      // A private branch must not clear the state of its public ancestor.
+      if (documentId === candidate.publicDocumentId && reference.documentId !== documentId) continue
+      const document = { documentId, poolGeneration: documentId === candidate.nativeDocumentId || documentId === candidate.documentId ? candidate.poolGeneration : null }
+      if (!reference.layerPath) targets.push(document, { ...document, poolGeneration: null })
+      const parts = (candidate.layerPath || '').split('::').filter(Boolean)
+      parts.forEach((part, index) => {
+        const path = parts.slice(0, index + 1).join('::')
+        if (reference.layerPath && path !== reference.layerPath && !path.startsWith(reference.layerPath + '::')) return
+        targets.push({ ...document, layerPath: path }, { ...document, poolGeneration: null, layerPath: path })
+      })
+    }
+    return targets
+  }
+
+  showDocumentTreeChildren (reference) {
+    this.changeDocumentView('Show all children', () => {
+      setDocumentItemVisible(reference, true)
+      this.treeObjects().forEach((document, object) => {
+        const candidate = sceneDocumentReference(object, document?.localFileLoaded ? document.documentId : null)
+        this.childReferences(reference, candidate).forEach(target => setDocumentItemVisible(target, true))
+      })
+    })
+  }
+
+  setDocumentTreeLocked (reference, locked, descendants = false) {
+    this.changeDocumentView(locked ? 'Lock tree item' : descendants ? 'Unlock all children' : 'Unlock tree item', () => {
+      setDocumentItemLocked(reference, locked)
+      if (descendants) {
+        this.treeObjects().forEach((document, object) => {
+          const candidate = sceneDocumentReference(object, document?.localFileLoaded ? document.documentId : null)
+          this.childReferences(reference, candidate).forEach(target => setDocumentItemLocked(target, locked))
+        })
+      }
+    })
+  }
+
+  isolateDocumentTreeItem (reference) {
+    this.changeDocumentView(reference ? 'Isolate tree item' : 'End isolation', () => setDocumentIsolation(reference))
+  }
+
   setDocumentTreeVisibility (reference, visible, record = true) {
     const objects = this.#services.documentTreeObjects(reference)
     const before = documentItemVisible(reference)
@@ -17,15 +114,17 @@ export default class SceneVisibility {
       if (reference.geometryId && visible && !object.userData.nodePreview) object.userData.pandauiHidden = false
       const objectVisible = object.userData.nodePreview ? object.userData.documentTreeBaseVisible !== false : object.userData.pandauiHidden !== true
       if (object.userData.sharedObject || object.userData.sharedDocument) applySharedDocumentVisibility(object)
-      else object.visible = objectVisible && documentGeometryVisible({ ...object.userData, layerPath: object.fullLayerPath || object.userData.layerPath })
+      else {
+        const document = this.#services.getModelDocuments().find(doc => doc.documentId === reference.documentId)
+        applyLocalDocumentVisibility(object, document, objectVisible)
+      }
       if (object.visible) this.#hiddenObjects.delete(object)
     })
     const selected = this.#services.getSelectedObjectRoot()
-    const selectedVisible = selected?.visible !== false
+    let selectedVisible = true
+    for (let ancestor = selected; ancestor; ancestor = ancestor.parent) if (!ancestor.visible) selectedVisible = false
     if (selected && !selectedVisible) this.#services.setSelectedObject(null)
-    this.#services.setDirtyFlag(false)
-    this.#services.getModelDocuments().forEach(document => document.rebuildRenderBatches?.())
-    window.dispatchEvent(new CustomEvent('pandaui-document-view-changed'))
+    this.refreshDocumentView()
     if (record && before !== visible) this.#services.getOperations().recordState('scene.document_visibility', { reference, visible: before }, { reference, visible }, visible ? 'Show document object' : 'Hide document object')
   }
 

@@ -21,14 +21,14 @@ const types = [
   ['stl', 'STL mesh', ['stl']],
   ['ply', 'Polygon file', ['ply']],
   ['drc', 'Draco mesh', ['drc']],
-  ['dwg', 'AutoCAD DWG (Backend)', ['dwg']],
-  ['skp', 'SketchUp (Backend)', ['skp']]
+  ['dwg', 'AutoCAD DWG (Frontend)', ['dwg']],
+  ['skp', 'SketchUp', ['skp']]
 ]
 export const MODEL_FILE_TYPES = types.map(([id, label, suffixes]) => {
   const extensions = suffixes.map(value => '.' + value)
   return { id, label, extensions, accept: extensions.join(','), icon: 'view_in_ar' }
 })
-export const FRONTEND_EXTENSIONS = MODEL_FILE_TYPES.flatMap(type => ['dwg', 'skp'].includes(type.id) ? [] : type.extensions)
+export const FRONTEND_EXTENSIONS = MODEL_FILE_TYPES.flatMap(type => type.extensions)
 export const BACKEND_EXTENSIONS = ['.3dm', '.stp', '.step', '.skp', '.dwg', '.dxf']
 export const modelFileExtension = file => '.' + String(file?.name || '').split('.').pop().toLowerCase()
 export const SIDECAR_ACCEPT = '.bin,.mtl,.png,.jpg,.jpeg,.webp,.bmp,.tga,.dds,.gif,.ktx,.ktx2'

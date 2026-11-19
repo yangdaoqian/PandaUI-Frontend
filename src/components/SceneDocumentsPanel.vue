@@ -22,14 +22,22 @@
     </div>
     <div class="scene-documents__private">
       <div class="scene-documents__heading"><strong>Private documents</strong><span>{{ openedCount }} open</span></div>
+      <q-select v-if="localOptions.length" dense outlined emit-value map-options :model-value="localSelection" :options="localOptions" label="Local document" @update:model-value="selectLocal" />
       <div class="scene-documents__private-actions">
-        <q-btn flat dense no-caps icon="folder_open" label="Open" :disable="busy || state.busy || !state.publicDocumentId" @click="openLibrary('open')" />
-        <q-btn flat dense no-caps icon="file_upload" label="Import" :disable="!canCreatePrivate || importing" @click="$emit('import')" />
-        <q-btn flat dense no-caps icon="add" label="New" :disable="!canCreatePrivate" @click="creating = creating === 'private' ? '' : 'private'" />
-        <q-btn flat dense no-caps icon="save" label="Save" :disable="!canCreatePrivate || importing || !state.privateDocumentId" @click="run(() => workspace.saveDocument())" />
-        <q-btn flat dense no-caps icon="delete_outline" label="Delete" :disable="!canCreatePrivate" @click="openLibrary('delete')" />
+        <q-btn flat dense no-caps icon="folder_open" label="Open folder" :disable="busy || importing || state.localFolderBusy" @click="openFolder" />
+        <q-btn flat dense no-caps icon="file_upload" label="Import source file" :disable="busy || importing" @click="$emit('import')" />
+        <q-btn flat dense no-caps icon="add" label="New" :disable="busy || importing" @click="creating = creating === 'private' ? '' : 'private'" />
+        <q-btn flat dense no-caps icon="save" label="Save locally" :disable="busy || importing || state.localFolderBusy || !localSelection" @click="saveFolder(false)" />
+        <q-btn flat dense no-caps icon="save_as" label="Save as" :disable="busy || importing || state.localFolderBusy || !localSelection" @click="saveFolder(true)" />
+        <q-btn flat dense no-caps icon="image" label="Save render data" :loading="busy" :disable="busy || importing || state.localFolderBusy || !localOptions.length" @click="saveRenderFolder" />
+        <q-btn flat dense no-caps icon="image_search" label="Import render data" :disable="busy || importing || state.localFolderBusy" @click="openRenderFolder" />
+        <q-btn flat dense no-caps icon="cloud" label="Server library" :disable="busy || state.busy || !state.publicDocumentId || state.localMode" @click="openLibrary('open')" />
+        <q-btn flat dense no-caps icon="cloud_upload" label="Save to server" :disable="!canCreatePrivate || importing || !state.privateDocumentId" @click="run(() => workspace.saveDocument())" />
+        <q-btn flat dense no-caps icon="delete_outline" label="Delete on server" :disable="!canCreatePrivate" @click="openLibrary('delete')" />
       </div>
-      <div class="scene-documents__caption">Open replaces your unsaved documents in this workspace. Import adds a document. Save keeps its display cache; Publish also uploads original geometry.</div>
+      <div class="scene-documents__caption">Save locally keeps original geometry; Save render data keeps display data, materials and render settings.</div>
+      <div v-if="!localOptions.length" class="scene-documents__caption">Open, import or create a private document before saving render data.</div>
+      <div v-if="localProgress" class="scene-documents__caption" role="status">{{ localProgress }} <q-btn v-if="busy" flat dense no-caps label="Cancel" @click="workspace.app.localFolderController?.abort()" /></div>
     </div>
     <form v-if="creating" class="scene-documents__create" @submit.prevent="create">
       <q-input v-model="name" dense outlined autofocus :label="creating === 'public' ? 'Public document name' : 'Private document name'" maxlength="128" />
@@ -119,12 +127,74 @@ export default {
     const memberName = ref('')
     const memberRole = ref('viewer')
     const accountOptions = ref([])
+    const localProgress = ref('')
+    const localOptions = computed(() => (props.state.localDocuments || []).map(doc => ({ label: doc.name, value: doc.documentId })))
+    const localSelection = computed(() => {
+      const selected = props.state.localPrivateDocumentId
+      return selected && localOptions.value.some(option => option.value === selected) ? selected : localOptions.value.at(-1)?.value || ''
+    })
+    const selectLocal = id => props.workspace.selectLocalPrivate(id)
+    const progress = state => { localProgress.value = `${state.phase} · ${state.completed || 0}${state.total ? ' / ' + state.total : ''}` }
+    let folderPickerActive = false
+    const chooseFolder = () => {
+      if (!window.showDirectoryPicker) throw new Error('Folder access requires Edge or Chrome on HTTPS or localhost.')
+      if (folderPickerActive) return Promise.reject(new DOMException('A folder picker is already open.', 'InvalidStateError'))
+      folderPickerActive = true
+      return window.showDirectoryPicker({ mode: 'readwrite' }).finally(() => { folderPickerActive = false })
+    }
+    const pickerError = failure => {
+      error.value = failure.name === 'AbortError' ? 'Folder selection was cancelled or closed.' : failure.message || 'Unable to access the selected folder.'
+      localProgress.value = ''
+    }
+    const ensureFolderWritePermission = async directory => {
+      if (!directory?.requestPermission) return
+      const permission = await directory.requestPermission({ mode: 'readwrite' })
+      if (permission !== 'granted') throw new DOMException('Write permission was not granted for the selected folder.', 'AbortError')
+    }
+    const projectDirectory = async (parent, id, suffix) => {
+      const doc = props.workspace.app.modelDocuments?.().find(candidate => candidate.documentId === id || candidate.workspaceDocumentId === id)
+      if (!doc) throw new Error('Select an opened frontend private document.')
+      const name = Array.from(doc.name).filter(character => character.charCodeAt(0) >= 32).join('').replace(/\.[^.]+$/, '').replace(/[<>:"/\\|?*]/g, '_').slice(0, 80) || 'Document'
+      return parent.getDirectoryHandle(`${name}-${doc.documentId}.${suffix}`, { create: true })
+    }
+    const openFolder = async () => {
+      if (busy.value || folderPickerActive) return
+      let directory
+      try { directory = await chooseFolder() } catch (failure) { pickerError(failure); return }
+      await run(async () => { localProgress.value = 'Opening folder...'; await props.workspace.app.openLocalDocumentFolder({ directory, onProgress: progress }); localProgress.value = 'Document opened.' })
+    }
+    const saveFolder = async saveAs => {
+      if (busy.value || folderPickerActive) return
+      let directory
+      try {
+        const parent = await chooseFolder()
+        await ensureFolderWritePermission(parent)
+        directory = await projectDirectory(parent, localSelection.value, 'panda')
+      } catch (failure) { pickerError(failure); return }
+      await run(async () => { localProgress.value = 'Saving document...'; await props.workspace.app.saveLocalDocumentFolder(localSelection.value, { directory, saveAs: false, onProgress: progress }); localProgress.value = 'Document saved locally.' })
+    }
+    const saveRenderFolder = async () => {
+      if (busy.value || folderPickerActive) return
+      let directory
+      try {
+        const parent = await chooseFolder()
+        await ensureFolderWritePermission(parent)
+        directory = await projectDirectory(parent, localSelection.value, 'panda-render')
+      } catch (failure) { pickerError(failure); return }
+      await run(async () => { localProgress.value = 'Saving render data...'; await props.workspace.app.saveLocalRenderDataFolder(localSelection.value, { directory, permissionChecked: true, onProgress: progress }); localProgress.value = 'Render data saved.' })
+    }
+    const openRenderFolder = async () => {
+      if (busy.value || folderPickerActive) return
+      let directory
+      try { directory = await chooseFolder() } catch (failure) { pickerError(failure); return }
+      await run(async () => { localProgress.value = 'Opening render data...'; await props.workspace.app.openLocalRenderDataFolder({ directory, onProgress: progress }); localProgress.value = 'Render data opened.' })
+    }
     let accountSearch = 0
     const selectedPublic = computed(() => props.state.documents.find(entry => entry.documentId === props.state.publicDocumentId))
     const canCreatePrivate = computed(() => !props.state.localMode && !busy.value && !props.state.busy && ['owner', 'editor'].includes(selectedPublic.value?.role))
     const isOpen = id => (props.state.openedPrivateDocumentIds || []).includes(id)
     const privateDocuments = computed(() => props.state.documents.filter(entry => entry.kind === 'private' && !entry.publishedAt && entry.publicDocumentId === props.state.publicDocumentId && ownsWorkspaceDocument(entry, props.state)))
-    const openedCount = computed(() => privateDocuments.value.filter(entry => isOpen(entry.documentId)).length)
+    const openedCount = computed(() => (props.state.localDocuments || []).length + privateDocuments.value.filter(entry => isOpen(entry.documentId) && !(props.state.localDocuments || []).some(local => local.workspaceDocumentId === entry.documentId)).length)
     const savedPrivateDocuments = computed(() => privateDocuments.value.filter(entry => (libraryMode.value === 'delete' || entry.savedAt) && (entry.name + ' ' + entry.documentId).toLowerCase().includes((documentSearch.value || '').trim().toLowerCase())))
     const selectedSavedDocument = computed(() => savedPrivateDocuments.value.find(entry => entry.documentId === selectedDocumentId.value))
     watch(() => props.state.publicDocumentId, () => { libraryDialog.value = false; pendingDelete.value = null; creating.value = ''; selectedDocumentId.value = '' })
@@ -156,10 +226,10 @@ export default {
       if (busy.value) return
       busy.value = true
       error.value = ''
-      try { await action() } catch (failure) { error.value = failure.message } finally { busy.value = false }
+      try { await action() } catch (failure) { localProgress.value = ''; if (failure.name !== 'AbortError') error.value = failure.message } finally { busy.value = false }
     }
     async function create () {
-      await run(() => creating.value === 'public' ? props.workspace.createPublic(name.value.trim()) : props.workspace.createPrivate(name.value.trim()))
+      await run(() => creating.value === 'public' ? props.workspace.createPublic(name.value.trim()) : props.workspace.app.createLocalPrivateDocument(name.value.trim()))
       if (!error.value) { creating.value = ''; name.value = '' }
     }
     async function openLibrary (mode) {
@@ -183,7 +253,7 @@ export default {
       await run(() => props.workspace.deleteDocument(pendingDelete.value.documentId))
       if (!error.value) { pendingDelete.value = null; selectedDocumentId.value = '' }
     }
-    return { busy, error, creating, name, publicOptions, run, create, selectedPublic, membersDialog, members, memberName, memberRole, accountOptions, searchAccounts, openMembers, updateMember, canCreatePrivate, openedCount, isOpen, libraryDialog, libraryMode, documentSearch, selectedDocumentId, selectedSavedDocument, savedPrivateDocuments, openLibrary, openSavedDocument, pendingDelete, deleteSavedDocument }
+    return { busy, error, creating, name, publicOptions, run, create, selectedPublic, membersDialog, members, memberName, memberRole, accountOptions, searchAccounts, openMembers, updateMember, canCreatePrivate, openedCount, isOpen, libraryDialog, libraryMode, documentSearch, selectedDocumentId, selectedSavedDocument, savedPrivateDocuments, openLibrary, openSavedDocument, pendingDelete, deleteSavedDocument, localOptions, localSelection, selectLocal, localProgress, openFolder, saveFolder, saveRenderFolder, openRenderFolder }
   }
 }
 </script>
@@ -198,6 +268,7 @@ export default {
 .scene-documents__private .scene-documents__heading { font-size: 12px; }
 .scene-documents__private .scene-documents__heading span { opacity: .65; font-size: 11px; }
 .scene-documents__private-actions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.scene-documents__render-name { grid-column: 1 / -1; min-width: 0; }
 .scene-documents__private-actions .q-btn { font-size: 11px; }
 .scene-documents__library { width: 500px; max-width: 95vw; }
 .scene-documents__library-list { max-height: 45vh; overflow: auto; margin-top: 8px; }

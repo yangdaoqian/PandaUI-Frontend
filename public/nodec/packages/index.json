@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "packages": [
+    "./nodecurvec/manifest.json",
+    "./nodepointc/manifest.json",
+    "./nodemeshc/manifest.json",
+    "./nodesurfacec/manifest.json",
+    "./nodemathc/manifest.json",
+    "./nodexformc/manifest.json",
+    "./nodetrianglec/manifest.json"
+  ]
+}

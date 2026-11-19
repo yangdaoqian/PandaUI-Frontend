@@ -26,7 +26,7 @@ window.PandaUIEditorReady = (async function (global) {
 
   function setNativeNodeState (node, state, error) {
     var definition = node && node.getComponentDefinition ? node.getComponentDefinition() : null
-    if (!node || node._ghEntry || (definition && definition.metadata && definition.metadata.ghEntry)) return
+    if (!node || node._ghEntry || (definition && definition.metadata && definition.metadata.ghEntry) || (definition && definition.execution === 'wasm-package')) return
     node._executionState = state
     node._executionError = error ? (error.message || String(error)) : null
     if (node.getNodeAttributes) node.getNodeAttributes().setExecutionState(state, error)
@@ -149,6 +149,15 @@ window.PandaUIEditorReady = (async function (global) {
     if (global.parent === global || typeof global.getPandaUINodePluginCatalog !== 'function') return
     global.parent.postMessage({ type: 'pandaui-node-plugin-catalog', plugins: global.getPandaUINodePluginCatalog() }, global.location.origin)
   }
+
+  global.addEventListener('pandaui-wasm-packages-loaded', function () {
+    restoreAvailableMissingNodes()
+    sendPluginCatalog()
+  })
+
+  global.PandaUIWasmPackagesReady = import('/editor/src/pandaui-wasm-packages.js?v=20261116-1')
+    .then(function () { return global.PandaUIWasmPackages.ready })
+    .catch(function (error) { console.error('Unable to initialize WASM node packages:', error) })
 
   function reportExecutionState (lastAction) {
     if (global.parent === global) return

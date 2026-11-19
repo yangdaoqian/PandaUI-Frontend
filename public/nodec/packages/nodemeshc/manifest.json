@@ -1,0 +1,610 @@
+{
+  "schemaVersion": 1,
+  "abiVersion": 1,
+  "id": "nodemeshc",
+  "name": "NodeMeshC",
+  "version": "0.1.0",
+  "stage": "registration-only",
+  "module": "NodeMeshC.wasm",
+  "nodes": [
+    {
+      "id": "3b6151d3-7907-4d4a-8761-d7d6ea2bf32c",
+      "name": "Mesh Flip",
+      "nickname": "Flip",
+      "description": "Reverse the direction of the mesh",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "4373a3f7-7b9a-4379-bb16-a760ba0dde4f",
+      "name": "Mesh Explode",
+      "nickname": "Explode",
+      "description": "Decompose a mesh into its faces",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Interpolate",
+          "nickname": "I",
+          "description": "Interpolate vertex Colours",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "5ef8ffe8-789a-45cf-8232-46be0fc552a6",
+      "name": "Mesh FromPoints",
+      "nickname": "FromPoints",
+      "description": "Create a mesh from a grid of points.",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Grid of points",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "U direction",
+          "nickname": "U",
+          "description": "Number of points in {u} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "V direction",
+          "nickname": "V",
+          "description": "Number of points in {v} direction",
+          "type": "integer",
+          "access": "item"
+        },
+        {
+          "name": "Colour",
+          "nickname": "C",
+          "description": "Optional vertex colours",
+          "type": "colour",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "699b34f9-e985-4048-8b18-301210de8a3c",
+      "name": "3D Voronoi",
+      "nickname": "3DVoro",
+      "description": "Computes the 3D voronoi cells of a pointcloud based on MIConvexHull by David Sehnal, Matthew Campbell",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for 3D Voronoi cells",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Boundingbox",
+          "nickname": "B",
+          "description": "Calculate per cell or boundingbox",
+          "type": "generic",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "3D voronoi cells",
+          "nickname": "M",
+          "description": "VornoiCell",
+          "type": "generic",
+          "access": "tree"
+        },
+        {
+          "name": "Connectivity",
+          "nickname": "C",
+          "description": "Topological Connectivity Diagram",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "743c7d57-100d-4418-b623-a7ca47a11d05",
+      "name": "Mesh NakedEdge",
+      "nickname": "NakedEdge",
+      "description": "Find naked edges",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "V",
+          "nickname": "V",
+          "description": "mesh Vertices",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "A",
+          "nickname": "A",
+          "description": "Index of Start-Vertex for each open Edge",
+          "type": "integer",
+          "access": "list"
+        },
+        {
+          "name": "B",
+          "nickname": "B",
+          "description": "Index of End-Vertex for each open Edge",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "770b71bf-1a1d-45d1-bc55-cc2a6b097070",
+      "name": "Mesh ExtractAttributes",
+      "nickname": "ExtractAttr",
+      "description": "Extract attributes from a Mesh",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to add Attributes",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Data",
+          "nickname": "D",
+          "description": "Data List",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Attr 0",
+          "nickname": "0",
+          "description": "Extracted attribute #0",
+          "type": "generic",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "84d708eb-a8dc-4afd-94eb-ba953fddfd19",
+      "name": "3D Delaunay",
+      "nickname": "Del3D",
+      "description": "Computes the 3D delaunay of a pointcloud based based on MIConvexHull by David Sehnal, Matthew Campbell",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for 3D delaunay",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Topological Edges",
+          "nickname": "E",
+          "description": "Topological Edges",
+          "type": "line",
+          "access": "list"
+        },
+        {
+          "name": "Connectivity",
+          "nickname": "C",
+          "description": "Topological Connectivity Diagram",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "98c2a1f2-5ba6-4be0-8999-c540097406c2",
+      "name": "Mesh CullUnused Vertices",
+      "nickname": "cullVertices",
+      "description": "Cull (remove) all vertices that are currently not used by the Face list",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "98c2a1f2-5ba6-4be0-8999-c540097406c5",
+      "name": "Mesh UnifyNormals",
+      "nickname": "UnifyNormals",
+      "description": "Attempts to fix inconsistencies in the directions of meshfaces for a mesh",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "a8395a34-6153-4357-b4d5-76e68364b9d8",
+      "name": "Mesh Volume",
+      "nickname": "Volume",
+      "description": "Solve mesh Volume properties",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Only closed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Volume",
+          "nickname": "V",
+          "description": "Volume of mesh",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Centroid",
+          "nickname": "C",
+          "description": "Volume centroid of mesh",
+          "type": "point",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "b156650f-5b94-4b59-9ad5-ad466435d1bc",
+      "name": "Mesh AddAttributes",
+      "nickname": "AddAttr2Mesh",
+      "description": "Add Attributes to a Mesh",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "Mesh to add Attributes",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Clear",
+          "nickname": "[C]",
+          "description": "Clear all Attributes",
+          "type": "boolean",
+          "access": "item"
+        },
+        {
+          "name": "Data 0",
+          "nickname": "Data 0",
+          "description": "Attribute to add #0",
+          "type": "generic",
+          "access": "list"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "bd02ca11-f570-45d4-932c-3c7469902267",
+      "name": "Mesh Area",
+      "nickname": "Area",
+      "description": "Solve mesh Area properties",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Area",
+          "nickname": "A",
+          "description": "Area of mesh",
+          "type": "number",
+          "access": "item"
+        },
+        {
+          "name": "Centroid",
+          "nickname": "C",
+          "description": "Area centroid of mesh",
+          "type": "point",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "bef0c4be-a26d-46e2-82f7-de69680eedf5",
+      "name": "Mesh Triangulate",
+      "nickname": "Triangulate",
+      "description": "Convert quads to triangles",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "ShortDiagonal",
+          "nickname": "S",
+          "description": "Split along the short diagonal",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The new constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "ca8ed91e-054e-4b5d-9539-ed7d9574e497",
+      "name": "3D DelaunayCell",
+      "nickname": "Del3DCell",
+      "description": "Computes the 3D delaunay Tetrahedron of a pointcloud based on MIConvexHull by David Sehnal, Matthew Campbell",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for 3D delaunay",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "3D delaunay cells",
+          "nickname": "M",
+          "description": "Tetrahedron",
+          "type": "generic",
+          "access": "list"
+        },
+        {
+          "name": "Cell Indices",
+          "nickname": "CID",
+          "description": "The 4 indices of the Tetrahendron's original points",
+          "type": "integer",
+          "access": "tree"
+        }
+      ]
+    },
+    {
+      "id": "d2fd39e7-a0e5-43e7-80a5-0a49210b24e7",
+      "name": "Convex Hull Points",
+      "nickname": "HullPt",
+      "description": "Computes the Convex Hull points for 2D or 3D  based on MIConvexHull by David Sehnal, Matthew Campbell",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for 2D/3D Convex Hull Solution",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ConvexHull",
+          "nickname": "P",
+          "description": "Points of the Convex Hull in 2D or 3D",
+          "type": "point",
+          "access": "list"
+        },
+        {
+          "name": "Indices",
+          "nickname": "ID",
+          "description": "Indices of the Points on the Convex Hull",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    },
+    {
+      "id": "eef023a5-5aac-40b5-ad18-4d550b40a8e2",
+      "name": "3D ConvexHull",
+      "nickname": "ConvexHull",
+      "description": "Computes the Convex Hull surface based on MIConvexHull by David Sehnal, Matthew Campbell",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Points",
+          "nickname": "P",
+          "description": "Points for 3D Convex Hull Solution",
+          "type": "point",
+          "access": "list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ConvexHullSurface",
+          "nickname": "M",
+          "description": "ConvexMesh",
+          "type": "generic",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "f1f51397-fc4b-44cf-b4b0-0ab80a80a6e1",
+      "name": "Mesh WeldVertices",
+      "nickname": "weldVertices",
+      "description": "Merge identical or vertices in threshold range",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "tolerance",
+          "nickname": "t",
+          "description": "Weld threshold value for Vertices",
+          "type": "number",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RuntimeMessage",
+          "nickname": "out",
+          "description": "Print, Reflect and Error Streams",
+          "type": "string",
+          "access": "list"
+        },
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        }
+      ]
+    },
+    {
+      "id": "fae7a1bf-38c0-4e49-a89f-1283ad4d1ea3",
+      "name": "Mesh ConvertQuads",
+      "nickname": "ConvQuads",
+      "description": "Convert non planar quads to triangles",
+      "category": "MeshEdit",
+      "status": "pending",
+      "inputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The open or closed mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "ShortDiagonal",
+          "nickname": "S",
+          "description": "Split along the short diagonal",
+          "type": "boolean",
+          "access": "item"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Mesh",
+          "nickname": "M",
+          "description": "The constructed mesh",
+          "type": "mesh",
+          "access": "item"
+        },
+        {
+          "name": "Split",
+          "nickname": "O",
+          "description": "0/1",
+          "type": "integer",
+          "access": "list"
+        }
+      ]
+    }
+  ]
+}

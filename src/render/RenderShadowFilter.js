@@ -15,14 +15,16 @@ float pandaShadowTap(sampler2D map, vec2 uv, vec2 size, float depth) {
 }
 `
 const pcf = `
-  float total = 0.0;
+  float total = 0.0; float weights = 0.0;
   for (int y = -1; y <= 1; y++) {
     for (int x = -1; x <= 1; x++) {
       vec2 offset = vec2(float(x), float(y)) * shadowRadius / shadowMapSize;
-      total += pandaShadowTap(shadowMap, shadowCoord.xy + offset, shadowMapSize, shadowCoord.z);
+      float weight = (x == 0 ? 2.0 : 1.0) * (y == 0 ? 2.0 : 1.0);
+      total += weight * pandaShadowTap(shadowMap, shadowCoord.xy + offset, shadowMapSize, shadowCoord.z);
+      weights += weight;
     }
   }
-  shadow = total / 9.0;
+  shadow = total / weights;
 `
 const chunk = THREE.ShaderChunk.shadowmap_pars_fragment
   .replace('float getShadow(', bilinear + '\nfloat getShadow(')
@@ -35,6 +37,6 @@ export function applyRenderShadowFilter (material) {
     compile.call(this, shader, renderer)
     shader.fragmentShader = shader.fragmentShader.replace('#include <shadowmap_pars_fragment>', chunk)
   }
-  material.customProgramCacheKey = () => key + ':pandaui-bilinear-pcf-v1'
+  material.customProgramCacheKey = () => key + ':pandaui-bilinear-pcf-v2'
   return material
 }

@@ -3,1285 +3,207 @@
   "status": "maintainer-authorized-public-repository-algorithm-review-deferred",
   "copied": [
     {
-      "source": "src/account/AccountRequest.js",
-      "destination": "src/account/AccountRequest.js",
-      "bytes": 1646,
-      "sourceSha256": "9129a7f3456b36ff2f79f654457515fa81a63a4f6ad6a584df651ac6b57deafe",
-      "exportSha256": "9129a7f3456b36ff2f79f654457515fa81a63a4f6ad6a584df651ac6b57deafe"
+      "source": ".eslintignore",
+      "destination": ".eslintignore",
+      "bytes": 7,
+      "sourceSha256": "50cbb0013b58ba160c08dd046fd836585f4e0626a0fad149b54581e15765048a",
+      "exportSha256": "50cbb0013b58ba160c08dd046fd836585f4e0626a0fad149b54581e15765048a"
     },
     {
-      "source": "src/account/LoginCredentials.js",
-      "destination": "src/account/LoginCredentials.js",
-      "bytes": 1794,
-      "sourceSha256": "abc1f7c263217521d9e14df4b6908f858535d8bfcbbdb99709386e633bcfa08d",
-      "exportSha256": "abc1f7c263217521d9e14df4b6908f858535d8bfcbbdb99709386e633bcfa08d"
+      "source": ".eslintrc.js",
+      "destination": ".eslintrc.js",
+      "bytes": 1491,
+      "sourceSha256": "e6708c596dc851ebfac08d9afb66f4226e2a8542bdceaa400d710428a1bc7223",
+      "exportSha256": "e6708c596dc851ebfac08d9afb66f4226e2a8542bdceaa400d710428a1bc7223"
     },
     {
-      "source": "src/AdaptiveViewport.js",
-      "destination": "src/AdaptiveViewport.js",
-      "bytes": 8704,
-      "sourceSha256": "2993e279b4659512cb4d90f26512c797b4fc3c1d47be3140d704ac7d169b1835",
-      "exportSha256": "2993e279b4659512cb4d90f26512c797b4fc3c1d47be3140d704ac7d169b1835"
+      "source": ".postcssrc.js",
+      "destination": ".postcssrc.js",
+      "bytes": 208,
+      "sourceSha256": "b0cad86d574accca25bc33557ab4b5082f41f03de4433c843a3629d46b86baa3",
+      "exportSha256": "b0cad86d574accca25bc33557ab4b5082f41f03de4433c843a3629d46b86baa3"
     },
     {
-      "source": "src/App.vue",
-      "destination": "src/App.vue",
-      "bytes": 823,
-      "sourceSha256": "d72b800b7d47e758df9a24590ac31078a149f7d5f0e780f75cef0bdf83a7c0c1",
-      "exportSha256": "bf31f5118abd995afeb0940ed1af1c8614de99dfa37ac2600d394a2f3225c7ad"
+      "source": ".stylintrc",
+      "destination": ".stylintrc",
+      "bytes": 850,
+      "sourceSha256": "2fe9a79a3a40f51ab9845bd8d17f22769309dac313b51da11d441aa23132a5fe",
+      "exportSha256": "2fe9a79a3a40f51ab9845bd8d17f22769309dac313b51da11d441aa23132a5fe"
     },
     {
-      "source": "src/BackendPandaUIDoc.js",
-      "destination": "src/BackendPandaUIDoc.js",
-      "bytes": 89552,
-      "sourceSha256": "2e02854dc481a3b9491ffbc11e4f1240108887acb0774081820a27598ade46f7",
-      "exportSha256": "2e02854dc481a3b9491ffbc11e4f1240108887acb0774081820a27598ade46f7"
+      "source": "AGENTS.md",
+      "destination": "AGENTS.md",
+      "bytes": 2137,
+      "sourceSha256": "e11c1d8a144c5d94a190ee1669bb6177948d84de90f324b5b60c840770a549d6",
+      "exportSha256": "e11c1d8a144c5d94a190ee1669bb6177948d84de90f324b5b60c840770a549d6"
     },
     {
-      "source": "src/boot/.gitkeep",
-      "destination": "src/boot/.gitkeep",
-      "bytes": 0,
-      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "source": "LICENSE",
+      "destination": "LICENSE",
+      "bytes": 1102,
+      "sourceSha256": "b1227eea76e856455b7ec9c9cdf987748dcfa7a7aeba7c2455986220e5e2d540",
+      "exportSha256": "b1227eea76e856455b7ec9c9cdf987748dcfa7a7aeba7c2455986220e5e2d540"
     },
     {
-      "source": "src/BrepDisplayRanges.js",
-      "destination": "src/BrepDisplayRanges.js",
-      "bytes": 10275,
-      "sourceSha256": "5cb61129460bed19025069461d76f8266834d6643ebd04656d071145ad67c3cc",
-      "exportSha256": "5cb61129460bed19025069461d76f8266834d6643ebd04656d071145ad67c3cc"
+      "source": "babel.config.js",
+      "destination": "babel.config.js",
+      "bytes": 74,
+      "sourceSha256": "cb6cbec710b3ee9e83891fe763485a647350a76f3c0f53bd2a9071c25493a377",
+      "exportSha256": "cb6cbec710b3ee9e83891fe763485a647350a76f3c0f53bd2a9071c25493a377"
     },
     {
-      "source": "src/CameraFraming.js",
-      "destination": "src/CameraFraming.js",
-      "bytes": 3008,
-      "sourceSha256": "b3c4c1ee962ee640325d5ea2860a7e9da9a9bc38df99301cbb30cdd95dfcaa75",
-      "exportSha256": "b3c4c1ee962ee640325d5ea2860a7e9da9a9bc38df99301cbb30cdd95dfcaa75"
+      "source": "docs/BREP_MESHING.md",
+      "destination": "docs/BREP_MESHING.md",
+      "bytes": 3700,
+      "sourceSha256": "3a07780f8173b9b52c79c878d66073a0d3a286b1a24eae015a7e53f75e4cffa4",
+      "exportSha256": "3a07780f8173b9b52c79c878d66073a0d3a286b1a24eae015a7e53f75e4cffa4"
     },
     {
-      "source": "src/ChunkStreamReader.js",
-      "destination": "src/ChunkStreamReader.js",
-      "bytes": 1535,
-      "sourceSha256": "f0368701e40cf9991ec9a5092920bf8b8f8cd4383f838b1aae0581d270485a6d",
-      "exportSha256": "f0368701e40cf9991ec9a5092920bf8b8f8cd4383f838b1aae0581d270485a6d"
+      "source": "docs/FRONTEND_SYNC.md",
+      "destination": "docs/FRONTEND_SYNC.md",
+      "bytes": 12978,
+      "sourceSha256": "85de3fab6044c5416162bbdb48bdb08617c135672dbeaece0306a7400eaa1a7d",
+      "exportSha256": "85de3fab6044c5416162bbdb48bdb08617c135672dbeaece0306a7400eaa1a7d"
     },
     {
-      "source": "src/ClippingPlaneDisplay.js",
-      "destination": "src/ClippingPlaneDisplay.js",
-      "bytes": 18410,
-      "sourceSha256": "e415ebe233e938523b3513ba61725a61aef4068a8c8f44e81806ffa467523a86",
-      "exportSha256": "e415ebe233e938523b3513ba61725a61aef4068a8c8f44e81806ffa467523a86"
+      "source": "docs/LOCAL_DOCUMENT_STORAGE.md",
+      "destination": "docs/LOCAL_DOCUMENT_STORAGE.md",
+      "bytes": 13554,
+      "sourceSha256": "776a924b46b45c8a1e4576ba2b68f14c8fb71f730cbeeae1fbba5432e8228146",
+      "exportSha256": "776a924b46b45c8a1e4576ba2b68f14c8fb71f730cbeeae1fbba5432e8228146"
     },
     {
-      "source": "src/collaboration/DisplayPackTransfer.js",
-      "destination": "src/collaboration/DisplayPackTransfer.js",
-      "bytes": 1899,
-      "sourceSha256": "22d8a9eae33ef94d53be29a7069efd87c946a1a76f54b3df02170c5b76f3d5ac",
-      "exportSha256": "22d8a9eae33ef94d53be29a7069efd87c946a1a76f54b3df02170c5b76f3d5ac"
+      "source": "docs/PATH_TRACER_MIGRATION.md",
+      "destination": "docs/PATH_TRACER_MIGRATION.md",
+      "bytes": 12258,
+      "sourceSha256": "9156ecf589422a975ac6f5cf385d34ff3a2ac30e7ca8244ac3c0b891baf9d7a8",
+      "exportSha256": "9156ecf589422a975ac6f5cf385d34ff3a2ac30e7ca8244ac3c0b891baf9d7a8"
     },
     {
-      "source": "src/collaboration/DisplayTaskPool.js",
-      "destination": "src/collaboration/DisplayTaskPool.js",
-      "bytes": 953,
-      "sourceSha256": "e8a99831da022b2183e8d1c215b6062cbd57adcbec969bbec7bb0c409d02b4ff",
-      "exportSha256": "e8a99831da022b2183e8d1c215b6062cbd57adcbec969bbec7bb0c409d02b4ff"
+      "source": "docs/RENDER_MATERIAL_FIXES.md",
+      "destination": "docs/RENDER_MATERIAL_FIXES.md",
+      "bytes": 28854,
+      "sourceSha256": "bb3a40da4144ee6803df5f472be2d26b1b32340d9120952b312b65bd441cd02f",
+      "exportSha256": "bb3a40da4144ee6803df5f472be2d26b1b32340d9120952b312b65bd441cd02f"
     },
     {
-      "source": "src/collaboration/FrontendGeometryExport.worker.js",
-      "destination": "src/collaboration/FrontendGeometryExport.worker.js",
-      "bytes": 3537,
-      "sourceSha256": "74c929f9a2ffe4f7faf6debd782b2198cfe46d1aeaa401764058d13244fdf3b9",
-      "exportSha256": "74c929f9a2ffe4f7faf6debd782b2198cfe46d1aeaa401764058d13244fdf3b9"
+      "source": "docs/SKP_IMPORT.md",
+      "destination": "docs/SKP_IMPORT.md",
+      "bytes": 13587,
+      "sourceSha256": "30a16c85a330ab735845b0c037f9e29bff114be3203ad702cd341326ce090b02",
+      "exportSha256": "30a16c85a330ab735845b0c037f9e29bff114be3203ad702cd341326ce090b02"
     },
     {
-      "source": "src/collaboration/FrontendGeometryPublisher.js",
-      "destination": "src/collaboration/FrontendGeometryPublisher.js",
-      "bytes": 6983,
-      "sourceSha256": "4f783b00268769960351c61c9eec42ae7dd0cb17709e2e5601906a507a06634e",
-      "exportSha256": "4f783b00268769960351c61c9eec42ae7dd0cb17709e2e5601906a507a06634e"
+      "source": "docs/STEP_IMPORT.md",
+      "destination": "docs/STEP_IMPORT.md",
+      "bytes": 40393,
+      "sourceSha256": "7b5908d4efb6b35828287c3dc36320f06f28902998984e7e12db4502b457a6b4",
+      "exportSha256": "7b5908d4efb6b35828287c3dc36320f06f28902998984e7e12db4502b457a6b4"
     },
     {
-      "source": "src/collaboration/SceneDisplayPacket.js",
-      "destination": "src/collaboration/SceneDisplayPacket.js",
-      "bytes": 24229,
-      "sourceSha256": "d705b3eec37161dd1bb74c4d393eb9c636896901b0bc855edf3780ae5edde148",
-      "exportSha256": "d705b3eec37161dd1bb74c4d393eb9c636896901b0bc855edf3780ae5edde148"
+      "source": "docs/WASM_NODE_PACKAGES.md",
+      "destination": "docs/WASM_NODE_PACKAGES.md",
+      "bytes": 8632,
+      "sourceSha256": "48ad7bdbc4ae53902bb6351ee861e8694e07b209f354189b311e06afda1f73c0",
+      "exportSha256": "48ad7bdbc4ae53902bb6351ee861e8694e07b209f354189b311e06afda1f73c0"
     },
     {
-      "source": "src/collaboration/SceneRequest.js",
-      "destination": "src/collaboration/SceneRequest.js",
-      "bytes": 3626,
-      "sourceSha256": "00894195f33e07344523c20b088c1011ecffe1125b2dac91569598a7bf1eddc4",
-      "exportSha256": "00894195f33e07344523c20b088c1011ecffe1125b2dac91569598a7bf1eddc4"
+      "source": "node_modules/@quasar/extras/material-icons-outlined/LICENSE",
+      "destination": "licenses/material-icons-outlined.txt",
+      "bytes": 11357,
+      "sourceSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "exportSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
     },
     {
-      "source": "src/collaboration/SceneWorkspace.js",
-      "destination": "src/collaboration/SceneWorkspace.js",
-      "bytes": 57643,
-      "sourceSha256": "6d3214eb8711f25e1f03827a9118d1f2c6d0adb21d1d05bd3962401392d406d5",
-      "exportSha256": "6d3214eb8711f25e1f03827a9118d1f2c6d0adb21d1d05bd3962401392d406d5"
+      "source": "node_modules/@quasar/extras/material-icons/LICENSE",
+      "destination": "licenses/material-icons.txt",
+      "bytes": 11357,
+      "sourceSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "exportSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
     },
     {
-      "source": "src/components/.gitkeep",
-      "destination": "src/components/.gitkeep",
-      "bytes": 0,
-      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "source": "node_modules/@quasar/extras/LICENSE",
+      "destination": "licenses/npm/@quasar__extras/LICENSE",
+      "bytes": 1081,
+      "sourceSha256": "9b2ad806e5484fe6a5ea829e54d06227680fccef93d8be285ea566fd01ed8e72",
+      "exportSha256": "9b2ad806e5484fe6a5ea829e54d06227680fccef93d8be285ea566fd01ed8e72"
     },
     {
-      "source": "src/components/AccountGate.vue",
-      "destination": "src/components/AccountGate.vue",
-      "bytes": 16007,
-      "sourceSha256": "ae65d5c9966e3b4718e975e1f68db2d0ee02e76d5d7eb30cf6f04f515dfb4a2e",
-      "exportSha256": "ae65d5c9966e3b4718e975e1f68db2d0ee02e76d5d7eb30cf6f04f515dfb4a2e"
+      "source": "node_modules/core-js/LICENSE",
+      "destination": "licenses/npm/core-js/LICENSE",
+      "bytes": 1064,
+      "sourceSha256": "e1dad265f157187a8b0290f57b3c6807d94c322ffbcdf75ab82b638eb52b1789",
+      "exportSha256": "e1dad265f157187a8b0290f57b3c6807d94c322ffbcdf75ab82b638eb52b1789"
     },
     {
-      "source": "src/components/BackendDocumentPicker.vue",
-      "destination": "src/components/BackendDocumentPicker.vue",
-      "bytes": 2869,
-      "sourceSha256": "26bb7be457fa0b380e26ea53006cdc298f60d8c5d670c46669a1922c92a4d88a",
-      "exportSha256": "26bb7be457fa0b380e26ea53006cdc298f60d8c5d670c46669a1922c92a4d88a"
+      "source": "node_modules/dxf-parser/LICENSE",
+      "destination": "licenses/npm/dxf-parser/LICENSE",
+      "bytes": 1111,
+      "sourceSha256": "56eb37102e6e49ce363e8021f017fe0a6de61d3705273bed307110a3386cb42f",
+      "exportSha256": "56eb37102e6e49ce363e8021f017fe0a6de61d3705273bed307110a3386cb42f"
     },
     {
-      "source": "src/components/DisplaySettingsPanel.vue",
-      "destination": "src/components/DisplaySettingsPanel.vue",
-      "bytes": 9976,
-      "sourceSha256": "e5dbc8de94a7be6b36d9e20fbe6691af1bfb3e277b20dec0c4aa4ecc098209d8",
-      "exportSha256": "e5dbc8de94a7be6b36d9e20fbe6691af1bfb3e277b20dec0c4aa4ecc098209d8"
+      "source": "node_modules/lodash/LICENSE",
+      "destination": "licenses/npm/lodash/LICENSE",
+      "bytes": 1952,
+      "sourceSha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc",
+      "exportSha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc"
     },
     {
-      "source": "src/components/EditorSettingsPanel.vue",
-      "destination": "src/components/EditorSettingsPanel.vue",
-      "bytes": 2945,
-      "sourceSha256": "85bc04aa0aadf00be4e142d26c6e504ac9d7e9d0eaa650567949f5e83e4c3274",
-      "exportSha256": "85bc04aa0aadf00be4e142d26c6e504ac9d7e9d0eaa650567949f5e83e4c3274"
+      "source": "node_modules/occt-import-js/LICENSE.md",
+      "destination": "licenses/npm/occt-import-js/LICENSE.md",
+      "bytes": 27030,
+      "sourceSha256": "7ffe1954587c77dfba1cf8eb9b2ea743671fa6e63f9e7a2f258119d42e14eefe",
+      "exportSha256": "7ffe1954587c77dfba1cf8eb9b2ea743671fa6e63f9e7a2f258119d42e14eefe"
     },
     {
-      "source": "src/components/GeometryDocumentTree.vue",
-      "destination": "src/components/GeometryDocumentTree.vue",
-      "bytes": 26973,
-      "sourceSha256": "96216f271a002e9f6bcd7014aeb572adada0388572bd87b9a09b604b98b9871e",
-      "exportSha256": "96216f271a002e9f6bcd7014aeb572adada0388572bd87b9a09b604b98b9871e"
+      "source": "node_modules/quasar/LICENSE",
+      "destination": "licenses/npm/quasar/LICENSE",
+      "bytes": 1091,
+      "sourceSha256": "5eb081f51dbc5ac932691ad6be2a177cae80a8f5167ded6f55d683ba83914098",
+      "exportSha256": "5eb081f51dbc5ac932691ad6be2a177cae80a8f5167ded6f55d683ba83914098"
     },
     {
-      "source": "src/components/GpuPreferenceNotice.vue",
-      "destination": "src/components/GpuPreferenceNotice.vue",
-      "bytes": 2185,
-      "sourceSha256": "6c401d6002e20b6bec0137d11ecebcfd47e6574cc9d6eb8bf72a81ac4b4732db",
-      "exportSha256": "6c401d6002e20b6bec0137d11ecebcfd47e6574cc9d6eb8bf72a81ac4b4732db"
+      "source": "node_modules/three/LICENSE",
+      "destination": "licenses/npm/three/LICENSE",
+      "bytes": 1081,
+      "sourceSha256": "b53cfcb10e8642d82814dc14de5b4ea363300aa6a2de35f0669b33cd7d3f5c39",
+      "exportSha256": "b53cfcb10e8642d82814dc14de5b4ea363300aa6a2de35f0669b33cd7d3f5c39"
     },
     {
-      "source": "src/components/LayerTreeItem.vue",
-      "destination": "src/components/LayerTreeItem.vue",
-      "bytes": 888,
-      "sourceSha256": "df28f6f9366d1f05639f4cd613dbd734b78bea53c1a587ede1869a58ebf8a919",
-      "exportSha256": "df28f6f9366d1f05639f4cd613dbd734b78bea53c1a587ede1869a58ebf8a919"
+      "source": "node_modules/vue-router/LICENSE",
+      "destination": "licenses/npm/vue-router/LICENSE",
+      "bytes": 1092,
+      "sourceSha256": "9c0015250f592a09d7787efc07152afcf661fff6bda2554359f6d00987828c02",
+      "exportSha256": "9c0015250f592a09d7787efc07152afcf661fff6bda2554359f6d00987828c02"
     },
     {
-      "source": "src/components/LoginScene.vue",
-      "destination": "src/components/LoginScene.vue",
-      "bytes": 3592,
-      "sourceSha256": "82bbf384d6ef67a3c5cc81675347081bf2b1d2c73f52a0acc54596e0a6ba8e18",
-      "exportSha256": "82bbf384d6ef67a3c5cc81675347081bf2b1d2c73f52a0acc54596e0a6ba8e18"
+      "source": "node_modules/vue/LICENSE",
+      "destination": "licenses/npm/vue/LICENSE",
+      "bytes": 1091,
+      "sourceSha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "exportSha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
     },
     {
-      "source": "src/components/NodeAppearancePanel.vue",
-      "destination": "src/components/NodeAppearancePanel.vue",
-      "bytes": 9870,
-      "sourceSha256": "5a80833ab11bc9112cff562380fb9b7577949dfb574d231c4971cd461104668e",
-      "exportSha256": "5a80833ab11bc9112cff562380fb9b7577949dfb574d231c4971cd461104668e"
+      "source": "node_modules/ws/LICENSE",
+      "destination": "licenses/npm/ws/LICENSE",
+      "bytes": 1106,
+      "sourceSha256": "3de284c8e6fa7e8437eff6f53695471e0332129a5b42a79361e17b7637de94b3",
+      "exportSha256": "3de284c8e6fa7e8437eff6f53695471e0332129a5b42a79361e17b7637de94b3"
     },
     {
-      "source": "src/components/NodeDocumentManager.vue",
-      "destination": "src/components/NodeDocumentManager.vue",
-      "bytes": 9115,
-      "sourceSha256": "73574950f03df15db121c2046ffcead8ddd7c2ed5c200f0c5b98d23d980d1490",
-      "exportSha256": "73574950f03df15db121c2046ffcead8ddd7c2ed5c200f0c5b98d23d980d1490"
+      "source": "node_modules/@quasar/extras/roboto-font/LICENSE",
+      "destination": "licenses/roboto-font.txt",
+      "bytes": 11325,
+      "sourceSha256": "9818d5c70be90d1256e35d4c3aea10164b1ba26842db269dd8237c5ba8b503da",
+      "exportSha256": "9818d5c70be90d1256e35d4c3aea10164b1ba26842db269dd8237c5ba8b503da"
     },
     {
-      "source": "src/components/PanelNodeSurface.vue",
-      "destination": "src/components/PanelNodeSurface.vue",
-      "bytes": 2528,
-      "sourceSha256": "9daa9eee1f741f414837a3d332d4e3cb7dddf9df170b0fa22d11483143b0ee71",
-      "exportSha256": "9daa9eee1f741f414837a3d332d4e3cb7dddf9df170b0fa22d11483143b0ee71"
-    },
-    {
-      "source": "src/components/SceneDocumentsPanel.vue",
-      "destination": "src/components/SceneDocumentsPanel.vue",
-      "bytes": 16935,
-      "sourceSha256": "f5d1064c9c66dc4ea304cf126d1c2f293600b56a8bf8775983a63b92ca436b84",
-      "exportSha256": "f5d1064c9c66dc4ea304cf126d1c2f293600b56a8bf8775983a63b92ca436b84"
-    },
-    {
-      "source": "src/components/ViewportFps.vue",
-      "destination": "src/components/ViewportFps.vue",
-      "bytes": 2209,
-      "sourceSha256": "ff0848c937f1e9a47f90898068bccf02eb8deb88de347b2c009e65284ec3636b",
-      "exportSha256": "ff0848c937f1e9a47f90898068bccf02eb8deb88de347b2c009e65284ec3636b"
-    },
-    {
-      "source": "src/components/ViewportOverlay.vue",
-      "destination": "src/components/ViewportOverlay.vue",
-      "bytes": 5255,
-      "sourceSha256": "4ce9b5ba75035d3ced13088c7255f2987f278b8c0a7e6ad72cd65e028c7fc142",
-      "exportSha256": "4ce9b5ba75035d3ced13088c7255f2987f278b8c0a7e6ad72cd65e028c7fc142"
-    },
-    {
-      "source": "src/composables/useCameraSettings.js",
-      "destination": "src/composables/useCameraSettings.js",
-      "bytes": 2365,
-      "sourceSha256": "ff9a86d11c7f6b16e6e38b8d933e84412ed34fd16ce1f219f66b0cb3d3107d55",
-      "exportSha256": "ff9a86d11c7f6b16e6e38b8d933e84412ed34fd16ce1f219f66b0cb3d3107d55"
-    },
-    {
-      "source": "src/composables/useDisplaySettings.js",
-      "destination": "src/composables/useDisplaySettings.js",
-      "bytes": 9103,
-      "sourceSha256": "3b4e64ce9ac95b14589cda86e9fd91dffb8fd97b9c28eaf349926f0b9be16287",
-      "exportSha256": "3b4e64ce9ac95b14589cda86e9fd91dffb8fd97b9c28eaf349926f0b9be16287"
-    },
-    {
-      "source": "src/composables/useEditorBridge.js",
-      "destination": "src/composables/useEditorBridge.js",
-      "bytes": 22883,
-      "sourceSha256": "f2c978224183d3dd9b323a6d91210463b5b0eda068da1f7086568e6e5fdefb74",
-      "exportSha256": "f2c978224183d3dd9b323a6d91210463b5b0eda068da1f7086568e6e5fdefb74"
-    },
-    {
-      "source": "src/composables/useMeshProgress.js",
-      "destination": "src/composables/useMeshProgress.js",
-      "bytes": 4778,
-      "sourceSha256": "844d291839e4f42f878b831e2cbaabf39416c3ba0fb1cbb8f931928d126e8b9f",
-      "exportSha256": "844d291839e4f42f878b831e2cbaabf39416c3ba0fb1cbb8f931928d126e8b9f"
-    },
-    {
-      "source": "src/composables/useModelImport.js",
-      "destination": "src/composables/useModelImport.js",
-      "bytes": 24129,
-      "sourceSha256": "683e0b25feb587de74f53a237375e1b1e4b8861b6719ed253d3f252b0ef6a689",
-      "exportSha256": "683e0b25feb587de74f53a237375e1b1e4b8861b6719ed253d3f252b0ef6a689"
-    },
-    {
-      "source": "src/composables/useNodeAppearance.js",
-      "destination": "src/composables/useNodeAppearance.js",
-      "bytes": 1853,
-      "sourceSha256": "70c74abeb21fbb15ddfed74f44483d7fc36d1f6c59a8f4a6983df76408f5b42f",
-      "exportSha256": "70c74abeb21fbb15ddfed74f44483d7fc36d1f6c59a8f4a6983df76408f5b42f"
-    },
-    {
-      "source": "src/composables/useNodePlugins.js",
-      "destination": "src/composables/useNodePlugins.js",
-      "bytes": 9167,
-      "sourceSha256": "82ab88f7cd1042b65046e36c99dfbc3079e51cbcfd18d3c973a2fee076188612",
-      "exportSha256": "c02b3c010ee84199e56da520fd65f9cba6a9ae3295edd15b926f2968fe3edd5c"
-    },
-    {
-      "source": "src/composables/useRecentFiles.js",
-      "destination": "src/composables/useRecentFiles.js",
-      "bytes": 2618,
-      "sourceSha256": "bf174416432dd4d3199bcd1efc3f7880b4c0b7ce4e0130d9a9e71cfc9d4da1cb",
-      "exportSha256": "bf174416432dd4d3199bcd1efc3f7880b4c0b7ce4e0130d9a9e71cfc9d4da1cb"
-    },
-    {
-      "source": "src/composables/useRenderMaterials.js",
-      "destination": "src/composables/useRenderMaterials.js",
-      "bytes": 5121,
-      "sourceSha256": "c7b4876559c013806d3fdfe2d7ded324a63851fd51d5375dced85849021ec6ee",
-      "exportSha256": "c7b4876559c013806d3fdfe2d7ded324a63851fd51d5375dced85849021ec6ee"
-    },
-    {
-      "source": "src/compute/NodeCClient.mjs",
-      "destination": "src/compute/NodeCClient.mjs",
-      "bytes": 136,
-      "sourceSha256": "5b9ff263d334fb3d130a4d250a1f250a504ca50de25ffe04673b30ed391d8562",
-      "exportSha256": "5b9ff263d334fb3d130a4d250a1f250a504ca50de25ffe04673b30ed391d8562"
-    },
-    {
-      "source": "src/css/app.sass",
-      "destination": "src/css/app.sass",
-      "bytes": 872,
-      "sourceSha256": "d3fd21910a8ec62c8cdc3cbfbb5448c297f8a6abc01705fd71dd76f7053d557a",
-      "exportSha256": "d3fd21910a8ec62c8cdc3cbfbb5448c297f8a6abc01705fd71dd76f7053d557a"
-    },
-    {
-      "source": "src/css/quasar.variables.sass",
-      "destination": "src/css/quasar.variables.sass",
-      "bytes": 768,
-      "sourceSha256": "a0c3f48de7b59ae50ccfdb942c63d6b9f700edab8df4a79def2074805fff1bc4",
-      "exportSha256": "a0c3f48de7b59ae50ccfdb942c63d6b9f700edab8df4a79def2074805fff1bc4"
-    },
-    {
-      "source": "src/CursorWheelZoom.js",
-      "destination": "src/CursorWheelZoom.js",
-      "bytes": 2178,
-      "sourceSha256": "6a1ea5c238c8d6e93cbb60ac3a64c811513590df4ad35fc0c4dc623817e4b107",
-      "exportSha256": "6a1ea5c238c8d6e93cbb60ac3a64c811513590df4ad35fc0c4dc623817e4b107"
-    },
-    {
-      "source": "src/display/clearObjectChildren.js",
-      "destination": "src/display/clearObjectChildren.js",
-      "bytes": 410,
-      "sourceSha256": "32d6b66cbac331f6f6411ad7151ac41747eec667ec2001b3fef3d849485e6820",
-      "exportSha256": "32d6b66cbac331f6f6411ad7151ac41747eec667ec2001b3fef3d849485e6820"
-    },
-    {
-      "source": "src/display/DisplayMemorySnapshot.js",
-      "destination": "src/display/DisplayMemorySnapshot.js",
-      "bytes": 3364,
-      "sourceSha256": "2a1e2c032d5393390175b41906d4cf5a776b875a97a3499e516ca1add238dc79",
-      "exportSha256": "2a1e2c032d5393390175b41906d4cf5a776b875a97a3499e516ca1add238dc79"
-    },
-    {
-      "source": "src/display/GpuPreference.js",
-      "destination": "src/display/GpuPreference.js",
-      "bytes": 849,
-      "sourceSha256": "e71b925f865d5dca4896380b140ce40968c40dcfba9ef677aa2e6e3fdb66fb62",
-      "exportSha256": "e71b925f865d5dca4896380b140ce40968c40dcfba9ef677aa2e6e3fdb66fb62"
-    },
-    {
-      "source": "src/display/GraphPreviewRegistry.js",
-      "destination": "src/display/GraphPreviewRegistry.js",
-      "bytes": 58824,
-      "sourceSha256": "87706c30187ee6bc9dcc17034c55b7e65a1387cc5e0511a595dd2c311266422e",
-      "exportSha256": "87706c30187ee6bc9dcc17034c55b7e65a1387cc5e0511a595dd2c311266422e"
-    },
-    {
-      "source": "src/display/GroupEditContext.js",
-      "destination": "src/display/GroupEditContext.js",
-      "bytes": 7598,
-      "sourceSha256": "83bf34c5fa3b38a490197d52df3ee3427381450ee72d235ae82821ff50772ffd",
-      "exportSha256": "83bf34c5fa3b38a490197d52df3ee3427381450ee72d235ae82821ff50772ffd"
-    },
-    {
-      "source": "src/display/ImportedRenderBatcher.js",
-      "destination": "src/display/ImportedRenderBatcher.js",
-      "bytes": 15730,
-      "sourceSha256": "6142218ccae4c8999e8f58bd717dfd75095e1cf4f8feef675f6f4bd353beae6d",
-      "exportSha256": "6142218ccae4c8999e8f58bd717dfd75095e1cf4f8feef675f6f4bd353beae6d"
-    },
-    {
-      "source": "src/display/MeshTriangleEdges.js",
-      "destination": "src/display/MeshTriangleEdges.js",
-      "bytes": 2457,
-      "sourceSha256": "d2e3757ea924eaf5c45c2d655c73d6e74c03b83ad25bb457acee915080b2585e",
-      "exportSha256": "d2e3757ea924eaf5c45c2d655c73d6e74c03b83ad25bb457acee915080b2585e"
-    },
-    {
-      "source": "src/display/SceneInteraction.js",
-      "destination": "src/display/SceneInteraction.js",
-      "bytes": 29719,
-      "sourceSha256": "3ed8990e9dccfec0b949d22763a72fa95778b2ad2aac5af32ec791f7744820f1",
-      "exportSha256": "3ed8990e9dccfec0b949d22763a72fa95778b2ad2aac5af32ec791f7744820f1"
-    },
-    {
-      "source": "src/display/SceneMaterialEditor.js",
-      "destination": "src/display/SceneMaterialEditor.js",
-      "bytes": 29504,
-      "sourceSha256": "0fe125bea9b6d833b84750866d19314710c4667fa48ff663548f3fa965e4b170",
-      "exportSha256": "0fe125bea9b6d833b84750866d19314710c4667fa48ff663548f3fa965e4b170"
-    },
-    {
-      "source": "src/display/SceneSelection.js",
-      "destination": "src/display/SceneSelection.js",
-      "bytes": 8824,
-      "sourceSha256": "aba9de6c2dabb0a05ab362580f61cd053abb07ac9983b2cfe4212c0d730deb7f",
-      "exportSha256": "aba9de6c2dabb0a05ab362580f61cd053abb07ac9983b2cfe4212c0d730deb7f"
-    },
-    {
-      "source": "src/display/SceneVisibility.js",
-      "destination": "src/display/SceneVisibility.js",
-      "bytes": 7400,
-      "sourceSha256": "ffeed23ef3d5485b8ad6c0b10b7cbf6ad448b49e6216f9075078c07f24a685c6",
-      "exportSha256": "ffeed23ef3d5485b8ad6c0b10b7cbf6ad448b49e6216f9075078c07f24a685c6"
-    },
-    {
-      "source": "src/display/SharedSelectionPolicy.js",
-      "destination": "src/display/SharedSelectionPolicy.js",
-      "bytes": 514,
-      "sourceSha256": "3ee64707b0845837d67e81aa19908fa9e8517b5fa51028617da10bb6dd1c1661",
-      "exportSha256": "3ee64707b0845837d67e81aa19908fa9e8517b5fa51028617da10bb6dd1c1661"
-    },
-    {
-      "source": "src/display/TextureAssets.js",
-      "destination": "src/display/TextureAssets.js",
-      "bytes": 2554,
-      "sourceSha256": "357265a218f951a35857b816a32459a8398bddfc07600c9c7363625ac9d17e29",
-      "exportSha256": "357265a218f951a35857b816a32459a8398bddfc07600c9c7363625ac9d17e29"
-    },
-    {
-      "source": "src/display/ViewportOverlayState.js",
-      "destination": "src/display/ViewportOverlayState.js",
-      "bytes": 887,
-      "sourceSha256": "4190abb376c8d8e4c04388ed3cd5385946fd5fad6cafc125ccb0d9a731d9dc55",
-      "exportSha256": "4190abb376c8d8e4c04388ed3cd5385946fd5fad6cafc125ccb0d9a731d9dc55"
-    },
-    {
-      "source": "src/DisplayLighting.js",
-      "destination": "src/DisplayLighting.js",
-      "bytes": 1648,
-      "sourceSha256": "8cdb7124b5a1341a35c9c15dbbd49fabf6143e4b85f101994fad820ffb5f89a7",
-      "exportSha256": "8cdb7124b5a1341a35c9c15dbbd49fabf6143e4b85f101994fad820ffb5f89a7"
-    },
-    {
-      "source": "src/DisplayMaterialSettings.js",
-      "destination": "src/DisplayMaterialSettings.js",
-      "bytes": 5149,
-      "sourceSha256": "1e05e75dfcee5fb7001ab4a37d29f1c23c79bee04e7b4a8acc8be23c2f26322a",
-      "exportSha256": "1e05e75dfcee5fb7001ab4a37d29f1c23c79bee04e7b4a8acc8be23c2f26322a"
-    },
-    {
-      "source": "src/DisplayMode.js",
-      "destination": "src/DisplayMode.js",
-      "bytes": 1397,
-      "sourceSha256": "d64128bfd472d489d92e2830d314743a4f77642b281c0cf241bf08a2d3e6d74c",
-      "exportSha256": "d64128bfd472d489d92e2830d314743a4f77642b281c0cf241bf08a2d3e6d74c"
-    },
-    {
-      "source": "src/DisplayPipeline.js",
-      "destination": "src/DisplayPipeline.js",
-      "bytes": 67245,
-      "sourceSha256": "3046b10e415bde5e36f0028cbfa570bf9221ecf783543e3de3e70eeb3b6c63a8",
-      "exportSha256": "3046b10e415bde5e36f0028cbfa570bf9221ecf783543e3de3e70eeb3b6c63a8"
-    },
-    {
-      "source": "src/DisplayResources.js",
-      "destination": "src/DisplayResources.js",
-      "bytes": 4272,
-      "sourceSha256": "05e6b015af57b4e9ffb1cacc17c8e57f9874b7792fff188c6ea7b49557b0f5eb",
-      "exportSha256": "05e6b015af57b4e9ffb1cacc17c8e57f9874b7792fff188c6ea7b49557b0f5eb"
-    },
-    {
-      "source": "src/DisplayTaskQueue.js",
-      "destination": "src/DisplayTaskQueue.js",
-      "bytes": 2355,
-      "sourceSha256": "2e2430142f191be5f52c952130506def1bd67208bfa3d29ff6e64bec50ef18e5",
-      "exportSha256": "2e2430142f191be5f52c952130506def1bd67208bfa3d29ff6e64bec50ef18e5"
-    },
-    {
-      "source": "src/DocumentHierarchy.js",
-      "destination": "src/DocumentHierarchy.js",
-      "bytes": 10790,
-      "sourceSha256": "afe7bdc8785af5e6ac97f76330f3075ac8cd2cff2d75c2983bca386881bfbbd1",
-      "exportSha256": "afe7bdc8785af5e6ac97f76330f3075ac8cd2cff2d75c2983bca386881bfbbd1"
-    },
-    {
-      "source": "src/DocumentObjectMoves.js",
-      "destination": "src/DocumentObjectMoves.js",
-      "bytes": 5803,
-      "sourceSha256": "db35fcc21ec41a4208e92cac9b96fc39d39fcd5f6608df82874e781bd813034f",
-      "exportSha256": "db35fcc21ec41a4208e92cac9b96fc39d39fcd5f6608df82874e781bd813034f"
-    },
-    {
-      "source": "src/EdgeDisplayRenderer.js",
-      "destination": "src/EdgeDisplayRenderer.js",
-      "bytes": 13605,
-      "sourceSha256": "2ebe667d4be3400f456502e3414dd6972079f72ab0cdfd334a20090db4fd58a1",
-      "exportSha256": "2ebe667d4be3400f456502e3414dd6972079f72ab0cdfd334a20090db4fd58a1"
-    },
-    {
-      "source": "src/editor/EditorMessageRouter.js",
-      "destination": "src/editor/EditorMessageRouter.js",
-      "bytes": 767,
-      "sourceSha256": "fe45bfcc4bd445c597f2777ab645ffd881827414dcfe88c5cbaaa3cf513f7f88",
-      "exportSha256": "fe45bfcc4bd445c597f2777ab645ffd881827414dcfe88c5cbaaa3cf513f7f88"
-    },
-    {
-      "source": "src/FileDraco.js",
-      "destination": "src/FileDraco.js",
-      "bytes": 635,
-      "sourceSha256": "e8f5be26a9501e466344d1547bad50e8eaad2b3a9783cc9d2a6ce8b6b762acee",
-      "exportSha256": "e8f5be26a9501e466344d1547bad50e8eaad2b3a9783cc9d2a6ce8b6b762acee"
-    },
-    {
-      "source": "src/FileObj.js",
-      "destination": "src/FileObj.js",
-      "bytes": 1521,
-      "sourceSha256": "d332c251170a1a9ccea8c7d87c49cab3bd342a7a432eaf6d0279292e05f06b17",
-      "exportSha256": "d332c251170a1a9ccea8c7d87c49cab3bd342a7a432eaf6d0279292e05f06b17"
-    },
-    {
-      "source": "src/FilePly.js",
-      "destination": "src/FilePly.js",
-      "bytes": 728,
-      "sourceSha256": "1af13a3b4541b1b50b220fd6fa9d08e20ee973140d57181837569fbd1a51e603",
-      "exportSha256": "1af13a3b4541b1b50b220fd6fa9d08e20ee973140d57181837569fbd1a51e603"
-    },
-    {
-      "source": "src/FileStl.js",
-      "destination": "src/FileStl.js",
-      "bytes": 1753,
-      "sourceSha256": "50d1447a1ee586242a29cd278c27678f18686b6b8ad311572177e5d985dc6ce3",
-      "exportSha256": "50d1447a1ee586242a29cd278c27678f18686b6b8ad311572177e5d985dc6ce3"
-    },
-    {
-      "source": "src/GeometryDocumentViewState.js",
-      "destination": "src/GeometryDocumentViewState.js",
-      "bytes": 2727,
-      "sourceSha256": "14c0fb4e293ed3eb512b3b6bc8695ff9dd8eea6d236112f1d3dd24e8a9296eea",
-      "exportSha256": "14c0fb4e293ed3eb512b3b6bc8695ff9dd8eea6d236112f1d3dd24e8a9296eea"
-    },
-    {
-      "source": "src/GlslLineList.js",
-      "destination": "src/GlslLineList.js",
-      "bytes": 10778,
-      "sourceSha256": "dbe59dd6933f4b61934910b3abddf7c0a91706fbed2674c35ac8270241ee236b",
-      "exportSha256": "dbe59dd6933f4b61934910b3abddf7c0a91706fbed2674c35ac8270241ee236b"
-    },
-    {
-      "source": "src/import/BrepMesh.worker.js",
-      "destination": "src/import/BrepMesh.worker.js",
-      "bytes": 693,
-      "sourceSha256": "d004e6b24985d36f5af5d16d1c6bdb6a061fa0db5accfa329d6b1e1eec498447",
-      "exportSha256": "d004e6b24985d36f5af5d16d1c6bdb6a061fa0db5accfa329d6b1e1eec498447"
-    },
-    {
-      "source": "src/import/CadFileImport.js",
-      "destination": "src/import/CadFileImport.js",
-      "bytes": 4581,
-      "sourceSha256": "1e3c351aba2b1344d70dfaac37e3d96bae727971823c8ec3fa5c20d87a2ef08d",
-      "exportSha256": "1e3c351aba2b1344d70dfaac37e3d96bae727971823c8ec3fa5c20d87a2ef08d"
-    },
-    {
-      "source": "src/import/collectTransferables.js",
-      "destination": "src/import/collectTransferables.js",
-      "bytes": 585,
-      "sourceSha256": "f801a96143ccba5459ed12406551975d5375c0b6fe0e3fe9296374d829dbe265",
-      "exportSha256": "f801a96143ccba5459ed12406551975d5375c0b6fe0e3fe9296374d829dbe265"
-    },
-    {
-      "source": "src/import/createLocalImport.js",
-      "destination": "src/import/createLocalImport.js",
-      "bytes": 944,
-      "sourceSha256": "f9b88d1fbfe4b0c134a239619c899ad4451881c3ddbc5bf79e050acf1ecacb8b",
-      "exportSha256": "f9b88d1fbfe4b0c134a239619c899ad4451881c3ddbc5bf79e050acf1ecacb8b"
-    },
-    {
-      "source": "src/import/DisplayObjectImport.js",
-      "destination": "src/import/DisplayObjectImport.js",
-      "bytes": 17293,
-      "sourceSha256": "591fba4dfbe66648a825104f917f3d3c01903d1267dde8b0bf6a7cf23e85e644",
-      "exportSha256": "591fba4dfbe66648a825104f917f3d3c01903d1267dde8b0bf6a7cf23e85e644"
-    },
-    {
-      "source": "src/import/DisplayRecord.js",
-      "destination": "src/import/DisplayRecord.js",
-      "bytes": 1379,
-      "sourceSha256": "3c37ce1b6811fe925e1833f3a8b009def26e928c4a08696dd921e2ac2b788692",
-      "exportSha256": "3c37ce1b6811fe925e1833f3a8b009def26e928c4a08696dd921e2ac2b788692"
-    },
-    {
-      "source": "src/import/DisplayResources.js",
-      "destination": "src/import/DisplayResources.js",
-      "bytes": 2098,
-      "sourceSha256": "1ac8c2a1b5e463d51e31d7f625425d585d372b793d1c285714ff72b4e8deea51",
-      "exportSha256": "1ac8c2a1b5e463d51e31d7f625425d585d372b793d1c285714ff72b4e8deea51"
-    },
-    {
-      "source": "src/import/DxfImport.js",
-      "destination": "src/import/DxfImport.js",
-      "bytes": 22361,
-      "sourceSha256": "c504ae25a7c1934fc85e6b603d435975002c320181748296898ce9043673b27a",
-      "exportSha256": "c504ae25a7c1934fc85e6b603d435975002c320181748296898ce9043673b27a"
-    },
-    {
-      "source": "src/import/ImportMeshFeed.js",
-      "destination": "src/import/ImportMeshFeed.js",
-      "bytes": 3976,
-      "sourceSha256": "dfc4f8dbeab6d7c50d44cd37623f5c35e92155271a9b806d86828ea3decde515",
-      "exportSha256": "dfc4f8dbeab6d7c50d44cd37623f5c35e92155271a9b806d86828ea3decde515"
-    },
-    {
-      "source": "src/import/ImportMeshTargets.js",
-      "destination": "src/import/ImportMeshTargets.js",
-      "bytes": 2073,
-      "sourceSha256": "f8db772141ba6a1a04e7f49d2eb843de413e614b043c2747021c682b39e8620e",
-      "exportSha256": "f8db772141ba6a1a04e7f49d2eb843de413e614b043c2747021c682b39e8620e"
-    },
-    {
-      "source": "src/import/ImportPerformanceBudget.js",
-      "destination": "src/import/ImportPerformanceBudget.js",
-      "bytes": 2207,
-      "sourceSha256": "b927d3b2f94114f495f74e4a4f8556d12b4796cef6db19d124bcb24c5ad24a72",
-      "exportSha256": "b927d3b2f94114f495f74e4a4f8556d12b4796cef6db19d124bcb24c5ad24a72"
-    },
-    {
-      "source": "src/import/ImportRefresh.js",
-      "destination": "src/import/ImportRefresh.js",
-      "bytes": 1042,
-      "sourceSha256": "cf3de9a37f3bffc009ef0273f58041b71889babc0af05b38134501d3d907d590",
-      "exportSha256": "cf3de9a37f3bffc009ef0273f58041b71889babc0af05b38134501d3d907d590"
-    },
-    {
-      "source": "src/import/ImportWorkBudget.js",
-      "destination": "src/import/ImportWorkBudget.js",
-      "bytes": 1021,
-      "sourceSha256": "d59a874a1db0190d426d425e43cd8a259ff6c90ef93335c2719b424096f2b089",
-      "exportSha256": "d59a874a1db0190d426d425e43cd8a259ff6c90ef93335c2719b424096f2b089"
-    },
-    {
-      "source": "src/import/LocalImport.worker.js",
-      "destination": "src/import/LocalImport.worker.js",
-      "bytes": 9830,
-      "sourceSha256": "9e90f86fd7da58dcc47ffe357e84d2275e25350a7a69e1c5c7f016e9a7915282",
-      "exportSha256": "9e90f86fd7da58dcc47ffe357e84d2275e25350a7a69e1c5c7f016e9a7915282"
-    },
-    {
-      "source": "src/import/LocalImportClient.js",
-      "destination": "src/import/LocalImportClient.js",
-      "bytes": 11502,
-      "sourceSha256": "c8495a0b4f7d98f4d24cce46edb294df07a69f58a1212ef08bc438f3c9b99110",
-      "exportSha256": "c8495a0b4f7d98f4d24cce46edb294df07a69f58a1212ef08bc438f3c9b99110"
-    },
-    {
-      "source": "src/import/MeshQuality.js",
-      "destination": "src/import/MeshQuality.js",
-      "bytes": 1444,
-      "sourceSha256": "ec0b6823401830142fc4fb82fdd3b687d6ed6f543be339dbf463620bb4ad7f81",
-      "exportSha256": "ec0b6823401830142fc4fb82fdd3b687d6ed6f543be339dbf463620bb4ad7f81"
-    },
-    {
-      "source": "src/import/MeshWorkerPool.js",
-      "destination": "src/import/MeshWorkerPool.js",
-      "bytes": 6419,
-      "sourceSha256": "0413f3244d90873d25f2a60b304a658560b8b228a3492f0c9113b4f9acaa894c",
-      "exportSha256": "0413f3244d90873d25f2a60b304a658560b8b228a3492f0c9113b4f9acaa894c"
-    },
-    {
-      "source": "src/import/ModelFileFormats.js",
-      "destination": "src/import/ModelFileFormats.js",
-      "bytes": 2108,
-      "sourceSha256": "4dd6ea52d29aba847d187db47c19daef2443ab6554284968586264f16a8ad668",
-      "exportSha256": "4dd6ea52d29aba847d187db47c19daef2443ab6554284968586264f16a8ad668"
-    },
-    {
-      "source": "src/import/prepareBrepImportRecord.js",
-      "destination": "src/import/prepareBrepImportRecord.js",
-      "bytes": 3922,
-      "sourceSha256": "f8631ffe75eb1ff913d72afcc786f675417e5fcbd0ce1052798c2179c3c4ca0e",
-      "exportSha256": "f8631ffe75eb1ff913d72afcc786f675417e5fcbd0ce1052798c2179c3c4ca0e"
-    },
-    {
-      "source": "src/import/releaseTable.js",
-      "destination": "src/import/releaseTable.js",
-      "bytes": 622,
-      "sourceSha256": "c909614651e15f17324ffe92b0299775b0f1be2e2c278848fa858e2d628fd08c",
-      "exportSha256": "c909614651e15f17324ffe92b0299775b0f1be2e2c278848fa858e2d628fd08c"
-    },
-    {
-      "source": "src/import/remeshLocalDocument.js",
-      "destination": "src/import/remeshLocalDocument.js",
-      "bytes": 7588,
-      "sourceSha256": "6aebe9f32c1bbdf2d7a5cef87b9a0d69d850abdbe9f93fa7bb852b7cbb7eee7e",
-      "exportSha256": "6aebe9f32c1bbdf2d7a5cef87b9a0d69d850abdbe9f93fa7bb852b7cbb7eee7e"
-    },
-    {
-      "source": "src/import/replaceImportedBrep.js",
-      "destination": "src/import/replaceImportedBrep.js",
-      "bytes": 5585,
-      "sourceSha256": "7efcc0e5b1b4ebce9ee9a30685a3576d5ac161b736d85f45dc3960759d0045e5",
-      "exportSha256": "7efcc0e5b1b4ebce9ee9a30685a3576d5ac161b736d85f45dc3960759d0045e5"
-    },
-    {
-      "source": "src/import/RhinoMaterials.js",
-      "destination": "src/import/RhinoMaterials.js",
-      "bytes": 7974,
-      "sourceSha256": "3a42e0439c078e5f51b4dfcdf4efe895f42bcde9e86fe3b565d36c9873d1ec74",
-      "exportSha256": "3a42e0439c078e5f51b4dfcdf4efe895f42bcde9e86fe3b565d36c9873d1ec74"
-    },
-    {
-      "source": "src/import/SceneFile.worker.js",
-      "destination": "src/import/SceneFile.worker.js",
-      "bytes": 434,
-      "sourceSha256": "44e16f2145bcd7944b6e74df6d89b8de1f671219d4fd0e9f734143d600ed4f34",
-      "exportSha256": "44e16f2145bcd7944b6e74df6d89b8de1f671219d4fd0e9f734143d600ed4f34"
-    },
-    {
-      "source": "src/import/SceneFileImport.js",
-      "destination": "src/import/SceneFileImport.js",
-      "bytes": 19294,
-      "sourceSha256": "17e0e460cdcaf9cecc1d4340966d14145a7d16e95005f64fc9b942b6ba3388ab",
-      "exportSha256": "17e0e460cdcaf9cecc1d4340966d14145a7d16e95005f64fc9b942b6ba3388ab"
-    },
-    {
-      "source": "src/import/SceneFileImport.md",
-      "destination": "src/import/SceneFileImport.md",
-      "bytes": 6294,
-      "sourceSha256": "22afbd5fc4f3fde94d5e7f685c2fb7699e042008f7a07f9c3dfc3caee2bb2763",
-      "exportSha256": "22afbd5fc4f3fde94d5e7f685c2fb7699e042008f7a07f9c3dfc3caee2bb2763"
-    },
-    {
-      "source": "src/import/SceneFileNumeric.js",
-      "destination": "src/import/SceneFileNumeric.js",
-      "bytes": 10384,
-      "sourceSha256": "6148086cd18bc7a0d43adc4fb084accdc37f2e987f7618d497ffe7d2a72ebcb7",
-      "exportSha256": "6148086cd18bc7a0d43adc4fb084accdc37f2e987f7618d497ffe7d2a72ebcb7"
-    },
-    {
-      "source": "src/import/SceneFileRecords.js",
-      "destination": "src/import/SceneFileRecords.js",
-      "bytes": 15607,
-      "sourceSha256": "3400c81ba1890bf16db3c77256ad9e7e5a9b8288d61f877dcbad78c44c3e5545",
-      "exportSha256": "3400c81ba1890bf16db3c77256ad9e7e5a9b8288d61f877dcbad78c44c3e5545"
-    },
-    {
-      "source": "src/import/SceneFileResources.js",
-      "destination": "src/import/SceneFileResources.js",
-      "bytes": 5698,
-      "sourceSha256": "f2c33228c58b1571fdda28a1f26e5fac093635a9be95709f23fd3e6b3105a8b8",
-      "exportSha256": "f2c33228c58b1571fdda28a1f26e5fac093635a9be95709f23fd3e6b3105a8b8"
-    },
-    {
-      "source": "src/import/SceneFileWorkerClient.js",
-      "destination": "src/import/SceneFileWorkerClient.js",
-      "bytes": 1105,
-      "sourceSha256": "c59c0db15f933dd76c35d17558c10f2b56e2a153a246d1bfbe497e16729036ba",
-      "exportSha256": "c59c0db15f933dd76c35d17558c10f2b56e2a153a246d1bfbe497e16729036ba"
-    },
-    {
-      "source": "src/import/SceneImportClient.js",
-      "destination": "src/import/SceneImportClient.js",
-      "bytes": 1850,
-      "sourceSha256": "4f635963e631c3cf559fb6f54e6e25a21e12b57f8aa307a6d01ce3e54cd82046",
-      "exportSha256": "4f635963e631c3cf559fb6f54e6e25a21e12b57f8aa307a6d01ce3e54cd82046"
-    },
-    {
-      "source": "src/import/StreamingBlocks.js",
-      "destination": "src/import/StreamingBlocks.js",
-      "bytes": 4615,
-      "sourceSha256": "2e6b811801b490418d841497622445166d169dfad579c47a30281aab8956a057",
-      "exportSha256": "2e6b811801b490418d841497622445166d169dfad579c47a30281aab8956a057"
-    },
-    {
-      "source": "src/ImportChunkStream.js",
-      "destination": "src/ImportChunkStream.js",
-      "bytes": 2779,
-      "sourceSha256": "f7f8685bd98553cab97c8c276dd78f2d0913c99ccbc5f05518450f232e0bf600",
-      "exportSha256": "f7f8685bd98553cab97c8c276dd78f2d0913c99ccbc5f05518450f232e0bf600"
-    },
-    {
-      "source": "src/index.template.html",
-      "destination": "src/index.template.html",
-      "bytes": 1215,
-      "sourceSha256": "5eb445416f7ba1eb3d218ae5be862f4d9f2fb9a4f0be6f31a757770fa724f550",
-      "exportSha256": "a50e2263f65762c5ddfaf47739dd2071eb2aec77749647be88971a657a57a849"
-    },
-    {
-      "source": "src/layouts/MainLayout.vue",
-      "destination": "src/layouts/MainLayout.vue",
-      "bytes": 61444,
-      "sourceSha256": "ffe658fe4043c1959b06354b16a01575e1a8340abd5394865cb4012e05fe066f",
-      "exportSha256": "ffe658fe4043c1959b06354b16a01575e1a8340abd5394865cb4012e05fe066f"
-    },
-    {
-      "source": "src/ModelFileDrop.js",
-      "destination": "src/ModelFileDrop.js",
-      "bytes": 3018,
-      "sourceSha256": "9def5b68368e4c1aae52ebb0de9d415f21f07109d4a0303dce0aac43ff76ee24",
-      "exportSha256": "9def5b68368e4c1aae52ebb0de9d415f21f07109d4a0303dce0aac43ff76ee24"
-    },
-    {
-      "source": "src/modeling/ControlPointController.js",
-      "destination": "src/modeling/ControlPointController.js",
-      "bytes": 11425,
-      "sourceSha256": "212e595ee25f9fc4586edd478afb4c61a28d41893f18f1db700fedf63da87690",
-      "exportSha256": "212e595ee25f9fc4586edd478afb4c61a28d41893f18f1db700fedf63da87690"
-    },
-    {
-      "source": "src/modeling/ControlPointGeometrySource.js",
-      "destination": "src/modeling/ControlPointGeometrySource.js",
-      "bytes": 12915,
-      "sourceSha256": "63b6a8ce8fba056920dbbdfae6664d0cd32c5657cdb6fe9f3272030950c1d218",
-      "exportSha256": "63b6a8ce8fba056920dbbdfae6664d0cd32c5657cdb6fe9f3272030950c1d218"
-    },
-    {
-      "source": "src/modeling/ControlPointSource.worker.js",
-      "destination": "src/modeling/ControlPointSource.worker.js",
-      "bytes": 6992,
-      "sourceSha256": "4207a1c16bc28c3010dbef4b1a4a75d29b7d613a9579998b77335cc9a62a2f53",
-      "exportSha256": "4207a1c16bc28c3010dbef4b1a4a75d29b7d613a9579998b77335cc9a62a2f53"
-    },
-    {
-      "source": "src/modeling/GumballController.js",
-      "destination": "src/modeling/GumballController.js",
-      "bytes": 17310,
-      "sourceSha256": "c64e76d7ec8bf23991895c9b460a29ff290061be382f16c3260c1b39fc93d75e",
-      "exportSha256": "c64e76d7ec8bf23991895c9b460a29ff290061be382f16c3260c1b39fc93d75e"
-    },
-    {
-      "source": "src/modeling/ModelingController.js",
-      "destination": "src/modeling/ModelingController.js",
-      "bytes": 4398,
-      "sourceSha256": "d54f9c9ade98cd0dca4ff3b31ecc84a234291a6d16f3599920a8fe8534449382",
-      "exportSha256": "d54f9c9ade98cd0dca4ff3b31ecc84a234291a6d16f3599920a8fe8534449382"
-    },
-    {
-      "source": "src/modeling/SubDDisplayController.js",
-      "destination": "src/modeling/SubDDisplayController.js",
-      "bytes": 2012,
-      "sourceSha256": "336825c3a941b77f8f15480f3a8a141de2018850175f8dfdeca3065cf8a53ab2",
-      "exportSha256": "336825c3a941b77f8f15480f3a8a141de2018850175f8dfdeca3065cf8a53ab2"
-    },
-    {
-      "source": "src/modeling/ViewportControlSize.js",
-      "destination": "src/modeling/ViewportControlSize.js",
-      "bytes": 585,
-      "sourceSha256": "fecae10b23fdc4c66c8596f102efcbf46b80e2a75c8e01048a4f77313263798a",
-      "exportSha256": "fecae10b23fdc4c66c8596f102efcbf46b80e2a75c8e01048a4f77313263798a"
-    },
-    {
-      "source": "src/NodeDocumentFiles.js",
-      "destination": "src/NodeDocumentFiles.js",
-      "bytes": 4315,
-      "sourceSha256": "0b2accb87266236976d5006caeec32b6669396fdeb7455c5df72c3a4c68285bc",
-      "exportSha256": "0b2accb87266236976d5006caeec32b6669396fdeb7455c5df72c3a4c68285bc"
-    },
-    {
-      "source": "src/NodeDocumentWorkspace.js",
-      "destination": "src/NodeDocumentWorkspace.js",
-      "bytes": 8560,
-      "sourceSha256": "6007ab373c256667613e9291025739446359a80b676ada9a9344cb9c8d233385",
-      "exportSha256": "6007ab373c256667613e9291025739446359a80b676ada9a9344cb9c8d233385"
-    },
-    {
-      "source": "src/operations/WorkspaceOperations.js",
-      "destination": "src/operations/WorkspaceOperations.js",
-      "bytes": 12543,
-      "sourceSha256": "5920b20683e94eea0283e4047f4370034f465677a8a4d94d2a2a70c1c53e257b",
-      "exportSha256": "5920b20683e94eea0283e4047f4370034f465677a8a4d94d2a2a70c1c53e257b"
-    },
-    {
-      "source": "src/pages/Error404.vue",
-      "destination": "src/pages/Error404.vue",
-      "bytes": 443,
-      "sourceSha256": "7bdba31cd13b5b7a847c5f25fdcfb3f4293fe7057e4cddfbf56cb85c0a3c1ffe",
-      "exportSha256": "7bdba31cd13b5b7a847c5f25fdcfb3f4293fe7057e4cddfbf56cb85c0a3c1ffe"
-    },
-    {
-      "source": "src/pages/Index.vue",
-      "destination": "src/pages/Index.vue",
-      "bytes": 2601,
-      "sourceSha256": "66a1500a7bdc946f1bcdb4906562de4068fcc1d095018fb691f852967ed5c3e5",
-      "exportSha256": "66a1500a7bdc946f1bcdb4906562de4068fcc1d095018fb691f852967ed5c3e5"
-    },
-    {
-      "source": "src/PandaUIApp.js",
-      "destination": "src/PandaUIApp.js",
-      "bytes": 45392,
-      "sourceSha256": "60059f30f247931cf0023d44be16f3fe2fd85c5a90a8d4221f94821b58c7af6e",
-      "exportSha256": "60059f30f247931cf0023d44be16f3fe2fd85c5a90a8d4221f94821b58c7af6e"
-    },
-    {
-      "source": "src/PandaUIDoc.js",
-      "destination": "src/PandaUIDoc.js",
-      "bytes": 38390,
-      "sourceSha256": "0a8ed9eb3409f75a77a161c27294d64c30fb695c574203450e5e52821144e6ec",
-      "exportSha256": "0a8ed9eb3409f75a77a161c27294d64c30fb695c574203450e5e52821144e6ec"
-    },
-    {
-      "source": "src/panel/cameraSettings.js",
-      "destination": "src/panel/cameraSettings.js",
-      "bytes": 387,
-      "sourceSha256": "f1d721643880f0230cb1ef0e22ab8dfa3635527ba6b97d75fa4a6542b29ca5dc",
-      "exportSha256": "f1d721643880f0230cb1ef0e22ab8dfa3635527ba6b97d75fa4a6542b29ca5dc"
-    },
-    {
-      "source": "src/panel/defineToolbarItem.js",
-      "destination": "src/panel/defineToolbarItem.js",
-      "bytes": 191,
-      "sourceSha256": "f51e31ddad909ec44f6338f0e1bcf68e569a1b137c440ceed0d51579ba297535",
-      "exportSha256": "f51e31ddad909ec44f6338f0e1bcf68e569a1b137c440ceed0d51579ba297535"
-    },
-    {
-      "source": "src/panel/displayOptions.js",
-      "destination": "src/panel/displayOptions.js",
-      "bytes": 275,
-      "sourceSha256": "889cb42ab9d5d0b367a7f871be7f3695c3da581a2dbfd16113a0b6dc04212f0d",
-      "exportSha256": "889cb42ab9d5d0b367a7f871be7f3695c3da581a2dbfd16113a0b6dc04212f0d"
-    },
-    {
-      "source": "src/panel/editorMode.js",
-      "destination": "src/panel/editorMode.js",
-      "bytes": 387,
-      "sourceSha256": "b1fbc990a6d3c2b5ea4b69c7b84f9af7d17813583df63963b26c60fa7b164bab",
-      "exportSha256": "b1fbc990a6d3c2b5ea4b69c7b84f9af7d17813583df63963b26c60fa7b164bab"
-    },
-    {
-      "source": "src/panel/editorOptions.js",
-      "destination": "src/panel/editorOptions.js",
-      "bytes": 269,
-      "sourceSha256": "25cedae560ec926f7b7be9ee7d0642869f2bcf46d2f021bac3279b51335ccaa3",
-      "exportSha256": "25cedae560ec926f7b7be9ee7d0642869f2bcf46d2f021bac3279b51335ccaa3"
-    },
-    {
-      "source": "src/panel/files.js",
-      "destination": "src/panel/files.js",
-      "bytes": 249,
-      "sourceSha256": "1213ad2e50541bad3357f39fa0a16ba96a7a1518b0aa6be19fe7d461f5a43535",
-      "exportSha256": "1213ad2e50541bad3357f39fa0a16ba96a7a1518b0aa6be19fe7d461f5a43535"
-    },
-    {
-      "source": "src/panel/history.js",
-      "destination": "src/panel/history.js",
-      "bytes": 250,
-      "sourceSha256": "7bcc819e4a59bbf2308adce64057064d9d9398a76375c0278f2ba0be51e7eef7",
-      "exportSha256": "7bcc819e4a59bbf2308adce64057064d9d9398a76375c0278f2ba0be51e7eef7"
-    },
-    {
-      "source": "src/panel/index.js",
-      "destination": "src/panel/index.js",
-      "bytes": 730,
-      "sourceSha256": "fae4693a27954e3e3ceb9f0ca03aab5bb4941363fb936450ea273cbe545e617e",
-      "exportSha256": "fae4693a27954e3e3ceb9f0ca03aab5bb4941363fb936450ea273cbe545e617e"
-    },
-    {
-      "source": "src/panel/layers.js",
-      "destination": "src/panel/layers.js",
-      "bytes": 253,
-      "sourceSha256": "23095540adcbe66f30876a15cbc003d8800e238d1011e37065a449b19e8c7770",
-      "exportSha256": "23095540adcbe66f30876a15cbc003d8800e238d1011e37065a449b19e8c7770"
-    },
-    {
-      "source": "src/panel/lineTool.js",
-      "destination": "src/panel/lineTool.js",
-      "bytes": 403,
-      "sourceSha256": "32f8da9b344327ac0f4d4592da3b520e771c821db2465009e09331b8a60ec304",
-      "exportSha256": "32f8da9b344327ac0f4d4592da3b520e771c821db2465009e09331b8a60ec304"
-    },
-    {
-      "source": "src/panel/materials.js",
-      "destination": "src/panel/materials.js",
-      "bytes": 266,
-      "sourceSha256": "f7e56ffe4fd643169ffe2a9af0a977f7140f0940606252e46bf3abf0584bfeb7",
-      "exportSha256": "f7e56ffe4fd643169ffe2a9af0a977f7140f0940606252e46bf3abf0584bfeb7"
-    },
-    {
-      "source": "src/panel/modelingRedo.js",
-      "destination": "src/panel/modelingRedo.js",
-      "bytes": 291,
-      "sourceSha256": "e8054fd5dc99fb858e5c42713fb728185315bb34c50ac28f2c60e71ee770b4a8",
-      "exportSha256": "e8054fd5dc99fb858e5c42713fb728185315bb34c50ac28f2c60e71ee770b4a8"
-    },
-    {
-      "source": "src/panel/modelingUndo.js",
-      "destination": "src/panel/modelingUndo.js",
-      "bytes": 291,
-      "sourceSha256": "34fc3b243e0e3488b4bc93eb6ea9bdda28ebb339db78e11b976c766a328e3ad4",
-      "exportSha256": "34fc3b243e0e3488b4bc93eb6ea9bdda28ebb339db78e11b976c766a328e3ad4"
-    },
-    {
-      "source": "src/panel/nodePlugins.js",
-      "destination": "src/panel/nodePlugins.js",
-      "bytes": 272,
-      "sourceSha256": "960945eb2470692ee746f649f28f4cab4eee963c31c40fae87f37ac72a834aa3",
-      "exportSha256": "960945eb2470692ee746f649f28f4cab4eee963c31c40fae87f37ac72a834aa3"
-    },
-    {
-      "source": "src/panel/pan.js",
-      "destination": "src/panel/pan.js",
-      "bytes": 404,
-      "sourceSha256": "77e58e7e45177457fee424d338978dd77e6b0df7b347f9e7498a7b3e7dab1419",
-      "exportSha256": "77e58e7e45177457fee424d338978dd77e6b0df7b347f9e7498a7b3e7dab1419"
-    },
-    {
-      "source": "src/panel/viewOptions.js",
-      "destination": "src/panel/viewOptions.js",
-      "bytes": 281,
-      "sourceSha256": "43d71318801d4dbe078105e55c65cd4dc64106db1644b5f580c7502a07c747f7",
-      "exportSha256": "43d71318801d4dbe078105e55c65cd4dc64106db1644b5f580c7502a07c747f7"
-    },
-    {
-      "source": "src/panel/zoomExtents.js",
-      "destination": "src/panel/zoomExtents.js",
-      "bytes": 349,
-      "sourceSha256": "aed9d138b813084661240b554f44788dd973331598c1afc9b22dabe1b5fd14d8",
-      "exportSha256": "aed9d138b813084661240b554f44788dd973331598c1afc9b22dabe1b5fd14d8"
-    },
-    {
-      "source": "src/panel/zoomSelected.js",
-      "destination": "src/panel/zoomSelected.js",
-      "bytes": 342,
-      "sourceSha256": "86218c183397f87b6ee6be0bce1806fb3151bad4db9ab6b063b3eefc339e5387",
-      "exportSha256": "86218c183397f87b6ee6be0bce1806fb3151bad4db9ab6b063b3eefc339e5387"
-    },
-    {
-      "source": "src/ParameterScenePicker.js",
-      "destination": "src/ParameterScenePicker.js",
-      "bytes": 14058,
-      "sourceSha256": "afc7080d1d74da3e697ccf3d7d8d399d7e6d2301224cfc4d0f66a9b97aaa9f6d",
-      "exportSha256": "afc7080d1d74da3e697ccf3d7d8d399d7e6d2301224cfc4d0f66a9b97aaa9f6d"
-    },
-    {
-      "source": "src/plugins/KukaPreview.js",
-      "destination": "src/plugins/KukaPreview.js",
-      "bytes": 15267,
-      "sourceSha256": "5a37e109ebe1d226f7ddc1d55fc0003edfec90e8ee332469b54fbbc725c6a118",
-      "exportSha256": "5a37e109ebe1d226f7ddc1d55fc0003edfec90e8ee332469b54fbbc725c6a118"
-    },
-    {
-      "source": "src/plugins/RobotToolPreview.js",
-      "destination": "src/plugins/RobotToolPreview.js",
-      "bytes": 4323,
-      "sourceSha256": "a2d95b96b4f9affca5a9c891953ab12f9011e1aecdc2b2598ff3583c747fbe58",
-      "exportSha256": "a2d95b96b4f9affca5a9c891953ab12f9011e1aecdc2b2598ff3583c747fbe58"
-    },
-    {
-      "source": "src/PointDisplaySettings.js",
-      "destination": "src/PointDisplaySettings.js",
-      "bytes": 2125,
-      "sourceSha256": "87b4f3a6ef7895a1bdb8f546df3b51ad7075dbf3ff94e8ba6805de6d9ba6337a",
-      "exportSha256": "87b4f3a6ef7895a1bdb8f546df3b51ad7075dbf3ff94e8ba6805de6d9ba6337a"
-    },
-    {
-      "source": "src/PreviewSurfaceRendering.js",
-      "destination": "src/PreviewSurfaceRendering.js",
-      "bytes": 707,
-      "sourceSha256": "bc34ea7a0643a86eb29bed1ffbf054dbed0a9909a14589f408180c83970cefa8",
-      "exportSha256": "bc34ea7a0643a86eb29bed1ffbf054dbed0a9909a14589f408180c83970cefa8"
-    },
-    {
-      "source": "src/render/ImportedMaterialEditor.js",
-      "destination": "src/render/ImportedMaterialEditor.js",
-      "bytes": 12135,
-      "sourceSha256": "d67d8265084734cfdcfb783b6443f725d0368ddd87e6c0b9146134a7ad8b234f",
-      "exportSha256": "d67d8265084734cfdcfb783b6443f725d0368ddd87e6c0b9146134a7ad8b234f"
-    },
-    {
-      "source": "src/render/MaterialIdentity.js",
-      "destination": "src/render/MaterialIdentity.js",
-      "bytes": 1221,
-      "sourceSha256": "180250b54bfb857fbfcc77b53b51f39f888bf81981cf97c5492c188d615d05a8",
-      "exportSha256": "180250b54bfb857fbfcc77b53b51f39f888bf81981cf97c5492c188d615d05a8"
-    },
-    {
-      "source": "src/render/MaterialPreview.js",
-      "destination": "src/render/MaterialPreview.js",
-      "bytes": 4311,
-      "sourceSha256": "1185587ec48fe87af1f832aff47348ba6b1c4da507ff220d75f1ee2802c3eb9b",
-      "exportSha256": "1185587ec48fe87af1f832aff47348ba6b1c4da507ff220d75f1ee2802c3eb9b"
-    },
-    {
-      "source": "src/render/MaterialRefractionPass.js",
-      "destination": "src/render/MaterialRefractionPass.js",
-      "bytes": 1896,
-      "sourceSha256": "bd7a93010ca0648eb0505cf02624cd45d2cd25e70919bbd2363786c5a6a8c878",
-      "exportSha256": "bd7a93010ca0648eb0505cf02624cd45d2cd25e70919bbd2363786c5a6a8c878"
-    },
-    {
-      "source": "src/render/MaterialSurface.js",
-      "destination": "src/render/MaterialSurface.js",
-      "bytes": 6885,
-      "sourceSha256": "f2afe70d9ee45da004954cea9473bbe28a851b7b88d548fd495b1a4530cbc62a",
-      "exportSha256": "f2afe70d9ee45da004954cea9473bbe28a851b7b88d548fd495b1a4530cbc62a"
-    },
-    {
-      "source": "src/render/ObjectUVEditor.js",
-      "destination": "src/render/ObjectUVEditor.js",
-      "bytes": 11605,
-      "sourceSha256": "c54dd889b3d0e84e3137b551cbd9ccdc62de44d32a1a1c5765b99dcaec286974",
-      "exportSha256": "c54dd889b3d0e84e3137b551cbd9ccdc62de44d32a1a1c5765b99dcaec286974"
-    },
-    {
-      "source": "src/render/pathtrace/index.js",
-      "destination": "src/render/pathtrace/index.js",
-      "bytes": 195,
-      "sourceSha256": "fb62c4704d2de6eccc6ef22c0ed9bc36020cfb803a2e1170f4e130d257a62c3c",
-      "exportSha256": "fb62c4704d2de6eccc6ef22c0ed9bc36020cfb803a2e1170f4e130d257a62c3c"
-    },
-    {
-      "source": "src/render/pathtrace/PathScene.worker.js",
-      "destination": "src/render/pathtrace/PathScene.worker.js",
-      "bytes": 531,
-      "sourceSha256": "9966d65f6e7ebe2ee35ab873e9278d7e25bb7dbff75e7a55ade2baebf667ab01",
-      "exportSha256": "9966d65f6e7ebe2ee35ab873e9278d7e25bb7dbff75e7a55ade2baebf667ab01"
-    },
-    {
-      "source": "src/render/pathtrace/PathTracer.js",
-      "destination": "src/render/pathtrace/PathTracer.js",
-      "bytes": 21410,
-      "sourceSha256": "f0715a0e49c62483fd8e559a4eb63a4668ab0fbbd7ab362617c5018cb9ba763a",
-      "exportSha256": "f0715a0e49c62483fd8e559a4eb63a4668ab0fbbd7ab362617c5018cb9ba763a"
-    },
-    {
-      "source": "src/render/pathtrace/README.md",
-      "destination": "src/render/pathtrace/README.md",
-      "bytes": 9167,
-      "sourceSha256": "0fbc4e09c87580eac89bb4ac291eae737ec20ceec128b5c65a9b2aa7e983605a",
-      "exportSha256": "0fbc4e09c87580eac89bb4ac291eae737ec20ceec128b5c65a9b2aa7e983605a"
-    },
-    {
-      "source": "src/render/pathtrace/scene.js",
-      "destination": "src/render/pathtrace/scene.js",
-      "bytes": 16701,
-      "sourceSha256": "4de0eab430f93e73d5197a6860c8d2d744727ac254d2e9fbb67a7639013ade18",
-      "exportSha256": "4de0eab430f93e73d5197a6860c8d2d744727ac254d2e9fbb67a7639013ade18"
-    },
-    {
-      "source": "src/render/pathtrace/shaders.js",
-      "destination": "src/render/pathtrace/shaders.js",
-      "bytes": 11277,
-      "sourceSha256": "d88e922ae7fd486e9ada8f5cea502d55a332181c1c2050f20ab4f91588817166",
-      "exportSha256": "d88e922ae7fd486e9ada8f5cea502d55a332181c1c2050f20ab4f91588817166"
-    },
-    {
-      "source": "src/render/RasterRenderer.js",
-      "destination": "src/render/RasterRenderer.js",
-      "bytes": 15487,
-      "sourceSha256": "bbb92b6a872ba449724ac1303c9850e0be19846f2f677ca52c985cd4ac456cc7",
-      "exportSha256": "bbb92b6a872ba449724ac1303c9850e0be19846f2f677ca52c985cd4ac456cc7"
-    },
-    {
-      "source": "src/render/RasterSSAOPass.js",
-      "destination": "src/render/RasterSSAOPass.js",
-      "bytes": 4229,
-      "sourceSha256": "36982b293a4305d6899ac5d229be282345fd2bed41dda43dd5d641efb2811b43",
-      "exportSha256": "36982b293a4305d6899ac5d229be282345fd2bed41dda43dd5d641efb2811b43"
-    },
-    {
-      "source": "src/render/RenderBindingTargets.js",
-      "destination": "src/render/RenderBindingTargets.js",
-      "bytes": 916,
-      "sourceSha256": "122079e25dbb97f7562fa59dbcf4574c6b1d09f647299997a44cfd344b719099",
-      "exportSha256": "122079e25dbb97f7562fa59dbcf4574c6b1d09f647299997a44cfd344b719099"
-    },
-    {
-      "source": "src/render/RenderConfiguration.js",
-      "destination": "src/render/RenderConfiguration.js",
-      "bytes": 4888,
-      "sourceSha256": "a2e3cd79dc0fc3f1db2939e56ee0287a3cc50a4fe5376d296b60d317a44002f9",
-      "exportSha256": "a2e3cd79dc0fc3f1db2939e56ee0287a3cc50a4fe5376d296b60d317a44002f9"
-    },
-    {
-      "source": "src/render/RenderEngine.js",
-      "destination": "src/render/RenderEngine.js",
-      "bytes": 17745,
-      "sourceSha256": "d9d7de99adfe782772df5e3446c725f0ccb0487dd6abc7079e95d00366f68a93",
-      "exportSha256": "d9d7de99adfe782772df5e3446c725f0ccb0487dd6abc7079e95d00366f68a93"
-    },
-    {
-      "source": "src/render/RenderResourceEnvironment.js",
-      "destination": "src/render/RenderResourceEnvironment.js",
-      "bytes": 6740,
-      "sourceSha256": "fd65f02d5e4d6f42a5d6876ee29b5851ed1e461a0e114b2d08f39ee766212772",
-      "exportSha256": "fd65f02d5e4d6f42a5d6876ee29b5851ed1e461a0e114b2d08f39ee766212772"
-    },
-    {
-      "source": "src/render/RenderResourceLighting.js",
-      "destination": "src/render/RenderResourceLighting.js",
-      "bytes": 9654,
-      "sourceSha256": "636bf1054bc2e893dc2e15f01e0ec207e0e033e764d72e31e59cd16f4705ca86",
-      "exportSha256": "636bf1054bc2e893dc2e15f01e0ec207e0e033e764d72e31e59cd16f4705ca86"
-    },
-    {
-      "source": "src/render/RenderResourceMaterials.js",
-      "destination": "src/render/RenderResourceMaterials.js",
-      "bytes": 5236,
-      "sourceSha256": "69b0b5b567fdcc6b4be6a15b3efd51d2c46916cde409886667be328003d72091",
-      "exportSha256": "69b0b5b567fdcc6b4be6a15b3efd51d2c46916cde409886667be328003d72091"
-    },
-    {
-      "source": "src/render/RenderResources.js",
-      "destination": "src/render/RenderResources.js",
-      "bytes": 16181,
-      "sourceSha256": "c6dbf5c3a46d16e4f6d8454ffe713dd99aee4b27fd65d17834251a2c04ae4cad",
-      "exportSha256": "c6dbf5c3a46d16e4f6d8454ffe713dd99aee4b27fd65d17834251a2c04ae4cad"
-    },
-    {
-      "source": "src/render/RenderResources.md",
-      "destination": "src/render/RenderResources.md",
-      "bytes": 10472,
-      "sourceSha256": "c0890070962bef074f1848a915c1357c8bd6bca0a0ba1900b4ee9904301ce04b",
-      "exportSha256": "c0890070962bef074f1848a915c1357c8bd6bca0a0ba1900b4ee9904301ce04b"
-    },
-    {
-      "source": "src/render/RenderResourceScope.js",
-      "destination": "src/render/RenderResourceScope.js",
-      "bytes": 2239,
-      "sourceSha256": "93db465522e56a2519dc2bb363a50a73048a384486363c08147e573904a214e0",
-      "exportSha256": "93db465522e56a2519dc2bb363a50a73048a384486363c08147e573904a214e0"
-    },
-    {
-      "source": "src/render/RenderSceneAdapter.js",
-      "destination": "src/render/RenderSceneAdapter.js",
-      "bytes": 8495,
-      "sourceSha256": "29f0b581865fa6706ac87490888264303a212951387c33a5255945f1ff8111f9",
-      "exportSha256": "29f0b581865fa6706ac87490888264303a212951387c33a5255945f1ff8111f9"
-    },
-    {
-      "source": "src/render/RenderShadowFilter.js",
-      "destination": "src/render/RenderShadowFilter.js",
-      "bytes": 1726,
-      "sourceSha256": "3ef9ba5ebd4f824699b0e82730895fcd3a076dbae8a0bc87e88e3b179790acd3",
-      "exportSha256": "3ef9ba5ebd4f824699b0e82730895fcd3a076dbae8a0bc87e88e3b179790acd3"
-    },
-    {
-      "source": "src/render/RenderVisibility.js",
-      "destination": "src/render/RenderVisibility.js",
-      "bytes": 1162,
-      "sourceSha256": "7c98f855eff54ee6bec9aef2440d23c98fdfe2e05fbad57fd2d4a73564d131cf",
-      "exportSha256": "7c98f855eff54ee6bec9aef2440d23c98fdfe2e05fbad57fd2d4a73564d131cf"
-    },
-    {
-      "source": "src/render/SceneObjectReference.js",
-      "destination": "src/render/SceneObjectReference.js",
-      "bytes": 1047,
-      "sourceSha256": "f636832e653c46d54ec066000345b8b765ab4fec5d37934bf66a50b45fa0fae2",
-      "exportSha256": "f636832e653c46d54ec066000345b8b765ab4fec5d37934bf66a50b45fa0fae2"
-    },
-    {
-      "source": "src/RenderShadows.js",
-      "destination": "src/RenderShadows.js",
-      "bytes": 2723,
-      "sourceSha256": "63f1058e698deb587f12a69c51dcf9e62952969dbf9dd752803190e618174df0",
-      "exportSha256": "63f1058e698deb587f12a69c51dcf9e62952969dbf9dd752803190e618174df0"
-    },
-    {
-      "source": "src/RhinoGeometryConverter.js",
-      "destination": "src/RhinoGeometryConverter.js",
-      "bytes": 22769,
-      "sourceSha256": "197e60665ccf5e9ea95bb534277cf89a6f2726dbf41b4d1b69aec2029e06c0d3",
-      "exportSha256": "197e60665ccf5e9ea95bb534277cf89a6f2726dbf41b4d1b69aec2029e06c0d3"
-    },
-    {
-      "source": "src/router/index.js",
-      "destination": "src/router/index.js",
-      "bytes": 743,
-      "sourceSha256": "b523e6b432735b030db8b27fcf7da7d29b7a1e895325dd1e66a3b0859bdc3df4",
-      "exportSha256": "b523e6b432735b030db8b27fcf7da7d29b7a1e895325dd1e66a3b0859bdc3df4"
-    },
-    {
-      "source": "src/router/routes.js",
-      "destination": "src/router/routes.js",
-      "bytes": 496,
-      "sourceSha256": "add31a549787a30c672194d90cc92d7a660ef4dd692a482fe47b06a8914b512b",
-      "exportSha256": "add31a549787a30c672194d90cc92d7a660ef4dd692a482fe47b06a8914b512b"
-    },
-    {
-      "source": "src/SceneBounds.js",
-      "destination": "src/SceneBounds.js",
-      "bytes": 2790,
-      "sourceSha256": "655b9fc9c486ef2235e9562e4abfb294960e0311ac1c95f6ce9186b6ca558f46",
-      "exportSha256": "655b9fc9c486ef2235e9562e4abfb294960e0311ac1c95f6ce9186b6ca558f46"
-    },
-    {
-      "source": "src/SceneGeometryPreview.js",
-      "destination": "src/SceneGeometryPreview.js",
-      "bytes": 3456,
-      "sourceSha256": "f9a60e8ad298e0523de026116543fed7a09e6b5a70c1eac794cd0f6f871ca3e1",
-      "exportSha256": "f9a60e8ad298e0523de026116543fed7a09e6b5a70c1eac794cd0f6f871ca3e1"
-    },
-    {
-      "source": "src/SceneUtilities.js",
-      "destination": "src/SceneUtilities.js",
-      "bytes": 30423,
-      "sourceSha256": "afbd9ab2a037ac073b37a2143eb9c887d90f236b7aa2c8ed55e276076d7982c2",
-      "exportSha256": "afbd9ab2a037ac073b37a2143eb9c887d90f236b7aa2c8ed55e276076d7982c2"
-    },
-    {
-      "source": "src/ViewportGestureRouter.js",
-      "destination": "src/ViewportGestureRouter.js",
-      "bytes": 24859,
-      "sourceSha256": "c71c9ea7b37683b60d1fcbde002266515b6c3b920fa7f7f59c901f4986352bc3",
-      "exportSha256": "c71c9ea7b37683b60d1fcbde002266515b6c3b920fa7f7f59c901f4986352bc3"
+      "source": "package.json",
+      "destination": "package.json",
+      "bytes": 1889,
+      "sourceSha256": "877377cdc9487efac4b414f8d4ca6a53fa786ab5825a101aeaea4ec5a7c0bbc0",
+      "exportSha256": "a083072456d1cfdea12fe95e3d3bacd7329b3caf0a46d7f67082f9fae5c53289"
     },
     {
       "source": "public/editor/css/codemirror-foldgutter.css",
@@ -1363,9 +285,9 @@
     {
       "source": "public/editor/js/code.js",
       "destination": "public/editor/js/code.js",
-      "bytes": 14192,
-      "sourceSha256": "2992bbfe8038ad1655ca1bc7f05d4cfb76f38c938ec63ca9d16b36e30cbc8a0e",
-      "exportSha256": "2992bbfe8038ad1655ca1bc7f05d4cfb76f38c938ec63ca9d16b36e30cbc8a0e"
+      "bytes": 14650,
+      "sourceSha256": "8ba981b02ed72aefbe8fe3580888cb3b84a53d3e42ac2bcb556d6547c9a575a1",
+      "exportSha256": "8ba981b02ed72aefbe8fe3580888cb3b84a53d3e42ac2bcb556d6547c9a575a1"
     },
     {
       "source": "public/editor/js/libs/codemirror/active-line.js",
@@ -1487,6 +409,13 @@
       "exportSha256": "c9321a436ad96e4cd4e490639b33467803c0a0b100d71e4bf6d0b9b9d2587b2c"
     },
     {
+      "source": "public/editor/plugins/MNurbs_Nodes.js",
+      "destination": "public/editor/plugins/MNurbs_Nodes.js",
+      "bytes": 2504,
+      "sourceSha256": "383011dec7b5cd3cb46bb166c15c169261cb0137566ed70fc1b3191f138d4c75",
+      "exportSha256": "383011dec7b5cd3cb46bb166c15c169261cb0137566ed70fc1b3191f138d4c75"
+    },
+    {
       "source": "public/editor/plugins/Mantis_CSharp.js",
       "destination": "public/editor/plugins/Mantis_CSharp.js",
       "bytes": 18316,
@@ -1503,16 +432,44 @@
     {
       "source": "public/editor/plugins/Material_Nodes.js",
       "destination": "public/editor/plugins/Material_Nodes.js",
-      "bytes": 18705,
-      "sourceSha256": "43f1b6f382d1649c426254abd00aa28dddc6e7f06de26ab338f66d01d72d350a",
-      "exportSha256": "43f1b6f382d1649c426254abd00aa28dddc6e7f06de26ab338f66d01d72d350a"
+      "bytes": 19232,
+      "sourceSha256": "e2ef96ccf73c9d3264a257f4e716930d236329aa2fd57e5a4dccbd90ded6cb76",
+      "exportSha256": "e2ef96ccf73c9d3264a257f4e716930d236329aa2fd57e5a4dccbd90ded6cb76"
     },
     {
-      "source": "public/editor/plugins/MNurbs_Nodes.js",
-      "destination": "public/editor/plugins/MNurbs_Nodes.js",
-      "bytes": 2504,
-      "sourceSha256": "383011dec7b5cd3cb46bb166c15c169261cb0137566ed70fc1b3191f138d4c75",
-      "exportSha256": "383011dec7b5cd3cb46bb166c15c169261cb0137566ed70fc1b3191f138d4c75"
+      "source": "public/editor/plugins/Panel_Nodes.js",
+      "destination": "public/editor/plugins/Panel_Nodes.js",
+      "bytes": 2994,
+      "sourceSha256": "272d908edaf0f7c20ee78f8f9502c6c2aa80009bce8a1fb68bf76ade66cb5689",
+      "exportSha256": "272d908edaf0f7c20ee78f8f9502c6c2aa80009bce8a1fb68bf76ade66cb5689"
+    },
+    {
+      "source": "public/editor/plugins/Render_Nodes.js",
+      "destination": "public/editor/plugins/Render_Nodes.js",
+      "bytes": 27063,
+      "sourceSha256": "e4eb378bfa0a977e2ef62db4ec0a9df7e26316de80002476424a1307bd898593",
+      "exportSha256": "e4eb378bfa0a977e2ef62db4ec0a9df7e26316de80002476424a1307bd898593"
+    },
+    {
+      "source": "public/editor/plugins/Sketch_Widget.js",
+      "destination": "public/editor/plugins/Sketch_Widget.js",
+      "bytes": 15893,
+      "sourceSha256": "098dd4e2856dea415d38f2fc2a82197527acae0b1a689fa5c53a75b832c35d3b",
+      "exportSha256": "098dd4e2856dea415d38f2fc2a82197527acae0b1a689fa5c53a75b832c35d3b"
+    },
+    {
+      "source": "public/editor/plugins/TTransform.js",
+      "destination": "public/editor/plugins/TTransform.js",
+      "bytes": 13965,
+      "sourceSha256": "8c9288743dae9887e3f9923ea3a44c06674a3a89ca940d5d977d00d380ebcb82",
+      "exportSha256": "8c9288743dae9887e3f9923ea3a44c06674a3a89ca940d5d977d00d380ebcb82"
+    },
+    {
+      "source": "public/editor/plugins/UV_Nodes.js",
+      "destination": "public/editor/plugins/UV_Nodes.js",
+      "bytes": 8668,
+      "sourceSha256": "ac6d06abbea18fc67b05b0fae8f2fc77a39abbfb75d5e0978512e96cc646cea3",
+      "exportSha256": "ac6d06abbea18fc67b05b0fae8f2fc77a39abbfb75d5e0978512e96cc646cea3"
     },
     {
       "source": "public/editor/plugins/pandaui-data-converters.js",
@@ -1529,27 +486,6 @@
       "exportSha256": "3dd597dba671bcd2c10eb6476629be37ed2735a0d2159b4a43a487446b15e129"
     },
     {
-      "source": "public/editor/plugins/Panel_Nodes.js",
-      "destination": "public/editor/plugins/Panel_Nodes.js",
-      "bytes": 2994,
-      "sourceSha256": "272d908edaf0f7c20ee78f8f9502c6c2aa80009bce8a1fb68bf76ade66cb5689",
-      "exportSha256": "272d908edaf0f7c20ee78f8f9502c6c2aa80009bce8a1fb68bf76ade66cb5689"
-    },
-    {
-      "source": "public/editor/plugins/Render_Nodes.js",
-      "destination": "public/editor/plugins/Render_Nodes.js",
-      "bytes": 25553,
-      "sourceSha256": "0cb85478678ba53db1c6d35e3ff0f25bb8a8d508de55482ef45d3ba45a7d10e4",
-      "exportSha256": "0cb85478678ba53db1c6d35e3ff0f25bb8a8d508de55482ef45d3ba45a7d10e4"
-    },
-    {
-      "source": "public/editor/plugins/Sketch_Widget.js",
-      "destination": "public/editor/plugins/Sketch_Widget.js",
-      "bytes": 15893,
-      "sourceSha256": "098dd4e2856dea415d38f2fc2a82197527acae0b1a689fa5c53a75b832c35d3b",
-      "exportSha256": "098dd4e2856dea415d38f2fc2a82197527acae0b1a689fa5c53a75b832c35d3b"
-    },
-    {
       "source": "public/editor/plugins/tree-packer.js",
       "destination": "public/editor/plugins/tree-packer.js",
       "bytes": 2492,
@@ -1557,25 +493,11 @@
       "exportSha256": "60e4eff2583d33c5ff616155e5ed005c677601dc5b75d3e2bcaa140f5263b8cd"
     },
     {
-      "source": "public/editor/plugins/TTransform.js",
-      "destination": "public/editor/plugins/TTransform.js",
-      "bytes": 13489,
-      "sourceSha256": "6815a2f476100cc84e9a5a4582f01b10bb3309f6ad7989f0744e2193c423a4c0",
-      "exportSha256": "6815a2f476100cc84e9a5a4582f01b10bb3309f6ad7989f0744e2193c423a4c0"
-    },
-    {
-      "source": "public/editor/plugins/UV_Nodes.js",
-      "destination": "public/editor/plugins/UV_Nodes.js",
-      "bytes": 8323,
-      "sourceSha256": "ae79e8270a830670d5efa7f6d2b340fa90a8627f48a28a152a37869ee4065437",
-      "exportSha256": "ae79e8270a830670d5efa7f6d2b340fa90a8627f48a28a152a37869ee4065437"
-    },
-    {
       "source": "public/editor/shared/MaterialSchema.js",
       "destination": "public/editor/shared/MaterialSchema.js",
-      "bytes": 2780,
-      "sourceSha256": "ed0a2ec586bdc7dc95cada709aac6645e632228db5450d315b30f8ca486cca53",
-      "exportSha256": "ed0a2ec586bdc7dc95cada709aac6645e632228db5450d315b30f8ca486cca53"
+      "bytes": 2903,
+      "sourceSha256": "c6c10858fe7dd38ba4b20a400a70efaef97ec7cf39ab0f709770c73dc04fca63",
+      "exportSha256": "c6c10858fe7dd38ba4b20a400a70efaef97ec7cf39ab0f709770c73dc04fca63"
     },
     {
       "source": "public/editor/shared/SceneReferences.js",
@@ -1704,20 +626,6 @@
       "exportSha256": "f0f0b7ae6ddc13d85b15ef2760daca32fbed90c0b3ab5435d89c2df7ddd1a354"
     },
     {
-      "source": "public/editor/src/PandaUI/CollaborationClient.js",
-      "destination": "public/editor/src/PandaUI/CollaborationClient.js",
-      "bytes": 11664,
-      "sourceSha256": "e912db3c474817a2021436c469833e671008f303fff6f0957b1ee96c8d4c857e",
-      "exportSha256": "e912db3c474817a2021436c469833e671008f303fff6f0957b1ee96c8d4c857e"
-    },
-    {
-      "source": "public/editor/src/PandaUI/ConversationContext.js",
-      "destination": "public/editor/src/PandaUI/ConversationContext.js",
-      "bytes": 11143,
-      "sourceSha256": "61bc282932f987827c99780d4dfc5a64633ea7ca9da9020baf33e6f89a6642aa",
-      "exportSha256": "61bc282932f987827c99780d4dfc5a64633ea7ca9da9020baf33e6f89a6642aa"
-    },
-    {
       "source": "public/editor/src/PandaUI/CSharpAssistance.js",
       "destination": "public/editor/src/PandaUI/CSharpAssistance.js",
       "bytes": 3827,
@@ -1753,6 +661,20 @@
       "exportSha256": "da7f9c13f5ca8513437652098e4eca04dc5e7a81c1470428ea11fb1100a3a05e"
     },
     {
+      "source": "public/editor/src/PandaUI/CollaborationClient.js",
+      "destination": "public/editor/src/PandaUI/CollaborationClient.js",
+      "bytes": 11664,
+      "sourceSha256": "e912db3c474817a2021436c469833e671008f303fff6f0957b1ee96c8d4c857e",
+      "exportSha256": "e912db3c474817a2021436c469833e671008f303fff6f0957b1ee96c8d4c857e"
+    },
+    {
+      "source": "public/editor/src/PandaUI/ConversationContext.js",
+      "destination": "public/editor/src/PandaUI/ConversationContext.js",
+      "bytes": 11143,
+      "sourceSha256": "61bc282932f987827c99780d4dfc5a64633ea7ca9da9020baf33e6f89a6642aa",
+      "exportSha256": "61bc282932f987827c99780d4dfc5a64633ea7ca9da9020baf33e6f89a6642aa"
+    },
+    {
       "source": "public/editor/src/PandaUI/GraphAgent.js",
       "destination": "public/editor/src/PandaUI/GraphAgent.js",
       "bytes": 24566,
@@ -1762,9 +684,9 @@
     {
       "source": "public/editor/src/PandaUI/GraphCanvas.js",
       "destination": "public/editor/src/PandaUI/GraphCanvas.js",
-      "bytes": 82250,
-      "sourceSha256": "b73741cf014539b964cfd032cb5de52bf376750a6e3a341f32af8d0e49417dae",
-      "exportSha256": "b73741cf014539b964cfd032cb5de52bf376750a6e3a341f32af8d0e49417dae"
+      "bytes": 87211,
+      "sourceSha256": "8e2660b1f00501754cee9e54e61c33d1968cd5fac6c02675c20ad57012075e13",
+      "exportSha256": "8e2660b1f00501754cee9e54e61c33d1968cd5fac6c02675c20ad57012075e13"
     },
     {
       "source": "public/editor/src/PandaUI/NativeNodes.js",
@@ -1779,6 +701,13 @@
       "bytes": 3150,
       "sourceSha256": "ef6a139ff1cf8c42b4cd877cb86614e9760363b459bd4b1fc579d03ee5bd1bc7",
       "exportSha256": "ef6a139ff1cf8c42b4cd877cb86614e9760363b459bd4b1fc579d03ee5bd1bc7"
+    },
+    {
+      "source": "public/editor/src/PandaUI/NodeTooltip.js",
+      "destination": "public/editor/src/PandaUI/NodeTooltip.js",
+      "bytes": 21253,
+      "sourceSha256": "ed9c22f4ef0f59d22f497d3def3deaa42dc6fc4aa79351068a0003db59cc74e1",
+      "exportSha256": "ed9c22f4ef0f59d22f497d3def3deaa42dc6fc4aa79351068a0003db59cc74e1"
     },
     {
       "source": "public/editor/src/PandaUI/Nodes/BaseNodes.js",
@@ -1858,13 +787,6 @@
       "exportSha256": "14dfc13ecb5abd6e9e21080e24467561ebafca0a61bdb6185cbb8c9b66f4085a"
     },
     {
-      "source": "public/editor/src/PandaUI/NodeTooltip.js",
-      "destination": "public/editor/src/PandaUI/NodeTooltip.js",
-      "bytes": 21253,
-      "sourceSha256": "ed9c22f4ef0f59d22f497d3def3deaa42dc6fc4aa79351068a0003db59cc74e1",
-      "exportSha256": "ed9c22f4ef0f59d22f497d3def3deaa42dc6fc4aa79351068a0003db59cc74e1"
-    },
-    {
       "source": "public/editor/src/PandaUI/Runtime.js",
       "destination": "public/editor/src/PandaUI/Runtime.js",
       "bytes": 27499,
@@ -1886,18 +808,25 @@
       "exportSha256": "100a526e59f52b740f349cb50ea645287922d0baa8b33a70deaa9c1330544ffc"
     },
     {
-      "source": "public/editor/src/pandaui-plugins.js",
-      "destination": "public/editor/src/pandaui-plugins.js",
-      "bytes": 70878,
-      "sourceSha256": "5c4e9e4e094c2999d1cfbd6af2b13c1c9869468a900a80591e66ffe79479ec20",
-      "exportSha256": "5c4e9e4e094c2999d1cfbd6af2b13c1c9869468a900a80591e66ffe79479ec20"
-    },
-    {
       "source": "public/editor/src/WorkspaceSession.js",
       "destination": "public/editor/src/WorkspaceSession.js",
       "bytes": 6075,
       "sourceSha256": "13904ef59bf5b14e8f98f511397cfbf5392b6420ee800de26fc236461298e50b",
       "exportSha256": "13904ef59bf5b14e8f98f511397cfbf5392b6420ee800de26fc236461298e50b"
+    },
+    {
+      "source": "public/editor/src/pandaui-plugins.js",
+      "destination": "public/editor/src/pandaui-plugins.js",
+      "bytes": 71019,
+      "sourceSha256": "e01d109e5af865caed5b6592997d4faa8f754ed6e36a10ccf1faf60c99c2c176",
+      "exportSha256": "e01d109e5af865caed5b6592997d4faa8f754ed6e36a10ccf1faf60c99c2c176"
+    },
+    {
+      "source": "public/editor/src/pandaui-wasm-packages.js",
+      "destination": "public/editor/src/pandaui-wasm-packages.js",
+      "bytes": 4981,
+      "sourceSha256": "bea85ed247d8b3bca841a12d45b9c5069792ebb42ddea97a3b988a08e022e2f3",
+      "exportSha256": "bea85ed247d8b3bca841a12d45b9c5069792ebb42ddea97a3b988a08e022e2f3"
     },
     {
       "source": "public/editor/style.css",
@@ -1914,25 +843,18 @@
       "exportSha256": "67e7b6a2ee22b78f96290943603378fea0b219c4f3e0b1cde5fe88fef6b07ba6"
     },
     {
-      "source": "public/shared/DisplayPack.js",
-      "destination": "public/shared/DisplayPack.js",
-      "bytes": 2099,
-      "sourceSha256": "df0473f579cca64cc5fd59aa0ae10962645734cd26c9e749b36e4a42954f1b98",
-      "exportSha256": "df0473f579cca64cc5fd59aa0ae10962645734cd26c9e749b36e4a42954f1b98"
-    },
-    {
       "source": "public/nodec/BrepDisplayMeshing.js",
       "destination": "public/nodec/BrepDisplayMeshing.js",
-      "bytes": 13933,
-      "sourceSha256": "f46d439e43739b5a597d619e5b95cb53de86c44c69adec93e46282f2a885a39c",
-      "exportSha256": "f46d439e43739b5a597d619e5b95cb53de86c44c69adec93e46282f2a885a39c"
+      "bytes": 14388,
+      "sourceSha256": "4fd5b579e093fb7e4886d510a0396974393daabf57c01006074993fc655dc3eb",
+      "exportSha256": "4fd5b579e093fb7e4886d510a0396974393daabf57c01006074993fc655dc3eb"
     },
     {
       "source": "public/nodec/BrepMeshing.js",
       "destination": "public/nodec/BrepMeshing.js",
-      "bytes": 7305,
-      "sourceSha256": "9fce3d084b64c18daa8bbd7e02733bd3f896ef0b9fc2d3ad6547d86e8fdf51c4",
-      "exportSha256": "9fce3d084b64c18daa8bbd7e02733bd3f896ef0b9fc2d3ad6547d86e8fdf51c4"
+      "bytes": 8085,
+      "sourceSha256": "b07da82b61bcd93e1b7e57a67c82399e028c7775110346e5c0237000ac77514d",
+      "exportSha256": "b07da82b61bcd93e1b7e57a67c82399e028c7775110346e5c0237000ac77514d"
     },
     {
       "source": "public/nodec/GeometryControlPoints.js",
@@ -1977,6 +899,20 @@
       "exportSha256": "800e3cddff3c61725179315aa820dae71ae9a37006c28de335031c15e3930c93"
     },
     {
+      "source": "public/nodec/NodeC.js",
+      "destination": "public/nodec/NodeC.js",
+      "bytes": 160256,
+      "sourceSha256": "7c8c997d71ef93badad490c740f2158023256087e43603199961437784e8f602",
+      "exportSha256": "7c8c997d71ef93badad490c740f2158023256087e43603199961437784e8f602"
+    },
+    {
+      "source": "public/nodec/NodeC.wasm",
+      "destination": "public/nodec/NodeC.wasm",
+      "bytes": 3958201,
+      "sourceSha256": "1546892536492dcb23723be59146d82b8bcd7ece8cbc34ea36840c65dab67ac1",
+      "exportSha256": "1546892536492dcb23723be59146d82b8bcd7ece8cbc34ea36840c65dab67ac1"
+    },
+    {
       "source": "public/nodec/NodeC.worker.js",
       "destination": "public/nodec/NodeC.worker.js",
       "bytes": 6840,
@@ -1991,207 +927,25 @@
       "exportSha256": "f190491406f68699a6005a37b129ad6d83a20af07a81e17d40c2bdc6f879ec8f"
     },
     {
-      "source": "LICENSE",
-      "destination": "LICENSE",
-      "bytes": 1102,
-      "sourceSha256": "b1227eea76e856455b7ec9c9cdf987748dcfa7a7aeba7c2455986220e5e2d540",
-      "exportSha256": "b1227eea76e856455b7ec9c9cdf987748dcfa7a7aeba7c2455986220e5e2d540"
+      "source": "public/nodec/NodePackage.worker.mjs",
+      "destination": "public/nodec/NodePackage.worker.mjs",
+      "bytes": 1712,
+      "sourceSha256": "692627f6a047ca90eaf1eb3fe83f19c59037c8d3723c0e9df174e348ede3dcab",
+      "exportSha256": "692627f6a047ca90eaf1eb3fe83f19c59037c8d3723c0e9df174e348ede3dcab"
     },
     {
-      "source": "yarn.lock",
-      "destination": "yarn.lock",
-      "bytes": 309112,
-      "sourceSha256": "2b3ced1a70b84e17b18338011c6ae5148aec2612129bab4a529c369cfb509800",
-      "exportSha256": "2b3ced1a70b84e17b18338011c6ae5148aec2612129bab4a529c369cfb509800"
+      "source": "public/nodec/NodePackageLoader.mjs",
+      "destination": "public/nodec/NodePackageLoader.mjs",
+      "bytes": 4274,
+      "sourceSha256": "07e4861c3c91832feae2c0433a9ae004170bbb8ab1657479ebfecaf1be0af8f4",
+      "exportSha256": "07e4861c3c91832feae2c0433a9ae004170bbb8ab1657479ebfecaf1be0af8f4"
     },
     {
-      "source": "quasar.conf.js",
-      "destination": "quasar.conf.js",
-      "bytes": 6355,
-      "sourceSha256": "b8c370516b8428d760649667c3dcba55afe57b689caa358b12dc1300bb31a6dc",
-      "exportSha256": "2622fa776f3fec02939025f3b42fdaeef98c128af48119ef4055dfb37368c53c"
-    },
-    {
-      "source": "babel.config.js",
-      "destination": "babel.config.js",
-      "bytes": 74,
-      "sourceSha256": "cb6cbec710b3ee9e83891fe763485a647350a76f3c0f53bd2a9071c25493a377",
-      "exportSha256": "cb6cbec710b3ee9e83891fe763485a647350a76f3c0f53bd2a9071c25493a377"
-    },
-    {
-      "source": ".eslintrc.js",
-      "destination": ".eslintrc.js",
-      "bytes": 1491,
-      "sourceSha256": "e6708c596dc851ebfac08d9afb66f4226e2a8542bdceaa400d710428a1bc7223",
-      "exportSha256": "e6708c596dc851ebfac08d9afb66f4226e2a8542bdceaa400d710428a1bc7223"
-    },
-    {
-      "source": ".eslintignore",
-      "destination": ".eslintignore",
-      "bytes": 7,
-      "sourceSha256": "50cbb0013b58ba160c08dd046fd836585f4e0626a0fad149b54581e15765048a",
-      "exportSha256": "50cbb0013b58ba160c08dd046fd836585f4e0626a0fad149b54581e15765048a"
-    },
-    {
-      "source": ".postcssrc.js",
-      "destination": ".postcssrc.js",
-      "bytes": 208,
-      "sourceSha256": "b0cad86d574accca25bc33557ab4b5082f41f03de4433c843a3629d46b86baa3",
-      "exportSha256": "b0cad86d574accca25bc33557ab4b5082f41f03de4433c843a3629d46b86baa3"
-    },
-    {
-      "source": ".stylintrc",
-      "destination": ".stylintrc",
-      "bytes": 850,
-      "sourceSha256": "2fe9a79a3a40f51ab9845bd8d17f22769309dac313b51da11d441aa23132a5fe",
-      "exportSha256": "2fe9a79a3a40f51ab9845bd8d17f22769309dac313b51da11d441aa23132a5fe"
-    },
-    {
-      "source": "scripts/backend-dev-proxy.js",
-      "destination": "scripts/backend-dev-proxy.js",
-      "bytes": 1262,
-      "sourceSha256": "05244e7c6775e61259196ec1d8af517f68f9dc433032b3320e1a614d3e6c5092",
-      "exportSha256": "05244e7c6775e61259196ec1d8af517f68f9dc433032b3320e1a614d3e6c5092"
-    },
-    {
-      "source": "scripts/sync-frontend-import-assets.js",
-      "destination": "scripts/sync-frontend-import-assets.js",
-      "bytes": 1794,
-      "sourceSha256": "4d288b9f469a687cafc768c7335302fa7b17c67f016c404cbcc10441ff6a3494",
-      "exportSha256": "5e2099d222fa384a5c9ced6798617bfb2521505c04aa4041c574252fa09b3a04"
-    },
-    {
-      "source": "scripts/SceneFileWebpack.js",
-      "destination": "scripts/SceneFileWebpack.js",
-      "bytes": 1704,
-      "sourceSha256": "6748eba708d6eb084e30517cec577ef40585c27b669dddb12056eef6e488a787",
-      "exportSha256": "6748eba708d6eb084e30517cec577ef40585c27b669dddb12056eef6e488a787"
-    },
-    {
-      "source": "scripts/editor-test-kernel.js",
-      "destination": "scripts/editor-test-kernel.js",
-      "bytes": 739,
-      "sourceSha256": "6b37de62e6b14333785add5ccdbd98b052c40a300152cf29a3fd941863cd8bce",
-      "exportSha256": "6b37de62e6b14333785add5ccdbd98b052c40a300152cf29a3fd941863cd8bce"
-    },
-    {
-      "source": "scripts/test-editor-pandaui-runtime.js",
-      "destination": "scripts/test-editor-pandaui-runtime.js",
-      "bytes": 23273,
-      "sourceSha256": "da162abfa3d19643db86e4c54f9f927e20c767a6fd88cbee7705c2220a062a58",
-      "exportSha256": "da162abfa3d19643db86e4c54f9f927e20c767a6fd88cbee7705c2220a062a58"
-    },
-    {
-      "source": "scripts/test-graph-operations.js",
-      "destination": "scripts/test-graph-operations.js",
-      "bytes": 14613,
-      "sourceSha256": "bac25382f4c444559500682467d7ba5426bc24c9a3ae8c90c1621ba56a7c284e",
-      "exportSha256": "bac25382f4c444559500682467d7ba5426bc24c9a3ae8c90c1621ba56a7c284e"
-    },
-    {
-      "source": "node_modules/@quasar/extras/roboto-font/LICENSE",
-      "destination": "licenses/roboto-font.txt",
-      "bytes": 11325,
-      "sourceSha256": "9818d5c70be90d1256e35d4c3aea10164b1ba26842db269dd8237c5ba8b503da",
-      "exportSha256": "9818d5c70be90d1256e35d4c3aea10164b1ba26842db269dd8237c5ba8b503da"
-    },
-    {
-      "source": "node_modules/@quasar/extras/material-icons/LICENSE",
-      "destination": "licenses/material-icons.txt",
-      "bytes": 11357,
-      "sourceSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
-      "exportSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
-    },
-    {
-      "source": "node_modules/@quasar/extras/material-icons-outlined/LICENSE",
-      "destination": "licenses/material-icons-outlined.txt",
-      "bytes": 11357,
-      "sourceSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
-      "exportSha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
-    },
-    {
-      "source": "node_modules/@quasar/extras/LICENSE",
-      "destination": "licenses/npm/@quasar__extras/LICENSE",
-      "bytes": 1081,
-      "sourceSha256": "9b2ad806e5484fe6a5ea829e54d06227680fccef93d8be285ea566fd01ed8e72",
-      "exportSha256": "9b2ad806e5484fe6a5ea829e54d06227680fccef93d8be285ea566fd01ed8e72"
-    },
-    {
-      "source": "node_modules/core-js/LICENSE",
-      "destination": "licenses/npm/core-js/LICENSE",
-      "bytes": 1064,
-      "sourceSha256": "e1dad265f157187a8b0290f57b3c6807d94c322ffbcdf75ab82b638eb52b1789",
-      "exportSha256": "e1dad265f157187a8b0290f57b3c6807d94c322ffbcdf75ab82b638eb52b1789"
-    },
-    {
-      "source": "node_modules/dxf-parser/LICENSE",
-      "destination": "licenses/npm/dxf-parser/LICENSE",
-      "bytes": 1111,
-      "sourceSha256": "56eb37102e6e49ce363e8021f017fe0a6de61d3705273bed307110a3386cb42f",
-      "exportSha256": "56eb37102e6e49ce363e8021f017fe0a6de61d3705273bed307110a3386cb42f"
-    },
-    {
-      "source": "node_modules/lodash/LICENSE",
-      "destination": "licenses/npm/lodash/LICENSE",
-      "bytes": 1952,
-      "sourceSha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc",
-      "exportSha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc"
-    },
-    {
-      "source": "node_modules/occt-import-js/LICENSE.md",
-      "destination": "licenses/npm/occt-import-js/LICENSE.md",
-      "bytes": 27030,
-      "sourceSha256": "7ffe1954587c77dfba1cf8eb9b2ea743671fa6e63f9e7a2f258119d42e14eefe",
-      "exportSha256": "7ffe1954587c77dfba1cf8eb9b2ea743671fa6e63f9e7a2f258119d42e14eefe"
-    },
-    {
-      "source": "node_modules/quasar/LICENSE",
-      "destination": "licenses/npm/quasar/LICENSE",
-      "bytes": 1091,
-      "sourceSha256": "5eb081f51dbc5ac932691ad6be2a177cae80a8f5167ded6f55d683ba83914098",
-      "exportSha256": "5eb081f51dbc5ac932691ad6be2a177cae80a8f5167ded6f55d683ba83914098"
-    },
-    {
-      "source": "node_modules/three/LICENSE",
-      "destination": "licenses/npm/three/LICENSE",
-      "bytes": 1081,
-      "sourceSha256": "b53cfcb10e8642d82814dc14de5b4ea363300aa6a2de35f0669b33cd7d3f5c39",
-      "exportSha256": "b53cfcb10e8642d82814dc14de5b4ea363300aa6a2de35f0669b33cd7d3f5c39"
-    },
-    {
-      "source": "node_modules/vue/LICENSE",
-      "destination": "licenses/npm/vue/LICENSE",
-      "bytes": 1091,
-      "sourceSha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
-      "exportSha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
-    },
-    {
-      "source": "node_modules/vue-router/LICENSE",
-      "destination": "licenses/npm/vue-router/LICENSE",
-      "bytes": 1092,
-      "sourceSha256": "9c0015250f592a09d7787efc07152afcf661fff6bda2554359f6d00987828c02",
-      "exportSha256": "9c0015250f592a09d7787efc07152afcf661fff6bda2554359f6d00987828c02"
-    },
-    {
-      "source": "node_modules/ws/LICENSE",
-      "destination": "licenses/npm/ws/LICENSE",
-      "bytes": 1106,
-      "sourceSha256": "3de284c8e6fa7e8437eff6f53695471e0332129a5b42a79361e17b7637de94b3",
-      "exportSha256": "3de284c8e6fa7e8437eff6f53695471e0332129a5b42a79361e17b7637de94b3"
-    },
-    {
-      "source": "public/nodec/NodeC.js",
-      "destination": "public/nodec/NodeC.js",
-      "bytes": 157731,
-      "sourceSha256": "abad61331f669e64b08b264d7e03cc2921058a67214c2bc9e6f55ffeb4f46419",
-      "exportSha256": "abad61331f669e64b08b264d7e03cc2921058a67214c2bc9e6f55ffeb4f46419"
-    },
-    {
-      "source": "public/nodec/NodeC.wasm",
-      "destination": "public/nodec/NodeC.wasm",
-      "bytes": 3595586,
-      "sourceSha256": "6dc6cb79c425ed3b3e9333eae44fe65d2ddc7c80f52e984c452d739474cf8294",
-      "exportSha256": "6dc6cb79c425ed3b3e9333eae44fe65d2ddc7c80f52e984c452d739474cf8294"
+      "source": "public/nodec/NodePackageProtocol.mjs",
+      "destination": "public/nodec/NodePackageProtocol.mjs",
+      "bytes": 5247,
+      "sourceSha256": "1ca4d07a70ce3c9af5a9ec1b98a5340ed96264469596caf316d4ae63ebf74670",
+      "exportSha256": "1ca4d07a70ce3c9af5a9ec1b98a5340ed96264469596caf316d4ae63ebf74670"
     },
     {
       "source": "public/nodec/licenses/draco.txt",
@@ -2213,6 +967,1952 @@
       "bytes": 1104,
       "sourceSha256": "c9ae4ea8d6d751a4f14f33a48d2a4f41c6d5b85eead40e49903d57c5a6dac084",
       "exportSha256": "c9ae4ea8d6d751a4f14f33a48d2a4f41c6d5b85eead40e49903d57c5a6dac084"
+    },
+    {
+      "source": "public/nodec/packages/NOTICE.txt",
+      "destination": "public/nodec/packages/NOTICE.txt",
+      "bytes": 633,
+      "sourceSha256": "20890620265bdbc531704107ee654e0bdf64ca694047e9bb0efb49931cb67a68",
+      "exportSha256": "20890620265bdbc531704107ee654e0bdf64ca694047e9bb0efb49931cb67a68"
+    },
+    {
+      "source": "public/nodec/packages/index.json",
+      "destination": "public/nodec/packages/index.json",
+      "bytes": 286,
+      "sourceSha256": "c5b7e663fd2260430f769a40d1308d4ea966e53a93f143d48a394235afc0b4ae",
+      "exportSha256": "c5b7e663fd2260430f769a40d1308d4ea966e53a93f143d48a394235afc0b4ae"
+    },
+    {
+      "source": "public/nodec/packages/nodecurvec/NodeCurveC.wasm",
+      "destination": "public/nodec/packages/nodecurvec/NodeCurveC.wasm",
+      "bytes": 87688,
+      "sourceSha256": "c03df3edc6d47fed94b00479870cff35b929f2cdf73e5038c94651b3d6145354",
+      "exportSha256": "c03df3edc6d47fed94b00479870cff35b929f2cdf73e5038c94651b3d6145354"
+    },
+    {
+      "source": "public/nodec/packages/nodecurvec/manifest.json",
+      "destination": "public/nodec/packages/nodecurvec/manifest.json",
+      "bytes": 142364,
+      "sourceSha256": "70157aa78f9a31735e90dabc7ca38765d54ee39951715d83078cc7e28b9e7605",
+      "exportSha256": "70157aa78f9a31735e90dabc7ca38765d54ee39951715d83078cc7e28b9e7605"
+    },
+    {
+      "source": "public/nodec/packages/nodemathc/NodeMathC.wasm",
+      "destination": "public/nodec/packages/nodemathc/NodeMathC.wasm",
+      "bytes": 106781,
+      "sourceSha256": "b88c93a987e3f2215f9a250fa1a11b2a1a3a721d93b0010abc2b2f679154c399",
+      "exportSha256": "b88c93a987e3f2215f9a250fa1a11b2a1a3a721d93b0010abc2b2f679154c399"
+    },
+    {
+      "source": "public/nodec/packages/nodemathc/manifest.json",
+      "destination": "public/nodec/packages/nodemathc/manifest.json",
+      "bytes": 171708,
+      "sourceSha256": "23a84189c3b0823700d26e4cb67da343ab44ee9c3e39e1a5c67e9c989d9927ef",
+      "exportSha256": "23a84189c3b0823700d26e4cb67da343ab44ee9c3e39e1a5c67e9c989d9927ef"
+    },
+    {
+      "source": "public/nodec/packages/nodemeshc/NodeMeshC.wasm",
+      "destination": "public/nodec/packages/nodemeshc/NodeMeshC.wasm",
+      "bytes": 10594,
+      "sourceSha256": "09747870cd1fcde7fd3e0069c1e01a221d01c7a03236e03ce40795e36f7a3363",
+      "exportSha256": "09747870cd1fcde7fd3e0069c1e01a221d01c7a03236e03ce40795e36f7a3363"
+    },
+    {
+      "source": "public/nodec/packages/nodemeshc/manifest.json",
+      "destination": "public/nodec/packages/nodemeshc/manifest.json",
+      "bytes": 16020,
+      "sourceSha256": "8a3cc36fbc71bce8367f62473af38413472ee26ee7533ab990db22967426f248",
+      "exportSha256": "8a3cc36fbc71bce8367f62473af38413472ee26ee7533ab990db22967426f248"
+    },
+    {
+      "source": "public/nodec/packages/nodepointc/NodePointC.wasm",
+      "destination": "public/nodec/packages/nodepointc/NodePointC.wasm",
+      "bytes": 64250,
+      "sourceSha256": "6751de6332d77a317d6c0e0607c47c4e5c9692c395e4147789c570f94147743f",
+      "exportSha256": "6751de6332d77a317d6c0e0607c47c4e5c9692c395e4147789c570f94147743f"
+    },
+    {
+      "source": "public/nodec/packages/nodepointc/manifest.json",
+      "destination": "public/nodec/packages/nodepointc/manifest.json",
+      "bytes": 104215,
+      "sourceSha256": "3795dc3b3a5c715966aa1363c655b63426d68ae625db999f9e05252a73800580",
+      "exportSha256": "3795dc3b3a5c715966aa1363c655b63426d68ae625db999f9e05252a73800580"
+    },
+    {
+      "source": "public/nodec/packages/nodesurfacec/NodeSurfaceC.wasm",
+      "destination": "public/nodec/packages/nodesurfacec/NodeSurfaceC.wasm",
+      "bytes": 88735,
+      "sourceSha256": "94d0784dac5c249f24ab963b4b6daf1781ae8dd2dbfecdf4dd6f68b18088f738",
+      "exportSha256": "94d0784dac5c249f24ab963b4b6daf1781ae8dd2dbfecdf4dd6f68b18088f738"
+    },
+    {
+      "source": "public/nodec/packages/nodesurfacec/manifest.json",
+      "destination": "public/nodec/packages/nodesurfacec/manifest.json",
+      "bytes": 143451,
+      "sourceSha256": "2b571d5e4b17a9457637a6781549ea30e94ff2d4b37526366b860fc4c625ccd7",
+      "exportSha256": "2b571d5e4b17a9457637a6781549ea30e94ff2d4b37526366b860fc4c625ccd7"
+    },
+    {
+      "source": "public/nodec/packages/nodetrianglec/NodeTriangleC.wasm",
+      "destination": "public/nodec/packages/nodetrianglec/NodeTriangleC.wasm",
+      "bytes": 14894,
+      "sourceSha256": "1a5b430778b10c741db90665f897a791901203355e59deaca6c54f87088c29f8",
+      "exportSha256": "1a5b430778b10c741db90665f897a791901203355e59deaca6c54f87088c29f8"
+    },
+    {
+      "source": "public/nodec/packages/nodetrianglec/manifest.json",
+      "destination": "public/nodec/packages/nodetrianglec/manifest.json",
+      "bytes": 23298,
+      "sourceSha256": "4c6c3fc9b875c510e92e068c9aa2b65361ce0ae4747b97ca48ff9108df9dcb78",
+      "exportSha256": "4c6c3fc9b875c510e92e068c9aa2b65361ce0ae4747b97ca48ff9108df9dcb78"
+    },
+    {
+      "source": "public/nodec/packages/nodexformc/NodeXformC.wasm",
+      "destination": "public/nodec/packages/nodexformc/NodeXformC.wasm",
+      "bytes": 42585,
+      "sourceSha256": "6f2bdee1772cdc3b37be8833dc80ac7b0a76dd76b90e4c6a045ac291f95a78dd",
+      "exportSha256": "6f2bdee1772cdc3b37be8833dc80ac7b0a76dd76b90e4c6a045ac291f95a78dd"
+    },
+    {
+      "source": "public/nodec/packages/nodexformc/manifest.json",
+      "destination": "public/nodec/packages/nodexformc/manifest.json",
+      "bytes": 69211,
+      "sourceSha256": "c1df244de6adb69a3bf783466bf12331db88926fd75755351916006f18d720d3",
+      "exportSha256": "c1df244de6adb69a3bf783466bf12331db88926fd75755351916006f18d720d3"
+    },
+    {
+      "source": "public/shared/DisplayPack.js",
+      "destination": "public/shared/DisplayPack.js",
+      "bytes": 2099,
+      "sourceSha256": "df0473f579cca64cc5fd59aa0ae10962645734cd26c9e749b36e4a42954f1b98",
+      "exportSha256": "df0473f579cca64cc5fd59aa0ae10962645734cd26c9e749b36e4a42954f1b98"
+    },
+    {
+      "source": "public/shared/libredwg/GPL-3.0.txt",
+      "destination": "public/shared/libredwg/GPL-3.0.txt",
+      "bytes": 35149,
+      "sourceSha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "exportSha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "source": "public/shared/libredwg/NOTICE.txt",
+      "destination": "public/shared/libredwg/NOTICE.txt",
+      "bytes": 446,
+      "sourceSha256": "d4f8270db0776e90d086881161973560262a10bb351966a9e39b8b0b4d332aa1",
+      "exportSha256": "d4f8270db0776e90d086881161973560262a10bb351966a9e39b8b0b4d332aa1"
+    },
+    {
+      "source": "public/shared/libredwg/libredwg-web.wasm",
+      "destination": "public/shared/libredwg/libredwg-web.wasm",
+      "bytes": 11373231,
+      "sourceSha256": "8f8dbfe1ba3a0ae9ceb8856ed2090c0f44decd9d7febde68016df8c1fca50f9b",
+      "exportSha256": "8f8dbfe1ba3a0ae9ceb8856ed2090c0f44decd9d7febde68016df8c1fca50f9b"
+    },
+    {
+      "source": "public/shared/pathtracer/434.c935c91c24df.js",
+      "destination": "public/shared/pathtracer/434.c935c91c24df.js",
+      "bytes": 191652,
+      "sourceSha256": "be51e252e01d3ab3669381db8682839ade8f79b186688645b0dcf2fc454b39df",
+      "exportSha256": "be51e252e01d3ab3669381db8682839ade8f79b186688645b0dcf2fc454b39df"
+    },
+    {
+      "source": "public/shared/pathtracer/434.c935c91c24df.js.LICENSE.txt",
+      "destination": "public/shared/pathtracer/434.c935c91c24df.js.LICENSE.txt",
+      "bytes": 92,
+      "sourceSha256": "cd43b8cb3360818a1ede143c0905ed678e9fe989253cabe6c7e2a63d4a7e9673",
+      "exportSha256": "cd43b8cb3360818a1ede143c0905ed678e9fe989253cabe6c7e2a63d4a7e9673"
+    },
+    {
+      "source": "public/shared/pathtracer/NOTICE.txt",
+      "destination": "public/shared/pathtracer/NOTICE.txt",
+      "bytes": 399,
+      "sourceSha256": "a3eab8ce593eefb2e61f2f46cf74f3af7b7bc75e9ac8ad267757aa1b9dcfbe13",
+      "exportSha256": "a3eab8ce593eefb2e61f2f46cf74f3af7b7bc75e9ac8ad267757aa1b9dcfbe13"
+    },
+    {
+      "source": "public/shared/pathtracer/glslSmartDeNoise-LICENSE.txt",
+      "destination": "public/shared/pathtracer/glslSmartDeNoise-LICENSE.txt",
+      "bytes": 1352,
+      "sourceSha256": "6480c75d77eec432d9685bd557bb4267b897b83ece6c1ac6a829887a225a2115",
+      "exportSha256": "6480c75d77eec432d9685bd557bb4267b897b83ece6c1ac6a829887a225a2115"
+    },
+    {
+      "source": "public/shared/pathtracer/runtime-manifest.json",
+      "destination": "public/shared/pathtracer/runtime-manifest.json",
+      "bytes": 1306,
+      "sourceSha256": "0ee9db8668af8eaa5f1f7686e36e2da3621c9309ec3d6ce625d05a8ec0ce2b83",
+      "exportSha256": "0ee9db8668af8eaa5f1f7686e36e2da3621c9309ec3d6ce625d05a8ec0ce2b83"
+    },
+    {
+      "source": "public/shared/pathtracer/runtime.js",
+      "destination": "public/shared/pathtracer/runtime.js",
+      "bytes": 747932,
+      "sourceSha256": "8bcc6d4bd8d4a497154592b3ad6ce4b1d13e8290213279a524feab5df97e1613",
+      "exportSha256": "8bcc6d4bd8d4a497154592b3ad6ce4b1d13e8290213279a524feab5df97e1613"
+    },
+    {
+      "source": "public/shared/pathtracer/runtime.js.LICENSE.txt",
+      "destination": "public/shared/pathtracer/runtime.js.LICENSE.txt",
+      "bytes": 92,
+      "sourceSha256": "cd43b8cb3360818a1ede143c0905ed678e9fe989253cabe6c7e2a63d4a7e9673",
+      "exportSha256": "cd43b8cb3360818a1ede143c0905ed678e9fe989253cabe6c7e2a63d4a7e9673"
+    },
+    {
+      "source": "public/shared/pathtracer/three-LICENSE.txt",
+      "destination": "public/shared/pathtracer/three-LICENSE.txt",
+      "bytes": 1081,
+      "sourceSha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "exportSha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454"
+    },
+    {
+      "source": "public/shared/pathtracer/three-gpu-pathtracer-LICENSE.txt",
+      "destination": "public/shared/pathtracer/three-gpu-pathtracer-LICENSE.txt",
+      "bytes": 1072,
+      "sourceSha256": "2df239f3787d174fbd6ead7bc4c748bee526564aa2e67315afcae47e15552e00",
+      "exportSha256": "2df239f3787d174fbd6ead7bc4c748bee526564aa2e67315afcae47e15552e00"
+    },
+    {
+      "source": "public/shared/pathtracer/three-mesh-bvh-LICENSE.txt",
+      "destination": "public/shared/pathtracer/three-mesh-bvh-LICENSE.txt",
+      "bytes": 1072,
+      "sourceSha256": "b106ef6198a9862ed2b5b873e944ecf3583c631a84a7462d400ecc1910ce7fee",
+      "exportSha256": "b106ef6198a9862ed2b5b873e944ecf3583c631a84a7462d400ecc1910ce7fee"
+    },
+    {
+      "source": "public/shared/skp/NOTICES.txt",
+      "destination": "public/shared/skp/NOTICES.txt",
+      "bytes": 3118,
+      "sourceSha256": "864c9a19bbcfa396a698a2734b56a4f58e5452dded201bde31db938b95da18c6",
+      "exportSha256": "864c9a19bbcfa396a698a2734b56a4f58e5452dded201bde31db938b95da18c6"
+    },
+    {
+      "source": "public/shared/skp/PandaSkp.js",
+      "destination": "public/shared/skp/PandaSkp.js",
+      "bytes": 80088,
+      "sourceSha256": "c7579213f724b81b55ca36936f1b949b2cc0fe183b19887272c249228f4f5a01",
+      "exportSha256": "c7579213f724b81b55ca36936f1b949b2cc0fe183b19887272c249228f4f5a01"
+    },
+    {
+      "source": "quasar.conf.js",
+      "destination": "quasar.conf.js",
+      "bytes": 6710,
+      "sourceSha256": "c4bf7f86ccf6fe25e8a04bc1aa570d36d59da12e5769ee54ab7d0befed10f480",
+      "exportSha256": "c4bf7f86ccf6fe25e8a04bc1aa570d36d59da12e5769ee54ab7d0befed10f480"
+    },
+    {
+      "source": "scripts/SceneFileWebpack.js",
+      "destination": "scripts/SceneFileWebpack.js",
+      "bytes": 1704,
+      "sourceSha256": "6748eba708d6eb084e30517cec577ef40585c27b669dddb12056eef6e488a787",
+      "exportSha256": "6748eba708d6eb084e30517cec577ef40585c27b669dddb12056eef6e488a787"
+    },
+    {
+      "source": "scripts/backend-dev-proxy.js",
+      "destination": "scripts/backend-dev-proxy.js",
+      "bytes": 1262,
+      "sourceSha256": "05244e7c6775e61259196ec1d8af517f68f9dc433032b3320e1a614d3e6c5092",
+      "exportSha256": "05244e7c6775e61259196ec1d8af517f68f9dc433032b3320e1a614d3e6c5092"
+    },
+    {
+      "source": "scripts/build-pathtracer-runtime.cjs",
+      "destination": "scripts/build-pathtracer-runtime.cjs",
+      "bytes": 2743,
+      "sourceSha256": "c91212083492526c5aa86f4af569d484a1a7155a16e67acfd5e5f771016291dc",
+      "exportSha256": "c91212083492526c5aa86f4af569d484a1a7155a16e67acfd5e5f771016291dc"
+    },
+    {
+      "source": "scripts/build-skp-runtime.cjs",
+      "destination": "scripts/build-skp-runtime.cjs",
+      "bytes": 8177,
+      "sourceSha256": "fafe7190722badfcc4e830378ed08f192bc0c2b888432814926b4226c750ed72",
+      "exportSha256": "fafe7190722badfcc4e830378ed08f192bc0c2b888432814926b4226c750ed72"
+    },
+    {
+      "source": "scripts/editor-test-kernel.js",
+      "destination": "scripts/editor-test-kernel.js",
+      "bytes": 739,
+      "sourceSha256": "6b37de62e6b14333785add5ccdbd98b052c40a300152cf29a3fd941863cd8bce",
+      "exportSha256": "6b37de62e6b14333785add5ccdbd98b052c40a300152cf29a3fd941863cd8bce"
+    },
+    {
+      "source": "scripts/pathtracer-runtime/glslSmartDeNoise-LICENSE.txt",
+      "destination": "scripts/pathtracer-runtime/glslSmartDeNoise-LICENSE.txt",
+      "bytes": 1352,
+      "sourceSha256": "6480c75d77eec432d9685bd557bb4267b897b83ece6c1ac6a829887a225a2115",
+      "exportSha256": "6480c75d77eec432d9685bd557bb4267b897b83ece6c1ac6a829887a225a2115"
+    },
+    {
+      "source": "scripts/pathtracer-runtime/package-lock.json",
+      "destination": "scripts/pathtracer-runtime/package-lock.json",
+      "bytes": 1694,
+      "sourceSha256": "7d68e476ef42cd5f7b5955ab555738b53cc068b6fa7f1ab2cb2f5abed6447cf3",
+      "exportSha256": "7d68e476ef42cd5f7b5955ab555738b53cc068b6fa7f1ab2cb2f5abed6447cf3"
+    },
+    {
+      "source": "scripts/pathtracer-runtime/package.json",
+      "destination": "scripts/pathtracer-runtime/package.json",
+      "bytes": 314,
+      "sourceSha256": "b91ea51433b4019466c052401234bd80e788923f8a006eeed271729cdfcb65a6",
+      "exportSha256": "b91ea51433b4019466c052401234bd80e788923f8a006eeed271729cdfcb65a6"
+    },
+    {
+      "source": "scripts/pathtracer-runtime/runtime.js",
+      "destination": "scripts/pathtracer-runtime/runtime.js",
+      "bytes": 48031,
+      "sourceSha256": "0f96b0b299c3a8899400f46c440f5e24d9dcc468d9e82701b773a7dd5082ad94",
+      "exportSha256": "0f96b0b299c3a8899400f46c440f5e24d9dcc468d9e82701b773a7dd5082ad94"
+    },
+    {
+      "source": "scripts/sync-frontend-export.cjs",
+      "destination": "scripts/sync-frontend-export.cjs",
+      "bytes": 18626,
+      "sourceSha256": "d655a4ac879ad8cb5ae68b88fee65af2bdead5b2092d41450fff95ab18cb7a31",
+      "exportSha256": "d655a4ac879ad8cb5ae68b88fee65af2bdead5b2092d41450fff95ab18cb7a31"
+    },
+    {
+      "source": "scripts/sync-frontend-import-assets.js",
+      "destination": "scripts/sync-frontend-import-assets.js",
+      "bytes": 1794,
+      "sourceSha256": "4d288b9f469a687cafc768c7335302fa7b17c67f016c404cbcc10441ff6a3494",
+      "exportSha256": "5e2099d222fa384a5c9ced6798617bfb2521505c04aa4041c574252fa09b3a04"
+    },
+    {
+      "source": "scripts/test-cad-frontend-import.js",
+      "destination": "scripts/test-cad-frontend-import.js",
+      "bytes": 10352,
+      "sourceSha256": "4171e16bd44871f3e9e46a4e339cad1c87242bc595438b32c9bbec47cb21841c",
+      "exportSha256": "4171e16bd44871f3e9e46a4e339cad1c87242bc595438b32c9bbec47cb21841c"
+    },
+    {
+      "source": "scripts/test-editor-pandaui-runtime.js",
+      "destination": "scripts/test-editor-pandaui-runtime.js",
+      "bytes": 24556,
+      "sourceSha256": "12af5c068562218dc176203d9f842751e7f2c43c1661d7f4b8594eed3c991472",
+      "exportSha256": "12af5c068562218dc176203d9f842751e7f2c43c1661d7f4b8594eed3c991472"
+    },
+    {
+      "source": "scripts/test-folder-document-store.cjs",
+      "destination": "scripts/test-folder-document-store.cjs",
+      "bytes": 6856,
+      "sourceSha256": "eee97e4a7d3258a0d281e0ab5b2052e5e366432efe8cc4a7e95e104a5e292f45",
+      "exportSha256": "eee97e4a7d3258a0d281e0ab5b2052e5e366432efe8cc4a7e95e104a5e292f45"
+    },
+    {
+      "source": "scripts/test-graph-operations.js",
+      "destination": "scripts/test-graph-operations.js",
+      "bytes": 14613,
+      "sourceSha256": "bac25382f4c444559500682467d7ba5426bc24c9a3ae8c90c1621ba56a7c284e",
+      "exportSha256": "bac25382f4c444559500682467d7ba5426bc24c9a3ae8c90c1621ba56a7c284e"
+    },
+    {
+      "source": "scripts/test-imported-material-editor.js",
+      "destination": "scripts/test-imported-material-editor.js",
+      "bytes": 13093,
+      "sourceSha256": "b63b009b1e099ddfb46f68b9c5717a656647a6c0065d31bbf3358a6db0e03275",
+      "exportSha256": "b63b009b1e099ddfb46f68b9c5717a656647a6c0065d31bbf3358a6db0e03275"
+    },
+    {
+      "source": "scripts/test-local-document-folder-browser.cjs",
+      "destination": "scripts/test-local-document-folder-browser.cjs",
+      "bytes": 12158,
+      "sourceSha256": "bc59593533cd42cf9d037cd17f9b6e819ab89fdc84d96ecc36af66e6ebbac586",
+      "exportSha256": "bc59593533cd42cf9d037cd17f9b6e819ab89fdc84d96ecc36af66e6ebbac586"
+    },
+    {
+      "source": "scripts/test-mesh-worker-pool.js",
+      "destination": "scripts/test-mesh-worker-pool.js",
+      "bytes": 17910,
+      "sourceSha256": "38755b8f8775cad4fc21a488ef077adb981154b4acf108ad0a97787c9b41acd8",
+      "exportSha256": "38755b8f8775cad4fc21a488ef077adb981154b4acf108ad0a97787c9b41acd8"
+    },
+    {
+      "source": "scripts/test-node-packages-browser.cjs",
+      "destination": "scripts/test-node-packages-browser.cjs",
+      "bytes": 8245,
+      "sourceSha256": "5f5c7ad184855b740bff0cd113b3faf936d01e5605e52c3d4c975161c5a0540f",
+      "exportSha256": "5f5c7ad184855b740bff0cd113b3faf936d01e5605e52c3d4c975161c5a0540f"
+    },
+    {
+      "source": "scripts/test-node-packages.cjs",
+      "destination": "scripts/test-node-packages.cjs",
+      "bytes": 2781,
+      "sourceSha256": "16ea98ddef52972d12d87e15db14e72be732ee9d96402b9c1183d5b9d3aa4df5",
+      "exportSha256": "16ea98ddef52972d12d87e15db14e72be732ee9d96402b9c1183d5b9d3aa4df5"
+    },
+    {
+      "source": "scripts/test-pathtrace-scene-materials.cjs",
+      "destination": "scripts/test-pathtrace-scene-materials.cjs",
+      "bytes": 17191,
+      "sourceSha256": "92332a6b9f0fe11fc3e2173dc97f2291235658f28fe208683d8673a00bf61f16",
+      "exportSha256": "92332a6b9f0fe11fc3e2173dc97f2291235658f28fe208683d8673a00bf61f16"
+    },
+    {
+      "source": "scripts/test-pathtracer-runtime-browser.cjs",
+      "destination": "scripts/test-pathtracer-runtime-browser.cjs",
+      "bytes": 9295,
+      "sourceSha256": "adac2abd99e4501d0f5533e48c7d2e12db8779d25a2408a56a7fda57d35df8ff",
+      "exportSha256": "adac2abd99e4501d0f5533e48c7d2e12db8779d25a2408a56a7fda57d35df8ff"
+    },
+    {
+      "source": "scripts/test-render-idle-loop.cjs",
+      "destination": "scripts/test-render-idle-loop.cjs",
+      "bytes": 5515,
+      "sourceSha256": "3e0c34858faa375705eb77b9b7b3e525257a7b5f1c122fc1fb01026a492b3d31",
+      "exportSha256": "3e0c34858faa375705eb77b9b7b3e525257a7b5f1c122fc1fb01026a492b3d31"
+    },
+    {
+      "source": "scripts/test-render-nodes.js",
+      "destination": "scripts/test-render-nodes.js",
+      "bytes": 26041,
+      "sourceSha256": "d5e03b7a67a7a452d95c94dc40a9d34325baee082e638896b0f674071591f5d0",
+      "exportSha256": "d5e03b7a67a7a452d95c94dc40a9d34325baee082e638896b0f674071591f5d0"
+    },
+    {
+      "source": "scripts/test-render-pathtrace-browser.js",
+      "destination": "scripts/test-render-pathtrace-browser.js",
+      "bytes": 130,
+      "sourceSha256": "b7b4825f07d717e17d8d0d35742a3cedc145f0b8607e6dcbb5f114ebecf996c9",
+      "exportSha256": "b7b4825f07d717e17d8d0d35742a3cedc145f0b8607e6dcbb5f114ebecf996c9"
+    },
+    {
+      "source": "scripts/test-render-pathtrace.js",
+      "destination": "scripts/test-render-pathtrace.js",
+      "bytes": 188,
+      "sourceSha256": "9f8b3c7956f20527e1723a3fbe525faab0c8d54637a7343f8fc64824eeed02b1",
+      "exportSha256": "9f8b3c7956f20527e1723a3fbe525faab0c8d54637a7343f8fc64824eeed02b1"
+    },
+    {
+      "source": "scripts/test-render-raster-browser.js",
+      "destination": "scripts/test-render-raster-browser.js",
+      "bytes": 3677,
+      "sourceSha256": "0b1b84eb7d0e7164d17e25538bd3732433cb1ee19d3c531f933d9c5fcab05cb0",
+      "exportSha256": "0b1b84eb7d0e7164d17e25538bd3732433cb1ee19d3c531f933d9c5fcab05cb0"
+    },
+    {
+      "source": "scripts/test-render-raster-fixture.js",
+      "destination": "scripts/test-render-raster-fixture.js",
+      "bytes": 57932,
+      "sourceSha256": "7737cab0e921817a9febb28ee0c5caeac9c99ef667124f7854b6f98a43aaa440",
+      "exportSha256": "7737cab0e921817a9febb28ee0c5caeac9c99ef667124f7854b6f98a43aaa440"
+    },
+    {
+      "source": "scripts/test-render-scene-adapter.js",
+      "destination": "scripts/test-render-scene-adapter.js",
+      "bytes": 27214,
+      "sourceSha256": "c173dd0bfd74fa8e7ad30d3f3c0f49aefaeacf44c39a6de86a7e4fac220779cf",
+      "exportSha256": "c173dd0bfd74fa8e7ad30d3f3c0f49aefaeacf44c39a6de86a7e4fac220779cf"
+    },
+    {
+      "source": "scripts/test-skp-browser.cjs",
+      "destination": "scripts/test-skp-browser.cjs",
+      "bytes": 10469,
+      "sourceSha256": "752c9bf8e66e2ccf2f4cd7accbd5c7b1af09be77a954d9fca64c6cb041cb8120",
+      "exportSha256": "752c9bf8e66e2ccf2f4cd7accbd5c7b1af09be77a954d9fca64c6cb041cb8120"
+    },
+    {
+      "source": "scripts/test-skp-import.cjs",
+      "destination": "scripts/test-skp-import.cjs",
+      "bytes": 16725,
+      "sourceSha256": "e71022093aa8d858ea6e0f631ba619bfdcfd71ce2882a7538bfbe1bd057ab85f",
+      "exportSha256": "e71022093aa8d858ea6e0f631ba619bfdcfd71ce2882a7538bfbe1bd057ab85f"
+    },
+    {
+      "source": "scripts/test-step-brep.cjs",
+      "destination": "scripts/test-step-brep.cjs",
+      "bytes": 45239,
+      "sourceSha256": "16816ccfefc060928c9d7d86fa9fdf5889ed63ca2e0fe27f88d97c25f9729532",
+      "exportSha256": "16816ccfefc060928c9d7d86fa9fdf5889ed63ca2e0fe27f88d97c25f9729532"
+    },
+    {
+      "source": "scripts/test-step-instances.cjs",
+      "destination": "scripts/test-step-instances.cjs",
+      "bytes": 17739,
+      "sourceSha256": "0651b8aa9405bff13c0d3c6a57d09b01d47e7d02207e53af66831cc10e9b761f",
+      "exportSha256": "0651b8aa9405bff13c0d3c6a57d09b01d47e7d02207e53af66831cc10e9b761f"
+    },
+    {
+      "source": "scripts/test-step-native.cjs",
+      "destination": "scripts/test-step-native.cjs",
+      "bytes": 15906,
+      "sourceSha256": "71b9062dbef8cf7d24540e5543aaba2bef22961147d7b3ec500793bd8fae6b19",
+      "exportSha256": "71b9062dbef8cf7d24540e5543aaba2bef22961147d7b3ec500793bd8fae6b19"
+    },
+    {
+      "source": "scripts/test-step-opennurbs.cjs",
+      "destination": "scripts/test-step-opennurbs.cjs",
+      "bytes": 20899,
+      "sourceSha256": "b431bb82e2ab6bdfb9e586a9b6c00ebf7da92c1d21fe3cda5ac01a2b64e259d8",
+      "exportSha256": "b431bb82e2ab6bdfb9e586a9b6c00ebf7da92c1d21fe3cda5ac01a2b64e259d8"
+    },
+    {
+      "source": "scripts/test-step-part21.cjs",
+      "destination": "scripts/test-step-part21.cjs",
+      "bytes": 45422,
+      "sourceSha256": "f6280d8c1cc7a6be7c7424223a483293aee54150546b7dabdcadbe85bec44a7c",
+      "exportSha256": "f6280d8c1cc7a6be7c7424223a483293aee54150546b7dabdcadbe85bec44a7c"
+    },
+    {
+      "source": "scripts/test-step-progressive-browser.cjs",
+      "destination": "scripts/test-step-progressive-browser.cjs",
+      "bytes": 40510,
+      "sourceSha256": "9d54804fb4d568dbf2301f06189c6e6af9e017dc46d019928849f1f1b8819e65",
+      "exportSha256": "9d54804fb4d568dbf2301f06189c6e6af9e017dc46d019928849f1f1b8819e65"
+    },
+    {
+      "source": "scripts/test-step-progressive.cjs",
+      "destination": "scripts/test-step-progressive.cjs",
+      "bytes": 7894,
+      "sourceSha256": "0e21ecb904514b3467c8f3ddb62f39c5ef04f6542c9f691cec09a319a5506b06",
+      "exportSha256": "0e21ecb904514b3467c8f3ddb62f39c5ef04f6542c9f691cec09a319a5506b06"
+    },
+    {
+      "source": "scripts/test-sync-frontend-export.cjs",
+      "destination": "scripts/test-sync-frontend-export.cjs",
+      "bytes": 16557,
+      "sourceSha256": "ef9f3949c6936e6307479bb6e21938428f41898f9d32c16d600bc67ce5cac90d",
+      "exportSha256": "ef9f3949c6936e6307479bb6e21938428f41898f9d32c16d600bc67ce5cac90d"
+    },
+    {
+      "source": "scripts/test-viewport-display-settings.js",
+      "destination": "scripts/test-viewport-display-settings.js",
+      "bytes": 21137,
+      "sourceSha256": "c3edf5219dbac178daadbc28dab02b8cfc9de12fe412c01afdd935f2e00f77ba",
+      "exportSha256": "c3edf5219dbac178daadbc28dab02b8cfc9de12fe412c01afdd935f2e00f77ba"
+    },
+    {
+      "source": "src/.gitignore",
+      "destination": "src/.gitignore",
+      "bytes": 237,
+      "sourceSha256": "2ff93eaaa8aa4be09b28d1d168ddbe6f5b2c4905f031b4a7f809a50762ab38e8",
+      "exportSha256": "2ff93eaaa8aa4be09b28d1d168ddbe6f5b2c4905f031b4a7f809a50762ab38e8"
+    },
+    {
+      "source": "src/AdaptiveViewport.js",
+      "destination": "src/AdaptiveViewport.js",
+      "bytes": 8857,
+      "sourceSha256": "263b1ed6fbe87a44ba979707ee5735f431a0f75e6b604d1fbc211b4a8b92ba72",
+      "exportSha256": "263b1ed6fbe87a44ba979707ee5735f431a0f75e6b604d1fbc211b4a8b92ba72"
+    },
+    {
+      "source": "src/App.vue",
+      "destination": "src/App.vue",
+      "bytes": 823,
+      "sourceSha256": "d72b800b7d47e758df9a24590ac31078a149f7d5f0e780f75cef0bdf83a7c0c1",
+      "exportSha256": "bf31f5118abd995afeb0940ed1af1c8614de99dfa37ac2600d394a2f3225c7ad"
+    },
+    {
+      "source": "src/BackendPandaUIDoc.js",
+      "destination": "src/BackendPandaUIDoc.js",
+      "bytes": 93466,
+      "sourceSha256": "49aff12959a73ba5a2cc2e9263d657aaea159dafd36dffe7ffa0a20fd7d86060",
+      "exportSha256": "49aff12959a73ba5a2cc2e9263d657aaea159dafd36dffe7ffa0a20fd7d86060"
+    },
+    {
+      "source": "src/BrepDisplayRanges.js",
+      "destination": "src/BrepDisplayRanges.js",
+      "bytes": 10275,
+      "sourceSha256": "5cb61129460bed19025069461d76f8266834d6643ebd04656d071145ad67c3cc",
+      "exportSha256": "5cb61129460bed19025069461d76f8266834d6643ebd04656d071145ad67c3cc"
+    },
+    {
+      "source": "src/CameraFraming.js",
+      "destination": "src/CameraFraming.js",
+      "bytes": 3008,
+      "sourceSha256": "b3c4c1ee962ee640325d5ea2860a7e9da9a9bc38df99301cbb30cdd95dfcaa75",
+      "exportSha256": "b3c4c1ee962ee640325d5ea2860a7e9da9a9bc38df99301cbb30cdd95dfcaa75"
+    },
+    {
+      "source": "src/ChunkStreamReader.js",
+      "destination": "src/ChunkStreamReader.js",
+      "bytes": 1535,
+      "sourceSha256": "f0368701e40cf9991ec9a5092920bf8b8f8cd4383f838b1aae0581d270485a6d",
+      "exportSha256": "f0368701e40cf9991ec9a5092920bf8b8f8cd4383f838b1aae0581d270485a6d"
+    },
+    {
+      "source": "src/ClippingPlaneDisplay.js",
+      "destination": "src/ClippingPlaneDisplay.js",
+      "bytes": 18410,
+      "sourceSha256": "e415ebe233e938523b3513ba61725a61aef4068a8c8f44e81806ffa467523a86",
+      "exportSha256": "e415ebe233e938523b3513ba61725a61aef4068a8c8f44e81806ffa467523a86"
+    },
+    {
+      "source": "src/CursorWheelZoom.js",
+      "destination": "src/CursorWheelZoom.js",
+      "bytes": 2178,
+      "sourceSha256": "6a1ea5c238c8d6e93cbb60ac3a64c811513590df4ad35fc0c4dc623817e4b107",
+      "exportSha256": "6a1ea5c238c8d6e93cbb60ac3a64c811513590df4ad35fc0c4dc623817e4b107"
+    },
+    {
+      "source": "src/DisplayLighting.js",
+      "destination": "src/DisplayLighting.js",
+      "bytes": 1648,
+      "sourceSha256": "8cdb7124b5a1341a35c9c15dbbd49fabf6143e4b85f101994fad820ffb5f89a7",
+      "exportSha256": "8cdb7124b5a1341a35c9c15dbbd49fabf6143e4b85f101994fad820ffb5f89a7"
+    },
+    {
+      "source": "src/DisplayMaterialSettings.js",
+      "destination": "src/DisplayMaterialSettings.js",
+      "bytes": 5149,
+      "sourceSha256": "1e05e75dfcee5fb7001ab4a37d29f1c23c79bee04e7b4a8acc8be23c2f26322a",
+      "exportSha256": "1e05e75dfcee5fb7001ab4a37d29f1c23c79bee04e7b4a8acc8be23c2f26322a"
+    },
+    {
+      "source": "src/DisplayMode.js",
+      "destination": "src/DisplayMode.js",
+      "bytes": 1397,
+      "sourceSha256": "d64128bfd472d489d92e2830d314743a4f77642b281c0cf241bf08a2d3e6d74c",
+      "exportSha256": "d64128bfd472d489d92e2830d314743a4f77642b281c0cf241bf08a2d3e6d74c"
+    },
+    {
+      "source": "src/DisplayPipeline.js",
+      "destination": "src/DisplayPipeline.js",
+      "bytes": 70511,
+      "sourceSha256": "1e64e2bff22950f5768b4becaf29a33c3eaa6d07f87c84c40e767559c3cf3af0",
+      "exportSha256": "1e64e2bff22950f5768b4becaf29a33c3eaa6d07f87c84c40e767559c3cf3af0"
+    },
+    {
+      "source": "src/DisplayResources.js",
+      "destination": "src/DisplayResources.js",
+      "bytes": 4272,
+      "sourceSha256": "05e6b015af57b4e9ffb1cacc17c8e57f9874b7792fff188c6ea7b49557b0f5eb",
+      "exportSha256": "05e6b015af57b4e9ffb1cacc17c8e57f9874b7792fff188c6ea7b49557b0f5eb"
+    },
+    {
+      "source": "src/DisplayTaskQueue.js",
+      "destination": "src/DisplayTaskQueue.js",
+      "bytes": 2355,
+      "sourceSha256": "2e2430142f191be5f52c952130506def1bd67208bfa3d29ff6e64bec50ef18e5",
+      "exportSha256": "2e2430142f191be5f52c952130506def1bd67208bfa3d29ff6e64bec50ef18e5"
+    },
+    {
+      "source": "src/DocumentHierarchy.js",
+      "destination": "src/DocumentHierarchy.js",
+      "bytes": 12337,
+      "sourceSha256": "4abfa038c5b19f0c39e733e840caaf615b36f24ea4865552d292daee514235e2",
+      "exportSha256": "4abfa038c5b19f0c39e733e840caaf615b36f24ea4865552d292daee514235e2"
+    },
+    {
+      "source": "src/DocumentObjectMoves.js",
+      "destination": "src/DocumentObjectMoves.js",
+      "bytes": 5803,
+      "sourceSha256": "db35fcc21ec41a4208e92cac9b96fc39d39fcd5f6608df82874e781bd813034f",
+      "exportSha256": "db35fcc21ec41a4208e92cac9b96fc39d39fcd5f6608df82874e781bd813034f"
+    },
+    {
+      "source": "src/EdgeDisplayRenderer.js",
+      "destination": "src/EdgeDisplayRenderer.js",
+      "bytes": 13605,
+      "sourceSha256": "2ebe667d4be3400f456502e3414dd6972079f72ab0cdfd334a20090db4fd58a1",
+      "exportSha256": "2ebe667d4be3400f456502e3414dd6972079f72ab0cdfd334a20090db4fd58a1"
+    },
+    {
+      "source": "src/FileDraco.js",
+      "destination": "src/FileDraco.js",
+      "bytes": 635,
+      "sourceSha256": "e8f5be26a9501e466344d1547bad50e8eaad2b3a9783cc9d2a6ce8b6b762acee",
+      "exportSha256": "e8f5be26a9501e466344d1547bad50e8eaad2b3a9783cc9d2a6ce8b6b762acee"
+    },
+    {
+      "source": "src/FileObj.js",
+      "destination": "src/FileObj.js",
+      "bytes": 1521,
+      "sourceSha256": "d332c251170a1a9ccea8c7d87c49cab3bd342a7a432eaf6d0279292e05f06b17",
+      "exportSha256": "d332c251170a1a9ccea8c7d87c49cab3bd342a7a432eaf6d0279292e05f06b17"
+    },
+    {
+      "source": "src/FilePly.js",
+      "destination": "src/FilePly.js",
+      "bytes": 728,
+      "sourceSha256": "1af13a3b4541b1b50b220fd6fa9d08e20ee973140d57181837569fbd1a51e603",
+      "exportSha256": "1af13a3b4541b1b50b220fd6fa9d08e20ee973140d57181837569fbd1a51e603"
+    },
+    {
+      "source": "src/FileStl.js",
+      "destination": "src/FileStl.js",
+      "bytes": 1753,
+      "sourceSha256": "50d1447a1ee586242a29cd278c27678f18686b6b8ad311572177e5d985dc6ce3",
+      "exportSha256": "50d1447a1ee586242a29cd278c27678f18686b6b8ad311572177e5d985dc6ce3"
+    },
+    {
+      "source": "src/GeometryDocumentViewState.js",
+      "destination": "src/GeometryDocumentViewState.js",
+      "bytes": 8684,
+      "sourceSha256": "4fa7ec5605bf40263b25b1d60e3c312b1b3b9efbcd3f42d675a5cfe7738269b6",
+      "exportSha256": "4fa7ec5605bf40263b25b1d60e3c312b1b3b9efbcd3f42d675a5cfe7738269b6"
+    },
+    {
+      "source": "src/GlslLineList.js",
+      "destination": "src/GlslLineList.js",
+      "bytes": 10778,
+      "sourceSha256": "dbe59dd6933f4b61934910b3abddf7c0a91706fbed2674c35ac8270241ee236b",
+      "exportSha256": "dbe59dd6933f4b61934910b3abddf7c0a91706fbed2674c35ac8270241ee236b"
+    },
+    {
+      "source": "src/ImportChunkStream.js",
+      "destination": "src/ImportChunkStream.js",
+      "bytes": 2779,
+      "sourceSha256": "f7f8685bd98553cab97c8c276dd78f2d0913c99ccbc5f05518450f232e0bf600",
+      "exportSha256": "f7f8685bd98553cab97c8c276dd78f2d0913c99ccbc5f05518450f232e0bf600"
+    },
+    {
+      "source": "src/ModelFileDrop.js",
+      "destination": "src/ModelFileDrop.js",
+      "bytes": 3018,
+      "sourceSha256": "9def5b68368e4c1aae52ebb0de9d415f21f07109d4a0303dce0aac43ff76ee24",
+      "exportSha256": "9def5b68368e4c1aae52ebb0de9d415f21f07109d4a0303dce0aac43ff76ee24"
+    },
+    {
+      "source": "src/NodeDocumentFiles.js",
+      "destination": "src/NodeDocumentFiles.js",
+      "bytes": 4315,
+      "sourceSha256": "0b2accb87266236976d5006caeec32b6669396fdeb7455c5df72c3a4c68285bc",
+      "exportSha256": "0b2accb87266236976d5006caeec32b6669396fdeb7455c5df72c3a4c68285bc"
+    },
+    {
+      "source": "src/NodeDocumentWorkspace.js",
+      "destination": "src/NodeDocumentWorkspace.js",
+      "bytes": 8560,
+      "sourceSha256": "6007ab373c256667613e9291025739446359a80b676ada9a9344cb9c8d233385",
+      "exportSha256": "6007ab373c256667613e9291025739446359a80b676ada9a9344cb9c8d233385"
+    },
+    {
+      "source": "src/PandaUIApp.js",
+      "destination": "src/PandaUIApp.js",
+      "bytes": 61816,
+      "sourceSha256": "a867334e4be4dd842b2dfbfbac3d972a0113c00df3bc9eabfe998070b106677f",
+      "exportSha256": "a867334e4be4dd842b2dfbfbac3d972a0113c00df3bc9eabfe998070b106677f"
+    },
+    {
+      "source": "src/PandaUIDoc.js",
+      "destination": "src/PandaUIDoc.js",
+      "bytes": 47424,
+      "sourceSha256": "41cf344b71e3dfa54d1384a43512d10a8c5db03af60d164f65df0f2bd3c449a1",
+      "exportSha256": "41cf344b71e3dfa54d1384a43512d10a8c5db03af60d164f65df0f2bd3c449a1"
+    },
+    {
+      "source": "src/ParameterScenePicker.js",
+      "destination": "src/ParameterScenePicker.js",
+      "bytes": 14058,
+      "sourceSha256": "afc7080d1d74da3e697ccf3d7d8d399d7e6d2301224cfc4d0f66a9b97aaa9f6d",
+      "exportSha256": "afc7080d1d74da3e697ccf3d7d8d399d7e6d2301224cfc4d0f66a9b97aaa9f6d"
+    },
+    {
+      "source": "src/PointDisplaySettings.js",
+      "destination": "src/PointDisplaySettings.js",
+      "bytes": 2125,
+      "sourceSha256": "87b4f3a6ef7895a1bdb8f546df3b51ad7075dbf3ff94e8ba6805de6d9ba6337a",
+      "exportSha256": "87b4f3a6ef7895a1bdb8f546df3b51ad7075dbf3ff94e8ba6805de6d9ba6337a"
+    },
+    {
+      "source": "src/PreviewSurfaceRendering.js",
+      "destination": "src/PreviewSurfaceRendering.js",
+      "bytes": 707,
+      "sourceSha256": "bc34ea7a0643a86eb29bed1ffbf054dbed0a9909a14589f408180c83970cefa8",
+      "exportSha256": "bc34ea7a0643a86eb29bed1ffbf054dbed0a9909a14589f408180c83970cefa8"
+    },
+    {
+      "source": "src/RenderShadows.js",
+      "destination": "src/RenderShadows.js",
+      "bytes": 2723,
+      "sourceSha256": "63f1058e698deb587f12a69c51dcf9e62952969dbf9dd752803190e618174df0",
+      "exportSha256": "63f1058e698deb587f12a69c51dcf9e62952969dbf9dd752803190e618174df0"
+    },
+    {
+      "source": "src/RhinoGeometryConverter.js",
+      "destination": "src/RhinoGeometryConverter.js",
+      "bytes": 22769,
+      "sourceSha256": "197e60665ccf5e9ea95bb534277cf89a6f2726dbf41b4d1b69aec2029e06c0d3",
+      "exportSha256": "197e60665ccf5e9ea95bb534277cf89a6f2726dbf41b4d1b69aec2029e06c0d3"
+    },
+    {
+      "source": "src/SceneBounds.js",
+      "destination": "src/SceneBounds.js",
+      "bytes": 2790,
+      "sourceSha256": "655b9fc9c486ef2235e9562e4abfb294960e0311ac1c95f6ce9186b6ca558f46",
+      "exportSha256": "655b9fc9c486ef2235e9562e4abfb294960e0311ac1c95f6ce9186b6ca558f46"
+    },
+    {
+      "source": "src/SceneGeometryPreview.js",
+      "destination": "src/SceneGeometryPreview.js",
+      "bytes": 3456,
+      "sourceSha256": "f9a60e8ad298e0523de026116543fed7a09e6b5a70c1eac794cd0f6f871ca3e1",
+      "exportSha256": "f9a60e8ad298e0523de026116543fed7a09e6b5a70c1eac794cd0f6f871ca3e1"
+    },
+    {
+      "source": "src/SceneUtilities.js",
+      "destination": "src/SceneUtilities.js",
+      "bytes": 30423,
+      "sourceSha256": "afbd9ab2a037ac073b37a2143eb9c887d90f236b7aa2c8ed55e276076d7982c2",
+      "exportSha256": "afbd9ab2a037ac073b37a2143eb9c887d90f236b7aa2c8ed55e276076d7982c2"
+    },
+    {
+      "source": "src/ViewportGestureRouter.js",
+      "destination": "src/ViewportGestureRouter.js",
+      "bytes": 24859,
+      "sourceSha256": "c71c9ea7b37683b60d1fcbde002266515b6c3b920fa7f7f59c901f4986352bc3",
+      "exportSha256": "c71c9ea7b37683b60d1fcbde002266515b6c3b920fa7f7f59c901f4986352bc3"
+    },
+    {
+      "source": "src/account/AccountRequest.js",
+      "destination": "src/account/AccountRequest.js",
+      "bytes": 1646,
+      "sourceSha256": "9129a7f3456b36ff2f79f654457515fa81a63a4f6ad6a584df651ac6b57deafe",
+      "exportSha256": "9129a7f3456b36ff2f79f654457515fa81a63a4f6ad6a584df651ac6b57deafe"
+    },
+    {
+      "source": "src/account/LoginCredentials.js",
+      "destination": "src/account/LoginCredentials.js",
+      "bytes": 1794,
+      "sourceSha256": "abc1f7c263217521d9e14df4b6908f858535d8bfcbbdb99709386e633bcfa08d",
+      "exportSha256": "abc1f7c263217521d9e14df4b6908f858535d8bfcbbdb99709386e633bcfa08d"
+    },
+    {
+      "source": "src/boot/.gitkeep",
+      "destination": "src/boot/.gitkeep",
+      "bytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "src/collaboration/DisplayPackTransfer.js",
+      "destination": "src/collaboration/DisplayPackTransfer.js",
+      "bytes": 1899,
+      "sourceSha256": "22d8a9eae33ef94d53be29a7069efd87c946a1a76f54b3df02170c5b76f3d5ac",
+      "exportSha256": "22d8a9eae33ef94d53be29a7069efd87c946a1a76f54b3df02170c5b76f3d5ac"
+    },
+    {
+      "source": "src/collaboration/DisplayTaskPool.js",
+      "destination": "src/collaboration/DisplayTaskPool.js",
+      "bytes": 953,
+      "sourceSha256": "e8a99831da022b2183e8d1c215b6062cbd57adcbec969bbec7bb0c409d02b4ff",
+      "exportSha256": "e8a99831da022b2183e8d1c215b6062cbd57adcbec969bbec7bb0c409d02b4ff"
+    },
+    {
+      "source": "src/collaboration/FrontendGeometryExport.worker.js",
+      "destination": "src/collaboration/FrontendGeometryExport.worker.js",
+      "bytes": 3795,
+      "sourceSha256": "f62e41cbf21260c2585916418d30c96d7f135a834c6648de8826c2be589c9312",
+      "exportSha256": "f62e41cbf21260c2585916418d30c96d7f135a834c6648de8826c2be589c9312"
+    },
+    {
+      "source": "src/collaboration/FrontendGeometryPublisher.js",
+      "destination": "src/collaboration/FrontendGeometryPublisher.js",
+      "bytes": 7332,
+      "sourceSha256": "d5cff3f7e0f64d9618dba7c4f8a991bcc9aa032ad93773c5d0c9a4a1d665ddac",
+      "exportSha256": "d5cff3f7e0f64d9618dba7c4f8a991bcc9aa032ad93773c5d0c9a4a1d665ddac"
+    },
+    {
+      "source": "src/collaboration/SceneDisplayPacket.js",
+      "destination": "src/collaboration/SceneDisplayPacket.js",
+      "bytes": 25430,
+      "sourceSha256": "099a16d1fdca4e91e1ef0dfe02f1d04123031499f3d4aae7004a041fd19dfac8",
+      "exportSha256": "099a16d1fdca4e91e1ef0dfe02f1d04123031499f3d4aae7004a041fd19dfac8"
+    },
+    {
+      "source": "src/collaboration/SceneRequest.js",
+      "destination": "src/collaboration/SceneRequest.js",
+      "bytes": 3626,
+      "sourceSha256": "00894195f33e07344523c20b088c1011ecffe1125b2dac91569598a7bf1eddc4",
+      "exportSha256": "00894195f33e07344523c20b088c1011ecffe1125b2dac91569598a7bf1eddc4"
+    },
+    {
+      "source": "src/collaboration/SceneWorkspace.js",
+      "destination": "src/collaboration/SceneWorkspace.js",
+      "bytes": 60474,
+      "sourceSha256": "d132fba793f0ba4c460e2fc87cf766e902e6767a66d7bbc14a533c9f210a51ae",
+      "exportSha256": "d132fba793f0ba4c460e2fc87cf766e902e6767a66d7bbc14a533c9f210a51ae"
+    },
+    {
+      "source": "src/components/.gitkeep",
+      "destination": "src/components/.gitkeep",
+      "bytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "src/components/AccountGate.vue",
+      "destination": "src/components/AccountGate.vue",
+      "bytes": 16007,
+      "sourceSha256": "ae65d5c9966e3b4718e975e1f68db2d0ee02e76d5d7eb30cf6f04f515dfb4a2e",
+      "exportSha256": "ae65d5c9966e3b4718e975e1f68db2d0ee02e76d5d7eb30cf6f04f515dfb4a2e"
+    },
+    {
+      "source": "src/components/BackendDocumentPicker.vue",
+      "destination": "src/components/BackendDocumentPicker.vue",
+      "bytes": 2869,
+      "sourceSha256": "26bb7be457fa0b380e26ea53006cdc298f60d8c5d670c46669a1922c92a4d88a",
+      "exportSha256": "26bb7be457fa0b380e26ea53006cdc298f60d8c5d670c46669a1922c92a4d88a"
+    },
+    {
+      "source": "src/components/DisplaySettingsPanel.vue",
+      "destination": "src/components/DisplaySettingsPanel.vue",
+      "bytes": 9976,
+      "sourceSha256": "e5dbc8de94a7be6b36d9e20fbe6691af1bfb3e277b20dec0c4aa4ecc098209d8",
+      "exportSha256": "e5dbc8de94a7be6b36d9e20fbe6691af1bfb3e277b20dec0c4aa4ecc098209d8"
+    },
+    {
+      "source": "src/components/EditorSettingsPanel.vue",
+      "destination": "src/components/EditorSettingsPanel.vue",
+      "bytes": 2945,
+      "sourceSha256": "85bc04aa0aadf00be4e142d26c6e504ac9d7e9d0eaa650567949f5e83e4c3274",
+      "exportSha256": "85bc04aa0aadf00be4e142d26c6e504ac9d7e9d0eaa650567949f5e83e4c3274"
+    },
+    {
+      "source": "src/components/GeometryDocumentTree.vue",
+      "destination": "src/components/GeometryDocumentTree.vue",
+      "bytes": 33629,
+      "sourceSha256": "826f471a242a32d655b879e7a91506d045f9ee0faf310ef5f5e7d04f7526ae58",
+      "exportSha256": "826f471a242a32d655b879e7a91506d045f9ee0faf310ef5f5e7d04f7526ae58"
+    },
+    {
+      "source": "src/components/GpuPreferenceNotice.vue",
+      "destination": "src/components/GpuPreferenceNotice.vue",
+      "bytes": 2185,
+      "sourceSha256": "6c401d6002e20b6bec0137d11ecebcfd47e6574cc9d6eb8bf72a81ac4b4732db",
+      "exportSha256": "6c401d6002e20b6bec0137d11ecebcfd47e6574cc9d6eb8bf72a81ac4b4732db"
+    },
+    {
+      "source": "src/components/LayerTreeItem.vue",
+      "destination": "src/components/LayerTreeItem.vue",
+      "bytes": 888,
+      "sourceSha256": "df28f6f9366d1f05639f4cd613dbd734b78bea53c1a587ede1869a58ebf8a919",
+      "exportSha256": "df28f6f9366d1f05639f4cd613dbd734b78bea53c1a587ede1869a58ebf8a919"
+    },
+    {
+      "source": "src/components/LoginScene.vue",
+      "destination": "src/components/LoginScene.vue",
+      "bytes": 3592,
+      "sourceSha256": "82bbf384d6ef67a3c5cc81675347081bf2b1d2c73f52a0acc54596e0a6ba8e18",
+      "exportSha256": "82bbf384d6ef67a3c5cc81675347081bf2b1d2c73f52a0acc54596e0a6ba8e18"
+    },
+    {
+      "source": "src/components/NodeAppearancePanel.vue",
+      "destination": "src/components/NodeAppearancePanel.vue",
+      "bytes": 9870,
+      "sourceSha256": "5a80833ab11bc9112cff562380fb9b7577949dfb574d231c4971cd461104668e",
+      "exportSha256": "5a80833ab11bc9112cff562380fb9b7577949dfb574d231c4971cd461104668e"
+    },
+    {
+      "source": "src/components/NodeDocumentManager.vue",
+      "destination": "src/components/NodeDocumentManager.vue",
+      "bytes": 9115,
+      "sourceSha256": "73574950f03df15db121c2046ffcead8ddd7c2ed5c200f0c5b98d23d980d1490",
+      "exportSha256": "73574950f03df15db121c2046ffcead8ddd7c2ed5c200f0c5b98d23d980d1490"
+    },
+    {
+      "source": "src/components/PanelNodeSurface.vue",
+      "destination": "src/components/PanelNodeSurface.vue",
+      "bytes": 2528,
+      "sourceSha256": "9daa9eee1f741f414837a3d332d4e3cb7dddf9df170b0fa22d11483143b0ee71",
+      "exportSha256": "9daa9eee1f741f414837a3d332d4e3cb7dddf9df170b0fa22d11483143b0ee71"
+    },
+    {
+      "source": "src/components/SceneDocumentsPanel.vue",
+      "destination": "src/components/SceneDocumentsPanel.vue",
+      "bytes": 23130,
+      "sourceSha256": "e9e89511ceffd8bd3370edeecf9f1f8e99c25ed97ef63b9d7fba071525088811",
+      "exportSha256": "e9e89511ceffd8bd3370edeecf9f1f8e99c25ed97ef63b9d7fba071525088811"
+    },
+    {
+      "source": "src/components/ViewportFps.vue",
+      "destination": "src/components/ViewportFps.vue",
+      "bytes": 2209,
+      "sourceSha256": "ff0848c937f1e9a47f90898068bccf02eb8deb88de347b2c009e65284ec3636b",
+      "exportSha256": "ff0848c937f1e9a47f90898068bccf02eb8deb88de347b2c009e65284ec3636b"
+    },
+    {
+      "source": "src/components/ViewportOverlay.vue",
+      "destination": "src/components/ViewportOverlay.vue",
+      "bytes": 5255,
+      "sourceSha256": "4ce9b5ba75035d3ced13088c7255f2987f278b8c0a7e6ad72cd65e028c7fc142",
+      "exportSha256": "4ce9b5ba75035d3ced13088c7255f2987f278b8c0a7e6ad72cd65e028c7fc142"
+    },
+    {
+      "source": "src/composables/useCameraSettings.js",
+      "destination": "src/composables/useCameraSettings.js",
+      "bytes": 2365,
+      "sourceSha256": "ff9a86d11c7f6b16e6e38b8d933e84412ed34fd16ce1f219f66b0cb3d3107d55",
+      "exportSha256": "ff9a86d11c7f6b16e6e38b8d933e84412ed34fd16ce1f219f66b0cb3d3107d55"
+    },
+    {
+      "source": "src/composables/useDisplaySettings.js",
+      "destination": "src/composables/useDisplaySettings.js",
+      "bytes": 9103,
+      "sourceSha256": "3b4e64ce9ac95b14589cda86e9fd91dffb8fd97b9c28eaf349926f0b9be16287",
+      "exportSha256": "3b4e64ce9ac95b14589cda86e9fd91dffb8fd97b9c28eaf349926f0b9be16287"
+    },
+    {
+      "source": "src/composables/useEditorBridge.js",
+      "destination": "src/composables/useEditorBridge.js",
+      "bytes": 22946,
+      "sourceSha256": "c31bc77d7c9a89a9a0d23d2ce8a1af0f4fb9d17a585f3429b67cd35e1aedbd22",
+      "exportSha256": "c31bc77d7c9a89a9a0d23d2ce8a1af0f4fb9d17a585f3429b67cd35e1aedbd22"
+    },
+    {
+      "source": "src/composables/useMeshProgress.js",
+      "destination": "src/composables/useMeshProgress.js",
+      "bytes": 4778,
+      "sourceSha256": "844d291839e4f42f878b831e2cbaabf39416c3ba0fb1cbb8f931928d126e8b9f",
+      "exportSha256": "844d291839e4f42f878b831e2cbaabf39416c3ba0fb1cbb8f931928d126e8b9f"
+    },
+    {
+      "source": "src/composables/useModelImport.js",
+      "destination": "src/composables/useModelImport.js",
+      "bytes": 25616,
+      "sourceSha256": "13dbd24a020f575c3121450aad3196f91e48dd720f43e0f5f8480b3e3f14178f",
+      "exportSha256": "13dbd24a020f575c3121450aad3196f91e48dd720f43e0f5f8480b3e3f14178f"
+    },
+    {
+      "source": "src/composables/useNodeAppearance.js",
+      "destination": "src/composables/useNodeAppearance.js",
+      "bytes": 1853,
+      "sourceSha256": "70c74abeb21fbb15ddfed74f44483d7fc36d1f6c59a8f4a6983df76408f5b42f",
+      "exportSha256": "70c74abeb21fbb15ddfed74f44483d7fc36d1f6c59a8f4a6983df76408f5b42f"
+    },
+    {
+      "source": "src/composables/useNodePlugins.js",
+      "destination": "src/composables/useNodePlugins.js",
+      "bytes": 9167,
+      "sourceSha256": "82ab88f7cd1042b65046e36c99dfbc3079e51cbcfd18d3c973a2fee076188612",
+      "exportSha256": "c02b3c010ee84199e56da520fd65f9cba6a9ae3295edd15b926f2968fe3edd5c"
+    },
+    {
+      "source": "src/composables/useRecentFiles.js",
+      "destination": "src/composables/useRecentFiles.js",
+      "bytes": 2618,
+      "sourceSha256": "bf174416432dd4d3199bcd1efc3f7880b4c0b7ce4e0130d9a9e71cfc9d4da1cb",
+      "exportSha256": "bf174416432dd4d3199bcd1efc3f7880b4c0b7ce4e0130d9a9e71cfc9d4da1cb"
+    },
+    {
+      "source": "src/composables/useRenderMaterials.js",
+      "destination": "src/composables/useRenderMaterials.js",
+      "bytes": 5121,
+      "sourceSha256": "c7b4876559c013806d3fdfe2d7ded324a63851fd51d5375dced85849021ec6ee",
+      "exportSha256": "c7b4876559c013806d3fdfe2d7ded324a63851fd51d5375dced85849021ec6ee"
+    },
+    {
+      "source": "src/compute/NodeCClient.mjs",
+      "destination": "src/compute/NodeCClient.mjs",
+      "bytes": 136,
+      "sourceSha256": "5b9ff263d334fb3d130a4d250a1f250a504ca50de25ffe04673b30ed391d8562",
+      "exportSha256": "5b9ff263d334fb3d130a4d250a1f250a504ca50de25ffe04673b30ed391d8562"
+    },
+    {
+      "source": "src/css/app.sass",
+      "destination": "src/css/app.sass",
+      "bytes": 872,
+      "sourceSha256": "d3fd21910a8ec62c8cdc3cbfbb5448c297f8a6abc01705fd71dd76f7053d557a",
+      "exportSha256": "d3fd21910a8ec62c8cdc3cbfbb5448c297f8a6abc01705fd71dd76f7053d557a"
+    },
+    {
+      "source": "src/css/quasar.variables.sass",
+      "destination": "src/css/quasar.variables.sass",
+      "bytes": 768,
+      "sourceSha256": "a0c3f48de7b59ae50ccfdb942c63d6b9f700edab8df4a79def2074805fff1bc4",
+      "exportSha256": "a0c3f48de7b59ae50ccfdb942c63d6b9f700edab8df4a79def2074805fff1bc4"
+    },
+    {
+      "source": "src/display/DisplayMemorySnapshot.js",
+      "destination": "src/display/DisplayMemorySnapshot.js",
+      "bytes": 3364,
+      "sourceSha256": "2a1e2c032d5393390175b41906d4cf5a776b875a97a3499e516ca1add238dc79",
+      "exportSha256": "2a1e2c032d5393390175b41906d4cf5a776b875a97a3499e516ca1add238dc79"
+    },
+    {
+      "source": "src/display/GpuPreference.js",
+      "destination": "src/display/GpuPreference.js",
+      "bytes": 849,
+      "sourceSha256": "e71b925f865d5dca4896380b140ce40968c40dcfba9ef677aa2e6e3fdb66fb62",
+      "exportSha256": "e71b925f865d5dca4896380b140ce40968c40dcfba9ef677aa2e6e3fdb66fb62"
+    },
+    {
+      "source": "src/display/GraphPreviewRegistry.js",
+      "destination": "src/display/GraphPreviewRegistry.js",
+      "bytes": 60018,
+      "sourceSha256": "0023309a4e4bb27d07c160d1a00deeccdc11496e1d19bf938e86e015a92c434f",
+      "exportSha256": "0023309a4e4bb27d07c160d1a00deeccdc11496e1d19bf938e86e015a92c434f"
+    },
+    {
+      "source": "src/display/GroupEditContext.js",
+      "destination": "src/display/GroupEditContext.js",
+      "bytes": 7637,
+      "sourceSha256": "e7c2d1f018f1ee1faa781d09eca8a80d2645de88d7119b64fd671c6daa1e1bf1",
+      "exportSha256": "e7c2d1f018f1ee1faa781d09eca8a80d2645de88d7119b64fd671c6daa1e1bf1"
+    },
+    {
+      "source": "src/display/ImportedRenderBatcher.js",
+      "destination": "src/display/ImportedRenderBatcher.js",
+      "bytes": 15730,
+      "sourceSha256": "6142218ccae4c8999e8f58bd717dfd75095e1cf4f8feef675f6f4bd353beae6d",
+      "exportSha256": "6142218ccae4c8999e8f58bd717dfd75095e1cf4f8feef675f6f4bd353beae6d"
+    },
+    {
+      "source": "src/display/MeshTriangleEdges.js",
+      "destination": "src/display/MeshTriangleEdges.js",
+      "bytes": 2457,
+      "sourceSha256": "d2e3757ea924eaf5c45c2d655c73d6e74c03b83ad25bb457acee915080b2585e",
+      "exportSha256": "d2e3757ea924eaf5c45c2d655c73d6e74c03b83ad25bb457acee915080b2585e"
+    },
+    {
+      "source": "src/display/SceneInteraction.js",
+      "destination": "src/display/SceneInteraction.js",
+      "bytes": 29881,
+      "sourceSha256": "7efd34b8169fba545d5f305162cbf85126f3f2dd8bce01289636f018b78f5a0b",
+      "exportSha256": "7efd34b8169fba545d5f305162cbf85126f3f2dd8bce01289636f018b78f5a0b"
+    },
+    {
+      "source": "src/display/SceneMaterialEditor.js",
+      "destination": "src/display/SceneMaterialEditor.js",
+      "bytes": 31095,
+      "sourceSha256": "e0ba9deffc11c160587c98c714c481274ff6b74111a85b276835f9af84fba8ec",
+      "exportSha256": "e0ba9deffc11c160587c98c714c481274ff6b74111a85b276835f9af84fba8ec"
+    },
+    {
+      "source": "src/display/SceneSelection.js",
+      "destination": "src/display/SceneSelection.js",
+      "bytes": 10886,
+      "sourceSha256": "7cf45b1f90233677aa6c54d3f7c34641345c791b34c9525d6967fe83da4c540b",
+      "exportSha256": "7cf45b1f90233677aa6c54d3f7c34641345c791b34c9525d6967fe83da4c540b"
+    },
+    {
+      "source": "src/display/SceneVisibility.js",
+      "destination": "src/display/SceneVisibility.js",
+      "bytes": 12512,
+      "sourceSha256": "3b00cb19b18799561ad975344eccdd0dc1b3f78bf8e736c1a9d7b28d7745f44c",
+      "exportSha256": "3b00cb19b18799561ad975344eccdd0dc1b3f78bf8e736c1a9d7b28d7745f44c"
+    },
+    {
+      "source": "src/display/SharedSelectionPolicy.js",
+      "destination": "src/display/SharedSelectionPolicy.js",
+      "bytes": 514,
+      "sourceSha256": "3ee64707b0845837d67e81aa19908fa9e8517b5fa51028617da10bb6dd1c1661",
+      "exportSha256": "3ee64707b0845837d67e81aa19908fa9e8517b5fa51028617da10bb6dd1c1661"
+    },
+    {
+      "source": "src/display/TextureAssets.js",
+      "destination": "src/display/TextureAssets.js",
+      "bytes": 2554,
+      "sourceSha256": "357265a218f951a35857b816a32459a8398bddfc07600c9c7363625ac9d17e29",
+      "exportSha256": "357265a218f951a35857b816a32459a8398bddfc07600c9c7363625ac9d17e29"
+    },
+    {
+      "source": "src/display/VIEW_NAVIGATION.md",
+      "destination": "src/display/VIEW_NAVIGATION.md",
+      "bytes": 1841,
+      "sourceSha256": "59d2166aa551c1c007ab3acdafe028619b406a8e6e1a61c5f1e7a63cb174e679",
+      "exportSha256": "59d2166aa551c1c007ab3acdafe028619b406a8e6e1a61c5f1e7a63cb174e679"
+    },
+    {
+      "source": "src/display/ViewportOverlayState.js",
+      "destination": "src/display/ViewportOverlayState.js",
+      "bytes": 887,
+      "sourceSha256": "4190abb376c8d8e4c04388ed3cd5385946fd5fad6cafc125ccb0d9a731d9dc55",
+      "exportSha256": "4190abb376c8d8e4c04388ed3cd5385946fd5fad6cafc125ccb0d9a731d9dc55"
+    },
+    {
+      "source": "src/display/clearObjectChildren.js",
+      "destination": "src/display/clearObjectChildren.js",
+      "bytes": 410,
+      "sourceSha256": "32d6b66cbac331f6f6411ad7151ac41747eec667ec2001b3fef3d849485e6820",
+      "exportSha256": "32d6b66cbac331f6f6411ad7151ac41747eec667ec2001b3fef3d849485e6820"
+    },
+    {
+      "source": "src/editor/EditorMessageRouter.js",
+      "destination": "src/editor/EditorMessageRouter.js",
+      "bytes": 767,
+      "sourceSha256": "fe45bfcc4bd445c597f2777ab645ffd881827414dcfe88c5cbaaa3cf513f7f88",
+      "exportSha256": "fe45bfcc4bd445c597f2777ab645ffd881827414dcfe88c5cbaaa3cf513f7f88"
+    },
+    {
+      "source": "src/import/BrepMesh.worker.js",
+      "destination": "src/import/BrepMesh.worker.js",
+      "bytes": 1348,
+      "sourceSha256": "db3419f32bf086978410ee9893ea2ffaf65981e75f2e6c7aa8b2079d68bfb021",
+      "exportSha256": "db3419f32bf086978410ee9893ea2ffaf65981e75f2e6c7aa8b2079d68bfb021"
+    },
+    {
+      "source": "src/import/CadFileImport.js",
+      "destination": "src/import/CadFileImport.js",
+      "bytes": 4579,
+      "sourceSha256": "5fe9a138c95f95ffbb60c781f76670726c51364784ffb14e47f4298c69384a28",
+      "exportSha256": "5fe9a138c95f95ffbb60c781f76670726c51364784ffb14e47f4298c69384a28"
+    },
+    {
+      "source": "src/import/DisplayObjectImport.js",
+      "destination": "src/import/DisplayObjectImport.js",
+      "bytes": 22239,
+      "sourceSha256": "d812f1cde99674bb855aadf01404693a0227524cf028361ab24d30be198fcebc",
+      "exportSha256": "d812f1cde99674bb855aadf01404693a0227524cf028361ab24d30be198fcebc"
+    },
+    {
+      "source": "src/import/DisplayRecord.js",
+      "destination": "src/import/DisplayRecord.js",
+      "bytes": 1379,
+      "sourceSha256": "3c37ce1b6811fe925e1833f3a8b009def26e928c4a08696dd921e2ac2b788692",
+      "exportSha256": "3c37ce1b6811fe925e1833f3a8b009def26e928c4a08696dd921e2ac2b788692"
+    },
+    {
+      "source": "src/import/DisplayResources.js",
+      "destination": "src/import/DisplayResources.js",
+      "bytes": 2098,
+      "sourceSha256": "1ac8c2a1b5e463d51e31d7f625425d585d372b793d1c285714ff72b4e8deea51",
+      "exportSha256": "1ac8c2a1b5e463d51e31d7f625425d585d372b793d1c285714ff72b4e8deea51"
+    },
+    {
+      "source": "src/import/DxfImport.js",
+      "destination": "src/import/DxfImport.js",
+      "bytes": 22361,
+      "sourceSha256": "c504ae25a7c1934fc85e6b603d435975002c320181748296898ce9043673b27a",
+      "exportSha256": "c504ae25a7c1934fc85e6b603d435975002c320181748296898ce9043673b27a"
+    },
+    {
+      "source": "src/import/ImportMeshFeed.js",
+      "destination": "src/import/ImportMeshFeed.js",
+      "bytes": 5910,
+      "sourceSha256": "7ea69fdf532c9ed78c6288e129c20decd994bf4788bf55a34238e082d02be1e0",
+      "exportSha256": "7ea69fdf532c9ed78c6288e129c20decd994bf4788bf55a34238e082d02be1e0"
+    },
+    {
+      "source": "src/import/ImportMeshTargets.js",
+      "destination": "src/import/ImportMeshTargets.js",
+      "bytes": 2073,
+      "sourceSha256": "f8db772141ba6a1a04e7f49d2eb843de413e614b043c2747021c682b39e8620e",
+      "exportSha256": "f8db772141ba6a1a04e7f49d2eb843de413e614b043c2747021c682b39e8620e"
+    },
+    {
+      "source": "src/import/ImportPerformanceBudget.js",
+      "destination": "src/import/ImportPerformanceBudget.js",
+      "bytes": 2207,
+      "sourceSha256": "b927d3b2f94114f495f74e4a4f8556d12b4796cef6db19d124bcb24c5ad24a72",
+      "exportSha256": "b927d3b2f94114f495f74e4a4f8556d12b4796cef6db19d124bcb24c5ad24a72"
+    },
+    {
+      "source": "src/import/ImportRefresh.js",
+      "destination": "src/import/ImportRefresh.js",
+      "bytes": 1042,
+      "sourceSha256": "cf3de9a37f3bffc009ef0273f58041b71889babc0af05b38134501d3d907d590",
+      "exportSha256": "cf3de9a37f3bffc009ef0273f58041b71889babc0af05b38134501d3d907d590"
+    },
+    {
+      "source": "src/import/ImportWorkBudget.js",
+      "destination": "src/import/ImportWorkBudget.js",
+      "bytes": 1021,
+      "sourceSha256": "d59a874a1db0190d426d425e43cd8a259ff6c90ef93335c2719b424096f2b089",
+      "exportSha256": "d59a874a1db0190d426d425e43cd8a259ff6c90ef93335c2719b424096f2b089"
+    },
+    {
+      "source": "src/import/LibredwgImport.js",
+      "destination": "src/import/LibredwgImport.js",
+      "bytes": 1876,
+      "sourceSha256": "22721631408af3660dd4c548ba8d36643b029a702d9f8a04ba50084dda64fd85",
+      "exportSha256": "22721631408af3660dd4c548ba8d36643b029a702d9f8a04ba50084dda64fd85"
+    },
+    {
+      "source": "src/import/LocalImport.worker.js",
+      "destination": "src/import/LocalImport.worker.js",
+      "bytes": 11787,
+      "sourceSha256": "b67ec2f6be8fa6f0b7247616e1322ac552b245b37d66da2f3a16eaff12455e7a",
+      "exportSha256": "b67ec2f6be8fa6f0b7247616e1322ac552b245b37d66da2f3a16eaff12455e7a"
+    },
+    {
+      "source": "src/import/LocalImportClient.js",
+      "destination": "src/import/LocalImportClient.js",
+      "bytes": 12020,
+      "sourceSha256": "6fdf7625609da187ee7e06944c22f574da7f00c29f5498fbee7e6d525d28ec96",
+      "exportSha256": "6fdf7625609da187ee7e06944c22f574da7f00c29f5498fbee7e6d525d28ec96"
+    },
+    {
+      "source": "src/import/MeshQuality.js",
+      "destination": "src/import/MeshQuality.js",
+      "bytes": 1444,
+      "sourceSha256": "ec0b6823401830142fc4fb82fdd3b687d6ed6f543be339dbf463620bb4ad7f81",
+      "exportSha256": "ec0b6823401830142fc4fb82fdd3b687d6ed6f543be339dbf463620bb4ad7f81"
+    },
+    {
+      "source": "src/import/MeshWorkerPool.js",
+      "destination": "src/import/MeshWorkerPool.js",
+      "bytes": 8029,
+      "sourceSha256": "4366c1d10095f32df41c30771b35a14ae3493b6d09b8ea1fb2457b5d27484a29",
+      "exportSha256": "4366c1d10095f32df41c30771b35a14ae3493b6d09b8ea1fb2457b5d27484a29"
+    },
+    {
+      "source": "src/import/ModelFileFormats.js",
+      "destination": "src/import/ModelFileFormats.js",
+      "bytes": 2059,
+      "sourceSha256": "710deeb90a33f53563916409ba6cd23601210d685be98bcaf0ad9843c2005dc8",
+      "exportSha256": "710deeb90a33f53563916409ba6cd23601210d685be98bcaf0ad9843c2005dc8"
+    },
+    {
+      "source": "src/import/ProgressiveStepImport.js",
+      "destination": "src/import/ProgressiveStepImport.js",
+      "bytes": 15654,
+      "sourceSha256": "467867f53f867030411c5c32ae669a986e6104943401e374cd023d4b5f9bce79",
+      "exportSha256": "467867f53f867030411c5c32ae669a986e6104943401e374cd023d4b5f9bce79"
+    },
+    {
+      "source": "src/import/RhinoMaterials.js",
+      "destination": "src/import/RhinoMaterials.js",
+      "bytes": 7974,
+      "sourceSha256": "3a42e0439c078e5f51b4dfcdf4efe895f42bcde9e86fe3b565d36c9873d1ec74",
+      "exportSha256": "3a42e0439c078e5f51b4dfcdf4efe895f42bcde9e86fe3b565d36c9873d1ec74"
+    },
+    {
+      "source": "src/import/SceneFile.worker.js",
+      "destination": "src/import/SceneFile.worker.js",
+      "bytes": 434,
+      "sourceSha256": "44e16f2145bcd7944b6e74df6d89b8de1f671219d4fd0e9f734143d600ed4f34",
+      "exportSha256": "44e16f2145bcd7944b6e74df6d89b8de1f671219d4fd0e9f734143d600ed4f34"
+    },
+    {
+      "source": "src/import/SceneFileImport.js",
+      "destination": "src/import/SceneFileImport.js",
+      "bytes": 19294,
+      "sourceSha256": "17e0e460cdcaf9cecc1d4340966d14145a7d16e95005f64fc9b942b6ba3388ab",
+      "exportSha256": "17e0e460cdcaf9cecc1d4340966d14145a7d16e95005f64fc9b942b6ba3388ab"
+    },
+    {
+      "source": "src/import/SceneFileImport.md",
+      "destination": "src/import/SceneFileImport.md",
+      "bytes": 6294,
+      "sourceSha256": "22afbd5fc4f3fde94d5e7f685c2fb7699e042008f7a07f9c3dfc3caee2bb2763",
+      "exportSha256": "22afbd5fc4f3fde94d5e7f685c2fb7699e042008f7a07f9c3dfc3caee2bb2763"
+    },
+    {
+      "source": "src/import/SceneFileNumeric.js",
+      "destination": "src/import/SceneFileNumeric.js",
+      "bytes": 10384,
+      "sourceSha256": "6148086cd18bc7a0d43adc4fb084accdc37f2e987f7618d497ffe7d2a72ebcb7",
+      "exportSha256": "6148086cd18bc7a0d43adc4fb084accdc37f2e987f7618d497ffe7d2a72ebcb7"
+    },
+    {
+      "source": "src/import/SceneFileRecords.js",
+      "destination": "src/import/SceneFileRecords.js",
+      "bytes": 15607,
+      "sourceSha256": "3400c81ba1890bf16db3c77256ad9e7e5a9b8288d61f877dcbad78c44c3e5545",
+      "exportSha256": "3400c81ba1890bf16db3c77256ad9e7e5a9b8288d61f877dcbad78c44c3e5545"
+    },
+    {
+      "source": "src/import/SceneFileResources.js",
+      "destination": "src/import/SceneFileResources.js",
+      "bytes": 5698,
+      "sourceSha256": "f2c33228c58b1571fdda28a1f26e5fac093635a9be95709f23fd3e6b3105a8b8",
+      "exportSha256": "f2c33228c58b1571fdda28a1f26e5fac093635a9be95709f23fd3e6b3105a8b8"
+    },
+    {
+      "source": "src/import/SceneFileWorkerClient.js",
+      "destination": "src/import/SceneFileWorkerClient.js",
+      "bytes": 1105,
+      "sourceSha256": "c59c0db15f933dd76c35d17558c10f2b56e2a153a246d1bfbe497e16729036ba",
+      "exportSha256": "c59c0db15f933dd76c35d17558c10f2b56e2a153a246d1bfbe497e16729036ba"
+    },
+    {
+      "source": "src/import/SceneImportClient.js",
+      "destination": "src/import/SceneImportClient.js",
+      "bytes": 1850,
+      "sourceSha256": "4f635963e631c3cf559fb6f54e6e25a21e12b57f8aa307a6d01ce3e54cd82046",
+      "exportSha256": "4f635963e631c3cf559fb6f54e6e25a21e12b57f8aa307a6d01ce3e54cd82046"
+    },
+    {
+      "source": "src/import/SketchUpImport.js",
+      "destination": "src/import/SketchUpImport.js",
+      "bytes": 15776,
+      "sourceSha256": "0277834d8e4786c187676474c5de04405def73596107aa4e6149544c9bb64f14",
+      "exportSha256": "0277834d8e4786c187676474c5de04405def73596107aa4e6149544c9bb64f14"
+    },
+    {
+      "source": "src/import/StepBrep.js",
+      "destination": "src/import/StepBrep.js",
+      "bytes": 28726,
+      "sourceSha256": "d6c37980a046946a7f68e6e7002a5a46e247bf70d648a42554d3c283a09f9cf8",
+      "exportSha256": "d6c37980a046946a7f68e6e7002a5a46e247bf70d648a42554d3c283a09f9cf8"
+    },
+    {
+      "source": "src/import/StepEntityModel.js",
+      "destination": "src/import/StepEntityModel.js",
+      "bytes": 9900,
+      "sourceSha256": "25c403a09258813f881591f3096ee00fa75c079fcae1dcc995bcae122ddaa8d0",
+      "exportSha256": "25c403a09258813f881591f3096ee00fa75c079fcae1dcc995bcae122ddaa8d0"
+    },
+    {
+      "source": "src/import/StepGeometry.js",
+      "destination": "src/import/StepGeometry.js",
+      "bytes": 34432,
+      "sourceSha256": "bb7ce8a79f9a74a478ac12ec9604063da66e9638c6c2256073e36ee083541487",
+      "exportSha256": "bb7ce8a79f9a74a478ac12ec9604063da66e9638c6c2256073e36ee083541487"
+    },
+    {
+      "source": "src/import/StepNativeImport.js",
+      "destination": "src/import/StepNativeImport.js",
+      "bytes": 26477,
+      "sourceSha256": "c0885133b4be99c4beb21c8a225ead160da02278a5df98a352c3b11c97735556",
+      "exportSha256": "c0885133b4be99c4beb21c8a225ead160da02278a5df98a352c3b11c97735556"
+    },
+    {
+      "source": "src/import/StepOpenNurbsImport.js",
+      "destination": "src/import/StepOpenNurbsImport.js",
+      "bytes": 23696,
+      "sourceSha256": "980ba0d82ddd9acab1582beaa6db880f3664d0c773ccd3077e82e5c50389681d",
+      "exportSha256": "980ba0d82ddd9acab1582beaa6db880f3664d0c773ccd3077e82e5c50389681d"
+    },
+    {
+      "source": "src/import/StepPart21.js",
+      "destination": "src/import/StepPart21.js",
+      "bytes": 52914,
+      "sourceSha256": "5096413a1d5f877ced9199841d4bb922dcf9e8d4ac6d5189b7b0d52702a8845b",
+      "exportSha256": "5096413a1d5f877ced9199841d4bb922dcf9e8d4ac6d5189b7b0d52702a8845b"
+    },
+    {
+      "source": "src/import/StepRevolvedTrim.js",
+      "destination": "src/import/StepRevolvedTrim.js",
+      "bytes": 7342,
+      "sourceSha256": "9d4e41881f88d094dce4233dc88933509231f507c80c7fd8124cedb603e81e46",
+      "exportSha256": "9d4e41881f88d094dce4233dc88933509231f507c80c7fd8124cedb603e81e46"
+    },
+    {
+      "source": "src/import/StreamingBlocks.js",
+      "destination": "src/import/StreamingBlocks.js",
+      "bytes": 4615,
+      "sourceSha256": "2e6b811801b490418d841497622445166d169dfad579c47a30281aab8956a057",
+      "exportSha256": "2e6b811801b490418d841497622445166d169dfad579c47a30281aab8956a057"
+    },
+    {
+      "source": "src/import/StreamingStepInstances.js",
+      "destination": "src/import/StreamingStepInstances.js",
+      "bytes": 6230,
+      "sourceSha256": "1d583a34681ac5a8b93a14f06e0c58599e3e0db7f3939f438e87cfbddaced098",
+      "exportSha256": "1d583a34681ac5a8b93a14f06e0c58599e3e0db7f3939f438e87cfbddaced098"
+    },
+    {
+      "source": "src/import/collectTransferables.js",
+      "destination": "src/import/collectTransferables.js",
+      "bytes": 585,
+      "sourceSha256": "f801a96143ccba5459ed12406551975d5375c0b6fe0e3fe9296374d829dbe265",
+      "exportSha256": "f801a96143ccba5459ed12406551975d5375c0b6fe0e3fe9296374d829dbe265"
+    },
+    {
+      "source": "src/import/createLocalImport.js",
+      "destination": "src/import/createLocalImport.js",
+      "bytes": 944,
+      "sourceSha256": "f9b88d1fbfe4b0c134a239619c899ad4451881c3ddbc5bf79e050acf1ecacb8b",
+      "exportSha256": "f9b88d1fbfe4b0c134a239619c899ad4451881c3ddbc5bf79e050acf1ecacb8b"
+    },
+    {
+      "source": "src/import/prepareBrepImportRecord.js",
+      "destination": "src/import/prepareBrepImportRecord.js",
+      "bytes": 4443,
+      "sourceSha256": "d61b10ced3b83245917603f09ab7f2f7bb751af530ae0a3f246ea188ed23e674",
+      "exportSha256": "d61b10ced3b83245917603f09ab7f2f7bb751af530ae0a3f246ea188ed23e674"
+    },
+    {
+      "source": "src/import/releaseTable.js",
+      "destination": "src/import/releaseTable.js",
+      "bytes": 622,
+      "sourceSha256": "c909614651e15f17324ffe92b0299775b0f1be2e2c278848fa858e2d628fd08c",
+      "exportSha256": "c909614651e15f17324ffe92b0299775b0f1be2e2c278848fa858e2d628fd08c"
+    },
+    {
+      "source": "src/import/remeshLocalDocument.js",
+      "destination": "src/import/remeshLocalDocument.js",
+      "bytes": 10482,
+      "sourceSha256": "36ba1ed7fdd93c39fc46fbec51fa596f7004b546df8a9d57edd9919e366d3682",
+      "exportSha256": "36ba1ed7fdd93c39fc46fbec51fa596f7004b546df8a9d57edd9919e366d3682"
+    },
+    {
+      "source": "src/import/replaceImportedBrep.js",
+      "destination": "src/import/replaceImportedBrep.js",
+      "bytes": 5585,
+      "sourceSha256": "7efcc0e5b1b4ebce9ee9a30685a3576d5ac161b736d85f45dc3960759d0045e5",
+      "exportSha256": "7efcc0e5b1b4ebce9ee9a30685a3576d5ac161b736d85f45dc3960759d0045e5"
+    },
+    {
+      "source": "src/index.template.html",
+      "destination": "src/index.template.html",
+      "bytes": 1215,
+      "sourceSha256": "5eb445416f7ba1eb3d218ae5be862f4d9f2fb9a4f0be6f31a757770fa724f550",
+      "exportSha256": "a50e2263f65762c5ddfaf47739dd2071eb2aec77749647be88971a657a57a849"
+    },
+    {
+      "source": "src/layouts/MainLayout.vue",
+      "destination": "src/layouts/MainLayout.vue",
+      "bytes": 62626,
+      "sourceSha256": "cfbb6e851a4ed526a5d6d881717bea9d8e47f520d1c0a836a43c88cf48b4b47e",
+      "exportSha256": "cfbb6e851a4ed526a5d6d881717bea9d8e47f520d1c0a836a43c88cf48b4b47e"
+    },
+    {
+      "source": "src/modeling/ControlPointController.js",
+      "destination": "src/modeling/ControlPointController.js",
+      "bytes": 11425,
+      "sourceSha256": "212e595ee25f9fc4586edd478afb4c61a28d41893f18f1db700fedf63da87690",
+      "exportSha256": "212e595ee25f9fc4586edd478afb4c61a28d41893f18f1db700fedf63da87690"
+    },
+    {
+      "source": "src/modeling/ControlPointGeometrySource.js",
+      "destination": "src/modeling/ControlPointGeometrySource.js",
+      "bytes": 13697,
+      "sourceSha256": "e80981d336addf109821ed30dc1e8cf21f552d7851d50d39e0e8f12f5f8112b1",
+      "exportSha256": "e80981d336addf109821ed30dc1e8cf21f552d7851d50d39e0e8f12f5f8112b1"
+    },
+    {
+      "source": "src/modeling/ControlPointSource.worker.js",
+      "destination": "src/modeling/ControlPointSource.worker.js",
+      "bytes": 6992,
+      "sourceSha256": "4207a1c16bc28c3010dbef4b1a4a75d29b7d613a9579998b77335cc9a62a2f53",
+      "exportSha256": "4207a1c16bc28c3010dbef4b1a4a75d29b7d613a9579998b77335cc9a62a2f53"
+    },
+    {
+      "source": "src/modeling/GumballController.js",
+      "destination": "src/modeling/GumballController.js",
+      "bytes": 17310,
+      "sourceSha256": "c64e76d7ec8bf23991895c9b460a29ff290061be382f16c3260c1b39fc93d75e",
+      "exportSha256": "c64e76d7ec8bf23991895c9b460a29ff290061be382f16c3260c1b39fc93d75e"
+    },
+    {
+      "source": "src/modeling/ModelingController.js",
+      "destination": "src/modeling/ModelingController.js",
+      "bytes": 4398,
+      "sourceSha256": "d54f9c9ade98cd0dca4ff3b31ecc84a234291a6d16f3599920a8fe8534449382",
+      "exportSha256": "d54f9c9ade98cd0dca4ff3b31ecc84a234291a6d16f3599920a8fe8534449382"
+    },
+    {
+      "source": "src/modeling/SubDDisplayController.js",
+      "destination": "src/modeling/SubDDisplayController.js",
+      "bytes": 2012,
+      "sourceSha256": "336825c3a941b77f8f15480f3a8a141de2018850175f8dfdeca3065cf8a53ab2",
+      "exportSha256": "336825c3a941b77f8f15480f3a8a141de2018850175f8dfdeca3065cf8a53ab2"
+    },
+    {
+      "source": "src/modeling/ViewportControlSize.js",
+      "destination": "src/modeling/ViewportControlSize.js",
+      "bytes": 585,
+      "sourceSha256": "fecae10b23fdc4c66c8596f102efcbf46b80e2a75c8e01048a4f77313263798a",
+      "exportSha256": "fecae10b23fdc4c66c8596f102efcbf46b80e2a75c8e01048a4f77313263798a"
+    },
+    {
+      "source": "src/operations/WorkspaceOperations.js",
+      "destination": "src/operations/WorkspaceOperations.js",
+      "bytes": 12685,
+      "sourceSha256": "7bfc1c838faa1d296cc468c6675e9678d162dc3ad8e6e8e2c7df139546b0ea8d",
+      "exportSha256": "7bfc1c838faa1d296cc468c6675e9678d162dc3ad8e6e8e2c7df139546b0ea8d"
+    },
+    {
+      "source": "src/pages/Error404.vue",
+      "destination": "src/pages/Error404.vue",
+      "bytes": 443,
+      "sourceSha256": "7bdba31cd13b5b7a847c5f25fdcfb3f4293fe7057e4cddfbf56cb85c0a3c1ffe",
+      "exportSha256": "7bdba31cd13b5b7a847c5f25fdcfb3f4293fe7057e4cddfbf56cb85c0a3c1ffe"
+    },
+    {
+      "source": "src/pages/Index.vue",
+      "destination": "src/pages/Index.vue",
+      "bytes": 2601,
+      "sourceSha256": "66a1500a7bdc946f1bcdb4906562de4068fcc1d095018fb691f852967ed5c3e5",
+      "exportSha256": "66a1500a7bdc946f1bcdb4906562de4068fcc1d095018fb691f852967ed5c3e5"
+    },
+    {
+      "source": "src/panel/cameraSettings.js",
+      "destination": "src/panel/cameraSettings.js",
+      "bytes": 387,
+      "sourceSha256": "f1d721643880f0230cb1ef0e22ab8dfa3635527ba6b97d75fa4a6542b29ca5dc",
+      "exportSha256": "f1d721643880f0230cb1ef0e22ab8dfa3635527ba6b97d75fa4a6542b29ca5dc"
+    },
+    {
+      "source": "src/panel/defineToolbarItem.js",
+      "destination": "src/panel/defineToolbarItem.js",
+      "bytes": 191,
+      "sourceSha256": "f51e31ddad909ec44f6338f0e1bcf68e569a1b137c440ceed0d51579ba297535",
+      "exportSha256": "f51e31ddad909ec44f6338f0e1bcf68e569a1b137c440ceed0d51579ba297535"
+    },
+    {
+      "source": "src/panel/displayOptions.js",
+      "destination": "src/panel/displayOptions.js",
+      "bytes": 275,
+      "sourceSha256": "889cb42ab9d5d0b367a7f871be7f3695c3da581a2dbfd16113a0b6dc04212f0d",
+      "exportSha256": "889cb42ab9d5d0b367a7f871be7f3695c3da581a2dbfd16113a0b6dc04212f0d"
+    },
+    {
+      "source": "src/panel/editorMode.js",
+      "destination": "src/panel/editorMode.js",
+      "bytes": 387,
+      "sourceSha256": "b1fbc990a6d3c2b5ea4b69c7b84f9af7d17813583df63963b26c60fa7b164bab",
+      "exportSha256": "b1fbc990a6d3c2b5ea4b69c7b84f9af7d17813583df63963b26c60fa7b164bab"
+    },
+    {
+      "source": "src/panel/editorOptions.js",
+      "destination": "src/panel/editorOptions.js",
+      "bytes": 269,
+      "sourceSha256": "25cedae560ec926f7b7be9ee7d0642869f2bcf46d2f021bac3279b51335ccaa3",
+      "exportSha256": "25cedae560ec926f7b7be9ee7d0642869f2bcf46d2f021bac3279b51335ccaa3"
+    },
+    {
+      "source": "src/panel/files.js",
+      "destination": "src/panel/files.js",
+      "bytes": 249,
+      "sourceSha256": "1213ad2e50541bad3357f39fa0a16ba96a7a1518b0aa6be19fe7d461f5a43535",
+      "exportSha256": "1213ad2e50541bad3357f39fa0a16ba96a7a1518b0aa6be19fe7d461f5a43535"
+    },
+    {
+      "source": "src/panel/history.js",
+      "destination": "src/panel/history.js",
+      "bytes": 250,
+      "sourceSha256": "7bcc819e4a59bbf2308adce64057064d9d9398a76375c0278f2ba0be51e7eef7",
+      "exportSha256": "7bcc819e4a59bbf2308adce64057064d9d9398a76375c0278f2ba0be51e7eef7"
+    },
+    {
+      "source": "src/panel/index.js",
+      "destination": "src/panel/index.js",
+      "bytes": 730,
+      "sourceSha256": "fae4693a27954e3e3ceb9f0ca03aab5bb4941363fb936450ea273cbe545e617e",
+      "exportSha256": "fae4693a27954e3e3ceb9f0ca03aab5bb4941363fb936450ea273cbe545e617e"
+    },
+    {
+      "source": "src/panel/layers.js",
+      "destination": "src/panel/layers.js",
+      "bytes": 253,
+      "sourceSha256": "23095540adcbe66f30876a15cbc003d8800e238d1011e37065a449b19e8c7770",
+      "exportSha256": "23095540adcbe66f30876a15cbc003d8800e238d1011e37065a449b19e8c7770"
+    },
+    {
+      "source": "src/panel/lineTool.js",
+      "destination": "src/panel/lineTool.js",
+      "bytes": 403,
+      "sourceSha256": "32f8da9b344327ac0f4d4592da3b520e771c821db2465009e09331b8a60ec304",
+      "exportSha256": "32f8da9b344327ac0f4d4592da3b520e771c821db2465009e09331b8a60ec304"
+    },
+    {
+      "source": "src/panel/materials.js",
+      "destination": "src/panel/materials.js",
+      "bytes": 266,
+      "sourceSha256": "f7e56ffe4fd643169ffe2a9af0a977f7140f0940606252e46bf3abf0584bfeb7",
+      "exportSha256": "f7e56ffe4fd643169ffe2a9af0a977f7140f0940606252e46bf3abf0584bfeb7"
+    },
+    {
+      "source": "src/panel/modelingRedo.js",
+      "destination": "src/panel/modelingRedo.js",
+      "bytes": 291,
+      "sourceSha256": "e8054fd5dc99fb858e5c42713fb728185315bb34c50ac28f2c60e71ee770b4a8",
+      "exportSha256": "e8054fd5dc99fb858e5c42713fb728185315bb34c50ac28f2c60e71ee770b4a8"
+    },
+    {
+      "source": "src/panel/modelingUndo.js",
+      "destination": "src/panel/modelingUndo.js",
+      "bytes": 291,
+      "sourceSha256": "34fc3b243e0e3488b4bc93eb6ea9bdda28ebb339db78e11b976c766a328e3ad4",
+      "exportSha256": "34fc3b243e0e3488b4bc93eb6ea9bdda28ebb339db78e11b976c766a328e3ad4"
+    },
+    {
+      "source": "src/panel/nodePlugins.js",
+      "destination": "src/panel/nodePlugins.js",
+      "bytes": 272,
+      "sourceSha256": "960945eb2470692ee746f649f28f4cab4eee963c31c40fae87f37ac72a834aa3",
+      "exportSha256": "960945eb2470692ee746f649f28f4cab4eee963c31c40fae87f37ac72a834aa3"
+    },
+    {
+      "source": "src/panel/pan.js",
+      "destination": "src/panel/pan.js",
+      "bytes": 404,
+      "sourceSha256": "77e58e7e45177457fee424d338978dd77e6b0df7b347f9e7498a7b3e7dab1419",
+      "exportSha256": "77e58e7e45177457fee424d338978dd77e6b0df7b347f9e7498a7b3e7dab1419"
+    },
+    {
+      "source": "src/panel/viewOptions.js",
+      "destination": "src/panel/viewOptions.js",
+      "bytes": 281,
+      "sourceSha256": "43d71318801d4dbe078105e55c65cd4dc64106db1644b5f580c7502a07c747f7",
+      "exportSha256": "43d71318801d4dbe078105e55c65cd4dc64106db1644b5f580c7502a07c747f7"
+    },
+    {
+      "source": "src/panel/zoomExtents.js",
+      "destination": "src/panel/zoomExtents.js",
+      "bytes": 349,
+      "sourceSha256": "aed9d138b813084661240b554f44788dd973331598c1afc9b22dabe1b5fd14d8",
+      "exportSha256": "aed9d138b813084661240b554f44788dd973331598c1afc9b22dabe1b5fd14d8"
+    },
+    {
+      "source": "src/panel/zoomSelected.js",
+      "destination": "src/panel/zoomSelected.js",
+      "bytes": 342,
+      "sourceSha256": "86218c183397f87b6ee6be0bce1806fb3151bad4db9ab6b063b3eefc339e5387",
+      "exportSha256": "86218c183397f87b6ee6be0bce1806fb3151bad4db9ab6b063b3eefc339e5387"
+    },
+    {
+      "source": "src/plugins/KukaPreview.js",
+      "destination": "src/plugins/KukaPreview.js",
+      "bytes": 15267,
+      "sourceSha256": "5a37e109ebe1d226f7ddc1d55fc0003edfec90e8ee332469b54fbbc725c6a118",
+      "exportSha256": "5a37e109ebe1d226f7ddc1d55fc0003edfec90e8ee332469b54fbbc725c6a118"
+    },
+    {
+      "source": "src/plugins/RobotToolPreview.js",
+      "destination": "src/plugins/RobotToolPreview.js",
+      "bytes": 4323,
+      "sourceSha256": "a2d95b96b4f9affca5a9c891953ab12f9011e1aecdc2b2598ff3583c747fbe58",
+      "exportSha256": "a2d95b96b4f9affca5a9c891953ab12f9011e1aecdc2b2598ff3583c747fbe58"
+    },
+    {
+      "source": "src/render/ImportedMaterialEditor.js",
+      "destination": "src/render/ImportedMaterialEditor.js",
+      "bytes": 16768,
+      "sourceSha256": "2b415e88bdcd37c60e94f4167e0c2bee84070d87a1e1115b6a7e9698fa2e4668",
+      "exportSha256": "2b415e88bdcd37c60e94f4167e0c2bee84070d87a1e1115b6a7e9698fa2e4668"
+    },
+    {
+      "source": "src/render/MaterialIdentity.js",
+      "destination": "src/render/MaterialIdentity.js",
+      "bytes": 1239,
+      "sourceSha256": "74eb6ba360f89bb0642dbb9ec5956d42450f92c345a7bb35485794c815db65b6",
+      "exportSha256": "74eb6ba360f89bb0642dbb9ec5956d42450f92c345a7bb35485794c815db65b6"
+    },
+    {
+      "source": "src/render/MaterialPreview.js",
+      "destination": "src/render/MaterialPreview.js",
+      "bytes": 4311,
+      "sourceSha256": "1185587ec48fe87af1f832aff47348ba6b1c4da507ff220d75f1ee2802c3eb9b",
+      "exportSha256": "1185587ec48fe87af1f832aff47348ba6b1c4da507ff220d75f1ee2802c3eb9b"
+    },
+    {
+      "source": "src/render/MaterialRefractionPass.js",
+      "destination": "src/render/MaterialRefractionPass.js",
+      "bytes": 33462,
+      "sourceSha256": "03a04d661650b2a0ef785f3e5db41fb0527b19d1f158b4d684a35d5ee779424a",
+      "exportSha256": "03a04d661650b2a0ef785f3e5db41fb0527b19d1f158b4d684a35d5ee779424a"
+    },
+    {
+      "source": "src/render/MaterialSurface.js",
+      "destination": "src/render/MaterialSurface.js",
+      "bytes": 21124,
+      "sourceSha256": "24f3887a3edf89b99f72b34f91720c433869d129b51bfb52a8ca347e0c02f312",
+      "exportSha256": "24f3887a3edf89b99f72b34f91720c433869d129b51bfb52a8ca347e0c02f312"
+    },
+    {
+      "source": "src/render/OBJECT_UV.md",
+      "destination": "src/render/OBJECT_UV.md",
+      "bytes": 3071,
+      "sourceSha256": "5ec15eb51e9f85132009e4b9b1b8abbd00f6f6221fa4d8fb3411c597f2470e4d",
+      "exportSha256": "5ec15eb51e9f85132009e4b9b1b8abbd00f6f6221fa4d8fb3411c597f2470e4d"
+    },
+    {
+      "source": "src/render/ObjectUVEditor.js",
+      "destination": "src/render/ObjectUVEditor.js",
+      "bytes": 14721,
+      "sourceSha256": "54623d4c981e1fab9d46553e5c812e7ca266271b4829e47a86d8211b4174ad66",
+      "exportSha256": "54623d4c981e1fab9d46553e5c812e7ca266271b4829e47a86d8211b4174ad66"
+    },
+    {
+      "source": "src/render/RasterAccumulationPass.js",
+      "destination": "src/render/RasterAccumulationPass.js",
+      "bytes": 2814,
+      "sourceSha256": "81e9eb8378c0804c15634abc20ad863f314c0d47bf6e6471407db740669d1b40",
+      "exportSha256": "81e9eb8378c0804c15634abc20ad863f314c0d47bf6e6471407db740669d1b40"
+    },
+    {
+      "source": "src/render/RasterRenderer.js",
+      "destination": "src/render/RasterRenderer.js",
+      "bytes": 19381,
+      "sourceSha256": "931de2256ce7cd44ef03e7083f9fa713e885f84b475dfbe4a781c09183134d0c",
+      "exportSha256": "931de2256ce7cd44ef03e7083f9fa713e885f84b475dfbe4a781c09183134d0c"
+    },
+    {
+      "source": "src/render/RasterSSAOPass.js",
+      "destination": "src/render/RasterSSAOPass.js",
+      "bytes": 6596,
+      "sourceSha256": "afef4926c0821082c1c52ce3645c42aab3b4916e3bb1efbadc1382b2bee97739",
+      "exportSha256": "afef4926c0821082c1c52ce3645c42aab3b4916e3bb1efbadc1382b2bee97739"
+    },
+    {
+      "source": "src/render/RenderBindingTargets.js",
+      "destination": "src/render/RenderBindingTargets.js",
+      "bytes": 916,
+      "sourceSha256": "122079e25dbb97f7562fa59dbcf4574c6b1d09f647299997a44cfd344b719099",
+      "exportSha256": "122079e25dbb97f7562fa59dbcf4574c6b1d09f647299997a44cfd344b719099"
+    },
+    {
+      "source": "src/render/RenderConfiguration.js",
+      "destination": "src/render/RenderConfiguration.js",
+      "bytes": 6181,
+      "sourceSha256": "84dc87bcabd817388fe53dd46db9a15489c5b0acbfe0b1a61bb361a80825344e",
+      "exportSha256": "84dc87bcabd817388fe53dd46db9a15489c5b0acbfe0b1a61bb361a80825344e"
+    },
+    {
+      "source": "src/render/RenderEngine.js",
+      "destination": "src/render/RenderEngine.js",
+      "bytes": 20171,
+      "sourceSha256": "223f1275778e49fa5101b096934fbd88d4c348496a78791be681b75c62cd92dd",
+      "exportSha256": "223f1275778e49fa5101b096934fbd88d4c348496a78791be681b75c62cd92dd"
+    },
+    {
+      "source": "src/render/RenderResourceEnvironment.js",
+      "destination": "src/render/RenderResourceEnvironment.js",
+      "bytes": 7364,
+      "sourceSha256": "9b3ce6c1cc56888daa9fd5b191eb5bb5c7ffd95e45e322252198e89df9161bed",
+      "exportSha256": "9b3ce6c1cc56888daa9fd5b191eb5bb5c7ffd95e45e322252198e89df9161bed"
+    },
+    {
+      "source": "src/render/RenderResourceLighting.js",
+      "destination": "src/render/RenderResourceLighting.js",
+      "bytes": 10477,
+      "sourceSha256": "6b90915e2216a73b9b43f17f758305211f2ee50afcb8959eb0ee0efa572dfffb",
+      "exportSha256": "6b90915e2216a73b9b43f17f758305211f2ee50afcb8959eb0ee0efa572dfffb"
+    },
+    {
+      "source": "src/render/RenderResourceMaterials.js",
+      "destination": "src/render/RenderResourceMaterials.js",
+      "bytes": 5411,
+      "sourceSha256": "65f9ee2196706453fdf5650d8736edb7c70fa3fa9588e1a377ea274adff95bc1",
+      "exportSha256": "65f9ee2196706453fdf5650d8736edb7c70fa3fa9588e1a377ea274adff95bc1"
+    },
+    {
+      "source": "src/render/RenderResourceScope.js",
+      "destination": "src/render/RenderResourceScope.js",
+      "bytes": 2239,
+      "sourceSha256": "93db465522e56a2519dc2bb363a50a73048a384486363c08147e573904a214e0",
+      "exportSha256": "93db465522e56a2519dc2bb363a50a73048a384486363c08147e573904a214e0"
+    },
+    {
+      "source": "src/render/RenderResources.js",
+      "destination": "src/render/RenderResources.js",
+      "bytes": 16242,
+      "sourceSha256": "af13b06f524890894dd89e1bba37ad922a367ebfa9006c6d27fe7e4f1d9c5e9d",
+      "exportSha256": "af13b06f524890894dd89e1bba37ad922a367ebfa9006c6d27fe7e4f1d9c5e9d"
+    },
+    {
+      "source": "src/render/RenderResources.md",
+      "destination": "src/render/RenderResources.md",
+      "bytes": 13348,
+      "sourceSha256": "7e07b7edec97bcaa6550677d2991e34544c69d5b3f2c772ef25bcd74104796be",
+      "exportSha256": "7e07b7edec97bcaa6550677d2991e34544c69d5b3f2c772ef25bcd74104796be"
+    },
+    {
+      "source": "src/render/RenderSceneAdapter.js",
+      "destination": "src/render/RenderSceneAdapter.js",
+      "bytes": 19898,
+      "sourceSha256": "22785c501afc6e8db39eab7fb57336daa68e512fef8f750dda33efe221d955c1",
+      "exportSha256": "22785c501afc6e8db39eab7fb57336daa68e512fef8f750dda33efe221d955c1"
+    },
+    {
+      "source": "src/render/RenderShadowFilter.js",
+      "destination": "src/render/RenderShadowFilter.js",
+      "bytes": 1851,
+      "sourceSha256": "e284a7a33ab270addaa358654d453415ee599e982aec4113ea93409c71f7e132",
+      "exportSha256": "e284a7a33ab270addaa358654d453415ee599e982aec4113ea93409c71f7e132"
+    },
+    {
+      "source": "src/render/RenderVisibility.js",
+      "destination": "src/render/RenderVisibility.js",
+      "bytes": 1162,
+      "sourceSha256": "7c98f855eff54ee6bec9aef2440d23c98fdfe2e05fbad57fd2d4a73564d131cf",
+      "exportSha256": "7c98f855eff54ee6bec9aef2440d23c98fdfe2e05fbad57fd2d4a73564d131cf"
+    },
+    {
+      "source": "src/render/STUDIO_RENDERING.md",
+      "destination": "src/render/STUDIO_RENDERING.md",
+      "bytes": 15857,
+      "sourceSha256": "975df87ca8d903cc194f242d657474dafdd12992b88067b9d38b9be442b967bc",
+      "exportSha256": "975df87ca8d903cc194f242d657474dafdd12992b88067b9d38b9be442b967bc"
+    },
+    {
+      "source": "src/render/SceneObjectReference.js",
+      "destination": "src/render/SceneObjectReference.js",
+      "bytes": 1047,
+      "sourceSha256": "f636832e653c46d54ec066000345b8b765ab4fec5d37934bf66a50b45fa0fae2",
+      "exportSha256": "f636832e653c46d54ec066000345b8b765ab4fec5d37934bf66a50b45fa0fae2"
+    },
+    {
+      "source": "src/render/StudioFloor.js",
+      "destination": "src/render/StudioFloor.js",
+      "bytes": 12022,
+      "sourceSha256": "133d69785ba1f3adeb46f1ca5072ce6e35422364a0c9635950ac8a52d23b0efb",
+      "exportSha256": "133d69785ba1f3adeb46f1ca5072ce6e35422364a0c9635950ac8a52d23b0efb"
+    },
+    {
+      "source": "src/render/pathtrace/PathScene.worker.js",
+      "destination": "src/render/pathtrace/PathScene.worker.js",
+      "bytes": 531,
+      "sourceSha256": "9966d65f6e7ebe2ee35ab873e9278d7e25bb7dbff75e7a55ade2baebf667ab01",
+      "exportSha256": "9966d65f6e7ebe2ee35ab873e9278d7e25bb7dbff75e7a55ade2baebf667ab01"
+    },
+    {
+      "source": "src/render/pathtrace/PathTracer.js",
+      "destination": "src/render/pathtrace/PathTracer.js",
+      "bytes": 2406,
+      "sourceSha256": "f85646d778abc33b8e8f2ee91006f21094f01b5b3a31feaaa432c481cd831cdf",
+      "exportSha256": "f85646d778abc33b8e8f2ee91006f21094f01b5b3a31feaaa432c481cd831cdf"
+    },
+    {
+      "source": "src/render/pathtrace/README.md",
+      "destination": "src/render/pathtrace/README.md",
+      "bytes": 11150,
+      "sourceSha256": "a5f001928b746a68a5056af019bdd1aa02b3b79f164b25f80f48b3b5615a0711",
+      "exportSha256": "a5f001928b746a68a5056af019bdd1aa02b3b79f164b25f80f48b3b5615a0711"
+    },
+    {
+      "source": "src/render/pathtrace/index.js",
+      "destination": "src/render/pathtrace/index.js",
+      "bytes": 54,
+      "sourceSha256": "1e40d7f3db9a9602cd283c232d76bd7273c9825ecb0d874d8e3a79815f3ad994",
+      "exportSha256": "1e40d7f3db9a9602cd283c232d76bd7273c9825ecb0d874d8e3a79815f3ad994"
+    },
+    {
+      "source": "src/render/pathtrace/scene.js",
+      "destination": "src/render/pathtrace/scene.js",
+      "bytes": 16701,
+      "sourceSha256": "4de0eab430f93e73d5197a6860c8d2d744727ac254d2e9fbb67a7639013ade18",
+      "exportSha256": "4de0eab430f93e73d5197a6860c8d2d744727ac254d2e9fbb67a7639013ade18"
+    },
+    {
+      "source": "src/render/pathtrace/shaders.js",
+      "destination": "src/render/pathtrace/shaders.js",
+      "bytes": 11277,
+      "sourceSha256": "d88e922ae7fd486e9ada8f5cea502d55a332181c1c2050f20ab4f91588817166",
+      "exportSha256": "d88e922ae7fd486e9ada8f5cea502d55a332181c1c2050f20ab4f91588817166"
+    },
+    {
+      "source": "src/router/index.js",
+      "destination": "src/router/index.js",
+      "bytes": 743,
+      "sourceSha256": "b523e6b432735b030db8b27fcf7da7d29b7a1e895325dd1e66a3b0859bdc3df4",
+      "exportSha256": "b523e6b432735b030db8b27fcf7da7d29b7a1e895325dd1e66a3b0859bdc3df4"
+    },
+    {
+      "source": "src/router/routes.js",
+      "destination": "src/router/routes.js",
+      "bytes": 496,
+      "sourceSha256": "add31a549787a30c672194d90cc92d7a660ef4dd692a482fe47b06a8914b512b",
+      "exportSha256": "add31a549787a30c672194d90cc92d7a660ef4dd692a482fe47b06a8914b512b"
+    },
+    {
+      "source": "src/storage/FolderDocumentStore.mjs",
+      "destination": "src/storage/FolderDocumentStore.mjs",
+      "bytes": 10562,
+      "sourceSha256": "60e6fdfb3e1916b4fb9cd5f3a2106b71215507de7e7d631be9cf09ef255d3ba9",
+      "exportSha256": "60e6fdfb3e1916b4fb9cd5f3a2106b71215507de7e7d631be9cf09ef255d3ba9"
+    },
+    {
+      "source": "src/storage/LocalDocumentArchive.js",
+      "destination": "src/storage/LocalDocumentArchive.js",
+      "bytes": 27777,
+      "sourceSha256": "a0f847195c5fd8c9171b7538b6583dbf72e12d5dd2f419f5b03f26288cebbe92",
+      "exportSha256": "a0f847195c5fd8c9171b7538b6583dbf72e12d5dd2f419f5b03f26288cebbe92"
+    },
+    {
+      "source": "src/storage/sha256.mjs",
+      "destination": "src/storage/sha256.mjs",
+      "bytes": 3162,
+      "sourceSha256": "7a00cd7e370c54ff05b90bfa000762a3d706149fb1f4baabbd3ef7a2e1b388d9",
+      "exportSha256": "7a00cd7e370c54ff05b90bfa000762a3d706149fb1f4baabbd3ef7a2e1b388d9"
+    },
+    {
+      "source": "src/ui/ImportMessageDialog.js",
+      "destination": "src/ui/ImportMessageDialog.js",
+      "bytes": 4440,
+      "sourceSha256": "1bdc9b6362e99752b56e977c1b8e907b73155c0dfa46ce18bc23715cac257d03",
+      "exportSha256": "1bdc9b6362e99752b56e977c1b8e907b73155c0dfa46ce18bc23715cac257d03"
+    },
+    {
+      "source": "yarn.lock",
+      "destination": "yarn.lock",
+      "bytes": 309413,
+      "sourceSha256": "f34a21cfad20e8989e30918497fd1382daebcf0a46f11d04b32ac850105f0184",
+      "exportSha256": "f34a21cfad20e8989e30918497fd1382daebcf0a46f11d04b32ac850105f0184"
     }
   ],
   "adaptations": [
@@ -2263,5 +2963,9 @@
     "algorithmReview": "deferred-by-maintainer",
     "generatedNotices": "public/legal/dependency-inventory.json",
     "nativeSourceIncluded": false
+  },
+  "frontendSync": {
+    "lastChangeId": "658eca6396cb644ae2a73a0b8f9ddb705227cebeeffa0795927c701d7d007617",
+    "changeLogSha256": "f87852483ea0942717315301c2e440fcc69ca87920928a49103dc265edc594d1"
   }
 }
